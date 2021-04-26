@@ -11,9 +11,12 @@ namespace CzyDobre.Models
     public class ApplicationUser : IdentityUser
     {
         [Required]
+        [StringLength(255)]
+        public string NickName { get; set; }
+
         [StringLength(64)]
         public string FirstName { get; set; }
-        [Required]
+ 
         [StringLength(64)]
         public string LastName { get; set; }
 

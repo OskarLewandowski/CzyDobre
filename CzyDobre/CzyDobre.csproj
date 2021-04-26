@@ -183,6 +183,10 @@
     <Compile Include="Migrations\202104261045580_AddFirstNameAndLastNameToApplicationUser.Designer.cs">
       <DependentUpon>202104261045580_AddFirstNameAndLastNameToApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104262041254_AddNickName.cs" />
+    <Compile Include="Migrations\202104262041254_AddNickName.Designer.cs">
+      <DependentUpon>202104262041254_AddNickName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -371,6 +375,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104261045580_AddFirstNameAndLastNameToApplicationUser.resx">
       <DependentUpon>202104261045580_AddFirstNameAndLastNameToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104262041254_AddNickName.resx">
+      <DependentUpon>202104262041254_AddNickName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

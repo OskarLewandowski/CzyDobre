@@ -1,7 +1,7 @@
 ﻿@using CzyDobre.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Zaloguj";
+    ViewBag.Title = "Zaloguj się";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -42,7 +42,8 @@
                     </div>
                 </div>
                 <p>
-                    <button type="button" class="btn btn-light">@Html.ActionLink("Zarejestruj się jako nowy użytkownik", "Register")</button>
+                    Nie masz jeszcze konta na CzyDobre.pl?
+                    <button type="button" class="btn btn-light">@Html.ActionLink("Zarejestruj się!", "Register")</button>
                     
                 </p>
                 @* Włącz ten element po włączeniu potwierdzenia konta dla funkcji resetowania hasła

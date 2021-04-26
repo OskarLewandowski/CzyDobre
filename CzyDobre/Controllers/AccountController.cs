@@ -153,8 +153,7 @@ namespace CzyDobre.Controllers
             {
                 var user = new ApplicationUser 
                 { 
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
+                    NickName = model.NickName,
                     UserName = model.Email, 
                     Email = model.Email 
                 };

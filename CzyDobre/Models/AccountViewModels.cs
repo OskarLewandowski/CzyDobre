@@ -49,7 +49,7 @@ namespace CzyDobre.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Adres e-mail")]
+        [Display(Name = "E-mail")]
         [EmailAddress]
         public string Email { get; set; }
 
@@ -65,16 +65,12 @@ namespace CzyDobre.Models
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "Imię")]
-        public string FirstName { get; set; }
-
-        [Required]
-        [Display(Name = "Nazwisko")]
-        public string LastName { get; set; }
+        [Display(Name = "Nazwa użytkownika")]
+        public string NickName { get; set; }
 
         [Required]
         [EmailAddress]
-        [Display(Name = "Adres e-mail")]
+        [Display(Name = "E-mail")]
         public string Email { get; set; }
 
         [Required]
@@ -84,7 +80,7 @@ namespace CzyDobre.Models
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Potwierdź hasło")]
+        [Display(Name = "Powtórz hasło")]
         [Compare("Password", ErrorMessage = "Hasło i jego potwierdzenie są niezgodne.")]
         public string ConfirmPassword { get; set; }
     }
