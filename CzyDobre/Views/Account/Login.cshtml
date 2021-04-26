@@ -38,11 +38,12 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Zaloguj" class="btn btn-default" />
+                        <input type="submit" value="Zaloguj" class="btn btn-success" />
                     </div>
                 </div>
                 <p>
-                    @Html.ActionLink("Zarejestruj się jako nowy użytkownik", "Register")
+                    <button type="button" class="btn btn-light">@Html.ActionLink("Zarejestruj się jako nowy użytkownik", "Register")</button>
+                    
                 </p>
                 @* Włącz ten element po włączeniu potwierdzenia konta dla funkcji resetowania hasła
                     <p>
