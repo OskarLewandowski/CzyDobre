@@ -3,12 +3,12 @@
     ViewBag.Title = "Zarejestruj się";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Utwórz nowe konto.</h4>
+    <h4>Utwórz nowe konto <b>za darmo</b>.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
 
@@ -44,9 +44,9 @@
     <div class="form-group">
         <p> 
             Masz już konto na CzyDobre.pl?
-            <button type="button" class="btn btn-light">@Html.ActionLink("Zaloguj się!", "Login")</button>
+            <button type="button" class="btn btn-light">@Html.ActionLink("Zaloguj się!", "Login")</button>         
         </p>
-        
+        <br />
     </div>
 }
 
