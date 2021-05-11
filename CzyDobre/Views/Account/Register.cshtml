@@ -3,52 +3,53 @@
     ViewBag.Title = "Zarejestruj się";
 }
 
-<h2>@ViewBag.Title.</h2>
+<div class="row pr-0 pl-0">
+    <div class="col-md-6 login-info">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Utwórz nowe konto.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
+            @Html.AntiForgeryToken()
+            <h2 class="mb-4 text-center h4title">@ViewBag.Title.</h2>
+            @Html.ValidationSummary("", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.NickName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.NickName, new { @class = "form-control" })
-        </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.NickName, new {placeholder="Nazwa użytkownika", @class = "registerform pl-4" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { placeholder = "E-mail", @class = "registerform pl-4" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { placeholder = "Hasło", @class = "registerform pl-4" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Powtórz hasło", @class = "registerform pl-4" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn text-center registerbutton loginbutton" value="Zarejestruj" />
+                </div>
+            </div>
+            <div class="form-group">
+                <p class="text-center ">
+                    Masz już konto na CzyDobre.pl?
+                    <button type="button" class="btn btn-light">@Html.ActionLink("Zaloguj się!", "Login")</button>
+                </p>
+
+            </div>
+        }
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
+    <div class="col-md-6 pr-0">
+        <img src="~/image/register.png" class="mr-0">
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-success" value="Zarejestruj" />
-        </div>
-    </div>
-    <div class="form-group">
-        <p> 
-            Masz już konto na CzyDobre.pl?
-            <button type="button" class="btn btn-light">@Html.ActionLink("Zaloguj się!", "Login")</button>
-        </p>
-        
-    </div>
-}
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

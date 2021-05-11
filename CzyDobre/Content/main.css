@@ -113,3 +113,33 @@ figure {
     background-color: #EBEBEB;
     width: 100%;
 }
+.login{
+    height: 100%;
+}
+.login-info{
+    margin-top: 25%;
+}
+.h4title {
+    color: #A9A9A9;
+}
+.loginbutton {
+    background-color: #FD695F;
+    color: white;
+    margin-left: 40%;
+    margin-right: 30%;
+    width: 40%;
+}
+.registerform {
+    background-color: #EBEBEB;
+    width: 450px;
+    margin-left: 40px;
+    border: none;
+    height: 45px;
+}
+.registerbutton {
+    margin-left: 50%;
+    width: 30%;
+    height: 50px;
+    background-color: #FD695F;
+    color: white;
+}
