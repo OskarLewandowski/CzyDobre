@@ -26,5 +26,19 @@ namespace CzyDobre.Controllers
 
             return View();
         }
+
+        public ActionResult Opinion()
+        {
+            ViewBag.Message = "Tu wszytkie opinie + filtrowanie";
+
+            return View();
+        }
+
+        public ActionResult AddOpinion()
+        {
+            ViewBag.Message = "To dodawanie nowych opini";
+
+            return View();
+        }
     }
 }
