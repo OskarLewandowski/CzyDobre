@@ -6,13 +6,16 @@ using System.Web.Mvc;
 
 namespace CzyDobre.Controllers
 {
+    
     public class HomeController : Controller
     {
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult About()
         {
             ViewBag.Message = "Pomysł oraz zamysł strony jest naszym projektem inżynierskim nad którym cały czas prężnie pracujemy.";  
@@ -20,6 +23,7 @@ namespace CzyDobre.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult Contact()
         {
             ViewBag.Message = "Dane kontaktowe biuro UAM Piła";
@@ -27,6 +31,7 @@ namespace CzyDobre.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult Opinion()
         {
             ViewBag.Message = "Tu wszytkie opinie + filtrowanie";
@@ -34,6 +39,7 @@ namespace CzyDobre.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult AddOpinion()
         {
             ViewBag.Message = "To dodawanie nowych opini";
