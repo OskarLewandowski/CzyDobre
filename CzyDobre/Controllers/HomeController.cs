@@ -46,5 +46,12 @@ namespace CzyDobre.Controllers
 
             return View();
         }
+        [AllowAnonymous]
+        public ActionResult Results()
+        {
+            ViewBag.Message = "Wyniki wyszukiwania";
+
+            return View();
+        }
     }
 }

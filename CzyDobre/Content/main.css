@@ -143,3 +143,56 @@ figure {
     background-color: #FD695F;
     color: white;
 }
+.frontpage-searchbox-container {
+    /*width: 1200px;*/
+    height: 300px;
+    background-color: #F3F3F3;
+    border-radius: 40px;
+    margin: 0 auto;
+    flex-direction: column;
+}
+.frontpage-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 480px;
+    background-color: white;
+}
+.frontpage-image-container {
+    width: 100%;
+    height: calc(100vh - 76px);
+    background-image: url("/image/frontpage-image.jpg");
+}
+.frontpage-welcome-text {
+    font-size: 28px;
+    font-weight: bold;
+    color: #8b8b8b;
+}
+.rectangular-triangle-bottom-left {
+    width: 0;
+    height: 0;
+    border-bottom: 4vw solid white;
+    border-left: 100vw solid transparent;
+}
+.rectangular-triangle-top-right {
+    width: 0;
+    height: 0;
+    border-top: 4vw solid white;
+    border-right: 100vw solid transparent;
+}
+.background-image-preserve-ratio {
+    background-size: cover;
+    background-position: center;
+}
+.full-screen {
+    width:100%;
+    height:100%;
+}
+.left-bullet-radius {
+    border-radius: 1.5rem 0px 0px 1.5rem !important;
+}
+.right-bullet-radius {
+    border-radius: 0px 1.5rem 1.5rem 0px !important;
+    border-color: #FD695F;
+    background-color: #FD695F;
+}
