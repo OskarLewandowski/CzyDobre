@@ -25,9 +25,7 @@ namespace CzyDobre.Controllers
 
         [AllowAnonymous]
         public ActionResult Contact()
-        {
-            ViewBag.Message = "Dane kontaktowe biuro UAM Piła";
-
+        {         
             return View();
         }
 
