@@ -207,6 +207,7 @@
     <Content Include="Global.asax" />
     <Content Include="image\logo_czydobre.png" />
     <Content Include="image\frontpage-image.jpg" />
+    <Content Include="image\trojkat_login_register.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
