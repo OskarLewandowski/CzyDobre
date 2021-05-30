@@ -3,8 +3,8 @@
     ViewBag.Title = "Zarejestruj się";
 }
 
-<div class="row pr-0 pl-0">
-    <div class="col-md-6 login-info">
+<div class="row register">
+    <div class="col-md-6 register-info">
         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
 
@@ -14,22 +14,22 @@
 
             <div class="form-group">
                 <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.NickName, new {placeholder="Nazwa użytkownika", @class = "registerform pl-4" })
+                    @Html.TextBoxFor(m => m.NickName, new {placeholder="Nazwa użytkownika", @class = "pl-4 form-control" })
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Email, new { placeholder = "E-mail", @class = "registerform pl-4" })
+                    @Html.TextBoxFor(m => m.Email, new { placeholder = "E-mail", @class = "pl-4 form-control" })
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-10">
-                    @Html.PasswordFor(m => m.Password, new { placeholder = "Hasło", @class = "registerform pl-4" })
+                    @Html.PasswordFor(m => m.Password, new { placeholder = "Hasło", @class = "pl-4 form-control" })
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-10">
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Powtórz hasło", @class = "registerform pl-4" })
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Powtórz hasło", @class = "pl-4 form-control" })
                 </div>
             </div>
             <div class="form-group">
@@ -46,7 +46,7 @@
             </div>
         }
     </div>
-    <div class="col-md-6 pr-0">
+    <div class="col-md-6 pr-0 d-none d-lg-block">
         <img src="~/image/register.png" class="mr-0">
     </div>
 </div>

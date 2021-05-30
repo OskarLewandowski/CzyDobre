@@ -41,8 +41,14 @@
             </ul>
         </div>
     </nav>
-    <div class="frontpage-image-container background-image-preserve-ratio d-flex align-items-center">
+    <div class="frontpage-image-container background-image-preserve-ratio align-items-center">
         @RenderBody()
+        <footer class="footer fixed-bottom bg-dark text-white pt-2 pb-2">
+            <div class="footer-copyright text-center">
+                © 2021 Copyright:
+                <a> CzyDobre.pl</a>
+            </div>
+        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

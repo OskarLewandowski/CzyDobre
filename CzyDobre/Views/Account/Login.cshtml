@@ -5,10 +5,10 @@
 }
 
 <div class="row login">
-    <div class="col-md-6 ml-0 pl-0">
+    <div class="col-6 ml-0 pl-0 d-none d-xl-block">
     <img src="~/image/login.png">
     </div>
-    <div class="col-md-6 login-info">
+    <div class="col-6 login-info">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
