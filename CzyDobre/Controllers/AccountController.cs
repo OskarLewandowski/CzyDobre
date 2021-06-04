@@ -178,14 +178,14 @@ namespace CzyDobre.Controllers
                     // Wyślij wiadomość e-mail z tym łączem
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Potwierdź swoje konto", "Kliknij Aktywuj! <a href=\"" + callbackUrl + "\"Aktywuj!</a>");
-
+                    await UserManager.SendEmailAsync(user.Id, "Potwierdź swoje konto", "Kliknij ,aby Aktywować! <a href=\"" + callbackUrl + "\"</a>");
+                    //await UserManager.SendEmailAsync(user.Id, "Potwierdź swoje konto", "Kliknij ,aby Aktywować! <a href=\"" + callbackUrl + "\"Aktywuj!</a>");
                     // Uncomment to debug locally 
                     // TempData["ViewBagLink"] = callbackUrl;
 
                     ViewBag.Message = "Sprawdź swoją skrzynkę e-mail ,aby potwierdzić swoje konto"
 
-                        + "w przeciwnym wypadku nie uda Ci się zalogować :).";
+                        + " w przeciwnym wypadku nie uda Ci się zalogować :).";
 
                     return View("Info");
                     //return RedirectToAction("Index", "Home");
