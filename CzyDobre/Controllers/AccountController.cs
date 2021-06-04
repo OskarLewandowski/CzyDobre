@@ -22,7 +22,7 @@ namespace CzyDobre.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +34,9 @@ namespace CzyDobre.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -79,7 +79,9 @@ namespace CzyDobre.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-                    ViewBag.errorMessage = "Musisz zweryfikować swoje konto ,aby móc się zalogować";
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+
+                    ViewBag.errorMessage = "Musisz zweryfikować swoje konto, aby móc się zalogować";
                     return View("Error");
                 }
             }
@@ -131,7 +133,7 @@ namespace CzyDobre.Controllers
             // Jeśli użytkownik będzie wprowadzać niepoprawny kod przez określoną ilość czasu, konto użytkownika 
             // zostanie zablokowane na określoną ilość czasu. 
             // Możesz skonfigurować ustawienia blokady konta w elemencie IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -162,11 +164,11 @@ namespace CzyDobre.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser 
-                { 
+                var user = new ApplicationUser
+                {
                     NickName = model.NickName,
-                    UserName = model.Email, 
-                    Email = model.Email 
+                    UserName = model.Email,
+                    Email = model.Email
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -176,21 +178,18 @@ namespace CzyDobre.Controllers
 
                     // Aby uzyskać więcej informacji o sposobie włączania potwierdzania konta i resetowaniu hasła, odwiedź stronę https://go.microsoft.com/fwlink/?LinkID=320771
                     // Wyślij wiadomość e-mail z tym łączem
-                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    //await UserManager.SendEmailAsync(user.Id, "Aktywacja konta"," <a href=\""+ callbackUrl + "\">Kliknij ,aby aktywować</a>");
-                    await UserManager.SendEmailAsync(user.Id,"Aktywacja Konta",callbackUrl);
-
-
-
-
-
+                    //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //await UserManager.SendEmailAsync(user.Id, "Potwierdź swoje konto", "Kliknij ,aby Aktywować! <a href=\"" + callbackUrl + "\"</a>");
+                    //await UserManager.SendEmailAsync(user.Id, "Potwierdź swoje konto", "Kliknij ,aby Aktywować! <a href=\"" + callbackUrl + "\"Aktywuj!</a>");
                     // Uncomment to debug locally 
                     // TempData["ViewBagLink"] = callbackUrl;
 
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Potwierdz swoje konto");
+
                     ViewBag.Message = "Sprawdź swoją skrzynkę e-mail ,aby potwierdzić swoje konto"
 
-                        + " w przeciwnym wypadku nie uda Ci się zalogować :)!";
+                        + " w przeciwnym wypadku nie uda Ci się zalogować :).";
 
                     return View("Info");
                     //return RedirectToAction("Index", "Home");
@@ -241,15 +240,15 @@ namespace CzyDobre.Controllers
 
                 // Aby uzyskać więcej informacji o sposobie włączania potwierdzania konta i resetowaniu hasła, odwiedź stronę https://go.microsoft.com/fwlink/?LinkID=320771
                 // Wyślij wiadomość e-mail z tym łączem
-                //string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                //await UserManager.SendEmailAsync(user.Id, "Resetuj hasło", "Resetuj hasło, klikając <a href=\"" + callbackUrl + "\">tutaj</a>");
-                //return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Resetuj hasło", "Resetuj hasło, klikając <a href=\"" + callbackUrl + "\">tutaj</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // Dotarcie do tego miejsca wskazuje, że wystąpił błąd, wyświetl ponownie formularz
             return View(model);
-           }
+        }
 
         //
         // GET: /Account/ForgotPasswordConfirmation
@@ -510,6 +509,17 @@ namespace CzyDobre.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
+
+        private async Task<string> SendEmailConfirmationTokenAsync(string userID, string subject)
+        {
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = userID, code = code }, protocol: Request.Url.Scheme);
+            await UserManager.SendEmailAsync(userID, "Potwierdź swoje konto", "Kliknij ,aby Aktywować! <a href=\"" + callbackUrl + "\"</a>");
+
+            return callbackUrl;
+        }
+
+
         #endregion
     }
 }
