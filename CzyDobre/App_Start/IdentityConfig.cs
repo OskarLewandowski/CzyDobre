@@ -33,7 +33,7 @@ namespace CzyDobre
         {
             #region formatter
             string text = string.Format("Naciśnij w  {0}: {1}", message.Subject, message.Body);
-            string html = "<h1>Witamy na Czydobre.pl!</h1> <h3>Aktywuj swoje konto klikając w ten : <a href=\"" + message.Body + "\">link</a><br/>" + "lub kopiując go bezpośrednio do przeglądarki </h3>" + message.Body;
+            string html = "<h1>Witamy na Czydobre.pl!</h1> <h3>Aktywuj swoje konto klikając w ten : <a href=\"" + message.Body + "\">link</a><br/>" + "lub kopiując poniższy link bezpośrednio do przeglądarki </h3>" + message.Body;
 
             #endregion
 
