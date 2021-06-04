@@ -79,7 +79,7 @@ namespace CzyDobre.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-                    ViewBag.errorMessage = "You must have a confirmed email to log on.";
+                    ViewBag.errorMessage = "Musisz zweryfikować swoje konto ,aby móc się zalogować";
                     return View("Error");
                 }
             }
@@ -178,13 +178,14 @@ namespace CzyDobre.Controllers
                     // Wyślij wiadomość e-mail z tym łączem
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Potwierdź konto", "Potwierdź konto, klikając <a href=\"" + callbackUrl + "\">tutaj</a>");
+                    await UserManager.SendEmailAsync(user.Id, "Potwierdź swoje konto", "Kliknij Aktywuj! <a href=\"" + callbackUrl + "\"Aktywuj!</a>");
 
                     // Uncomment to debug locally 
                     // TempData["ViewBagLink"] = callbackUrl;
 
-                    ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
-                        + "before you can log in.";
+                    ViewBag.Message = "Sprawdź swoją skrzynkę e-mail ,aby potwierdzić swoje konto"
+
+                        + "w przeciwnym wypadku nie uda Ci się zalogować :).";
 
                     return View("Info");
                     //return RedirectToAction("Index", "Home");
