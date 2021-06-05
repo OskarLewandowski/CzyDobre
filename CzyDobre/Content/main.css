@@ -64,9 +64,9 @@ figure {
 }
 
 .footer {
-    bottom: 0;
     width: 100%;
     background-color: #f5f5f5;
+    padding: 60px 0px;
 }
 .w-99{
     width: 99%;
@@ -154,6 +154,18 @@ figure {
     background-color: #FD695F;
     color: white;
 }
+/* LOGIN */
+.login-container{
+    position:absolute;
+    top: 0;
+    right: 15%;
+}
+/* FOOTER */
+.border-vertical-fade:not(:last-child) {
+    border-right: solid;
+    border-image: linear-gradient(rgba(0,0,0,0) 1px, rgba(255,255,255,0.4) 50%, rgba(0,0,0,0) calc(100% - 1px)) 1;
+}
+/* FRONTPAGE */
 .frontpage-searchbox-container {
     /*width: 1200px;*/
     height: 300px;
@@ -171,7 +183,7 @@ figure {
 }
 .frontpage-image-container {
     width: 100%;
-    height: calc(100vh - 76px);
+    height: 100%;
     background-image: url("/image/frontpage-image.jpg");
 }
 .frontpage-welcome-text {
@@ -218,6 +230,7 @@ figure {
 {
     width: 100%;
 }
+
 
 .rowwidth{
  background-color: white;

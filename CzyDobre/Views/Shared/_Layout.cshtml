@@ -11,47 +11,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand pt-0 pb-0" href="#"><img src="~/image/logo_czydobre.png" width="76" height="76"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item pl-custom pr-5 active">
-                    @Html.ActionLink("Strona główna", "Index", "Home", null, new { style = "color:white" })
-                </li>
-                <li class="nav-item pr-5 active">
-                    @Html.ActionLink("Informacje", "About", "Home", null, new { style = "color:white" })
-                </li>
-                <li class="nav-item pr-5 active">
-                    @Html.ActionLink("Kontakt", "Contact", "Home", null, new { style = "color:white" })
-                </li>
-                <li class="nav-item pr-5 active">
-                    @Html.ActionLink("Opinie", "Opinion", "Home", null, new { style = "color:white" })
-                </li>
-                <li class="nav-item pr-5 active">
-                    @Html.ActionLink("Dodaj opinie", "AddOpinion", "Home", null, new { style = "color:white" })
-                </li>
-            </ul>
-            <ul class="navbar-nav mr-right">
-                <li class="nav-item">
-                    @Html.Partial("_LoginPartial")
-                </li>
-            </ul>
-        </div>
-    </nav>
-
+    <div class="login-container">
+        @Html.Partial("_LoginPartial")
+    </div>
     <div class="container body-content">
         @RenderBody()
-        <footer class="footer fixed-bottom bg-dark text-white pt-2 pb-2">
-            <div class="footer-copyright text-center">
-                © 2021 Copyright:
-                <a> CzyDobre.pl</a>
-            </div>
-        </footer>
+
     </div>
+    @Html.Partial("_FooterPartial")
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
