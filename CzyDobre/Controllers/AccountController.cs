@@ -178,18 +178,17 @@ namespace CzyDobre.Controllers
 
                     // Aby uzyskać więcej informacji o sposobie włączania potwierdzania konta i resetowaniu hasła, odwiedź stronę https://go.microsoft.com/fwlink/?LinkID=320771
                     // Wyślij wiadomość e-mail z tym łączem
-                    //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    //await UserManager.SendEmailAsync(user.Id, "Potwierdź swoje konto", "Kliknij ,aby Aktywować! <a href=\"" + callbackUrl + "\"</a>");
-                    //await UserManager.SendEmailAsync(user.Id, "Potwierdź swoje konto", "Kliknij ,aby Aktywować! <a href=\"" + callbackUrl + "\"Aktywuj!</a>");
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Aktywacja Konta", callbackUrl);
                     // Uncomment to debug locally 
                     // TempData["ViewBagLink"] = callbackUrl;
 
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Potwierdz swoje konto");
+                    //string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Potwierdz swoje konto");
 
                     ViewBag.Message = "Sprawdź swoją skrzynkę e-mail ,aby potwierdzić swoje konto"
 
-                        + " w przeciwnym wypadku nie uda Ci się zalogować :).";
+                        + " w przeciwnym wypadku nie uda Ci się zalogować :)!";
 
                     return View("Info");
                     //return RedirectToAction("Index", "Home");
