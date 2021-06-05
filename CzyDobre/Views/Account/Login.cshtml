@@ -46,10 +46,12 @@
 
                 </p>
                 <br />
-                @* Włącz ten element po włączeniu potwierdzenia konta dla funkcji resetowania hasła
-            <p>
-                @Html.ActionLink("Nie pamiętasz hasła?", "ForgotPassword")
-            </p>*@
+
+                 //Włącz ten element po włączeniu potwierdzenia konta dla funkcji resetowania hasła
+                <p>
+                    @Html.ActionLink("Nie pamiętasz hasła?", "ForgotPassword")
+                </p>
+
                 <section id="socialLoginForm" class="mt-5 text-center">
                     @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
                 </section>

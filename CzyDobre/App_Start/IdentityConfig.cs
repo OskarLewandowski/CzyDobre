@@ -32,17 +32,17 @@ namespace CzyDobre
         void sendMail(IdentityMessage message)
         {
             #region formatter
-            string text = string.Format("TEST1 {0} {1}", message.Subject, message.Body);
-            string html = "TEST2 <a href=\"" + message.Body + message.Body + "\">link</a><br/>";
-
-            html += HttpUtility.HtmlEncode(@"TEST3 " + message.Body);
+            string text = string.Format("Naciśnij w  {0}: {1}", message.Subject, message.Body);
+            //string html = "<h1>Witamy na Czydobre.pl!</h1> <h3>Aktywuj swoje konto klikając w ten : <a href=\"" + message.Body + "\">link</a><br/>" + "lub kopiując poniższy link bezpośrednio do przeglądarki </h3>" + message.Body;
+            string html = "<h1>Witamy na Czydobre.pl!</h1>"+message.Body;
+            
             #endregion
 
             MailMessage msg = new MailMessage();
             msg.From = new MailAddress(ConfigurationManager.AppSettings["EmailNoReply"].ToString());
             msg.To.Add(new MailAddress(message.Destination));
             msg.Subject = message.Subject;
-            msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
+            //msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
             msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
 
             SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
@@ -74,7 +74,7 @@ namespace CzyDobre
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Konfiguruj logikę weryfikacji nazw użytkowników
@@ -115,7 +115,7 @@ namespace CzyDobre
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
