@@ -180,7 +180,8 @@ namespace CzyDobre.Controllers
                     // Wyślij wiadomość e-mail z tym łączem
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Aktywacja Konta", callbackUrl);
+                    string html = "<a href=\"" + callbackUrl + "\">link</a><br/>"; 
+                    await UserManager.SendEmailAsync(user.Id, "Aktywacja Konta", "<h3> Aktywuj swoje konto klikając w ten "+ html + "lub kopiując poniższy link bezpośrednio do przeglądarki </h3>" + callbackUrl);
                     // Uncomment to debug locally 
                     // TempData["ViewBagLink"] = callbackUrl;
 
@@ -241,7 +242,8 @@ namespace CzyDobre.Controllers
                 // Wyślij wiadomość e-mail z tym łączem
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Resetuj hasło", "Resetuj hasło, klikając <a href=\"" + callbackUrl + "\">tutaj</a>");
+                await UserManager.SendEmailAsync(user.Id, "Resetuj hasło", "<h3> Resetuj hasło, klikając <a href=\"" + callbackUrl + "\">tutaj</a> </h3>");
+                //await UserManager.SendEmailAsync(user.Id, "Resetuj hasło", "Resetuj hasło, klikając <a href=\"" + callbackUrl + "\">tutaj</a>");
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
@@ -513,7 +515,7 @@ namespace CzyDobre.Controllers
         {
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
             var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = userID, code = code }, protocol: Request.Url.Scheme);
-            await UserManager.SendEmailAsync(userID, "Potwierdź swoje konto", "Kliknij ,aby Aktywować! <a href=\"" + callbackUrl + "\"</a>");
+            await UserManager.SendEmailAsync(userID, "Aktywacja Konta", "Kliknij ,aby Aktywować! <a href=\"" + callbackUrl + "\"</a>");
 
             return callbackUrl;
         }
