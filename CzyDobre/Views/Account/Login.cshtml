@@ -3,63 +3,67 @@
 @{
     ViewBag.Title = "Zaloguj się";
 }
-
-<div class="row login">
+    <div class="row login">
     <div class="col-6 ml-0 pl-0 d-none d-xl-block">
-    <img src="~/image/login.png">
+        <img src="~/image/login.png">
     </div>
-    <div class="col-6 login-info">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-             <h4 class="text-center h4title">Zaloguj sie</h4>
-                <div class="form-group">
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new {placeholder="E-mail", @class = "pl-4 form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
+    <div class="col-1 d-xl-none"></div>
+    <div class="col-10 col-md-10 col-xl-6 login-info">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <h2 class="text-center h4title mt-4">Zaloguj sie</h2>
+            <div class="form-group" align="center">
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { placeholder = "E-mail", @class = "pl-4 form-control" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group">
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new {placeholder="Hasło", @class = "pl-4 form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
+            </div>
+            <div class="form-group" align="center">
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { placeholder = "Hasło", @class = "pl-4 form-control" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+            </div>
+            <div class="row">
+                <div class="col-7">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10 ml-15">
+                            <div class="checkbox rembember">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Zaloguj" class="btn loginbutton" />
-                    </div>
+                <div class="col-5">
+                    <p class="rembember" align="center">
+                        @Html.ActionLink("Nie pamiętasz hasła?", "ForgotPassword")
+                    </p>
                 </div>
-                <p>
-                    Nie masz jeszcze konta na CzyDobre.pl?
-                    <button type="button" class="btn btn-light">@Html.ActionLink("Zarejestruj się!", "Register")</button>
+            </div>
+            <div class="form-group" align="center">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Zaloguj" class="btn loginbutton"/>
+                </div>
+            </div>
+            <p align="center">
+                Nie masz jeszcze konta na CzyDobre.pl?
+                <button type="button" class="btn">@Html.ActionLink("Zarejestruj się!", "Register")</button>
 
-                </p>
-                <br />
+            </p>
+            <br />
 
-                 //Włącz ten element po włączeniu potwierdzenia konta dla funkcji resetowania hasła
-                <p>
-                    @Html.ActionLink("Nie pamiętasz hasła?", "ForgotPassword")
-                </p>
+            //Włącz ten element po włączeniu potwierdzenia konta dla funkcji resetowania hasła
 
-                <section id="socialLoginForm" class="mt-5 text-center">
-                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-                </section>
-            }
-        </section>
+            <section id="socialLoginForm" class="mt-5 text-center">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        }
     </div>
+    <div class="col-1 d-xl-none"></div>
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

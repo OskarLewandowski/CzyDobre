@@ -143,8 +143,6 @@ figure {
 .loginbutton {
     background-color: #FD695F;
     color: white;
-    margin-left: 40%;
-    margin-right: 30%;
     width: 40%;
 }
 
@@ -231,6 +229,9 @@ figure {
     width: 100%;
 }
 
+.ml-15{
+    margin-left: 15%;
+}
 
 .rowwidth{
  background-color: white;
@@ -242,15 +243,22 @@ figure {
     background-color: white;
 }
 
+.rembember{
+    font-size: 16px;
+}
+
 @media screen and (max-width: 1200px) {
-    .login {
+   .login {
         background-image: url("/image/login.png");
         background-size: cover;
     }
     .login-info{
         background-color: white;
-        margin-left: 25%;
         margin-bottom:15%;
+        width: 2000px;
+    }
+    .rembember {
+        font-size:13px;
     }
     .register {
         background-image: url("/image/register.png");
@@ -260,12 +268,10 @@ figure {
 
     .register-info {
         background-color: white;
-        margin-left: 20%;
-        margin-right: 20%;
         margin-bottom: 15%;
+        width: 2000px;
     }
     .registerbutton{
         width: 70%;
     }
-
 }
