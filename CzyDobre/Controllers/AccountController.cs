@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CzyDobre.Models;
+using reCAPTCHA.MVC;
 
 namespace CzyDobre.Controllers
 {
@@ -160,9 +161,10 @@ namespace CzyDobre.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        [CaptchaValidator(ErrorMessage = "Nieprawidłowe roziązanie pola Captcha", RequiredMessage = "Pole Captcha jest wymagane.")]
+        public async Task<ActionResult> Register(RegisterViewModel model, bool captchaValid)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && captchaValid==true)
             {
                 var user = new ApplicationUser
                 {
