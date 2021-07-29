@@ -1,6 +1,14 @@
 ﻿@{
     ViewBag.Title = "Dodaj opinie";
 }
-<h1>@ViewBag.Title</h1>
+<div class="row">
+    <div class="col-12 h-max">
+        <h1>@ViewBag.Title</h1>
 
-<h4>@ViewBag.Message</h4>
+        <h4>@ViewBag.Message</h4>
+
+        <div class="notification">
+            @Html.Partial("_Notifications")
+        </div>
+    </div>
+</div>
