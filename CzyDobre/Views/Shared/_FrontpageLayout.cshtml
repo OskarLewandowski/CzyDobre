@@ -1,10 +1,12 @@
 ﻿<!DOCTYPE html>
-<html class="width-100">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl" class="width-100">
 <head>
+    <meta name="description" content="Znajdź najlepiej oceniane dania i restauracje, oceniane przez naszych użytkowników w Twojej okolicy! Sprawdź czy dobre już teraz na CzyDobre.pl &#127828; &#127829; &#127789; &#127831; &#127864;"/>
+    <meta name="keywords" content="czydobre, czydobre.pl, najlepszy, najlepsza, top, pizza, kebab, spaghetti, hamburger, jakość, znajdź, najlepiej, oceniane, dania"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - CzyDobre.pl</title>
+    <title>CzyDobre.pl - @ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/main.css" rel="stylesheet" />
@@ -17,12 +19,12 @@
     <div class="frontpage-image-container background-image-preserve-ratio align-items-center">
         <div class="row full-screen mr-0 ml-0">
             <div class="col-sm-12 mt-8">
-                <div class="rectangular-triangle-bottom-left"></div>
-                <div class="card-img-overlay">
-                    <div class="notification">
-                        @Html.Partial("_Notifications")
-                    </div>
+                <div>
+                    <p style="background-color: #FD695F; padding: 10px; color: black; font-size: 24px; text-align: center; font-family: Arial; ">
+                        <span style="color: white">” </span><b>Uwaga: </b>Strona jest w budowie, jeżeli masz pomysł na nową funkcję i chcesz się tym z nami podzielić napisz do nas na <i>kontakt@czydobre.pl</i><span style="color: white;"> „</span>
+                    </p>
                 </div>
+                <div class="rectangular-triangle-bottom-left"></div>
                 <div class="frontpage-container">
                     <div class="frontpage-searchbox-container col-lg-8 d-flex align-items-center justify-content-center">
                         <p class="frontpage-welcome-text">Witamy na CzyDobre.pl!</p>

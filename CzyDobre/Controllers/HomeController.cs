@@ -13,7 +13,6 @@ namespace CzyDobre.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         { 
-            this.AddNotification("Strona jest w budowie, jeżeli masz pomysł na nową funkcję i chcesz się tym z nami podzielić napisz do nas na kontakt@czydobre.pl ", NotificationType.WARNING);
             return View();
         }
 

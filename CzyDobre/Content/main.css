@@ -1,15 +1,9 @@
 ﻿body {
     padding: 0px;
-    background-color: #CEE1CD;
+    background-color: white;
     height: auto;
     margin: 0px;
     height: 100%;
-}
-
-.notification {
-    background-color: white;
-    text-align: center;
-    font-size: 24px;
 }
 
 .navbar {
