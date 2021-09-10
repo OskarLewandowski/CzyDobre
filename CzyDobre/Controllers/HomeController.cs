@@ -34,8 +34,6 @@ namespace CzyDobre.Controllers
         public ActionResult Opinion()
         {
             this.AddNotification("Funkcja wyświelania opinii jest zablokowana", NotificationType.ERROR);
-            ViewBag.Message = "Tu wszytkie opinie + filtrowanie";
-
             return View();
         }
 
@@ -43,15 +41,12 @@ namespace CzyDobre.Controllers
         public ActionResult AddOpinion()
         {
             this.AddNotification("Funkcja dodawania opinii jest zablokowana", NotificationType.ERROR);
-            ViewBag.Message = "To dodawanie nowych opini";
-
             return View();
         }
         [AllowAnonymous]
         public ActionResult Results()
         {
             ViewBag.Message = "Wyniki wyszukiwania";
-
             return View();
         }
     }

@@ -84,8 +84,11 @@ figure {
     margin-left:6%;
     margin-right:5%;
 }
-.body-content{
-    background-color:white;
+.body-content {
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 8px 1px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 0px 0px 8px 1px rgba(66, 68, 90, 1);
+    box-shadow: 0px 0px 8px 1px rgba(66, 68, 90, 1);
 }
 .form-control {
     border-radius: 14px 14px 14px 14px;
@@ -242,10 +245,10 @@ figure {
 }
 
 .rowwidth{
- background-color: white;
-  width: 70%;
-  height: 100%;
-  margin-left: 15%;
+    background-color: white;
+    width: 70%;
+    height: 100%;
+    margin-left: 15%;
 }
 .popular{
     background-color: white;
@@ -255,8 +258,33 @@ figure {
     font-size: 16px;
 }
 
+/* do h1 */
+.titleH1 {
+    text-align: center;
+    padding: 12px;
+}
+
+/* dane kontaktowe*/
+.contactText {
+    margin-left: 15%;
+    font-size: 24px;
+}
+
+.responsiveIMG {
+    width: 100%;
+    height: 100%;
+}
+
+.aboutText {
+    margin-top: 3%;
+    margin-left: 3%;
+    margin-right: 3%;
+    font-size: 24px;
+    font-family: Arial;
+}
+
 @media screen and (max-width: 1200px) {
-   .login {
+    .login {
         background-image: url("/image/login.png");
         background-size: cover;
     }

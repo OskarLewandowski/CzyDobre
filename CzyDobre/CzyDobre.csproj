@@ -210,6 +210,7 @@
     <Content Include="Content\main.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="image\kontakt.png" />
     <Content Include="image\logo_czydobre.png" />
     <Content Include="image\frontpage-image.jpg" />
     <Content Include="image\trojkat_login_register.png" />
