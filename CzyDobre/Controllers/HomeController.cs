@@ -16,6 +16,7 @@ namespace CzyDobre.Controllers
             return View();
         }
 
+        [Route("o-nas")]
         [AllowAnonymous]
         public ActionResult About()
         {
@@ -24,12 +25,14 @@ namespace CzyDobre.Controllers
             return View();
         }
 
+        [Route("kontakt")]
         [AllowAnonymous]
         public ActionResult Contact()
         {         
             return View();
         }
 
+        [Route("opinie")]
         [AllowAnonymous]
         public ActionResult Opinion()
         {
@@ -37,12 +40,15 @@ namespace CzyDobre.Controllers
             return View();
         }
 
+        [Route("dodaj-opinie")]
         [Authorize]
         public ActionResult AddOpinion()
         {
             this.AddNotification("Funkcja dodawania opinii jest zablokowana", NotificationType.ERROR);
             return View();
         }
+
+        [Route("wyniki")]
         [AllowAnonymous]
         public ActionResult Results()
         {
