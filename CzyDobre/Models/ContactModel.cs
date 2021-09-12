@@ -9,11 +9,11 @@ namespace CzyDobre.Models
 {
     public class ContactModel
     {
-        [Required, Display(Name = "Sender Name")]
+        [Required, Display(Name = "Twój Nick:")]
         public string SenderName { get; set; }
-        [Required, Display(Name = "Sender Email"), EmailAddress]
+        [Required, Display(Name = "Twój Email:"), EmailAddress]
         public string SenderEmail { get; set; }
-        [Required]
+        [Required, Display(Name = "Treść wiadomości:")]
         public string Message { get; set; }
     }
 }

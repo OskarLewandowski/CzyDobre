@@ -32,32 +32,17 @@ namespace CzyDobre.Controllers
 
         [Route("kontakt")]
         [AllowAnonymous]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Contact(ContactModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var mail = new MailMessage();
-                mail.To.Add(new MailAddress(model.SenderEmail));
-                mail.Subject = "Your Email Subject";
-                mail.Body = string.Format("<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>", model.SenderName, model.SenderEmail, model.Message);
-                mail.IsBodyHtml = true;
-                using (var smtp = new SmtpClient())
-                {
-                    await smtp.SendMailAsync(mail);
-                    return RedirectToAction("SuccessMessage");
-                }
-            }
-            return View(model);
+        public ActionResult Contact()
+        {         
+            return View();
         }
 
         public ActionResult SuccessMessage()
         {
-            return View();
+              return View();
         }
 
-        [Route("opinie")]
+            [Route("opinie")]
         [AllowAnonymous]
         public ActionResult Opinion()
         {
