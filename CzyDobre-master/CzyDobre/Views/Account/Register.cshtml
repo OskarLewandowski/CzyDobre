@@ -1,0 +1,65 @@
+﻿@model CzyDobre.Models.RegisterViewModel
+@using reCAPTCHA.MVC
+@{
+    ViewBag.Title = "Zarejestruj się";
+}
+
+<div class="row register">
+    <div class="col-1 d-xl-none"></div>
+    <div class="col-10 col-md-10 col-xl-6  register-info">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+
+            @Html.AntiForgeryToken()
+            <h2 class="mb-4 text-center h4title mt-4">@ViewBag.Title.</h2>
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+            <div class="form-group" align="center">
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.NickName, new { placeholder = "Nazwa użytkownika", @class = "pl-4 form-control" })
+                </div>
+            </div>
+            <div class="form-group" align="center">
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { placeholder = "E-mail", @class = "pl-4 form-control" })
+                </div>
+            </div>
+            <div class="form-group" align="center">
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { placeholder = "Hasło", @class = "pl-4 form-control" })
+                </div>
+            </div>
+            <div class="form-group" align="center">
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Powtórz hasło", @class = "pl-4 form-control" })
+                </div>
+            </div>
+            //Captcha
+            <div class="form-group" align="center">
+            @Html.Recaptcha()
+            @Html.ValidationMessage("ReCaptcha")
+            </div>
+            <div class="form-group">
+                <div class="col-10" align="center">
+                    <input type="submit" class="btn registerbutton" value="Zarejestruj" />
+                </div>
+            </div>
+             <div class="form-group">
+                <p class="text-center ">
+                    Masz już konto na CzyDobre.pl?
+                    <button type="button" class="btn">@Html.ActionLink("Zaloguj się!", "Login")</button>
+                </p>
+
+            </div>
+        }
+    </div>
+    <div class="col-1 d-xl-none"></div>
+    <div class="col-6 ml-0 pl-0 d-none d-xl-block">
+        <img src="~/image/register.png" class="mr-0">
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

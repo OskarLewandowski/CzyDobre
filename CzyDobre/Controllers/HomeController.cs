@@ -1,23 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
-using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mail;
 using System.Web.Mvc;
 using CzyDobre.Extensions;
-using CzyDobre.Models;
-using MailMessage = System.Net.Mail.MailMessage;
-
 namespace CzyDobre.Controllers
 {
-    
+
     public class HomeController : Controller
     {
         [AllowAnonymous]
         public ActionResult Index()
-        { 
+        {
             return View();
         }
 
@@ -25,24 +19,18 @@ namespace CzyDobre.Controllers
         [AllowAnonymous]
         public ActionResult About()
         {
-            ViewBag.Message = "Pomysł oraz zamysł strony jest naszym projektem inżynierskim nad którym cały czas prężnie pracujemy.";  
-
+            ViewBag.Message = "Pomysł oraz zamysł strony jest naszym projektem inżynierskim nad którym cały czas prężnie pracujemy.";
             return View();
         }
 
         [Route("kontakt")]
         [AllowAnonymous]
         public ActionResult Contact()
-        {         
+        {
             return View();
         }
 
-        public ActionResult SuccessMessage()
-        {
-              return View();
-        }
-
-            [Route("opinie")]
+        [Route("opinie")]
         [AllowAnonymous]
         public ActionResult Opinion()
         {
