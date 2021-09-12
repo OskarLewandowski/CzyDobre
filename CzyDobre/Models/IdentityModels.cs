@@ -40,5 +40,7 @@ namespace CzyDobre.Models
         {
             return new ApplicationDbContext();
         }
+
+        
     }
 }
