@@ -9,20 +9,22 @@ namespace CzyDobre.Controllers
 
     public class HomeController : Controller
     {
+        //CzyDobre.pl/
         [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
 
+        //CzyDobre.pl/o-nas
         [Route("o-nas")]
         [AllowAnonymous]
         public ActionResult About()
         {
-            ViewBag.Message = "Pomysł oraz zamysł strony jest naszym projektem inżynierskim nad którym cały czas prężnie pracujemy.";
             return View();
         }
 
+        //CzyDobre.pl/kontakt
         [Route("kontakt")]
         [AllowAnonymous]
         public ActionResult Contact()
@@ -30,42 +32,45 @@ namespace CzyDobre.Controllers
             return View();
         }
 
+        //CzyDobre.pl/opinie
         [Route("opinie")]
         [AllowAnonymous]
         public ActionResult Opinion()
         {
-            this.AddNotification("Funkcja wyświelania opinii jest zablokowana", NotificationType.ERROR);
+            this.AddNotification("Funkcja wyświelania opinii jest niedostępna", NotificationType.ERROR);
             return View();
         }
 
+        //CzyDobre.pl/dodaj-opinie
         [Route("dodaj-opinie")]
         [Authorize]
         public ActionResult AddOpinion()
         {
-            this.AddNotification("Funkcja dodawania opinii jest zablokowana", NotificationType.ERROR);
+            this.AddNotification("Funkcja dodawania opinii jest niedostępna", NotificationType.ERROR);
             return View();
         }
 
+        //CzyDobre.pl/wyniki
         [Route("wyniki")]
         [AllowAnonymous]
         public ActionResult Results()
         {
-            ViewBag.Message = "Wyniki wyszukiwania";
             return View();
         }
 
-        
+        //CzyDobre.pl/faq
+        [Route("faq")]
         [AllowAnonymous]
         public ActionResult FAQ()
         {
-            ViewBag.Message = "Często zadawane pytania";
             return View();
         }
 
+        //CzyDobre.pl/regulamin
+        [Route("regulamin")]
         [AllowAnonymous]
         public ActionResult Policies()
         {
-            ViewBag.Message = "Regulamin";
             return View();
         }
     }
