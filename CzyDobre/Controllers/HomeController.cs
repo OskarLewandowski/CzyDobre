@@ -53,5 +53,20 @@ namespace CzyDobre.Controllers
             ViewBag.Message = "Wyniki wyszukiwania";
             return View();
         }
+
+        
+        [AllowAnonymous]
+        public ActionResult FAQ()
+        {
+            ViewBag.Message = "Często zadawane pytania";
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Policies()
+        {
+            ViewBag.Message = "Regulamin";
+            return View();
+        }
     }
 }
