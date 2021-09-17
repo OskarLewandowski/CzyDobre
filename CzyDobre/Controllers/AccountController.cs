@@ -42,7 +42,6 @@ namespace CzyDobre.Controllers
                 _signInManager = value;
             }
         }
-
         public ApplicationUserManager UserManager
         {
             get
