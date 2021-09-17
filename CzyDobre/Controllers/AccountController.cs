@@ -13,8 +13,7 @@ using reCAPTCHA.MVC;
 
 namespace CzyDobre.Controllers
 {
-    //CzyDobre.pl/konto/
-    [RoutePrefix("konto")]
+    //CzyDobre.pl
     [Authorize]
     public class AccountController : Controller
     {
@@ -58,6 +57,7 @@ namespace CzyDobre.Controllers
         // GET: /Account/Login
         //CzyDobre.pl/konto/logowanie
         [Route("logowanie")]
+        [Route("Account/Login")]
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
