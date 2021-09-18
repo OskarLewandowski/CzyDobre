@@ -1,9 +1,23 @@
-﻿
-@{
-    ViewBag.Title = "FAQ";
+﻿@{
+    ViewBag.Title = "Często zadawane pytania";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>FAQ</h2>
-<h3>@ViewBag.Message</h3>
-
+<div class="row">
+    <div class="col-12  h-max">
+        <h1 class="titleH1">@ViewBag.Title</h1>
+        <div>
+            <div class="list-group" id="myList" role="tablist" style="font-size: 20px;">
+                <a class="list-group-item list-group-item-action" data-toggle="list" href="#question1" role="tab">Jak będzie można dodać własną opinię?</a>
+                <a class="list-group-item list-group-item-action" data-toggle="list" href="#question2" role="tab">Co zrobić jak nie otrzymałem wiadomości z kodem weryfikacyjnym adresu e-mail?</a>
+                <a class="list-group-item list-group-item-action" data-toggle="list" href="#question3" role="tab">Kiedy będzie można w pełni korzystać ze strony?</a>
+                <a class="list-group-item list-group-item-action" data-toggle="list" href="#question4" role="tab">Co zrobić jak nie działa kod weryfikacyjny?</a>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane questionBorder" id="question1" role="tabpanel">Opinię będą mogły dodawać tylko osoby posiadające konto na CzyDobre.pl</div>
+                <div class="tab-pane questionBorder" id="question2" role="tabpanel">Proszę zalogować się do konta, próba zalogowania na nieaktywne konto spowoduje wysłanie wiadomości z kodem weryfikacyjnym ponownie</div>
+                <div class="tab-pane questionBorder" id="question3" role="tabpanel">Planujemy ukończyć projekt do końca obecnego roku @DateTime.Now.Year </div>
+                <div class="tab-pane questionBorder" id="question4" role="tabpanel">Proszę napisać do nas za pomocą formularza kontaktowego <button style="font-size: 18px" type="button" onclick="location.href='kontakt'" class="btn btn-primary">KONTAKT</button></div>
+            </div>
+        </div>
+    </div>
+</div>
