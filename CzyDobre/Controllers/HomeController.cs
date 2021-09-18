@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using CzyDobre.Extensions;
 namespace CzyDobre.Controllers
 {
-
+    [OutputCache(Duration = 0, VaryByParam = "*", NoStore = true)]
     public class HomeController : Controller
     {
         //CzyDobre.pl/
