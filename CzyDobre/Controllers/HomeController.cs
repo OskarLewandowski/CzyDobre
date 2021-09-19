@@ -14,7 +14,6 @@ using CzyDobre.Models;
 
 namespace CzyDobre.Controllers
 {
-
     public class HomeController : Controller
     {
        

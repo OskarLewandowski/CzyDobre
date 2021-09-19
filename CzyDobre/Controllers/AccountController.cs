@@ -55,7 +55,7 @@ namespace CzyDobre.Controllers
 
         //
         // GET: /Account/Login
-        //CzyDobre.pl/konto/logowanie
+        //CzyDobre.pl/logowanie
         [Route("logowanie")]
         [Route("Account/Login")]
         [AllowAnonymous]
@@ -67,7 +67,7 @@ namespace CzyDobre.Controllers
 
         //
         // POST: /Account/Login
-        //CzyDobre.pl/konto/logowanie
+        //CzyDobre.pl/logowanie
         [Route("logowanie")]
         [HttpPost]
         [AllowAnonymous]
@@ -112,7 +112,7 @@ namespace CzyDobre.Controllers
 
         //
         // GET: /Account/VerifyCode
-        //CzyDobre.pl/konto/zweryfikuj-kod
+        //CzyDobre.pl/zweryfikuj-kod
         [Route("zweryfikuj-kod")]
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
@@ -127,7 +127,7 @@ namespace CzyDobre.Controllers
 
         //
         // POST: /Account/VerifyCode
-        //CzyDobre.pl/konto/zweryfikuj-kod
+        //CzyDobre.pl/zweryfikuj-kod
         [Route("zweryfikuj-kod")]
         [HttpPost]
         [AllowAnonymous]
@@ -159,7 +159,7 @@ namespace CzyDobre.Controllers
 
         //
         // GET: /Account/Register
-        //CzyDobre.pl/konto/rejestracja
+        //CzyDobre.pl/rejestracja
         [Route("rejestracja")]
         [AllowAnonymous]
         public ActionResult Register()
@@ -169,7 +169,7 @@ namespace CzyDobre.Controllers
 
         //
         // POST: /Account/Register
-        //CzyDobre.pl/konto/rejestracja
+        //CzyDobre.pl/rejestracja
         [Route("rejestracja")]
         [HttpPost]
         [AllowAnonymous]
@@ -218,7 +218,7 @@ namespace CzyDobre.Controllers
 
         //
         // GET: /Account/ConfirmEmail
-        //CzyDobre.pl/konto/potwierdz-email
+        //CzyDobre.pl/potwierdz-email
         [Route("potwierdz-email")]
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
@@ -233,7 +233,7 @@ namespace CzyDobre.Controllers
 
         //
         // GET: /Account/ForgotPassword
-        //CzyDobre.pl/konto/zapomniales-hasla
+        //CzyDobre.pl/zapomniales-hasla
         [Route("zapomniales-hasla")]
         [AllowAnonymous]
         public ActionResult ForgotPassword()
@@ -243,7 +243,7 @@ namespace CzyDobre.Controllers
 
         //
         // POST: /Account/ForgotPassword
-        //CzyDobre.pl/konto/zapomniales-hasla
+        //CzyDobre.pl/zapomniales-hasla
         [Route("zapomniales-hasla")]
         [HttpPost]
         [AllowAnonymous]
@@ -274,7 +274,7 @@ namespace CzyDobre.Controllers
 
         //
         // GET: /Account/ForgotPasswordConfirmation
-        //CzyDobre.pl/konto/zapomniane-haslo-potwierdzenie
+        //CzyDobre.pl/zapomniane-haslo-potwierdzenie
         [Route("zapomniane-haslo-potwierdzenie")]
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
@@ -284,7 +284,7 @@ namespace CzyDobre.Controllers
 
         //
         // GET: /Account/ResetPassword
-        //CzyDobre.pl/konto/reset-hasla
+        //CzyDobre.pl/reset-hasla
         [Route("reset-hasla")]
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
@@ -294,7 +294,7 @@ namespace CzyDobre.Controllers
 
         //
         // POST: /Account/ResetPassword
-        //CzyDobre.pl/konto/reset-hasla
+        //CzyDobre.pl/reset-hasla
         [Route("reset-hasla")]
         [HttpPost]
         [AllowAnonymous]
@@ -322,7 +322,7 @@ namespace CzyDobre.Controllers
 
         //
         // GET: /Account/ResetPasswordConfirmation
-        //CzyDobre.pl/konto/reset-hasla-potwierdzenie
+        //CzyDobre.pl/reset-hasla-potwierdzenie
         [Route("reset-hasla-potwierdzenie")]
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
@@ -332,7 +332,7 @@ namespace CzyDobre.Controllers
 
         //
         // POST: /Account/ExternalLogin
-        //CzyDobre.pl/konto/logowanie-zewnetrzne
+        //CzyDobre.pl/logowanie-zewnetrzne
         [Route("logowanie-zewnetrzne")]
         [HttpPost]
         [AllowAnonymous]
@@ -345,7 +345,7 @@ namespace CzyDobre.Controllers
 
         //
         // GET: /Account/SendCode
-        //CzyDobre.pl/konto/wyslij-kod
+        //CzyDobre.pl/wyslij-kod
         [Route("wyslij-kod")]
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
@@ -362,7 +362,7 @@ namespace CzyDobre.Controllers
 
         //
         // POST: /Account/SendCode
-        //CzyDobre.pl/konto/wyslij-kod
+        //CzyDobre.pl/wyslij-kod
         [Route("wyslij-kod")]
         [HttpPost]
         [AllowAnonymous]
@@ -384,7 +384,7 @@ namespace CzyDobre.Controllers
 
         //
         // GET: /Account/ExternalLoginCallback
-        //CzyDobre.pl/konto/logowanie-zewnetrzne-odpowiedz
+        //CzyDobre.pl/logowanie-zewnetrzne-odpowiedz
         [Route("logowanie-zewnetrzne-odpowiedz")]
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
@@ -416,7 +416,7 @@ namespace CzyDobre.Controllers
 
         //
         // POST: /Account/ExternalLoginConfirmation
-        //CzyDobre.pl/konto/logowanie-zewnetrzne-potwierdzenie
+        //CzyDobre.pl/logowanie-zewnetrzne-potwierdzenie
         [Route("logowanie-zewnetrzne-potwierdzenie")]
         [HttpPost]
         [AllowAnonymous]
@@ -456,7 +456,7 @@ namespace CzyDobre.Controllers
 
         //
         // POST: /Account/LogOff
-        //CzyDobre.pl/konto/wyloguj
+        //CzyDobre.pl/wyloguj
         [Route("wyloguj")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -468,7 +468,7 @@ namespace CzyDobre.Controllers
 
         //
         // GET: /Account/ExternalLoginFailure
-        //CzyDobre.pl/konto/blad-logowania-zewnetrznego
+        //CzyDobre.pl/blad-logowania-zewnetrznego
         [Route("blad-logowania-zewnetrznego")]
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
