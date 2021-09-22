@@ -103,12 +103,12 @@ namespace CzyDobre.Controllers
                     smtpClient.Send(msg);
 
                     ModelState.Clear();
-                    ViewBag.Message = "Dziękujemy za kontakt!";
+                    this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
                 }
                 catch (Exception ex)
                 {
                     ModelState.Clear();
-                    ViewBag.Message = $" Wystąpił błąd! {ex.Message}";
+                    this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
                 }
             }
             return View();
