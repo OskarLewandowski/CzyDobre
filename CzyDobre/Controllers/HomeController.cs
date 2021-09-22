@@ -89,7 +89,7 @@ namespace CzyDobre.Controllers
                     var wiadomosc = ConfigurationManager.AppSettings["EmailContactUs"].ToString();
 
                     MailMessage msg = new MailMessage();
-                    msg.From = new MailAddress(m.Email);
+                    msg.From = new MailAddress(wiadomosc);
                     msg.To.Add(new MailAddress(wiadomosc));
                     msg.Subject = m.Subject;
                     msg.Body = "Nazwa: " + m.Name + "\n" + "Email: " + m.Email + "\n" + "Wiadomość: " + m.Message;
