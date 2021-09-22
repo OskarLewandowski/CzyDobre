@@ -10,16 +10,18 @@ namespace CzyDobre.Models
     public class ContactUsViewModels
     {
         [Required]
-        [StringLength(24, MinimumLength = 3)]
+        [StringLength(32, MinimumLength = 3)]
         [Display(Name = "Nazwa")]
         public string Name { get; set; }
 
         [Required]
         [EmailAddress]
+        [StringLength(32)]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required]
+        [StringLength(32)]
         [Display(Name = "Temat")]
         public string Subject { get; set; }
 
@@ -28,7 +30,7 @@ namespace CzyDobre.Models
         [Display(Name = "Treść wiadomości")]
         public string Message { get; set; }
 
-        public HttpPostedFile Attachment { get; set; }
+        public HttpPostedFileBase Attachment { get; set; }
 
 
     }

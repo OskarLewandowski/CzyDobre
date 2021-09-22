@@ -1,4 +1,5 @@
 ﻿@using CzyDobre.Models
+@using reCAPTCHA.MVC
 @model ContactUsViewModels
 @{
     ViewBag.Title = "Formularz kontaktowy";
@@ -9,6 +10,7 @@
         <h1 class="titleH1">@ViewBag.Title</h1>
         @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
+            @Html.AntiForgeryToken()
             <div class="form-group" align="center">
                 <div class="col-md-10">
                     @Html.TextBoxFor(m => m.Name, new { placeholder = "Nazwa", @class = "pl-4 form-control" })
@@ -33,12 +35,16 @@
                     @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
                 </div>
             </div>
-            @*<div class="form-group" align="center">
+            <div class="form-group" align="center">
                 <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Attachment, new { type = "file"})
+                    @Html.TextBoxFor(m => m.Attachment, new { type = "file" })
                     @Html.ValidationMessageFor(m => m.Attachment, "", new { @class = "text-danger" })
                 </div>
-            </div>*@
+            </div>
+            <div class="form-group" align="center">
+                @Html.Recaptcha()
+                @Html.ValidationMessage("ReCaptcha")
+            </div>
             <div class="form-group" align="center">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Wyślij" class="btn btn-success" style="font-size: 20px" />

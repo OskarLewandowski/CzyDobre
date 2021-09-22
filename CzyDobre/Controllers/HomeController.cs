@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using CzyDobre.Extensions;
 using CzyDobre.Models;
+using reCAPTCHA.MVC;
+
 namespace CzyDobre.Controllers
 {
     public class HomeController : Controller
@@ -80,9 +83,11 @@ namespace CzyDobre.Controllers
         [Route("kontakt")]
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Contact(ContactUsViewModels m)
+        [ValidateAntiForgeryToken]
+        [CaptchaValidator(ErrorMessage = "Nieprawidłowe roziązanie pola Captcha", RequiredMessage = "Pole Captcha jest wymagane.")]
+        public ActionResult Contact(ContactUsViewModels model, bool captchaValid)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && captchaValid == true)
             {
                 try
                 {
@@ -91,9 +96,15 @@ namespace CzyDobre.Controllers
                     MailMessage msg = new MailMessage();
                     msg.From = new MailAddress(wiadomosc);
                     msg.To.Add(new MailAddress(wiadomosc));
-                    msg.Subject = m.Subject;
-                    msg.Body = "Nazwa: " + m.Name + "\n" + "Email: " + m.Email + "\n" + "Wiadomość: " + m.Message;
-    
+                    msg.Subject = model.Subject;
+                    msg.Body = "Nazwa: " + model.Name + "\n" + "Email: " + model.Email + "\n" + "Wiadomość: " + model.Message;
+
+                    if (model.Attachment != null)
+                    {
+                        string fileName = Path.GetFileName(model.Attachment.FileName);
+                        msg.Attachments.Add(new Attachment(model.Attachment.InputStream, fileName));
+                    }
+
                     SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
                     System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
                         ConfigurationManager.AppSettings["EmailContactUs"].ToString(),
