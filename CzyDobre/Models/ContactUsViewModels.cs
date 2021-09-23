@@ -30,8 +30,6 @@ namespace CzyDobre.Models
         [Display(Name = "Treść wiadomości")]
         public string Message { get; set; }
 
-        public HttpPostedFileBase Attachment { get; set; }
-
-
+        public List<HttpPostedFileBase> Attachment { get; set; }
     }
 }

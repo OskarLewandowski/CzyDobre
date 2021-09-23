@@ -107,10 +107,13 @@ namespace CzyDobre.Controllers
                     msg.Subject = model.Subject;
                     msg.Body = "Nazwa: " + model.Name + "\n" + "Email: " + model.Email + "\n" + "Wiadomość: " + model.Message;
 
-                    if (model.Attachment != null)
+                    foreach (HttpPostedFileBase attachment in model.Attachment)
                     {
-                        string fileName = Path.GetFileName(model.Attachment.FileName);
-                        msg.Attachments.Add(new Attachment(model.Attachment.InputStream, fileName));
+                        if (attachment != null && attachment.ContentLength > 0)
+                        {
+                            string fileName = Path.GetFileName(attachment.FileName);
+                            msg.Attachments.Add(new Attachment(attachment.InputStream, fileName));
+                        }
                     }
 
                     SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
