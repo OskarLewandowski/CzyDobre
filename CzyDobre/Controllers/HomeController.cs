@@ -23,6 +23,7 @@ namespace CzyDobre.Controllers
 
         //CzyDobre.pl/o-nas
         [Route("o-nas")]
+        [Route("Home/About")]
         [AllowAnonymous]
         public ActionResult About()
         {
@@ -31,6 +32,7 @@ namespace CzyDobre.Controllers
 
         //CzyDobre.pl/opinie
         [Route("opinie")]
+        [Route("Home/Opinion")]
         [AllowAnonymous]
         public ActionResult Opinion()
         {
@@ -40,6 +42,7 @@ namespace CzyDobre.Controllers
 
         //CzyDobre.pl/dodaj-opinie
         [Route("dodaj-opinie")]
+        [Route("Home/AddOpinion")]
         [Authorize]
         public ActionResult AddOpinion()
         {
@@ -49,6 +52,7 @@ namespace CzyDobre.Controllers
 
         //CzyDobre.pl/wyniki
         [Route("wyniki")]
+        [Route("Home/Results")]
         [AllowAnonymous]
         public ActionResult Results()
         {
@@ -57,6 +61,7 @@ namespace CzyDobre.Controllers
 
         //CzyDobre.pl/faq
         [Route("faq")]
+        [Route("Home/FAQ")]
         [AllowAnonymous]
         public ActionResult FAQ()
         {
@@ -65,6 +70,7 @@ namespace CzyDobre.Controllers
 
         //CzyDobre.pl/regulamin
         [Route("regulamin")]
+        [Route("Home/Policies")]
         [AllowAnonymous]
         public ActionResult Policies()
         {
@@ -73,6 +79,7 @@ namespace CzyDobre.Controllers
 
         //CzyDobre.pl/kontakt
         [Route("kontakt")]
+        [Route("Home/Contact")]
         [AllowAnonymous]
         public ActionResult Contact()
         {
@@ -81,6 +88,7 @@ namespace CzyDobre.Controllers
 
         //CzyDobre.pl/kontakt
         [Route("kontakt")]
+        [Route("Home/Contact")]
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
