@@ -100,6 +100,8 @@ namespace CzyDobre.Controllers
                 try
                 {
                     var wiadomosc = ConfigurationManager.AppSettings["EmailContactUs"].ToString();
+                    bool OK = false;
+                    int allSize = 0;
 
                     MailMessage msg = new MailMessage();
                     msg.From = new MailAddress(wiadomosc);
@@ -107,14 +109,39 @@ namespace CzyDobre.Controllers
                     msg.Subject = model.Subject;
                     msg.Body = "Nazwa: " + model.Name + "\n" + "Email: " + model.Email + "\n" + "Wiadomość: " + model.Message;
 
-                    foreach (HttpPostedFileBase attachment in model.Attachment)
+
+                    //Sprawdzenie rozmiaru zalacznika
+                    foreach (HttpPostedFileBase item in model.Attachment)
                     {
-                        if (attachment != null && attachment.ContentLength > 0)
+
+                        int byteCount = item.ContentLength;
+
+                        allSize = allSize + byteCount;
+                        if (allSize < 5242880)
                         {
-                            string fileName = Path.GetFileName(attachment.FileName);
-                            msg.Attachments.Add(new Attachment(attachment.InputStream, fileName));
+                            OK = true;
+                        }
+                        else
+                        {
+                            this.AddNotification("Załącznik jest za duży! Maksymalna wartość załącznika wynosi 5MB", NotificationType.WARNING);
+                            return View();
                         }
                     }
+
+                    //zalaczniki po sprawdzeniu
+                    if (OK == true)
+                    {
+                        foreach (HttpPostedFileBase attachment in model.Attachment)
+                        {
+                            if (attachment != null && attachment.ContentLength > 0)
+                            {
+                                string fileName = Path.GetFileName(attachment.FileName);
+                                msg.Attachments.Add(new Attachment(attachment.InputStream, fileName));
+                            }
+                        }
+                    }
+
+                    
 
                     SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
                     System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
