@@ -56,6 +56,7 @@ namespace CzyDobre.Controllers
         [AllowAnonymous]
         public ActionResult Results()
         {
+            this.AddNotification("Funkcja wyszukiwania jest niedostępna", NotificationType.ERROR);
             return View();
         }
 
