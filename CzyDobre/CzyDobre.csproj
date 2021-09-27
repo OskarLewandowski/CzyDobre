@@ -381,6 +381,7 @@
     <Content Include="Views\Home\SuccessMessage.cshtml" />
     <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\Home\Policies.cshtml" />
+    <Content Include="Views\Shared\_InfoLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
