@@ -197,7 +197,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ContactModel.cs" />
+    <Compile Include="Models\ContactUsViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -215,6 +215,7 @@
     <Content Include="Content\main.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="googleb759cfb5ebebcab7.html" />
     <Content Include="image\kontakt.png" />
     <Content Include="image\logo_czydobre.png" />
     <Content Include="image\frontpage-image.jpg" />
@@ -381,6 +382,7 @@
     <Content Include="Views\Home\SuccessMessage.cshtml" />
     <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\Home\Policies.cshtml" />
+    <Content Include="Views\Shared\_InfoLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

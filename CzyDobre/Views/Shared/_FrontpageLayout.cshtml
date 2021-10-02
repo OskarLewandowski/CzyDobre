@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl" class="width-100">
 <head>
     <meta name="robots" content="index, follow">
-    <meta name="description" content="Znajdź najlepiej oceniane dania i restauracje, oceniane przez naszych użytkowników w Twojej okolicy! Z nami znajdziesz łatwo i szybko najlepszy posiłek. Sprawdź czy dobre już teraz na CzyDobre.pl! 🌭 🍕 🍔" />
-    <meta name="keywords" content="czydobre, czydobrepl, najlepszy, najlepsza, top, pizza, kebab, spaghetti, hamburger, jakość, znajdź, najlepiej, oceniane, dania, oceniane, znajdź, łatwo, teraz, już, dobre, czy, sprawdź, posiłek, najlepszy" />
+    <meta name="description" content="Znajdź najlepiej oceniane dania w Twojej okolicy! Z nami znajdziesz łatwo i szybko najlepszy posiłek. Sprawdź czy dobre już teraz na CzyDobre.pl!" />
+    <meta name="keywords" content="znajdź, szybko, teraz, już, dobre, czy, sprawdź, posiłek, najlepszy, łatwo, czydobre, czydobrepl, top, pizza, kebab, spaghetti, zapienkanka, hamburger, jakość, najlepiej, oceniane, dania, znajdź" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,32 +15,49 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
 </head>
 <body class="width-100">
-    <div class="login-container">
-        @Html.Partial("_LoginPartial")
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div style="padding:0 6px;" class="container">
+            <a class="navbar-brand pt-0 pb-0 mr-5" href="@Url.Action("Index", "Home")">
+                <img src="~/image/logo_czydobre.png" width="52" height="52">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item pr-5 active">
+                        @Html.ActionLink("Przeglądaj", "Opinion", "Home", null, new { style = "color:white" })
+                    </li>
+                    <li class="nav-item pr-5 active">
+                        @Html.ActionLink("Dodaj opinie", "AddOpinion", "Home", null, new { style = "color:white" })
+                    </li>
+                </ul>
+                <ul class="navbar-nav mr-right">
+                    <li class="nav-item">
+                        @Html.Partial("_LoginPartial")
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--<div>
+        <p style="background-color: #FD695F; padding: 10px; color: black; font-size: 24px; text-align: center; font-family: Arial; margin-bottom:0;">
+            <span style="color: white">” </span><b>Uwaga: </b>Strona jest w budowie, jeżeli masz pomysł na nową funkcję i chcesz się tym z nami podzielić napisz do nas, o tutaj &#128073; <button style="font-size: 18px" type="button" onclick="location.href='kontakt'" class="btn btn-danger">KONTAKT</button><span style="color: white;"> „</span>
+        </p>
+    </div>-->
     <div class="frontpage-image-container background-image-preserve-ratio align-items-center">
-        <div class="row full-screen mr-0 ml-0">
-            <div class="col-sm-12 mt-8">
-                <div>
-                    <p style="background-color: #FD695F; padding: 10px; color: black; font-size: 24px; text-align: center; font-family: Arial; ">
-                        <span style="color: white">” </span><b>Uwaga: </b>Strona jest w budowie, jeżeli masz pomysł na nową funkcję i chcesz się tym z nami podzielić napisz do nas, o tutaj &#128073; <button style="font-size: 18px" type="button" onclick="location.href='kontakt'" class="btn btn-danger">KONTAKT</button><span style="color: white;"> „</span>
-                    </p>
-                </div>
-                <div class="rectangular-triangle-bottom-left"></div>
-                <div class="frontpage-container">
-                    <div class="frontpage-searchbox-container col-lg-8 d-flex align-items-center justify-content-center">
-                        <p class="frontpage-welcome-text">Witamy na CzyDobre.pl!</p>
-                        <div class="w-100 my-3">
-                            <form id="search-form" action="/Home/Results" class="input-group-lg input-group mx-auto col-sm-10 col-md-10 col-lg-8 col-xl-6">
-                                <input type="search" class="form-control left-bullet-radius" placeholder="Wyszukaj..." aria-label="Search"
-                                       aria-describedby="search-addon" />
-                                <button type="button" onclick="location.href='wyniki'" class="btn btn-lg fa fa-search text-white right-bullet-radius"></button>
-                            </form>
-                        </div>
-                        <p>Wypróbuj: Kebab, Spaghetti, Pizza!</p>
+        <div class="frontpage-image-gradient">
+            <div class="frontpage-container">
+                <div class="frontpage-searchbox-container col-12 col-lg-8 col-xl-6  row align-items-center">
+                    <p class="frontpage-welcome-text col-12 col-md-4 col-md">Czego szukasz?</p>
+                    <div class="col-md">
+                        <form id="search-form" action="/Home/Results" class="input-group-lg input-group mx-auto col">
+                            <input type="search" class="form-control left-bullet-radius" placeholder="Wyszukaj..." aria-label="Search"
+                                   aria-describedby="search-addon" />
+                            <button type="button" onclick="location.href='wyniki'" class="btn btn-lg fa fa-search text-white right-bullet-radius"></button>
+                        </form>
                     </div>
                 </div>
-                <div class="rectangular-triangle-top-right"></div>
             </div>
         </div>
     </div>

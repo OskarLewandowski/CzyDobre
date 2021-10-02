@@ -1,68 +1,57 @@
-﻿@model CzyDobre.Models.ContactViewModel
-
+﻿@using CzyDobre.Models
+@using reCAPTCHA.MVC
+@model ContactUsViewModels
 @{
-    ViewBag.Title = "Kontakt";
+    ViewBag.Title = "Formularz kontaktowy";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-<div>
-    <div class="col-md-6">
-        <div>
-            @if (ViewBag.Message == null)
-            {
-                <div>
-                    <form method="post">
-                        <div class="form-group">
-                            <label asp-for="Name">Name</label>
-                            <input asp-for="Name" class="form-control" />
-                            <span asp-validation-for="Name"
-                                  class="text-muted"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Email">Email</label>
-                            <input asp-for="Email" class="form-control" />
-                            <span asp-validation-for="Email"
-                                  class="text-muted"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Subject">Subject</label>
-                            <input asp-for="Subject" class="form-control" />
-                            <span asp-validation-for="Subject"
-                                  class="text-muted"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Message">Message</label>
-                            <textarea rows="5" cols="15"
-                                      asp-for="Message" class="form-control"></textarea>
-                            <span asp-validation-for="Message"
-                                  class="text-muted"></span>
-                        </div>
-                        <div>
-                            <button type="submit"
-                                    class="btn btn-success">
-                                Send
-                            </button>
-                        </div>
-
-                    </form>
+<div class="row">
+    <div class="col-12 h-max">
+        <h1 class="titleH1">@ViewBag.Title</h1>
+        @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group" align="center">
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Name, new { placeholder = "Nazwa", @class = "pl-4 form-control" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
                 </div>
-            }
-        </div>
-
-        <div>
-            <div>
-                @if (ViewBag.Message != null)
-                {
-                    <div>@ViewBag.Message</div>
-
-
-                }
             </div>
-        </div>
+            <div class="form-group" align="center">
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "pl-4 form-control" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group" align="center">
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Subject, new { placeholder = "Temat", @class = "pl-4 form-control" })
+                    @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group" align="center">
+                <div class="col-md-10">
+                    @Html.TextAreaFor(m => m.Message, new { placeholder = "Treść wiadomości", @class = "pl-4 form-control" })
+                    @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group" align="center">
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Attachment, new { type = "file", multiple = "multiple", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Attachment, "", new { @class = "text-danger" })
+                    <p style="text-align: left; padding: 3px;">Maksymalna wielkość załącznika wynosi 5MB</p>
+                </div>
+            </div>
+            <div class="form-group" align="center" style="color: red">
+                @Html.Recaptcha()
+                @Html.ValidationMessage("ReCaptcha")
+            </div>
+            <div class="form-group" align="center">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Wyślij" class="btn btn-success" style="font-size: 20px" />
+                </div>
+            </div>
+            <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+        }
     </div>
-
-</div>
-
+</div> 
