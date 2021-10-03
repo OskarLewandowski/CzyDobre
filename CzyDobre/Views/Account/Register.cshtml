@@ -9,9 +9,8 @@
     <div class="col-10 col-md-10 col-xl-6  register-info">
         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
-
             @Html.AntiForgeryToken()
-            <h2 class="mb-4 text-center h4title mt-4">@ViewBag.Title.</h2>
+            <h1 class="mb-4 text-center h4title mt-4">@ViewBag.Title</h1>
             @Html.ValidationSummary("", new { @class = "text-danger" })
 
             <div class="form-group" align="center">
@@ -49,7 +48,6 @@
                     Masz już konto na CzyDobre.pl?
                     <button type="button" class="btn">@Html.ActionLink("Zaloguj się!", "Login")</button>
                 </p>
-
             </div>
         }
     </div>
@@ -57,7 +55,6 @@
     <div class="col-6 ml-0 pl-0 d-none d-xl-block">
         <img src="~/image/register.png" class="mr-0">
     </div>
-
 </div>
 
 @section Scripts {
