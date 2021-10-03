@@ -78,6 +78,23 @@ namespace CzyDobre.Controllers
             return View();
         }
 
+        //CzyDobre.pl/RODO
+        [Route("RODO")]
+        [Route("Home/RODO")]
+        [AllowAnonymous]
+        public ActionResult RODO()
+        {
+            return View();
+        }
+
+        [Route("privacy")]
+        [Route("Home/Privacy")]
+        [AllowAnonymous]
+        public ActionResult Privacy()
+        {
+            return View();
+        }
+
         //CzyDobre.pl/kontakt
         [Route("kontakt")]
         [Route("Home/Contact")]

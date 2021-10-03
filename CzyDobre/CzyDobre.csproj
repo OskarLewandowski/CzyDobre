@@ -383,6 +383,8 @@
     <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\Home\Policies.cshtml" />
     <Content Include="Views\Shared\_InfoLogin.cshtml" />
+    <Content Include="Views\Home\RODO.cshtml" />
+    <Content Include="Views\Home\Privacy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

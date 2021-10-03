@@ -109,8 +109,8 @@ figure {
     height: 100%;
     background-color: #E8E8E8;
 }
-.h-max{
-   height: calc(100vh - 144px);
+.h-max {
+    height:auto ; /*calc(100vh - 144px);*/
 }
 .popularnesettings {
     background-color: white;
