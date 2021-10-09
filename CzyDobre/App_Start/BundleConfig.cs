@@ -26,7 +26,7 @@ namespace CzyDobre
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/Fontello/css").Include(
+            bundles.Add(new StyleBundle("~/Fontello/css/fontello").Include(
                       "~/Fontello/css/fontello.css"));
         }
     }
