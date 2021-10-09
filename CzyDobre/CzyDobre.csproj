@@ -220,7 +220,6 @@
     <Content Include="Fontello\css\fontello-ie7-codes.css" />
     <Content Include="Fontello\css\fontello-ie7.css" />
     <Content Include="Fontello\css\fontello.css" />
-    <Content Include="Fontello\demo.html" />
     <Content Include="Fontello\font\fontello.svg" />
     <Content Include="Fontello\LICENSE.txt" />
     <Content Include="Fontello\README.txt" />
