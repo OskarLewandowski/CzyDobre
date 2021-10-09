@@ -214,6 +214,15 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\main.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Fontello\css\animation.css" />
+    <Content Include="Fontello\css\fontello-codes.css" />
+    <Content Include="Fontello\css\fontello-embedded.css" />
+    <Content Include="Fontello\css\fontello-ie7-codes.css" />
+    <Content Include="Fontello\css\fontello-ie7.css" />
+    <Content Include="Fontello\css\fontello.css" />
+    <Content Include="Fontello\font\fontello.svg" />
+    <Content Include="Fontello\LICENSE.txt" />
+    <Content Include="Fontello\README.txt" />
     <Content Include="Global.asax" />
     <Content Include="googleb759cfb5ebebcab7.html" />
     <Content Include="image\kontakt.png" />
@@ -244,6 +253,11 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Fontello\config.json" />
+    <Content Include="Fontello\font\fontello.eot" />
+    <Content Include="Fontello\font\fontello.ttf" />
+    <Content Include="Fontello\font\fontello.woff" />
+    <Content Include="Fontello\font\fontello.woff2" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -383,8 +397,7 @@
     <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\Home\Policies.cshtml" />
     <Content Include="Views\Shared\_InfoLogin.cshtml" />
-    <Content Include="Views\Home\RODO.cshtml" />
-    <Content Include="Views\Home\Privacy.cshtml" />
+    <Content Include="Views\Shared\_SocialPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
