@@ -1,4 +1,8 @@
 
+.icon-spin4:before { content: '\e834'; } /* '' */
+.icon-spin6:before { content: '\e839'; } /* '' */
+.icon-twitter:before { content: '\f099'; } /* '' */
+.icon-youtube-play:before { content: '\f16a'; } /* '' */
+.icon-instagram:before { content: '\f16d'; } /* '' */
 .icon-facebook-rect:before { content: '\f301'; } /* '' */
-.icon-twitter-bird:before { content: '\f303'; } /* '' */
-.icon-youtube:before { content: '\f313'; } /* '' */
+.icon-linkedin-rect:before { content: '\f312'; } /* '' */
