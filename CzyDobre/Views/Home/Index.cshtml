@@ -13,7 +13,7 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <figure class="figure">
-                                <img src="~/image/kebab.jpg" class="d-block w-100 figure-img  heightimg" alt="First slide" />
+                                <img src="~/image/kebab.jpg" class="d-block figure-img  heightimg" alt="First slide" />
                                 <div class="text-center heighttitle pt-2 text-white">
                                     TYTUŁ
                                 </div>
@@ -29,7 +29,7 @@
                         </div>
                         <div class="carousel-item">
                             <figure class="figure">
-                                <img src="~/image/zapiekanka.jpg" class="d-block w-100 figure-img img-fluid  heightimg" alt="Second Text" />
+                                <img src="~/image/zapiekanka.jpg" class="d-block figure-img img-fluid  heightimg" alt="Second Text" />
                                 <div class="text-center heighttitle pt-2 text-white">
                                     TYTUŁ
                                 </div>
@@ -90,21 +90,51 @@
             <div class="col-1"></div>
         </div>
     </div>
-    <div class="d-none d-sm-block">
+    <div class="d-none d-sm-block popular-bacground text-white">
         <div class="row">
-            <div class="col-6 col-lg-3 mt-5 popular">
+            <div class="col-6 col-lg-3 mt-5">
                 <figure class="figure">
                     <img src="~/image/kebab.jpg" class="figure-img img-fluid  heightimg" alt="kebs" />
                     <div class="text-center heighttitle pt-2 text-white">
-                        TYTUŁ
+                        Kebab
                     </div>
                     <div class="review">
-                        Smak: 4<br>
-                        Obsługa: 3<br>
-                        Cena: 4
+                        <div class="row">
+                            <div class="col-3 category">Smak: </div>
+                            <div class="star-rating col-9">
+                                <span class="fa fa-star" data-rating="1"></span>
+                                <span class="fa fa-star" data-rating="2"></span>
+                                <span class="fa fa-star" data-rating="3"></span>
+                                <span class="fa fa-star" data-rating="4"></span>
+                                <span class="fa fa-star" data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 category">Obsługa: </div>
+                            <div class="star-rating col-9">
+                                <span class="fa fa-star" data-rating="1"></span>
+                                <span class="fa fa-star" data-rating="2"></span>
+                                <span class="fa fa-star" data-rating="3"></span>
+                                <span class="fa fa-star" data-rating="4"></span>
+                                <span class="fa fa-star-o" data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 category">Cena: </div>
+                            <div class="star-rating col-9">
+                                <span class="fa fa-star" data-rating="1"></span>
+                                <span class="fa fa-star" data-rating="2"></span>
+                                <span class="fa fa-star" data-rating="3"></span>
+                                <span class="fa fa-star" data-rating="4"></span>
+                                <span class="fa fa-star" data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                            </div>
+                        </div>
                     </div>
                     <div class="countreviews text-center">
-                        Oceniło 10 użytkowników
+                        36  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                     </div>
                 </figure>
             </div>
@@ -112,31 +142,91 @@
                 <figure class="figure">
                     <img src="~/image/zapiekanka.jpg" class="figure-img img-fluid  heightimg" alt="zapieksa" />
                     <div class="text-center heighttitle pt-2 text-white">
-                        TYTUŁ
+                        Zapiekanka
                     </div>
                     <div class="review">
-                        Smak: 3<br>
-                        Obsługa: 4<br>
-                        Cena: 2
+                        <div class="row">
+                            <div class="col-3 category">Smak: </div>
+                            <div class="star-rating col-9">
+                                <span class="fa fa-star" data-rating="1"></span>
+                                <span class="fa fa-star" data-rating="2"></span>
+                                <span class="fa fa-star" data-rating="3"></span>
+                                <span class="fa fa-star" data-rating="4"></span>
+                                <span class="fa fa-star-o" data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 category">Obsługa: </div>
+                            <div class="star-rating col-9">
+                                <span class="fa fa-star" data-rating="1"></span>
+                                <span class="fa fa-star" data-rating="2"></span>
+                                <span class="fa fa-star" data-rating="3"></span>
+                                <span class="fa fa-star" data-rating="4"></span>
+                                <span class="fa fa-star-o" data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 category">Cena: </div>
+                            <div class="star-rating col-9">
+                                <span class="fa fa-star" data-rating="1"></span>
+                                <span class="fa fa-star" data-rating="2"></span>
+                                <span class="fa fa-star" data-rating="3"></span>
+                                <span class="fa fa-star" data-rating="4"></span>
+                                <span class="fa fa-star" data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                            </div>
+                        </div>
                     </div>
-                    <div class="countreviews text-center">
-                        Oceniło 10 użytkowników
-                    </div>
-                </figure>
+                        <div class="countreviews text-center">
+                            23  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                        </div>
+</figure>
             </div>
             <div class="col-6 col-lg-3 mt-5 popular">
                 <figure class="figure">
                     <img src="~/image/lody.jpeg" class="figure-img img-fluid  heightimg" alt="lod" />
                     <div class="text-center heighttitle pt-2 text-white">
-                        TYTUŁ
+                        Lody
                     </div>
                     <div class="review">
-                        Smak: 4,5<br>
-                        Obsługa: 5<br>
-                        Cena: 4
+                        <div class="row">
+                            <div class="col-3 category">Smak: </div>
+                            <div class="star-rating col-9">
+                                <span class="fa fa-star" data-rating="1"></span>
+                                <span class="fa fa-star" data-rating="2"></span>
+                                <span class="fa fa-star" data-rating="3"></span>
+                                <span class="fa fa-star" data-rating="4"></span>
+                                <span class="fa fa-star" data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 category">Obsługa: </div>
+                            <div class="star-rating col-9">
+                                <span class="fa fa-star" data-rating="1"></span>
+                                <span class="fa fa-star" data-rating="2"></span>
+                                <span class="fa fa-star" data-rating="3"></span>
+                                <span class="fa fa-star" data-rating="4"></span>
+                                <span class="fa fa-star-o" data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 category">Cena: </div>
+                            <div class="star-rating col-9">
+                                <span class="fa fa-star" data-rating="1"></span>
+                                <span class="fa fa-star" data-rating="2"></span>
+                                <span class="fa fa-star" data-rating="3"></span>
+                                <span class="fa fa-star" data-rating="4"></span>
+                                <span class="fa fa-star-o" data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                            </div>
+                        </div>
                     </div>
                     <div class="countreviews text-center">
-                        Oceniło 10 użytkowników
+                        16  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                     </div>
                 </figure>
             </div>
@@ -144,15 +234,45 @@
                 <figure class="figure">
                     <img src="~/image/hamburger.jpeg" class="figure-img img-fluid  heightimg" alt="burger" />
                     <div class="text-center heighttitle pt-2 text-white">
-                        TYTUŁ
+                        Cheeseburger
                     </div>
                     <div class="review">
-                        Smak: 5 <br>
-                        Obsługa: 4 <br>
-                        Cena: 4
+                        <div class="row">
+                            <div class="col-3 category">Smak: </div>
+                            <div class="star-rating col-9">
+                                <span class="fa fa-star" data-rating="1"></span>
+                                <span class="fa fa-star" data-rating="2"></span>
+                                <span class="fa fa-star" data-rating="3"></span>
+                                <span class="fa fa-star" data-rating="4"></span>
+                                <span class="fa fa-star" data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 category">Obsługa: </div>
+                            <div class="star-rating col-9">
+                                <span class="fa fa-star" data-rating="1"></span>
+                                <span class="fa fa-star" data-rating="2"></span>
+                                <span class="fa fa-star" data-rating="3"></span>
+                                <span class="fa fa-star" data-rating="4"></span>
+                                <span class="fa fa-star-o" data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 category">Cena: </div>
+                            <div class="star-rating col-9">
+                                <span class="fa fa-star" data-rating="1"></span>
+                                <span class="fa fa-star" data-rating="2"></span>
+                                <span class="fa fa-star" data-rating="3"></span>
+                                <span class="fa fa-star-o" data-rating="4"></span>
+                                <span class="fa fa-star-o" data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                            </div>
+                        </div>
                     </div>
                     <div class="countreviews text-center">
-                        Oceniło 10 użytkowników
+                        12  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                     </div>
                 </figure>
             </div>
