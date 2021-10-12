@@ -459,6 +459,7 @@
     <Content Include="Views\Home\RODO.cshtml" />
     <Content Include="Views\Home\Privacy.cshtml" />
     <Content Include="Views\Shared\_GoogleAnalytics.cshtml" />
+    <Content Include="Views\Shared\_Loading.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -388,6 +388,24 @@ figure {
 }
 /*social media END*/
 
+.loading-div {
+    padding: 10px;
+    text-align: center;
+    display: none;
+}
+
+.loading-spin {
+    font-size: 55px;
+    color: purple;
+}
+
+.loading-text {
+    font-size: 24px;
+    color: purple;
+    font-weight: bold;
+}
+
+
 @media screen and (max-width: 1200px) {
     .login {
         background-image: url("/image/login.png");
