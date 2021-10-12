@@ -131,18 +131,20 @@ namespace CzyDobre.Controllers
                     //Sprawdzenie rozmiaru zalacznika
                     foreach (HttpPostedFileBase item in model.Attachment)
                     {
-
-                        int byteCount = item.ContentLength;
-
-                        allSize = allSize + byteCount;
-                        if (allSize < 5242880)
+                        if (item != null && item.ContentLength > 0)
                         {
-                            OK = true;
-                        }
-                        else
-                        {
-                            this.AddNotification("Załącznik jest za duży! Maksymalna wartość załącznika wynosi 5MB", NotificationType.WARNING);
-                            return View();
+                            var byteCount = item.ContentLength;
+
+                            allSize = allSize + byteCount;
+                            if (allSize < 5242880)
+                            {
+                                OK = true;
+                            }
+                            else
+                            {
+                                this.AddNotification("Załącznik jest za duży! Maksymalna wartość załącznika wynosi 5MB", NotificationType.WARNING);
+                                return View();
+                            }
                         }
                     }
 

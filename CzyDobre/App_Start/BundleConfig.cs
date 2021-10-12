@@ -20,14 +20,15 @@ namespace CzyDobre
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                        "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                        "~/Content/bootstrap.css",
+                        "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Fontello/css/fontello").Include(
-                      "~/Fontello/css/fontello.css"));
+                        "~/Fontello/css/animation.css",
+                        "~/Fontello/css/fontello.css"));
         }
     }
 }
