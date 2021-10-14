@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Zaloguj się";
 }
-    <div class="row login">
+<div class="row login">
     <div class="col-6 ml-0 pl-0 d-none d-xl-block">
         <img src="~/image/login.png">
     </div>
@@ -56,14 +56,10 @@
                 <button type="button" class="btn">@Html.ActionLink("Zarejestruj się!", "Register")</button>
 
             </p>
-            <br />
-
-            //Włącz ten element po włączeniu potwierdzenia konta dla funkcji resetowania hasła
-
-            <section id="socialLoginForm" class="mt-5 text-center">
-                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-            </section>
         }
+        <section id="socialLoginForm" class="mt-5 text-center">
+            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
     </div>
     <div class="col-1 d-xl-none"></div>
 </div>

@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using CzyDobre.Models;
+using System.Configuration;
 
 namespace CzyDobre
 {
@@ -54,9 +55,9 @@ namespace CzyDobre
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: ConfigurationManager.AppSettings["OAuthFacebookAppID"].ToString(),
+               appSecret: ConfigurationManager.AppSettings["OAuthFacebookAppSecret"].ToString());
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

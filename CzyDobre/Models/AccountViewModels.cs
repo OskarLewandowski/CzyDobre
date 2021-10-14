@@ -8,6 +8,10 @@ namespace CzyDobre.Models
         [Required]
         [Display(Name = "Adres e-mail")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Nazwa użytkownika")]
+        public string NickName { get; set; }
     }
 
     public class ExternalLoginListViewModel
