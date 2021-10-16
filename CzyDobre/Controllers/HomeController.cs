@@ -18,6 +18,7 @@ namespace CzyDobre.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            this.AddNotification("Funkcja wyświelania popularnych opinii jest niedostępna", NotificationType.INFO);
             return View();
         }
 
