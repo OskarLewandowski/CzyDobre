@@ -59,11 +59,11 @@ namespace CzyDobre
                appId: ConfigurationManager.AppSettings["OAuthFacebookAppID"].ToString(),
                appSecret: ConfigurationManager.AppSettings["OAuthFacebookAppSecret"].ToString());
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = ConfigurationManager.AppSettings["OAuthGoogleAppID"].ToString(),
+                ClientSecret = ConfigurationManager.AppSettings["OAuthGoogleAppSecret"].ToString()
+            });
         }
     }
 }
