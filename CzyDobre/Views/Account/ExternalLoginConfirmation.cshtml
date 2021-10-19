@@ -2,8 +2,6 @@
 @{
     ViewBag.Title = "Zarejestruj";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>Skojarz konto @ViewBag.LoginProvider.</h3>
 
 @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -13,8 +11,8 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <p class="text-info">
-        Pomyślne uwierzytelnienie za pomocą konta <strong>@ViewBag.LoginProvider</strong>.
-        Wprowadź poniżej nazwę użytkownika dla tej witryny i kliknij przycisk Rejestruj, aby zakończyć
+        Uwierzytelnienie za pomocą konta <strong>@ViewBag.LoginProvider</strong> zakończyło się pomyślnie! <br />
+        Wprowadź poniżej nazwę użytkownika dla tej witryny i kliknij przycisk <strong>Zarejestruj</strong>, aby zakończyć
         logowanie.
     </p>
     <div class="form-group">

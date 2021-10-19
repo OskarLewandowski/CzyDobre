@@ -1,12 +1,56 @@
 ﻿@{
     ViewBag.Title = "Opinie";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string[] NaglowkiTabeli = new string[]
+    {
+    "ProductName",
+    "RateService",
+    "RateTaste",
+    "RateComposition",
+    "RateIngredients",
+    "RateAdcompliance",
+    };
 }
 <div class="row">
     <div class="col-12 h-max">
         <h1 class="titleH1">@ViewBag.Title</h1>
-        <div class="notification">
-            @Html.Partial("_Notifications")
+        <div class="container mt-3 mb-3">
+            <div class="table">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            @{
+                                foreach (var head in NaglowkiTabeli)
+                                {
+                                    <th>
+                                        @head
+                                    </th>
+
+                                }
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model != null)
+                            {
+                                foreach (var Data in Model)
+                                {
+                                    <tr>
+                                        <td>@Data.ProductName</td>
+                                        <td>@Data.RateService</td>
+                                        <td>@Data.RateTaste</td>
+                                        <td>@Data.RateComposition</td>
+                                        <td>@Data.RateIngredients</td>
+                                        <td>@Data.RateAdcompliance</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -9,16 +9,58 @@ using System.Web.Mvc;
 using CzyDobre.Extensions;
 using CzyDobre.Models;
 using reCAPTCHA.MVC;
+using System.Data.SqlClient;
 
 namespace CzyDobre.Controllers
 {
     public class HomeController : Controller
     {
+        SqlConnection con = new SqlConnection();
+        SqlCommand com = new SqlCommand();
+        SqlDataReader dr;
+        List<OpinionViewModels> opinionViewModels = new List<OpinionViewModels>();
+
+        private void DisplayDataOpinion()
+        {
+            ConnectionStringSettings mySetting = ConfigurationManager.ConnectionStrings["DefaultConnection"];
+            con.ConnectionString = mySetting.ConnectionString;
+
+            if (opinionViewModels.Count > 0)
+            {
+                opinionViewModels.Clear();
+            }
+
+            try
+            {
+                con.Open();
+                com.Connection = con;
+                com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName ,RateService, RateTaste ,RateComposition ,RateIngredients ,RateAdcompliance FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product";
+                dr = com.ExecuteReader();
+                while (dr.Read())
+                {
+                    opinionViewModels.Add(new OpinionViewModels()
+                    {
+                        ProductName = dr["ProductName"].ToString(),
+                        RateService = dr["RateService"].ToString(),
+                        RateTaste = dr["RateTaste"].ToString(),
+                        RateComposition = dr["RateComposition"].ToString(),
+                        RateIngredients = dr["RateIngredients"].ToString(),
+                        RateAdcompliance = dr["RateAdcompliance"].ToString()
+                    });
+                }
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         //CzyDobre.pl/
         [AllowAnonymous]
         public ActionResult Index()
         {
-            this.AddNotification("Funkcja wyświelania popularnych opinii jest niedostępna", NotificationType.INFO);
             return View();
         }
 
@@ -37,8 +79,8 @@ namespace CzyDobre.Controllers
         [AllowAnonymous]
         public ActionResult Opinion()
         {
-            this.AddNotification("Funkcja wyświelania opinii jest niedostępna", NotificationType.ERROR);
-            return View();
+            DisplayDataOpinion();
+            return View(opinionViewModels);
         }
 
         //CzyDobre.pl/dodaj-opinie
