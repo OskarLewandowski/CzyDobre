@@ -14,6 +14,9 @@ namespace CzyDobre
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/customBundle").Include(
+                        "~/Scripts/ratting.js"));
+
             // Użyj wersji deweloperskiej biblioteki Modernizr do nauki i opracowywania rozwiązań. Następnie, kiedy wszystko będzie
             // gotowe do produkcji, użyj narzędzia do kompilowania ze strony https://modernizr.com, aby wybrać wyłącznie potrzebne testy.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -29,6 +32,7 @@ namespace CzyDobre
             bundles.Add(new StyleBundle("~/Fontello/css/fontello").Include(
                         "~/Fontello/css/animation.css",
                         "~/Fontello/css/fontello.css"));
+
         }
     }
 }

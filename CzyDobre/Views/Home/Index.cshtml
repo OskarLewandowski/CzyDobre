@@ -2,6 +2,13 @@
     ViewBag.Title = "Sprawdź Czy Dobre!";
     Layout = "~/Views/Shared/_FrontpageLayout.cshtml";
 }
+@section scripts {
+
+    <script src="@Url.Content("~/Scripts/ratting.js")"></script>
+}
+
+
+
 <div class="body-content container">
     <p class="section-header">Popularne</p>
     <hr class="section-line">
@@ -21,39 +28,27 @@
                                     <div class="row">
                                         <div class="col-3 category">Smak: </div>
                                         <div class="star-rating col-9">
-                                            <span class="fa fa-star" data-rating="1"></span>
-                                            <span class="fa fa-star" data-rating="2"></span>
-                                            <span class="fa fa-star" data-rating="3"></span>
-                                            <span class="fa fa-star" data-rating="4"></span>
-                                            <span class="fa fa-star" data-rating="5"></span>
+                                            <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
                                             <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Obsługa: </div>
                                         <div class="star-rating col-9">
-                                            <span class="fa fa-star" data-rating="1"></span>
-                                            <span class="fa fa-star" data-rating="2"></span>
-                                            <span class="fa fa-star" data-rating="3"></span>
-                                            <span class="fa fa-star" data-rating="4"></span>
-                                            <span class="fa fa-star-o" data-rating="5"></span>
+                                            <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
                                             <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Cena: </div>
                                         <div class="star-rating col-9">
-                                            <span class="fa fa-star" data-rating="1"></span>
-                                            <span class="fa fa-star" data-rating="2"></span>
-                                            <span class="fa fa-star" data-rating="3"></span>
-                                            <span class="fa fa-star" data-rating="4"></span>
-                                            <span class="fa fa-star" data-rating="5"></span>
+                                            <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
                                             <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="countreviews text-center">
-                                    36  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                                    <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                                 </div>
                             </figure>
                         </div>
@@ -67,39 +62,27 @@
                                     <div class="row">
                                         <div class="col-3 category">Smak: </div>
                                         <div class="star-rating col-9">
-                                            <span class="fa fa-star" data-rating="1"></span>
-                                            <span class="fa fa-star" data-rating="2"></span>
-                                            <span class="fa fa-star" data-rating="3"></span>
-                                            <span class="fa fa-star" data-rating="4"></span>
-                                            <span class="fa fa-star-o" data-rating="5"></span>
+                                            <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
                                             <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Obsługa: </div>
                                         <div class="star-rating col-9">
-                                            <span class="fa fa-star" data-rating="1"></span>
-                                            <span class="fa fa-star" data-rating="2"></span>
-                                            <span class="fa fa-star" data-rating="3"></span>
-                                            <span class="fa fa-star" data-rating="4"></span>
-                                            <span class="fa fa-star-o" data-rating="5"></span>
+                                            <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
                                             <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Cena: </div>
                                         <div class="star-rating col-9">
-                                            <span class="fa fa-star" data-rating="1"></span>
-                                            <span class="fa fa-star" data-rating="2"></span>
-                                            <span class="fa fa-star" data-rating="3"></span>
-                                            <span class="fa fa-star" data-rating="4"></span>
-                                            <span class="fa fa-star" data-rating="5"></span>
+                                            <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
                                             <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="countreviews text-center">
-                                    23  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                                    <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                                 </div>
                             </figure>
                         </div>
@@ -113,39 +96,27 @@
                                     <div class="row">
                                         <div class="col-3 category">Smak: </div>
                                         <div class="star-rating col-9">
-                                            <span class="fa fa-star" data-rating="1"></span>
-                                            <span class="fa fa-star" data-rating="2"></span>
-                                            <span class="fa fa-star" data-rating="3"></span>
-                                            <span class="fa fa-star" data-rating="4"></span>
-                                            <span class="fa fa-star" data-rating="5"></span>
+                                            <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
                                             <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Obsługa: </div>
                                         <div class="star-rating col-9">
-                                            <span class="fa fa-star" data-rating="1"></span>
-                                            <span class="fa fa-star" data-rating="2"></span>
-                                            <span class="fa fa-star" data-rating="3"></span>
-                                            <span class="fa fa-star" data-rating="4"></span>
-                                            <span class="fa fa-star-o" data-rating="5"></span>
+                                            <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
                                             <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Cena: </div>
                                         <div class="star-rating col-9">
-                                            <span class="fa fa-star" data-rating="1"></span>
-                                            <span class="fa fa-star" data-rating="2"></span>
-                                            <span class="fa fa-star" data-rating="3"></span>
-                                            <span class="fa fa-star" data-rating="4"></span>
-                                            <span class="fa fa-star-o" data-rating="5"></span>
+                                            <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
                                             <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="countreviews text-center">
-                                    16  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                                    <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                                 </div>
                             </figure>
                         </div>
@@ -159,39 +130,27 @@
                                     <div class="row">
                                         <div class="col-3 category">Smak: </div>
                                         <div class="star-rating col-9">
-                                            <span class="fa fa-star" data-rating="1"></span>
-                                            <span class="fa fa-star" data-rating="2"></span>
-                                            <span class="fa fa-star" data-rating="3"></span>
-                                            <span class="fa fa-star" data-rating="4"></span>
-                                            <span class="fa fa-star" data-rating="5"></span>
+                                            <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
                                             <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Obsługa: </div>
                                         <div class="star-rating col-9">
-                                            <span class="fa fa-star" data-rating="1"></span>
-                                            <span class="fa fa-star" data-rating="2"></span>
-                                            <span class="fa fa-star" data-rating="3"></span>
-                                            <span class="fa fa-star" data-rating="4"></span>
-                                            <span class="fa fa-star-o" data-rating="5"></span>
+                                            <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
                                             <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Cena: </div>
                                         <div class="star-rating col-9">
-                                            <span class="fa fa-star" data-rating="1"></span>
-                                            <span class="fa fa-star" data-rating="2"></span>
-                                            <span class="fa fa-star" data-rating="3"></span>
-                                            <span class="fa fa-star-o" data-rating="4"></span>
-                                            <span class="fa fa-star-o" data-rating="5"></span>
+                                            <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
                                             <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="countreviews text-center">
-                                    12  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                                    <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                                 </div>
                             </figure>
                         </div>
@@ -218,43 +177,31 @@
                     <div class="text-center heighttitle pt-2 text-white">
                         Kebab
                     </div>
-                    <div class="review">
+                    <div class= "review first">
                         <div class="row">
                             <div class="col-3 category">Smak: </div>
                             <div class="star-rating col-9">
-                                <span class="fa fa-star" data-rating="1"></span>
-                                <span class="fa fa-star" data-rating="2"></span>
-                                <span class="fa fa-star" data-rating="3"></span>
-                                <span class="fa fa-star" data-rating="4"></span>
-                                <span class="fa fa-star" data-rating="5"></span>
-                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="1.1">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-3 category">Obsługa: </div>
                             <div class="star-rating col-9">
-                                <span class="fa fa-star" data-rating="1"></span>
-                                <span class="fa fa-star" data-rating="2"></span>
-                                <span class="fa fa-star" data-rating="3"></span>
-                                <span class="fa fa-star" data-rating="4"></span>
-                                <span class="fa fa-star-o" data-rating="5"></span>
-                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="1.2">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-3 category">Cena: </div>
                             <div class="star-rating col-9">
-                                <span class="fa fa-star" data-rating="1"></span>
-                                <span class="fa fa-star" data-rating="2"></span>
-                                <span class="fa fa-star" data-rating="3"></span>
-                                <span class="fa fa-star" data-rating="4"></span>
-                                <span class="fa fa-star" data-rating="5"></span>
-                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="1.3">
                             </div>
                         </div>
                     </div>
                     <div class="countreviews text-center">
-                        36  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                        <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                     </div>
                 </figure>
             </div>
@@ -268,39 +215,27 @@
                         <div class="row">
                             <div class="col-3 category">Smak: </div>
                             <div class="star-rating col-9">
-                                <span class="fa fa-star" data-rating="1"></span>
-                                <span class="fa fa-star" data-rating="2"></span>
-                                <span class="fa fa-star" data-rating="3"></span>
-                                <span class="fa fa-star" data-rating="4"></span>
-                                <span class="fa fa-star-o" data-rating="5"></span>
-                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="1">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-3 category">Obsługa: </div>
                             <div class="star-rating col-9">
-                                <span class="fa fa-star" data-rating="1"></span>
-                                <span class="fa fa-star" data-rating="2"></span>
-                                <span class="fa fa-star" data-rating="3"></span>
-                                <span class="fa fa-star" data-rating="4"></span>
-                                <span class="fa fa-star-o" data-rating="5"></span>
-                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="1">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-3 category">Cena: </div>
                             <div class="star-rating col-9">
-                                <span class="fa fa-star" data-rating="1"></span>
-                                <span class="fa fa-star" data-rating="2"></span>
-                                <span class="fa fa-star" data-rating="3"></span>
-                                <span class="fa fa-star" data-rating="4"></span>
-                                <span class="fa fa-star" data-rating="5"></span>
-                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="1">
                             </div>
                         </div>
                     </div>
                     <div class="countreviews text-center">
-                        23  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                        <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                     </div>
                 </figure>
             </div>
@@ -314,39 +249,27 @@
                         <div class="row">
                             <div class="col-3 category">Smak: </div>
                             <div class="star-rating col-9">
-                                <span class="fa fa-star" data-rating="1"></span>
-                                <span class="fa fa-star" data-rating="2"></span>
-                                <span class="fa fa-star" data-rating="3"></span>
-                                <span class="fa fa-star" data-rating="4"></span>
-                                <span class="fa fa-star" data-rating="5"></span>
-                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="3">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-3 category">Obsługa: </div>
                             <div class="star-rating col-9">
-                                <span class="fa fa-star" data-rating="1"></span>
-                                <span class="fa fa-star" data-rating="2"></span>
-                                <span class="fa fa-star" data-rating="3"></span>
-                                <span class="fa fa-star" data-rating="4"></span>
-                                <span class="fa fa-star-o" data-rating="5"></span>
-                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="3">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-3 category">Cena: </div>
                             <div class="star-rating col-9">
-                                <span class="fa fa-star" data-rating="1"></span>
-                                <span class="fa fa-star" data-rating="2"></span>
-                                <span class="fa fa-star" data-rating="3"></span>
-                                <span class="fa fa-star" data-rating="4"></span>
-                                <span class="fa fa-star-o" data-rating="5"></span>
-                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="3">
                             </div>
                         </div>
                     </div>
                     <div class="countreviews text-center">
-                        16  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                        <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                     </div>
                 </figure>
             </div>
@@ -360,39 +283,27 @@
                         <div class="row">
                             <div class="col-3 category">Smak: </div>
                             <div class="star-rating col-9">
-                                <span class="fa fa-star" data-rating="1"></span>
-                                <span class="fa fa-star" data-rating="2"></span>
-                                <span class="fa fa-star" data-rating="3"></span>
-                                <span class="fa fa-star" data-rating="4"></span>
-                                <span class="fa fa-star" data-rating="5"></span>
-                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="4">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-3 category">Obsługa: </div>
                             <div class="star-rating col-9">
-                                <span class="fa fa-star" data-rating="1"></span>
-                                <span class="fa fa-star" data-rating="2"></span>
-                                <span class="fa fa-star" data-rating="3"></span>
-                                <span class="fa fa-star" data-rating="4"></span>
-                                <span class="fa fa-star-o" data-rating="5"></span>
-                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="4">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-3 category">Cena: </div>
                             <div class="star-rating col-9">
-                                <span class="fa fa-star" data-rating="1"></span>
-                                <span class="fa fa-star" data-rating="2"></span>
-                                <span class="fa fa-star" data-rating="3"></span>
-                                <span class="fa fa-star-o" data-rating="4"></span>
-                                <span class="fa fa-star-o" data-rating="5"></span>
-                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="4">
                             </div>
                         </div>
                     </div>
                     <div class="countreviews text-center">
-                        12  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                        <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                     </div>
                 </figure>
             </div>

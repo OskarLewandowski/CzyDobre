@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl">
-<head>
+<head runat="server">
     <meta name="robots" content="index, follow">
     <meta name="description" content="Znajdź najlepiej oceniane dania w Twojej okolicy! Z nami znajdziesz łatwo i szybko najlepszy posiłek. Sprawdź czy dobre już teraz na CzyDobre.pl!" />
     <meta name="keywords" content="znajdź, szybko, teraz, już, dobre, czy, sprawdź, posiłek, najlepszy, łatwo, czydobre, czydobrepl, top, pizza, kebab, spaghetti, zapienkanka, hamburger, jakość, najlepiej, oceniane, dania, znajdź" />
@@ -13,8 +13,9 @@
     <link href="~/Content/main.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    @Html.Partial("_GoogleAnalytics")
-    @Scripts.Render("~/Scripts/ratting.js")
+    @Html.Partial("_GoogleAnalytics")>
+    @RenderSection("scripts", required: false)
+
 </head>
 <body style="background-color: #E8E8E8;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

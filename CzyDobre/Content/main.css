@@ -195,14 +195,22 @@ figure {
     line-height: 32px;
     font-size: 1.25em;
     text-align: center;
-    color: yellow;
+    color: #d5a505;
+    cursor: default;
+}
+input:focus {
+    color: red;
 }
 .category {
     font-size: 20px;
 }
-    .star-rating .fa-star {
-        color: yellow;
-    }
+.star-rating .fa-star {
+    color: yellow;
+    
+}
+.star-rating span{
+    padding-left: 5px;
+}
 /* FOOTER */
 
 .footerbar{
