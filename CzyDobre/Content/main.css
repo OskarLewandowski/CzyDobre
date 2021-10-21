@@ -463,6 +463,43 @@ input:focus {
     font-weight: bold;
 }
 
+/* OAuth START*/
+.OAuth-list {
+    text-align: center;
+}
+
+.OAuth-Button-Google {
+    background-color: #cb422f;
+    font-size: 18px;
+    color: white;
+    width: 60%;
+    margin-bottom: 3%;
+    padding: 2%;
+    border: none;
+}
+
+.OAuth-Button-Google:hover{
+    color: #cb422f;
+    border: solid;
+    background-color: white;
+}
+
+.OAuth-Button-Facebook {
+    background-color: #1877f2;
+    font-size: 18px;
+    color: white;
+    width: 60%;
+    margin-bottom: 3%;
+    padding: 2%;
+    border: none;
+}
+
+.OAuth-Button-Facebook:hover {
+    color: #1877f2;
+    border: solid;
+    background-color: white;
+}
+/* OAuth END*/
 
 @media screen and (max-width: 1200px) {
     .login {

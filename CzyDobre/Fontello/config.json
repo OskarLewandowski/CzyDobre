@@ -7,12 +7,6 @@
   "ascent": 850,
   "glyphs": [
     {
-      "uid": "ebbe0cc0600cb69375abc20af545967f",
-      "css": "facebook-rect",
-      "code": 62209,
-      "src": "websymbols"
-    },
-    {
       "uid": "47a1f80457068fbeab69fdb83d7d0817",
       "css": "youtube-play",
       "code": 61802,
@@ -31,12 +25,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "8870252f5da59a63564fb6790a347c8e",
-      "css": "linkedin-rect",
-      "code": 62226,
-      "src": "websymbols"
-    },
-    {
       "uid": "9bd60140934a1eb9236fd7a8ab1ff6ba",
       "css": "spin4",
       "code": 59444,
@@ -47,6 +35,24 @@
       "css": "spin6",
       "code": 59449,
       "src": "fontelico"
+    },
+    {
+      "uid": "f06fe7ff18d1c591bc1183cb3ab105e9",
+      "css": "google",
+      "code": 61856,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "ebbe0cc0600cb69375abc20af545967f",
+      "css": "facebook-rect",
+      "code": 62209,
+      "src": "websymbols"
+    },
+    {
+      "uid": "8870252f5da59a63564fb6790a347c8e",
+      "css": "linkedin-rect",
+      "code": 62226,
+      "src": "websymbols"
     }
   ]
 }

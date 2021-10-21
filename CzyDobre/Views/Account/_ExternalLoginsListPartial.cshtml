@@ -18,8 +18,11 @@
             @Html.AntiForgeryToken()
             <div id="socialLoginList">
                 <p>
-                    @foreach (AuthenticationDescription p in loginProviders) {
-                        <button type="submit" class="btn btn-secondary" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Zaloguj się przy użyciu konta @p.Caption">@p.AuthenticationType</button>
+                    @foreach (AuthenticationDescription p in loginProviders)
+                    {
+                        <div class="OAuth-list">
+                            <button type="submit" class="OAuth-Button-@p.AuthenticationType.ToString() icon-@p.AuthenticationType.ToLower()-rect icon-@p.AuthenticationType.ToLower()" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Zaloguj się przy użyciu konta @p.Caption">    Zaloguj się za pomocą @p.AuthenticationType</button>
+                        </div>
                     }
                 </p>
             </div>
