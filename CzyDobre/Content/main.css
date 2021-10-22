@@ -388,6 +388,21 @@ input:focus {
     padding: 12px;
 }
 
+/* FAQ START */
+.FAQ-header {
+    font-size: 20px;
+    font-weight: 400;
+}
+.FAQ-content {
+    background-color: #E8E8E8;
+    font-weight: lighter;
+}
+.FAQ-segment {
+    border: 1px #E8E8E8 solid;
+    padding: 12px;
+}
+/* FAQ END */
+
 /* dane kontaktowe*/
 .contactText {
     margin-left: 15%;

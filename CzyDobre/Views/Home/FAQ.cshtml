@@ -2,22 +2,39 @@
     ViewBag.Title = "Często zadawane pytania";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-    <div class="col-12  h-max">
-        <h1 class="titleH1">@ViewBag.Title</h1>
-        <div>
-            <div class="list-group" id="myList" role="tablist" style="font-size: 20px;">
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="#question1" role="tab">Jak będzie można dodać własną opinię?</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="#question2" role="tab">Co zrobić jak nie otrzymałem wiadomości z kodem weryfikacyjnym adresu e-mail?</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="#question3" role="tab">Kiedy będzie można w pełni korzystać ze strony?</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="#question4" role="tab">Co zrobić jak nie działa kod weryfikacyjny?</a>
-            </div>
-            <div class="tab-content">
-                <div class="tab-pane questionBorder" id="question1" role="tabpanel">Opinię będą mogły dodawać tylko osoby posiadające konto na CzyDobre.pl</div>
-                <div class="tab-pane questionBorder" id="question2" role="tabpanel">Proszę zalogować się do konta, próba zalogowania na nieaktywne konto spowoduje wysłanie wiadomości z kodem weryfikacyjnym ponownie</div>
-                <div class="tab-pane questionBorder" id="question3" role="tabpanel">Planujemy ukończyć projekt do końca obecnego roku @DateTime.Now.Year </div>
-                <div class="tab-pane questionBorder" id="question4" role="tabpanel">Proszę napisać do nas za pomocą formularza kontaktowego <button style="font-size: 18px" type="button" onclick="location.href='kontakt'" class="btn btn-primary">KONTAKT</button></div>
-            </div>
+
+<h1 class="titleH1">@ViewBag.Title</h1>
+<div>
+    <div class="FAQ-header FAQ-segment" data-toggle="collapse" href="#answer1" role="button" aria-expanded="false" aria-controls="answer1">
+        Jak będzie można dodać własną opinię?
+    </div>
+    <div class="collapse" id="answer1">
+        <div class="FAQ-content FAQ-segment">
+            Opinię będą mogły dodawać tylko osoby posiadające konto na CzyDobre.pl.
+        </div>
+    </div>
+    <div class="FAQ-header FAQ-segment" data-toggle="collapse" href="#answer2" role="button" aria-expanded="false" aria-controls="answer2">
+        Co zrobić jak nie otrzymałem wiadomości z kodem weryfikacyjnym adresu e-mail?
+    </div>
+    <div class="collapse" id="answer2">
+        <div class="FAQ-content FAQ-segment">
+            Proszę zalogować się do konta, próba zalogowania na nieaktywne konto spowoduje wysłanie wiadomości z kodem weryfikacyjnym ponownie.
+        </div>
+    </div>
+    <div class="FAQ-header FAQ-segment" data-toggle="collapse" href="#answer3" role="button" aria-expanded="false" aria-controls="answer3">
+        Kiedy będzie można w pełni korzystać ze strony?
+    </div>
+    <div class="collapse" id="answer3">
+        <div class="FAQ-content FAQ-segment">
+            Planujemy ukończyć projekt do końca obecnego roku @DateTime.Now.Year
+        </div>
+    </div>
+    <div class="FAQ-header FAQ-segment" data-toggle="collapse" href="#answer4" role="button" aria-expanded="false" aria-controls="answer4">
+        Co zrobić jak nie działa kod weryfikacyjny?
+    </div>
+    <div class="collapse" id="answer4">
+        <div class="FAQ-content FAQ-segment">
+            Proszę napisać do nas za pomocą formularza kontaktowego:   <button style="font-size: 18px" type="button" onclick="location.href='kontakt'" class="btn btn-primary">KONTAKT</button>
         </div>
     </div>
 </div>
