@@ -472,7 +472,7 @@ input:focus {
     background-color: #cb422f;
     font-size: 18px;
     color: white;
-    width: 60%;
+    width: 65%;
     margin-bottom: 3%;
     padding: 2%;
     border: none;
@@ -488,7 +488,7 @@ input:focus {
     background-color: #1877f2;
     font-size: 18px;
     color: white;
-    width: 60%;
+    width: 65%;
     margin-bottom: 3%;
     padding: 2%;
     border: none;
@@ -496,6 +496,22 @@ input:focus {
 
 .OAuth-Button-Facebook:hover {
     color: #1877f2;
+    border: solid;
+    background-color: white;
+}
+
+.OAuth-Button-Twitter {
+    background-color: #00acee;
+    font-size: 18px;
+    color: white;
+    width: 65%;
+    margin-bottom: 3%;
+    padding: 2%;
+    border: none;
+}
+
+.OAuth-Button-Twitter:hover {
+    color: #00acee;
     border: solid;
     background-color: white;
 }
