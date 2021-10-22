@@ -51,9 +51,9 @@ namespace CzyDobre
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(
+               consumerKey: ConfigurationManager.AppSettings["OAuthTwitterAppID"].ToString(),
+               consumerSecret: ConfigurationManager.AppSettings["OAuthTwitterAppSecret"].ToString());
 
             app.UseFacebookAuthentication(
                appId: ConfigurationManager.AppSettings["OAuthFacebookAppID"].ToString(),
