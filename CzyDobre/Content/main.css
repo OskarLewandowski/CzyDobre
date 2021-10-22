@@ -1,9 +1,14 @@
 ﻿body {
     padding: 0px;
-    background-color: white;
-    height: auto;
     margin: 0px;
-    height: 100%;
+    display: flex;
+    flex-flow: column;
+    min-height: 100vh;
+    background-color: #E8E8E8;
+}
+
+body > .container {
+    flex: 1 auto;
 }
 
 .navbar {
