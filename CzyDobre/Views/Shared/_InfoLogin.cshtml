@@ -1,7 +1,7 @@
 ﻿@{
-    string handleUrl = "https://czydobre.pl/logowanie?ReturnUrl=%2Fdodaj-opinie";
-
-    if (Request.Url.ToString() == handleUrl)
+    string handleUrl1 = "https://czydobre.pl/logowanie?ReturnUrl=%2Fdodaj-opinie";
+    string handleUrl2 = "https://www.czydobre.pl/logowanie?ReturnUrl=%2FHome%2FAddOpinion";
+    if (Request.Url.ToString() == handleUrl1 || Request.Url.ToString() == handleUrl2)
     {
         <div class="alert alert-primary alert-dismissible fade show" role="alert" style="font-size: 17px; text-align: center">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
