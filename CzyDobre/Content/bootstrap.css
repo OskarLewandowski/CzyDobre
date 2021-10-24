@@ -10111,6 +10111,11 @@ button.bg-dark:focus {
   color: #fff !important;
 }
 
+.text-yellow {
+    color: #ffff00 !important;
+    font-weight: bold;
+}
+
 .text-primary {
   color: #007bff !important;
 }
