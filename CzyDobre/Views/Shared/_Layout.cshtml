@@ -45,6 +45,12 @@
                         @Html.Partial("_LoginPartial")
                     </li>
                 </ul>
+                @{
+                    if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        @Html.Partial("_AdminPanelPartial")
+                    }
+                }
             </div>
         </div>
     </nav>

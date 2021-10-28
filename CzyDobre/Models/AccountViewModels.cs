@@ -68,6 +68,8 @@ namespace CzyDobre.Models
 
     public class RegisterViewModel
     {
+        public string Name { get; set; }
+
         [Required]
         [Display(Name = "Nazwa użytkownika")]
         public string NickName { get; set; }

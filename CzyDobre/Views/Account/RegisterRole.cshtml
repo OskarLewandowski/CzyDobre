@@ -1,0 +1,32 @@
+﻿@model CzyDobre.Models.RegisterViewModel
+@{
+    ViewBag.Title = "RegisterRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="role-div">
+    <h2>Przypisz rolę</h2>
+    @using (Html.BeginForm("RegisterRole", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Wybierz użytkownika", new { @class = "select-list-title" })
+            <div class="select-list-role">
+                @Html.DropDownList("UserName")
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Wybierz rolę", new { @class = "select-list-title" })
+            <div class="select-list-role">
+                @Html.DropDownList("Name")
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <input type="submit" class="btn btn-success button-save-role" value="Zapisz" />
+            </div>
+        </div>
+    }
+</div>

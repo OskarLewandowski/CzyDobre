@@ -536,6 +536,155 @@ input:focus {
     background-color: white;
 }
 /* OAuth END*/
+.role-div {
+    text-align: center;
+}
+
+.buttons-role{
+    text-align: center;
+    padding: 10px;
+}
+
+.table-role {
+    background-color: #007bff;
+    color: white;
+}
+
+.select-list-role{
+    font-size: 25px;
+}
+
+.select-list-title {
+    color: white;
+    font-size: 24px;
+    background-color: #007bff;
+    width: 95%;
+    margin-bottom: 3%;
+    margin-top: 3%;
+}
+
+.button-save-role {
+    margin-top: 5%;
+    font-size: 24px;
+}
+
+
+/* Admin panel menu rozwijane START*/
+#nav {
+    position:relative;
+    width:620px;
+    margin:0 auto;
+}
+
+ul#navigation {
+    margin: 0px auto;
+    position: relative;
+    float: left;
+    border-left: 1px solid #CC424F;
+    border-right: 1px solid #CC424F;
+}
+ 
+ul#navigation li {
+    display:inline;
+    font-size:12px;
+    font-weight:bold;
+    margin:0;
+    padding:0;
+    float:left;
+    position:relative;
+    border-top:1px solid #CC424F;
+    border-bottom:2px solid #CC424F;
+}
+ 
+ul#navigation li a {
+    padding:10px 25px;
+    color: white;
+    text-shadow:1px 1px 0px #EA6D7D;
+    text-decoration:none;
+    display:inline-block;
+    border-right:1px solid #EA6D7D;
+    border-left:1px solid #831E24;
+    border-top:1px solid #EA6D7D;
+    background: #D75561;
+    font-size: 20px;
+
+     
+    -webkit-transition:color 0.2s linear, background 0.2s linear;    
+    -moz-transition:color 0.2s linear, background 0.2s linear;    
+    -o-transition:color 0.2s linear, background 0.2s linear;    
+    transition:color 0.2s linear, background 0.2s linear;    
+}
+ 
+ul#navigation li a:hover {
+    background:#f8f8f8;
+    color:#282828;
+}
+ 
+ul#navigation li:hover > a {
+    background:#EA6D7D;
+}
+
+ul#navigation li:hover > ul
+{
+    visibility:visible;
+    opacity:1;
+}
+ 
+ul#navigation ul, ul#navigation ul li ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;    
+    visibility:hidden;
+    position: absolute;
+    z-index: 99999;
+    width:180px;
+    background:#D75561;
+    box-shadow:1px 1px 3px #D75561;
+    opacity:0;
+    -webkit-transition:opacity 0.2s linear, visibility 0.2s linear; 
+    -moz-transition:opacity 0.2s linear, visibility 0.2s linear; 
+    -o-transition:opacity 0.2s linear, visibility 0.2s linear; 
+    transition:opacity 0.2s linear, visibility 0.2s linear;     
+}
+ 
+ul#navigation ul {
+    top: 43px;
+    left: 1px;
+}
+ 
+ul#navigation ul li ul {
+    top: 0;
+    left: 181px;
+}
+ 
+ul#navigation ul li {
+    clear:both;
+    width:100%;
+    border:0 none;
+    border-bottom:1px solid #831E24;
+}
+ 
+ul#navigation ul li a {
+    background:none;
+    padding:7px 15px;
+    color: white;
+    text-shadow:1px 1px 0px #EA6D7D;
+    text-decoration:none;
+    display:inline-block;
+    border:0 none;
+    float:left;
+    clear:both;
+    width:150px;
+}
+ 
+ul#navigation li a.first {
+    border-left: 0 none;
+}
+ 
+ul#navigation li a.last {
+    border-right: 0 none;
+}
+/* Admin panel menu rozwijane END*/
 
 @media screen and (max-width: 1200px) {
     .login {
