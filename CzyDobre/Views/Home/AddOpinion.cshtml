@@ -1,15 +1,37 @@
-﻿@{
+﻿@using CzyDobre.Models
+@using reCAPTCHA.MVC
+@model AddOpinionViewModels
+@{
     ViewBag.Title = "Dodaj opinie";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
     <div class="col-12 h-max">
-        <h1>@ViewBag.Title</h1>
-
-        <h4>@ViewBag.Message</h4>
-
-        <div class="notification">
-            @Html.Partial("_Notifications")
-        </div>
+        <h1 class="titleH1">@ViewBag.Title</h1>
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            using (Html.BeginForm("AddOpinion", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group" align="center">
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Photo, new { type = "file", multiple = "multiple", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Photo, "", new { @class = "text-danger" })
+                        <p style="text-align: left; padding: 3px;">Maksymalna wielkość zdjęć wynosi 5MB. Możliwe formaty .png lub .jpeg</p>
+                    </div>
+                </div>
+                <div class="form-group" align="center">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Wyślij" class="btn btn-success" style="font-size: 20px" />
+                    </div>
+                </div>
+                <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+            }
+        }
+        else
+        {
+            <h2 style="text-align: center">Już wkrótce dostępne!</h2>
+        }
     </div>
 </div>
+@Html.Partial("_Loading")
