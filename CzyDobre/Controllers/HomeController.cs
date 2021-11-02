@@ -75,6 +75,8 @@ namespace CzyDobre.Controllers
             return View();
         }
 
+        
+
         //CzyDobre.pl/opinie
         [Route("opinie")]
         [Route("Home/Opinion")]
@@ -217,6 +219,78 @@ namespace CzyDobre.Controllers
             }
             return View();
         }
+
+        //CzyDobre.pl/dodaj-produkt
+        [Route("dodaj-produkt")]
+        [Route("Home/AddProducts")]
+        [AllowAnonymous]
+        
+        public ActionResult AddProducts()
+        {
+            DBEntities db = new DBEntities();
+            List<AspNetCategory> cats = db.AspNetCategories.ToList();
+            ViewBag.CategoryList = new SelectList(cats, "Id_Category", "CategoryName");
+
+            List<AspNetIngredient> ing = db.AspNetIngredients.ToList();
+            ViewBag.IngredientsList = new SelectList(ing, "Id_Ingredients", "IngredientsName");
+
+            List<AspNetLocalization> loc = db.AspNetLocalizations.ToList();
+            ViewBag.LocalizationsList = new SelectList(loc, "Id_Localization", "LocalizationCity");
+
+
+
+            return View();
+        }
+
+        [Route("dodaj-produkt")]
+        [Route("Home/AddProducts")]
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [CaptchaValidator(ErrorMessage = "Nieprawidłowe roziązanie pola Captcha", RequiredMessage = "Pole Captcha jest wymagane.")]
+        public ActionResult AddProducts(ProductFormModels prd,string Ostre)
+        {
+            try
+            {
+                DBEntities db = new DBEntities();
+
+                List<AspNetCategory> cats = db.AspNetCategories.ToList();
+                ViewBag.CategoryList = new SelectList(cats, "Id_Category", "CategoryName");
+
+                List<AspNetIngredient> ing = db.AspNetIngredients.ToList();
+                ViewBag.IngredientsList = new SelectList(ing, "Id_Ingredients", "IngredientsName");
+
+                List<AspNetLocalization> loc = db.AspNetLocalizations.ToList();
+                ViewBag.LocalizationsList = new SelectList(loc, "Id_Localization", "LocalizationCity");
+
+                AspNetProduct product = new AspNetProduct();
+                product.ProductName = prd.ProductName;
+                product.ProductDescription = prd.ProductDescription;
+                product.Id_Category = prd.Id_Category;
+                product.Id_Localization = prd.Id_Localization;
+                product.Id_Ingredients = prd.Id_Ingredients;
+                
+
+
+                db.AspNetProducts.Add(product);
+
+                db.SaveChanges();
+                int latestEmpId = product.Id_Product;
+                return RedirectToAction("Index");
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+
+
+            return View();
+        }
+
+
 
         //CzyDobre.pl/dodaj-opinie
         [Route("dodaj-opinie")]

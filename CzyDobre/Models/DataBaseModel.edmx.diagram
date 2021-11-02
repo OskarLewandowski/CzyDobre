@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9afa1107108a45fdb21487d24ac0af11" Name="Diagram1">
+        <EntityTypeShape EntityType="novum_czydobre.plModel.C__MigrationHistory" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetCategory" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetLocalization" Width="1.5" PointX="10" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetProduct" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetRating" Width="1.5" PointX="7.5" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetRestaurantCalendar" Width="1.5" PointX="10" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetRestaurantCalendarDay" Width="1.5" PointX="7.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetRestaurantOpening" Width="1.5" PointX="10" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetRestaurant" Width="1.5" PointX="12.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetRestaurantsType" Width="1.5" PointX="7.75" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetReview" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetRole" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetUser" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.sysdiagram" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetIngredient" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetTaste" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="novum_czydobre.plModel.FK_AspNetProducts_AspNetCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="novum_czydobre.plModel.FK_AspNetLocalizations_AspNetRestaurantsType" ManuallyRouted="false" />
+        <AssociationConnector Association="novum_czydobre.plModel.FK_Restaurants_Localizations" ManuallyRouted="false" />
+        <AssociationConnector Association="novum_czydobre.plModel.FK_AspNetProducts_AspNetIngredients" ManuallyRouted="false" />
+        <AssociationConnector Association="novum_czydobre.plModel.FK_AspNetRating_AspNetProducts" ManuallyRouted="false" />
+        <AssociationConnector Association="novum_czydobre.plModel.FK_AspNetReviews_AspNetProducts" ManuallyRouted="false" />
+        <AssociationConnector Association="novum_czydobre.plModel.FK_AspNetRating_AspNetReviews" ManuallyRouted="false" />
+        <AssociationConnector Association="novum_czydobre.plModel.FK_RestaurantCalendar_RestaurantCalendarDay" ManuallyRouted="false" />
+        <AssociationConnector Association="novum_czydobre.plModel.FK_RestaurantOpening_RestaurantCalendarDay" ManuallyRouted="false" />
+        <AssociationConnector Association="novum_czydobre.plModel.FK_Restaurants_RestaurantOpening" ManuallyRouted="false" />
+        <AssociationConnector Association="novum_czydobre.plModel.FK_Reviews_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="novum_czydobre.plModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="novum_czydobre.plModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="novum_czydobre.plModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,1147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="novum_czydobre.plModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetCategories">
+          <Key>
+            <PropertyRef Name="Id_Category" />
+          </Key>
+          <Property Name="Id_Category" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CategoryDescription" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="AspNetLocalizations">
+          <Key>
+            <PropertyRef Name="Id_Localization" />
+          </Key>
+          <Property Name="Id_Localization" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocalizationAdress" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="LocalizationCity" Type="nvarchar" MaxLength="90" Nullable="false" />
+          <Property Name="Id_RestaurantType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetProducts">
+          <Key>
+            <PropertyRef Name="Id_Product" />
+          </Key>
+          <Property Name="Id_Product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Category" Type="int" />
+          <Property Name="ProductDescription" Type="nvarchar" MaxLength="250" />
+          <Property Name="Id_Ingredients" Type="int" />
+          <Property Name="Id_Localization" Type="int" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Spicy" Type="bit" />
+          <Property Name="ProductImage" Type="text" />
+          <Property Name="Opinion_Counter" Type="int" />
+        </EntityType>
+        <EntityType Name="AspNetRating">
+          <Key>
+            <PropertyRef Name="Id_Rating" />
+          </Key>
+          <Property Name="Id_Rating" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RateService" Type="smallint" Nullable="false" />
+          <Property Name="RateTaste" Type="smallint" Nullable="false" />
+          <Property Name="RateIngredients" Type="smallint" Nullable="false" />
+          <Property Name="RateComposition" Type="smallint" Nullable="false" />
+          <Property Name="Id_Review" Type="int" />
+          <Property Name="RateAdcompliance" Type="bit" Nullable="false" />
+          <Property Name="RateTotal" Type="float" />
+          <Property Name="Id_Product" Type="int" />
+        </EntityType>
+        <EntityType Name="AspNetRestaurantCalendar">
+          <Key>
+            <PropertyRef Name="Id_RestaurantCalendar" />
+          </Key>
+          <Property Name="Id_RestaurantCalendar" Type="int" Nullable="false" />
+          <Property Name="Id_RestaurantCalendarDay" Type="int" />
+          <Property Name="RestaurantCalendarHoursOpen" Type="time" Precision="4" />
+          <Property Name="RestaurantCalendarHoursClosed" Type="time" Precision="4" />
+          <Property Name="Id_Restaurant" Type="int" />
+        </EntityType>
+        <EntityType Name="AspNetRestaurantCalendarDay">
+          <Key>
+            <PropertyRef Name="Id_RestaurantCalendarDay" />
+          </Key>
+          <Property Name="Id_RestaurantCalendarDay" Type="int" Nullable="false" />
+          <Property Name="RestaurantCalendarDay" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AspNetRestaurantOpening">
+          <Key>
+            <PropertyRef Name="Id_RestaurantOpening" />
+          </Key>
+          <Property Name="Id_RestaurantOpening" Type="int" Nullable="false" />
+          <Property Name="Id_RestaurantCalendar" Type="int" />
+        </EntityType>
+        <EntityType Name="AspNetRestaurants">
+          <Key>
+            <PropertyRef Name="Id_Restaurant" />
+          </Key>
+          <Property Name="Id_Restaurant" Type="int" Nullable="false" />
+          <Property Name="Id_Localization" Type="int" />
+          <Property Name="Id_RestaurantOpening" Type="int" />
+          <Property Name="RestaurantPhoneNumber" Type="nvarchar" MaxLength="12" />
+          <Property Name="RestaurantEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="RestaurantFanpage" Type="nvarchar" MaxLength="100" />
+          <Property Name="RestaurantImage" Type="text" />
+          <Property Name="RestaurantName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="AspNetRestaurantsType">
+          <Key>
+            <PropertyRef Name="Id_RestaurantType" />
+          </Key>
+          <Property Name="Id_RestaurantType" Type="int" Nullable="false" />
+          <Property Name="RestaurantTypeName" Type="nvarchar" MaxLength="90" />
+          <Property Name="RestaurantTypeDescription" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetReviews">
+          <Key>
+            <PropertyRef Name="Id_Review" />
+          </Key>
+          <Property Name="Id_Review" Type="int" Nullable="false" />
+          <Property Name="ReviewContent" Type="nvarchar(max)" />
+          <Property Name="Id_Product" Type="int" Nullable="false" />
+          <Property Name="Id_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="64" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="64" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="AspNetIngredients">
+          <Key>
+            <PropertyRef Name="Id_Ingredients" />
+          </Key>
+          <Property Name="Id_Ingredients" Type="int" Nullable="false" />
+          <Property Name="IngredientsName" Type="text" />
+        </EntityType>
+        <EntityType Name="AspNetTaste">
+          <Key>
+            <PropertyRef Name="Id_taste" />
+          </Key>
+          <Property Name="Id_taste" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AspNetLocalizations_AspNetRestaurantsType">
+          <End Role="AspNetRestaurantsType" Type="Self.AspNetRestaurantsType" Multiplicity="1" />
+          <End Role="AspNetLocalizations" Type="Self.AspNetLocalizations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRestaurantsType">
+              <PropertyRef Name="Id_RestaurantType" />
+            </Principal>
+            <Dependent Role="AspNetLocalizations">
+              <PropertyRef Name="Id_RestaurantType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetProducts_AspNetCategories">
+          <End Role="AspNetCategories" Type="Self.AspNetCategories" Multiplicity="0..1" />
+          <End Role="AspNetProducts" Type="Self.AspNetProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetCategories">
+              <PropertyRef Name="Id_Category" />
+            </Principal>
+            <Dependent Role="AspNetProducts">
+              <PropertyRef Name="Id_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetProducts_AspNetIngredients">
+          <End Role="AspNetIngredients" Type="Self.AspNetIngredients" Multiplicity="0..1" />
+          <End Role="AspNetProducts" Type="Self.AspNetProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetIngredients">
+              <PropertyRef Name="Id_Ingredients" />
+            </Principal>
+            <Dependent Role="AspNetProducts">
+              <PropertyRef Name="Id_Ingredients" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetRating_AspNetProducts">
+          <End Role="AspNetProducts" Type="Self.AspNetProducts" Multiplicity="0..1" />
+          <End Role="AspNetRating" Type="Self.AspNetRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetProducts">
+              <PropertyRef Name="Id_Product" />
+            </Principal>
+            <Dependent Role="AspNetRating">
+              <PropertyRef Name="Id_Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetRating_AspNetReviews">
+          <End Role="AspNetReviews" Type="Self.AspNetReviews" Multiplicity="0..1" />
+          <End Role="AspNetRating" Type="Self.AspNetRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetReviews">
+              <PropertyRef Name="Id_Review" />
+            </Principal>
+            <Dependent Role="AspNetRating">
+              <PropertyRef Name="Id_Review" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetReviews_AspNetProducts">
+          <End Role="AspNetProducts" Type="Self.AspNetProducts" Multiplicity="1" />
+          <End Role="AspNetReviews" Type="Self.AspNetReviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetProducts">
+              <PropertyRef Name="Id_Product" />
+            </Principal>
+            <Dependent Role="AspNetReviews">
+              <PropertyRef Name="Id_Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RestaurantCalendar_RestaurantCalendarDay">
+          <End Role="AspNetRestaurantCalendarDay" Type="Self.AspNetRestaurantCalendarDay" Multiplicity="0..1" />
+          <End Role="AspNetRestaurantCalendar" Type="Self.AspNetRestaurantCalendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRestaurantCalendarDay">
+              <PropertyRef Name="Id_RestaurantCalendarDay" />
+            </Principal>
+            <Dependent Role="AspNetRestaurantCalendar">
+              <PropertyRef Name="Id_RestaurantCalendarDay" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RestaurantOpening_RestaurantCalendarDay">
+          <End Role="AspNetRestaurantCalendarDay" Type="Self.AspNetRestaurantCalendarDay" Multiplicity="0..1" />
+          <End Role="AspNetRestaurantOpening" Type="Self.AspNetRestaurantOpening" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRestaurantCalendarDay">
+              <PropertyRef Name="Id_RestaurantCalendarDay" />
+            </Principal>
+            <Dependent Role="AspNetRestaurantOpening">
+              <PropertyRef Name="Id_RestaurantCalendar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Restaurants_Localizations">
+          <End Role="AspNetLocalizations" Type="Self.AspNetLocalizations" Multiplicity="0..1" />
+          <End Role="AspNetRestaurants" Type="Self.AspNetRestaurants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetLocalizations">
+              <PropertyRef Name="Id_Localization" />
+            </Principal>
+            <Dependent Role="AspNetRestaurants">
+              <PropertyRef Name="Id_Localization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Restaurants_RestaurantOpening">
+          <End Role="AspNetRestaurantOpening" Type="Self.AspNetRestaurantOpening" Multiplicity="0..1" />
+          <End Role="AspNetRestaurants" Type="Self.AspNetRestaurants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRestaurantOpening">
+              <PropertyRef Name="Id_RestaurantOpening" />
+            </Principal>
+            <Dependent Role="AspNetRestaurants">
+              <PropertyRef Name="Id_RestaurantOpening" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Users">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetReviews" Type="Self.AspNetReviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetReviews">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="novum_czydobreplModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetCategories" EntityType="Self.AspNetCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetLocalizations" EntityType="Self.AspNetLocalizations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetProducts" EntityType="Self.AspNetProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRating" EntityType="Self.AspNetRating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRestaurantCalendar" EntityType="Self.AspNetRestaurantCalendar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRestaurantCalendarDay" EntityType="Self.AspNetRestaurantCalendarDay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRestaurantOpening" EntityType="Self.AspNetRestaurantOpening" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRestaurants" EntityType="Self.AspNetRestaurants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRestaurantsType" EntityType="Self.AspNetRestaurantsType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetReviews" EntityType="Self.AspNetReviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetIngredients" EntityType="Self.AspNetIngredients" Schema="novum_Andzej" store:Type="Tables" />
+          <EntitySet Name="AspNetTaste" EntityType="Self.AspNetTaste" Schema="novum_Andzej" store:Type="Tables" />
+          <AssociationSet Name="FK_AspNetLocalizations_AspNetRestaurantsType" Association="Self.FK_AspNetLocalizations_AspNetRestaurantsType">
+            <End Role="AspNetRestaurantsType" EntitySet="AspNetRestaurantsType" />
+            <End Role="AspNetLocalizations" EntitySet="AspNetLocalizations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetProducts_AspNetCategories" Association="Self.FK_AspNetProducts_AspNetCategories">
+            <End Role="AspNetCategories" EntitySet="AspNetCategories" />
+            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetProducts_AspNetIngredients" Association="Self.FK_AspNetProducts_AspNetIngredients">
+            <End Role="AspNetIngredients" EntitySet="AspNetIngredients" />
+            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetRating_AspNetProducts" Association="Self.FK_AspNetRating_AspNetProducts">
+            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
+            <End Role="AspNetRating" EntitySet="AspNetRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetRating_AspNetReviews" Association="Self.FK_AspNetRating_AspNetReviews">
+            <End Role="AspNetReviews" EntitySet="AspNetReviews" />
+            <End Role="AspNetRating" EntitySet="AspNetRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetReviews_AspNetProducts" Association="Self.FK_AspNetReviews_AspNetProducts">
+            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
+            <End Role="AspNetReviews" EntitySet="AspNetReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RestaurantCalendar_RestaurantCalendarDay" Association="Self.FK_RestaurantCalendar_RestaurantCalendarDay">
+            <End Role="AspNetRestaurantCalendarDay" EntitySet="AspNetRestaurantCalendarDay" />
+            <End Role="AspNetRestaurantCalendar" EntitySet="AspNetRestaurantCalendar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RestaurantOpening_RestaurantCalendarDay" Association="Self.FK_RestaurantOpening_RestaurantCalendarDay">
+            <End Role="AspNetRestaurantCalendarDay" EntitySet="AspNetRestaurantCalendarDay" />
+            <End Role="AspNetRestaurantOpening" EntitySet="AspNetRestaurantOpening" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restaurants_Localizations" Association="Self.FK_Restaurants_Localizations">
+            <End Role="AspNetLocalizations" EntitySet="AspNetLocalizations" />
+            <End Role="AspNetRestaurants" EntitySet="AspNetRestaurants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restaurants_RestaurantOpening" Association="Self.FK_Restaurants_RestaurantOpening">
+            <End Role="AspNetRestaurantOpening" EntitySet="AspNetRestaurantOpening" />
+            <End Role="AspNetRestaurants" EntitySet="AspNetRestaurants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Users" Association="Self.FK_Reviews_Users">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetReviews" EntitySet="AspNetReviews" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="novum_czydobre.plModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetCategory">
+          <Key>
+            <PropertyRef Name="Id_Category" />
+          </Key>
+          <Property Name="Id_Category" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetProducts" Relationship="Self.FK_AspNetProducts_AspNetCategories" FromRole="AspNetCategories" ToRole="AspNetProducts" />
+        </EntityType>
+        <EntityType Name="AspNetLocalization">
+          <Key>
+            <PropertyRef Name="Id_Localization" />
+          </Key>
+          <Property Name="Id_Localization" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocalizationAdress" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LocalizationCity" Type="String" MaxLength="90" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id_RestaurantType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetRestaurantsType" Relationship="Self.FK_AspNetLocalizations_AspNetRestaurantsType" FromRole="AspNetLocalizations" ToRole="AspNetRestaurantsType" />
+          <NavigationProperty Name="AspNetRestaurants" Relationship="Self.FK_Restaurants_Localizations" FromRole="AspNetLocalizations" ToRole="AspNetRestaurants" />
+        </EntityType>
+        <EntityType Name="AspNetProduct">
+          <Key>
+            <PropertyRef Name="Id_Product" />
+          </Key>
+          <Property Name="Id_Product" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Category" Type="Int32" />
+          <Property Name="ProductDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Ingredients" Type="Int32" />
+          <Property Name="Id_Localization" Type="Int32" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Spicy" Type="Boolean" />
+          <Property Name="ProductImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Opinion_Counter" Type="Int32" />
+          <NavigationProperty Name="AspNetCategory" Relationship="Self.FK_AspNetProducts_AspNetCategories" FromRole="AspNetProducts" ToRole="AspNetCategories" />
+          <NavigationProperty Name="AspNetIngredient" Relationship="Self.FK_AspNetProducts_AspNetIngredients" FromRole="AspNetProducts" ToRole="AspNetIngredients" />
+          <NavigationProperty Name="AspNetRatings" Relationship="Self.FK_AspNetRating_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetRating" />
+          <NavigationProperty Name="AspNetReviews" Relationship="Self.FK_AspNetReviews_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetReviews" />
+        </EntityType>
+        <EntityType Name="AspNetRating">
+          <Key>
+            <PropertyRef Name="Id_Rating" />
+          </Key>
+          <Property Name="Id_Rating" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RateService" Type="Int16" Nullable="false" />
+          <Property Name="RateTaste" Type="Int16" Nullable="false" />
+          <Property Name="RateIngredients" Type="Int16" Nullable="false" />
+          <Property Name="RateComposition" Type="Int16" Nullable="false" />
+          <Property Name="Id_Review" Type="Int32" />
+          <Property Name="RateAdcompliance" Type="Boolean" Nullable="false" />
+          <Property Name="RateTotal" Type="Double" />
+          <Property Name="Id_Product" Type="Int32" />
+          <NavigationProperty Name="AspNetProduct" Relationship="Self.FK_AspNetRating_AspNetProducts" FromRole="AspNetRating" ToRole="AspNetProducts" />
+          <NavigationProperty Name="AspNetReview" Relationship="Self.FK_AspNetRating_AspNetReviews" FromRole="AspNetRating" ToRole="AspNetReviews" />
+        </EntityType>
+        <EntityType Name="AspNetRestaurantCalendar">
+          <Key>
+            <PropertyRef Name="Id_RestaurantCalendar" />
+          </Key>
+          <Property Name="Id_RestaurantCalendar" Type="Int32" Nullable="false" />
+          <Property Name="Id_RestaurantCalendarDay" Type="Int32" />
+          <Property Name="RestaurantCalendarHoursOpen" Type="Time" Precision="4" />
+          <Property Name="RestaurantCalendarHoursClosed" Type="Time" Precision="4" />
+          <Property Name="Id_Restaurant" Type="Int32" />
+          <NavigationProperty Name="AspNetRestaurantCalendarDay" Relationship="Self.FK_RestaurantCalendar_RestaurantCalendarDay" FromRole="AspNetRestaurantCalendar" ToRole="AspNetRestaurantCalendarDay" />
+        </EntityType>
+        <EntityType Name="AspNetRestaurantCalendarDay">
+          <Key>
+            <PropertyRef Name="Id_RestaurantCalendarDay" />
+          </Key>
+          <Property Name="Id_RestaurantCalendarDay" Type="Int32" Nullable="false" />
+          <Property Name="RestaurantCalendarDay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetRestaurantCalendars" Relationship="Self.FK_RestaurantCalendar_RestaurantCalendarDay" FromRole="AspNetRestaurantCalendarDay" ToRole="AspNetRestaurantCalendar" />
+          <NavigationProperty Name="AspNetRestaurantOpenings" Relationship="Self.FK_RestaurantOpening_RestaurantCalendarDay" FromRole="AspNetRestaurantCalendarDay" ToRole="AspNetRestaurantOpening" />
+        </EntityType>
+        <EntityType Name="AspNetRestaurantOpening">
+          <Key>
+            <PropertyRef Name="Id_RestaurantOpening" />
+          </Key>
+          <Property Name="Id_RestaurantOpening" Type="Int32" Nullable="false" />
+          <Property Name="Id_RestaurantCalendar" Type="Int32" />
+          <NavigationProperty Name="AspNetRestaurantCalendarDay" Relationship="Self.FK_RestaurantOpening_RestaurantCalendarDay" FromRole="AspNetRestaurantOpening" ToRole="AspNetRestaurantCalendarDay" />
+          <NavigationProperty Name="AspNetRestaurants" Relationship="Self.FK_Restaurants_RestaurantOpening" FromRole="AspNetRestaurantOpening" ToRole="AspNetRestaurants" />
+        </EntityType>
+        <EntityType Name="AspNetRestaurant">
+          <Key>
+            <PropertyRef Name="Id_Restaurant" />
+          </Key>
+          <Property Name="Id_Restaurant" Type="Int32" Nullable="false" />
+          <Property Name="Id_Localization" Type="Int32" />
+          <Property Name="Id_RestaurantOpening" Type="Int32" />
+          <Property Name="RestaurantPhoneNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="RestaurantEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RestaurantFanpage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RestaurantImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RestaurantName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetLocalization" Relationship="Self.FK_Restaurants_Localizations" FromRole="AspNetRestaurants" ToRole="AspNetLocalizations" />
+          <NavigationProperty Name="AspNetRestaurantOpening" Relationship="Self.FK_Restaurants_RestaurantOpening" FromRole="AspNetRestaurants" ToRole="AspNetRestaurantOpening" />
+        </EntityType>
+        <EntityType Name="AspNetRestaurantsType">
+          <Key>
+            <PropertyRef Name="Id_RestaurantType" />
+          </Key>
+          <Property Name="Id_RestaurantType" Type="Int32" Nullable="false" />
+          <Property Name="RestaurantTypeName" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="RestaurantTypeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetLocalizations" Relationship="Self.FK_AspNetLocalizations_AspNetRestaurantsType" FromRole="AspNetRestaurantsType" ToRole="AspNetLocalizations" />
+        </EntityType>
+        <EntityType Name="AspNetReview">
+          <Key>
+            <PropertyRef Name="Id_Review" />
+          </Key>
+          <Property Name="Id_Review" Type="Int32" Nullable="false" />
+          <Property Name="ReviewContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Product" Type="Int32" Nullable="false" />
+          <Property Name="Id_User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetProduct" Relationship="Self.FK_AspNetReviews_AspNetProducts" FromRole="AspNetReviews" ToRole="AspNetProducts" />
+          <NavigationProperty Name="AspNetRatings" Relationship="Self.FK_AspNetRating_AspNetReviews" FromRole="AspNetReviews" ToRole="AspNetRating" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Reviews_Users" FromRole="AspNetReviews" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="NickName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetReviews" Relationship="Self.FK_Reviews_Users" FromRole="AspNetUsers" ToRole="AspNetReviews" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="AspNetIngredient">
+          <Key>
+            <PropertyRef Name="Id_Ingredients" />
+          </Key>
+          <Property Name="Id_Ingredients" Type="Int32" Nullable="false" />
+          <Property Name="IngredientsName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetProducts" Relationship="Self.FK_AspNetProducts_AspNetIngredients" FromRole="AspNetIngredients" ToRole="AspNetProducts" />
+        </EntityType>
+        <EntityType Name="AspNetTaste">
+          <Key>
+            <PropertyRef Name="Id_taste" />
+          </Key>
+          <Property Name="Id_taste" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AspNetProducts_AspNetCategories">
+          <End Role="AspNetCategories" Type="Self.AspNetCategory" Multiplicity="0..1" />
+          <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetCategories">
+              <PropertyRef Name="Id_Category" />
+            </Principal>
+            <Dependent Role="AspNetProducts">
+              <PropertyRef Name="Id_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetLocalizations_AspNetRestaurantsType">
+          <End Role="AspNetRestaurantsType" Type="Self.AspNetRestaurantsType" Multiplicity="1" />
+          <End Role="AspNetLocalizations" Type="Self.AspNetLocalization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRestaurantsType">
+              <PropertyRef Name="Id_RestaurantType" />
+            </Principal>
+            <Dependent Role="AspNetLocalizations">
+              <PropertyRef Name="Id_RestaurantType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Restaurants_Localizations">
+          <End Role="AspNetLocalizations" Type="Self.AspNetLocalization" Multiplicity="0..1" />
+          <End Role="AspNetRestaurants" Type="Self.AspNetRestaurant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetLocalizations">
+              <PropertyRef Name="Id_Localization" />
+            </Principal>
+            <Dependent Role="AspNetRestaurants">
+              <PropertyRef Name="Id_Localization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetProducts_AspNetIngredients">
+          <End Role="AspNetIngredients" Type="Self.AspNetIngredient" Multiplicity="0..1" />
+          <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetIngredients">
+              <PropertyRef Name="Id_Ingredients" />
+            </Principal>
+            <Dependent Role="AspNetProducts">
+              <PropertyRef Name="Id_Ingredients" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetRating_AspNetProducts">
+          <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="0..1" />
+          <End Role="AspNetRating" Type="Self.AspNetRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetProducts">
+              <PropertyRef Name="Id_Product" />
+            </Principal>
+            <Dependent Role="AspNetRating">
+              <PropertyRef Name="Id_Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetReviews_AspNetProducts">
+          <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="1" />
+          <End Role="AspNetReviews" Type="Self.AspNetReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetProducts">
+              <PropertyRef Name="Id_Product" />
+            </Principal>
+            <Dependent Role="AspNetReviews">
+              <PropertyRef Name="Id_Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetRating_AspNetReviews">
+          <End Role="AspNetReviews" Type="Self.AspNetReview" Multiplicity="0..1" />
+          <End Role="AspNetRating" Type="Self.AspNetRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetReviews">
+              <PropertyRef Name="Id_Review" />
+            </Principal>
+            <Dependent Role="AspNetRating">
+              <PropertyRef Name="Id_Review" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RestaurantCalendar_RestaurantCalendarDay">
+          <End Role="AspNetRestaurantCalendarDay" Type="Self.AspNetRestaurantCalendarDay" Multiplicity="0..1" />
+          <End Role="AspNetRestaurantCalendar" Type="Self.AspNetRestaurantCalendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRestaurantCalendarDay">
+              <PropertyRef Name="Id_RestaurantCalendarDay" />
+            </Principal>
+            <Dependent Role="AspNetRestaurantCalendar">
+              <PropertyRef Name="Id_RestaurantCalendarDay" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RestaurantOpening_RestaurantCalendarDay">
+          <End Role="AspNetRestaurantCalendarDay" Type="Self.AspNetRestaurantCalendarDay" Multiplicity="0..1" />
+          <End Role="AspNetRestaurantOpening" Type="Self.AspNetRestaurantOpening" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRestaurantCalendarDay">
+              <PropertyRef Name="Id_RestaurantCalendarDay" />
+            </Principal>
+            <Dependent Role="AspNetRestaurantOpening">
+              <PropertyRef Name="Id_RestaurantCalendar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Restaurants_RestaurantOpening">
+          <End Role="AspNetRestaurantOpening" Type="Self.AspNetRestaurantOpening" Multiplicity="0..1" />
+          <End Role="AspNetRestaurants" Type="Self.AspNetRestaurant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRestaurantOpening">
+              <PropertyRef Name="Id_RestaurantOpening" />
+            </Principal>
+            <Dependent Role="AspNetRestaurants">
+              <PropertyRef Name="Id_RestaurantOpening" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Users">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="AspNetReviews" Type="Self.AspNetReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetReviews">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetCategories" EntityType="Self.AspNetCategory" />
+          <EntitySet Name="AspNetLocalizations" EntityType="Self.AspNetLocalization" />
+          <EntitySet Name="AspNetProducts" EntityType="Self.AspNetProduct" />
+          <EntitySet Name="AspNetRatings" EntityType="Self.AspNetRating" />
+          <EntitySet Name="AspNetRestaurantCalendars" EntityType="Self.AspNetRestaurantCalendar" />
+          <EntitySet Name="AspNetRestaurantCalendarDays" EntityType="Self.AspNetRestaurantCalendarDay" />
+          <EntitySet Name="AspNetRestaurantOpenings" EntityType="Self.AspNetRestaurantOpening" />
+          <EntitySet Name="AspNetRestaurants" EntityType="Self.AspNetRestaurant" />
+          <EntitySet Name="AspNetRestaurantsTypes" EntityType="Self.AspNetRestaurantsType" />
+          <EntitySet Name="AspNetReviews" EntityType="Self.AspNetReview" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="AspNetIngredients" EntityType="Self.AspNetIngredient" />
+          <EntitySet Name="AspNetTastes" EntityType="Self.AspNetTaste" />
+          <AssociationSet Name="FK_AspNetProducts_AspNetCategories" Association="Self.FK_AspNetProducts_AspNetCategories">
+            <End Role="AspNetCategories" EntitySet="AspNetCategories" />
+            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetLocalizations_AspNetRestaurantsType" Association="Self.FK_AspNetLocalizations_AspNetRestaurantsType">
+            <End Role="AspNetRestaurantsType" EntitySet="AspNetRestaurantsTypes" />
+            <End Role="AspNetLocalizations" EntitySet="AspNetLocalizations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restaurants_Localizations" Association="Self.FK_Restaurants_Localizations">
+            <End Role="AspNetLocalizations" EntitySet="AspNetLocalizations" />
+            <End Role="AspNetRestaurants" EntitySet="AspNetRestaurants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetProducts_AspNetIngredients" Association="Self.FK_AspNetProducts_AspNetIngredients">
+            <End Role="AspNetIngredients" EntitySet="AspNetIngredients" />
+            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetRating_AspNetProducts" Association="Self.FK_AspNetRating_AspNetProducts">
+            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
+            <End Role="AspNetRating" EntitySet="AspNetRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetReviews_AspNetProducts" Association="Self.FK_AspNetReviews_AspNetProducts">
+            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
+            <End Role="AspNetReviews" EntitySet="AspNetReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetRating_AspNetReviews" Association="Self.FK_AspNetRating_AspNetReviews">
+            <End Role="AspNetReviews" EntitySet="AspNetReviews" />
+            <End Role="AspNetRating" EntitySet="AspNetRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RestaurantCalendar_RestaurantCalendarDay" Association="Self.FK_RestaurantCalendar_RestaurantCalendarDay">
+            <End Role="AspNetRestaurantCalendarDay" EntitySet="AspNetRestaurantCalendarDays" />
+            <End Role="AspNetRestaurantCalendar" EntitySet="AspNetRestaurantCalendars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RestaurantOpening_RestaurantCalendarDay" Association="Self.FK_RestaurantOpening_RestaurantCalendarDay">
+            <End Role="AspNetRestaurantCalendarDay" EntitySet="AspNetRestaurantCalendarDays" />
+            <End Role="AspNetRestaurantOpening" EntitySet="AspNetRestaurantOpenings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restaurants_RestaurantOpening" Association="Self.FK_Restaurants_RestaurantOpening">
+            <End Role="AspNetRestaurantOpening" EntitySet="AspNetRestaurantOpenings" />
+            <End Role="AspNetRestaurants" EntitySet="AspNetRestaurants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Users" Association="Self.FK_Reviews_Users">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetReviews" EntitySet="AspNetReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="novum_czydobreplModelStoreContainer" CdmEntityContainer="DBEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetCategories">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetCategory">
+              <MappingFragment StoreEntitySet="AspNetCategories">
+                <ScalarProperty Name="Id_Category" ColumnName="Id_Category" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryDescription" ColumnName="CategoryDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetLocalizations">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetLocalization">
+              <MappingFragment StoreEntitySet="AspNetLocalizations">
+                <ScalarProperty Name="Id_Localization" ColumnName="Id_Localization" />
+                <ScalarProperty Name="LocalizationAdress" ColumnName="LocalizationAdress" />
+                <ScalarProperty Name="LocalizationCity" ColumnName="LocalizationCity" />
+                <ScalarProperty Name="Id_RestaurantType" ColumnName="Id_RestaurantType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetProducts">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetProduct">
+              <MappingFragment StoreEntitySet="AspNetProducts">
+                <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
+                <ScalarProperty Name="Id_Category" ColumnName="Id_Category" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="Id_Ingredients" ColumnName="Id_Ingredients" />
+                <ScalarProperty Name="Id_Localization" ColumnName="Id_Localization" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Spicy" ColumnName="Spicy" />
+                <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
+                <ScalarProperty Name="Opinion_Counter" ColumnName="Opinion_Counter" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRatings">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRating">
+              <MappingFragment StoreEntitySet="AspNetRating">
+                <ScalarProperty Name="Id_Rating" ColumnName="Id_Rating" />
+                <ScalarProperty Name="RateService" ColumnName="RateService" />
+                <ScalarProperty Name="RateTaste" ColumnName="RateTaste" />
+                <ScalarProperty Name="RateIngredients" ColumnName="RateIngredients" />
+                <ScalarProperty Name="RateComposition" ColumnName="RateComposition" />
+                <ScalarProperty Name="Id_Review" ColumnName="Id_Review" />
+                <ScalarProperty Name="RateAdcompliance" ColumnName="RateAdcompliance" />
+                <ScalarProperty Name="RateTotal" ColumnName="RateTotal" />
+                <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRestaurantCalendars">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRestaurantCalendar">
+              <MappingFragment StoreEntitySet="AspNetRestaurantCalendar">
+                <ScalarProperty Name="Id_RestaurantCalendar" ColumnName="Id_RestaurantCalendar" />
+                <ScalarProperty Name="Id_RestaurantCalendarDay" ColumnName="Id_RestaurantCalendarDay" />
+                <ScalarProperty Name="RestaurantCalendarHoursOpen" ColumnName="RestaurantCalendarHoursOpen" />
+                <ScalarProperty Name="RestaurantCalendarHoursClosed" ColumnName="RestaurantCalendarHoursClosed" />
+                <ScalarProperty Name="Id_Restaurant" ColumnName="Id_Restaurant" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRestaurantCalendarDays">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRestaurantCalendarDay">
+              <MappingFragment StoreEntitySet="AspNetRestaurantCalendarDay">
+                <ScalarProperty Name="Id_RestaurantCalendarDay" ColumnName="Id_RestaurantCalendarDay" />
+                <ScalarProperty Name="RestaurantCalendarDay" ColumnName="RestaurantCalendarDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRestaurantOpenings">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRestaurantOpening">
+              <MappingFragment StoreEntitySet="AspNetRestaurantOpening">
+                <ScalarProperty Name="Id_RestaurantOpening" ColumnName="Id_RestaurantOpening" />
+                <ScalarProperty Name="Id_RestaurantCalendar" ColumnName="Id_RestaurantCalendar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRestaurants">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRestaurant">
+              <MappingFragment StoreEntitySet="AspNetRestaurants">
+                <ScalarProperty Name="Id_Restaurant" ColumnName="Id_Restaurant" />
+                <ScalarProperty Name="Id_Localization" ColumnName="Id_Localization" />
+                <ScalarProperty Name="Id_RestaurantOpening" ColumnName="Id_RestaurantOpening" />
+                <ScalarProperty Name="RestaurantPhoneNumber" ColumnName="RestaurantPhoneNumber" />
+                <ScalarProperty Name="RestaurantEmail" ColumnName="RestaurantEmail" />
+                <ScalarProperty Name="RestaurantFanpage" ColumnName="RestaurantFanpage" />
+                <ScalarProperty Name="RestaurantImage" ColumnName="RestaurantImage" />
+                <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRestaurantsTypes">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRestaurantsType">
+              <MappingFragment StoreEntitySet="AspNetRestaurantsType">
+                <ScalarProperty Name="Id_RestaurantType" ColumnName="Id_RestaurantType" />
+                <ScalarProperty Name="RestaurantTypeName" ColumnName="RestaurantTypeName" />
+                <ScalarProperty Name="RestaurantTypeDescription" ColumnName="RestaurantTypeDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetReviews">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetReview">
+              <MappingFragment StoreEntitySet="AspNetReviews">
+                <ScalarProperty Name="Id_Review" ColumnName="Id_Review" />
+                <ScalarProperty Name="ReviewContent" ColumnName="ReviewContent" />
+                <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetIngredients">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetIngredient">
+              <MappingFragment StoreEntitySet="AspNetIngredients">
+                <ScalarProperty Name="Id_Ingredients" ColumnName="Id_Ingredients" />
+                <ScalarProperty Name="IngredientsName" ColumnName="IngredientsName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetTastes">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetTaste">
+              <MappingFragment StoreEntitySet="AspNetTaste">
+                <ScalarProperty Name="Id_taste" ColumnName="Id_taste" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="novum_czydobre.plModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
