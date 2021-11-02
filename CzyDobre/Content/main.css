@@ -271,16 +271,22 @@ input:focus {
     border-radius: 64px;
     margin: 0 auto;
 }
-
-.frontpage-container {
+.frontpage-searchbox-margin {
     position: absolute;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 128px;
-    top: 50%;
-    margin-top: -64px;
+    top: 50 px;
+    left: 45 px;
 }
+
+
+    .frontpage-container {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 128px;
+        top: 50%;
+        margin-top: -64px;
+    }
 
 .frontpage-image-container {
     width: 100%;

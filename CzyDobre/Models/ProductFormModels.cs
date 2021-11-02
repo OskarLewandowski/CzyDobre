@@ -30,8 +30,6 @@ namespace CzyDobre.Models
         [Display(Name = "Lokalizacja")]
         public Nullable<int> Id_Localization { get; set; }
 
-        [Display(Name = "Pikantne")]
-        public Nullable<bool> Spicy { get; set; }
-        //public List<HttpPostedFileBase> Attachment { get; set; }
+        public List<HttpPostedFileBase> ProductImage { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace CzyDobre.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AspNetLocalization()
         {
+            this.AspNetProducts = new HashSet<AspNetProduct>();
             this.AspNetRestaurants = new HashSet<AspNetRestaurant>();
         }
     
@@ -26,6 +27,8 @@ namespace CzyDobre.Models
         public int Id_RestaurantType { get; set; }
     
         public virtual AspNetRestaurantsType AspNetRestaurantsType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetProduct> AspNetProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRestaurant> AspNetRestaurants { get; set; }
     }

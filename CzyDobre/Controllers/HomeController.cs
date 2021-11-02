@@ -223,8 +223,8 @@ namespace CzyDobre.Controllers
         //CzyDobre.pl/dodaj-produkt
         [Route("dodaj-produkt")]
         [Route("Home/AddProducts")]
-        [AllowAnonymous]
-        
+        [Authorize]
+
         public ActionResult AddProducts()
         {
             DBEntities db = new DBEntities();
@@ -244,10 +244,10 @@ namespace CzyDobre.Controllers
 
         [Route("dodaj-produkt")]
         [Route("Home/AddProducts")]
-        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CaptchaValidator(ErrorMessage = "Nieprawidłowe roziązanie pola Captcha", RequiredMessage = "Pole Captcha jest wymagane.")]
+        [Authorize]
         public ActionResult AddProducts(ProductFormModels prd,string Ostre)
         {
             try
@@ -269,13 +269,13 @@ namespace CzyDobre.Controllers
                 product.Id_Category = prd.Id_Category;
                 product.Id_Localization = prd.Id_Localization;
                 product.Id_Ingredients = prd.Id_Ingredients;
-                
+                //product.ProductImage = prd.ProductImage; // dodawanie zdjecia
 
 
                 db.AspNetProducts.Add(product);
 
                 db.SaveChanges();
-                int latestEmpId = product.Id_Product;
+                int latestId = product.Id_Product;
                 return RedirectToAction("Index");
 
             }
@@ -286,8 +286,6 @@ namespace CzyDobre.Controllers
 
             }
 
-
-            return View();
         }
 
 

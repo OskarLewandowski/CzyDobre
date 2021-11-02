@@ -42,7 +42,6 @@
           <Property Name="Id_Ingredients" Type="int" />
           <Property Name="Id_Localization" Type="int" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
-          <Property Name="Spicy" Type="bit" />
           <Property Name="ProductImage" Type="text" />
           <Property Name="Opinion_Counter" Type="int" />
         </EntityType>
@@ -225,6 +224,18 @@
             </Principal>
             <Dependent Role="AspNetProducts">
               <PropertyRef Name="Id_Ingredients" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetProducts_AspNetLocalizations">
+          <End Role="AspNetLocalizations" Type="Self.AspNetLocalizations" Multiplicity="0..1" />
+          <End Role="AspNetProducts" Type="Self.AspNetProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetLocalizations">
+              <PropertyRef Name="Id_Localization" />
+            </Principal>
+            <Dependent Role="AspNetProducts">
+              <PropertyRef Name="Id_Localization" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -412,6 +423,10 @@
             <End Role="AspNetIngredients" EntitySet="AspNetIngredients" />
             <End Role="AspNetProducts" EntitySet="AspNetProducts" />
           </AssociationSet>
+          <AssociationSet Name="FK_AspNetProducts_AspNetLocalizations" Association="Self.FK_AspNetProducts_AspNetLocalizations">
+            <End Role="AspNetLocalizations" EntitySet="AspNetLocalizations" />
+            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
+          </AssociationSet>
           <AssociationSet Name="FK_AspNetRating_AspNetProducts" Association="Self.FK_AspNetRating_AspNetProducts">
             <End Role="AspNetProducts" EntitySet="AspNetProducts" />
             <End Role="AspNetRating" EntitySet="AspNetRating" />
@@ -494,6 +509,7 @@
           <Property Name="LocalizationCity" Type="String" MaxLength="90" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Id_RestaurantType" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetRestaurantsType" Relationship="Self.FK_AspNetLocalizations_AspNetRestaurantsType" FromRole="AspNetLocalizations" ToRole="AspNetRestaurantsType" />
+          <NavigationProperty Name="AspNetProducts" Relationship="Self.FK_AspNetProducts_AspNetLocalizations" FromRole="AspNetLocalizations" ToRole="AspNetProducts" />
           <NavigationProperty Name="AspNetRestaurants" Relationship="Self.FK_Restaurants_Localizations" FromRole="AspNetLocalizations" ToRole="AspNetRestaurants" />
         </EntityType>
         <EntityType Name="AspNetProduct">
@@ -506,10 +522,10 @@
           <Property Name="Id_Ingredients" Type="Int32" />
           <Property Name="Id_Localization" Type="Int32" />
           <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Spicy" Type="Boolean" />
           <Property Name="ProductImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Opinion_Counter" Type="Int32" />
           <NavigationProperty Name="AspNetCategory" Relationship="Self.FK_AspNetProducts_AspNetCategories" FromRole="AspNetProducts" ToRole="AspNetCategories" />
+          <NavigationProperty Name="AspNetLocalization" Relationship="Self.FK_AspNetProducts_AspNetLocalizations" FromRole="AspNetProducts" ToRole="AspNetLocalizations" />
           <NavigationProperty Name="AspNetIngredient" Relationship="Self.FK_AspNetProducts_AspNetIngredients" FromRole="AspNetProducts" ToRole="AspNetIngredients" />
           <NavigationProperty Name="AspNetRatings" Relationship="Self.FK_AspNetRating_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetRating" />
           <NavigationProperty Name="AspNetReviews" Relationship="Self.FK_AspNetReviews_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetReviews" />
@@ -697,6 +713,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AspNetProducts_AspNetLocalizations">
+          <End Role="AspNetLocalizations" Type="Self.AspNetLocalization" Multiplicity="0..1" />
+          <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetLocalizations">
+              <PropertyRef Name="Id_Localization" />
+            </Principal>
+            <Dependent Role="AspNetProducts">
+              <PropertyRef Name="Id_Localization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Restaurants_Localizations">
           <End Role="AspNetLocalizations" Type="Self.AspNetLocalization" Multiplicity="0..1" />
           <End Role="AspNetRestaurants" Type="Self.AspNetRestaurant" Multiplicity="*" />
@@ -864,6 +892,10 @@
             <End Role="AspNetRestaurantsType" EntitySet="AspNetRestaurantsTypes" />
             <End Role="AspNetLocalizations" EntitySet="AspNetLocalizations" />
           </AssociationSet>
+          <AssociationSet Name="FK_AspNetProducts_AspNetLocalizations" Association="Self.FK_AspNetProducts_AspNetLocalizations">
+            <End Role="AspNetLocalizations" EntitySet="AspNetLocalizations" />
+            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
+          </AssociationSet>
           <AssociationSet Name="FK_Restaurants_Localizations" Association="Self.FK_Restaurants_Localizations">
             <End Role="AspNetLocalizations" EntitySet="AspNetLocalizations" />
             <End Role="AspNetRestaurants" EntitySet="AspNetRestaurants" />
@@ -957,7 +989,6 @@
                 <ScalarProperty Name="Id_Ingredients" ColumnName="Id_Ingredients" />
                 <ScalarProperty Name="Id_Localization" ColumnName="Id_Localization" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="Spicy" ColumnName="Spicy" />
                 <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
                 <ScalarProperty Name="Opinion_Counter" ColumnName="Opinion_Counter" />
               </MappingFragment>

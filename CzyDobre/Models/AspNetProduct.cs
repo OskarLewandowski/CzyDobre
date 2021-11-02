@@ -27,11 +27,11 @@ namespace CzyDobre.Models
         public Nullable<int> Id_Ingredients { get; set; }
         public Nullable<int> Id_Localization { get; set; }
         public string ProductName { get; set; }
-        public Nullable<bool> Spicy { get; set; }
         public string ProductImage { get; set; }
         public Nullable<int> Opinion_Counter { get; set; }
     
         public virtual AspNetCategory AspNetCategory { get; set; }
+        public virtual AspNetLocalization AspNetLocalization { get; set; }
         public virtual AspNetIngredient AspNetIngredient { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRating> AspNetRatings { get; set; }
