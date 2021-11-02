@@ -269,7 +269,7 @@ namespace CzyDobre.Controllers
                 product.Id_Category = prd.Id_Category;
                 product.Id_Localization = prd.Id_Localization;
                 product.Id_Ingredients = prd.Id_Ingredients;
-                //product.ProductImage = prd.ProductImage; // dodawanie zdjecia
+                //product.ProductImage = prd.ProductImage; // dodawanie zdjecia do zrobienia !!!
 
 
                 db.AspNetProducts.Add(product);
