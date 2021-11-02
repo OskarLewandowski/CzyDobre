@@ -18,36 +18,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div style="padding:0 6px;" class="container">
-            <a class="navbar-brand pt-0 pb-0 mr-5" href="@Url.Action("Index", "Home")">
-                <img src="~/image/logo_czydobre.png" width="52" height="52">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item pr-5 active">
-                        @Html.ActionLink("Przeglądaj", "Opinion", "Home", null, new { style = "color:white" })
-                    </li>
-                    @{
-                        if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item pr-5 active">
-                                @Html.ActionLink("Dodaj opinie", "AddOpinion", "Home", null, new { style = "color:white" })
-                            </li>
-                        }
-                    }
-                </ul>
-                <ul class="navbar-nav mr-right">
-                    <li class="nav-item">
-                        @Html.Partial("_LoginPartial")
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    @Html.Partial("_NavbarPartial")
     <div class="container body-content">
         @RenderBody()
     </div>

@@ -19,9 +19,11 @@ namespace CzyDobre.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext _context;
 
         public AccountController()
         {
+            _context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -219,6 +221,41 @@ namespace CzyDobre.Controllers
 
             // Dotarcie do tego miejsca wskazuje, że wystąpił błąd, wyświetl ponownie formularz
             return View(model);
+        }
+
+        //
+        // GET: /Account/RegisterRole
+        //CzyDobre.pl/rejestracja-roli
+        [Route("rejestracja-roli")]
+        [Route("Account/RegisterRole")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult RegisterRole()
+        {
+            ViewBag.Name = new SelectList(_context.Roles.ToList(), "Name", "Name");
+            ViewBag.UserName = new SelectList(_context.Users.ToList(), "UserName", "UserName");
+            return View();
+        }
+
+        //
+        // POST: /Account/RegisterRole
+        //CzyDobre.pl/rejestracja-roli
+        [Route("rejestracja-roli")]
+        [Route("Account/RegisterRole")]
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterRole(RegisterViewModel model, ApplicationUser user)
+        {
+            var userId = _context.Users.Where(i => i.UserName == user.UserName).Select(s => s.Id);
+            string updateId = "";
+            foreach (var item in userId)
+            {
+                updateId = item.ToString();
+            }
+
+            await this.UserManager.AddToRolesAsync(updateId, model.Name);
+            return RedirectToAction("Index", "Home");
         }
 
         //

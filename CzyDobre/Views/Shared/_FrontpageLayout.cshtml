@@ -16,36 +16,7 @@
     @Html.Partial("_GoogleAnalytics")
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div style="padding:0 6px;" class="container">
-            <a class="navbar-brand pt-0 pb-0 mr-5" href="@Url.Action("Index", "Home")">
-                <img src="~/image/logo_czydobre.png" alt="logo " width="52" height="52">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item pr-5 active">
-                        @Html.ActionLink("Przeglądaj", "Opinion", "Home", null, new { style = "color:white" })
-                    </li>
-                    @{
-                        if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item pr-5 active">
-                                @Html.ActionLink("Dodaj opinie", "AddOpinion", "Home", null, new { style = "color:white" })
-                            </li>
-                        }
-                    }
-                </ul>
-                <ul class="navbar-nav mr-right">
-                    <li class="nav-item">
-                        @Html.Partial("_LoginPartial")
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    @Html.Partial("_NavbarPartial")
     <!--<div>
         <p style="background-color: #FD695F; padding: 10px; color: black; font-size: 24px; text-align: center; font-family: Arial; margin-bottom:0;">
             <span style="color: white">” </span><b>Uwaga: </b>Strona jest w budowie, jeżeli masz pomysł na nową funkcję i chcesz się tym z nami podzielić napisz do nas, o tutaj &#128073; <button style="font-size: 18px" type="button" onclick="location.href='kontakt'" class="btn btn-danger">KONTAKT</button><span style="color: white;"> „</span>

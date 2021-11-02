@@ -10,6 +10,8 @@ using CzyDobre.Extensions;
 using CzyDobre.Models;
 using reCAPTCHA.MVC;
 using System.Data.SqlClient;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace CzyDobre.Controllers
 {
@@ -81,16 +83,6 @@ namespace CzyDobre.Controllers
         {
             DisplayDataOpinion();
             return View(opinionViewModels);
-        }
-
-        //CzyDobre.pl/dodaj-opinie
-        [Route("dodaj-opinie")]
-        [Route("Home/AddOpinion")]
-        [Authorize]
-        public ActionResult AddOpinion()
-        {
-            this.AddNotification("Funkcja dodawania opinii jest niedostępna", NotificationType.ERROR);
-            return View();
         }
 
         //CzyDobre.pl/wyniki
@@ -224,6 +216,126 @@ namespace CzyDobre.Controllers
                 }
             }
             return View();
+        }
+
+        //CzyDobre.pl/dodaj-opinie
+        [Route("dodaj-opinie")]
+        [Route("Home/AddOpinion")]
+        [Authorize]
+        public ActionResult AddOpinion()
+        {
+            return View();
+        }
+
+        //CzyDobre.pl/dodaj-opinie
+        [Route("dodaj-opinie")]
+        [Route("Home/AddOpinion")]
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddOpinion(AddOpinionViewModels model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Account account = new Account(
+                        ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
+                        ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
+                        ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
+
+                    Cloudinary cloudinary = new Cloudinary(account);
+
+                    bool OK = false;
+                    int allSize = 0;
+                    //nazwy plikow do zapisania w bazie
+                    List<string> photoPathToDataBase = new List<string>();
+
+                    //Sprawdzenie rozmiaru oraz typ zalacznika
+                    foreach (HttpPostedFileBase item in model.Photo)
+                    {
+                        var ext = Path.GetExtension(item.FileName.ToLower());
+
+                        if (item != null && item.ContentLength > 0 && ext == ".png" || ext ==".jpeg" || ext == ".jpg")
+                        {
+                            var byteCount = item.ContentLength;
+
+                            allSize = allSize + byteCount;
+                            if (allSize < 5242880)
+                            {
+                                OK = true;
+                            }
+                            else
+                            {
+                                this.AddNotification("Zdjęcia ważą za dużo! Maksymalna wartość zdjęć wynosi 5MB", NotificationType.WARNING);
+                                return View();
+                            }
+                        }
+                        else
+                        {
+                            this.AddNotification("Plik nie został wysłany: " + item.FileName, NotificationType.INFO);
+                        }
+                    }
+
+                    //zalaczniki po sprawdzeniu
+                    if (OK == true)
+                    {
+                        foreach (HttpPostedFileBase file in model.Photo)
+                        {
+                            if (file != null && file.ContentLength > 0)
+                            {
+                                var filename = UniqueNumber() + file.FileName;
+                                photoPathToDataBase.Add(filename);
+
+                                var uploadParams = new ImageUploadParams()
+                                {
+                                    UseFilename = true,
+                                    UniqueFilename = false,
+                                    File = new FileDescription(filename, file.InputStream),
+                                    Folder = "CzyDobre-images"
+                                };
+                                var uploadResult = cloudinary.Upload(uploadParams);
+                                //this.AddNotification(filename, NotificationType.SUCCESS);
+                            }
+                        }
+                    }
+                    ModelState.Clear();
+                    this.AddNotification("Opinia została przesłana.", NotificationType.SUCCESS);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.Clear();
+                    this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                }
+            }
+            return View();
+        }
+
+        private String characters = "abcdeCDEfghijkzMABFHIJKLNOlmnopqrPQRSTstuvwxyUVWXYZ";
+
+        private string UniqueNumber()
+        {
+            Random rnd = new Random();
+            string s = "CzyDobre_";
+            int unique;
+            int n = 0;
+            while (n < 10)
+            {
+                if (n % 2 == 0)
+                {
+                    s += rnd.Next(10).ToString();
+
+                }
+                else
+                {
+                    unique = rnd.Next(52);
+                    if (unique < this.characters.Length)
+                        s = String.Concat(s, this.characters[unique]);
+                }
+                n++;
+            }
+            var timeNuber = DateTimeOffset.Now.ToUnixTimeSeconds() - rnd.Next(1, 100);
+            return s + timeNuber.ToString() + "_";
         }
     }
 }
