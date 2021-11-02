@@ -248,13 +248,21 @@ namespace CzyDobre.Controllers
 
                     bool OK = false;
                     int allSize = 0;
+                    string ext = "null";
                     //nazwy plikow do zapisania w bazie
                     List<string> photoPathToDataBase = new List<string>();
 
                     //Sprawdzenie rozmiaru oraz typ zalacznika
                     foreach (HttpPostedFileBase item in model.Photo)
                     {
-                        var ext = Path.GetExtension(item.FileName.ToLower());
+                        if (item != null && item.ContentLength > 0)
+                        {
+                            ext = Path.GetExtension(item.FileName.ToLower());
+                        }
+                        else
+                        {
+                            ext = "null";
+                        }
 
                         if (item != null && item.ContentLength > 0 && ext == ".png" || ext ==".jpeg" || ext == ".jpg")
                         {
@@ -273,7 +281,16 @@ namespace CzyDobre.Controllers
                         }
                         else
                         {
-                            this.AddNotification("Plik nie został wysłany: " + item.FileName, NotificationType.INFO);
+                            if (OK == true)
+                            {
+                                this.AddNotification("Plik nie został wysłany: " + item.FileName, NotificationType.INFO);
+
+                            }
+                            else
+                            {
+                                this.AddNotification("Nie wybrano pliku", NotificationType.INFO);
+
+                            }
                         }
                     }
 
@@ -298,9 +315,9 @@ namespace CzyDobre.Controllers
                                 //this.AddNotification(filename, NotificationType.SUCCESS);
                             }
                         }
+                        ModelState.Clear();
+                        this.AddNotification("Opinia została przesłana.", NotificationType.SUCCESS);
                     }
-                    ModelState.Clear();
-                    this.AddNotification("Opinia została przesłana.", NotificationType.SUCCESS);
                 }
                 catch (Exception ex)
                 {
