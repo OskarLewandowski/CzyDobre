@@ -307,97 +307,103 @@ namespace CzyDobre.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddOpinion(AddOpinionViewModels model)
         {
-            if (ModelState.IsValid)
+            List<string> test = new List<string>();
+
+            test = SaveImages(model);
+
+            foreach (var item in test)
             {
+                this.AddNotification(item, NotificationType.ERROR);
+            }
+
+           
+            return View();
+        }
+
+        private List<string> SaveImages(AddOpinionViewModels model)
+        {
+            bool OK = false;
+            int allSize = 0;
+            string ext = null;
+            //nazwy plikow do zapisania do bazy
+            List<string> imagesData = new List<string>();
+            //zewryfikowane zdjecia do wyslania 
+            List<HttpPostedFileBase> checkedFiles = new List<HttpPostedFileBase>();
+
+            if (ModelState.IsValid)
+            {              
                 try
                 {
                     Account account = new Account(
                         ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
                         ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
                         ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
-
                     Cloudinary cloudinary = new Cloudinary(account);
-
-                    bool OK = false;
-                    int allSize = 0;
-                    string ext = "null";
-                    //nazwy plikow do zapisania w bazie
-                    List<string> photoPathToDataBase = new List<string>();
-
-                    //Sprawdzenie rozmiaru oraz typ zalacznika
+                    
+                    //Weryfikacja plików
                     foreach (HttpPostedFileBase item in model.Photo)
                     {
-                        if (item != null && item.ContentLength > 0)
+                        if(item != null && item.ContentLength > 0)
                         {
                             ext = Path.GetExtension(item.FileName.ToLower());
-                        }
-                        else
-                        {
-                            ext = "null";
-                        }
 
-                        if (item != null && item.ContentLength > 0 && ext == ".png" || ext ==".jpeg" || ext == ".jpg")
-                        {
-                            var byteCount = item.ContentLength;
-
-                            allSize = allSize + byteCount;
-                            if (allSize < 5242880)
+                            if (ext == ".png" || ext == ".jpeg" || ext == ".jpg")
                             {
-                                OK = true;
+                                checkedFiles.Add(item);
+                                var byteCount = item.ContentLength;
+
+                                allSize = allSize + byteCount;
+                                if (allSize < 5242880)
+                                {
+                                    OK = true;
+                                }
+                                else
+                                {
+                                    OK = false;
+                                    this.AddNotification("Zdjęcia ważą za dużo! Maksymalna wartość zdjęć wynosi 5MB", NotificationType.WARNING);
+                                    return null;
+                                }
                             }
                             else
                             {
-                                this.AddNotification("Zdjęcia ważą za dużo! Maksymalna wartość zdjęć wynosi 5MB", NotificationType.WARNING);
-                                return View();
+                                this.AddNotification("Plik nieprawidłowy: " + item.FileName, NotificationType.INFO);
                             }
                         }
                         else
                         {
-                            if (OK == true)
-                            {
-                                this.AddNotification("Plik nie został wysłany: " + item.FileName, NotificationType.INFO);
-
-                            }
-                            else
-                            {
-                                this.AddNotification("Nie wybrano pliku", NotificationType.INFO);
-
-                            }
+                            this.AddNotification("Nie wybrano pliku", NotificationType.INFO);
                         }
                     }
 
-                    //zalaczniki po sprawdzeniu
-                    if (OK == true)
+                    //Po weryfikacji
+                    if(OK == true)
                     {
-                        foreach (HttpPostedFileBase file in model.Photo)
+                        foreach (HttpPostedFileBase item in checkedFiles)
                         {
-                            if (file != null && file.ContentLength > 0)
-                            {
-                                var filename = UniqueNumber() + file.FileName;
-                                photoPathToDataBase.Add(filename);
+                            var filename = UniqueNumber() + item.FileName;
+                            imagesData.Add(filename);
 
-                                var uploadParams = new ImageUploadParams()
-                                {
-                                    UseFilename = true,
-                                    UniqueFilename = false,
-                                    File = new FileDescription(filename, file.InputStream),
-                                    Folder = "CzyDobre-images"
-                                };
-                                var uploadResult = cloudinary.Upload(uploadParams);
-                                //this.AddNotification(filename, NotificationType.SUCCESS);
-                            }
+                            var uploadParams = new ImageUploadParams()
+                            {
+                                UseFilename = true,
+                                UniqueFilename = false,
+                                File = new FileDescription(filename, item.InputStream),
+                                Folder = "CzyDobre-images"
+                            };
+                            var uploadResult = cloudinary.Upload(uploadParams);
+                            //this.AddNotification(filename, NotificationType.SUCCESS);
                         }
                         ModelState.Clear();
-                        this.AddNotification("Opinia została przesłana.", NotificationType.SUCCESS);
-                    }
+                        this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
+                    }                
                 }
                 catch (Exception ex)
                 {
                     ModelState.Clear();
                     this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
-                }
+                }        
             }
-            return View();
+            return imagesData;
         }
 
         private String characters = "abcdeCDEfghijkzMABFHIJKLNOlmnopqrPQRSTstuvwxyUVWXYZ";
@@ -423,7 +429,7 @@ namespace CzyDobre.Controllers
                 }
                 n++;
             }
-            var timeNuber = DateTimeOffset.Now.ToUnixTimeSeconds() - rnd.Next(1, 100);
+            var timeNuber = DateTimeOffset.Now.ToUnixTimeSeconds();
             return s + timeNuber.ToString() + "_";
         }
     }
