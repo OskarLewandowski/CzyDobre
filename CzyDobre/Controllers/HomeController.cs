@@ -21,7 +21,6 @@ namespace CzyDobre.Controllers
         SqlCommand com = new SqlCommand();
         SqlDataReader dr;
         List<OpinionViewModels> opinionViewModels = new List<OpinionViewModels>();
-
         private void DisplayDataOpinion()
         {
             ConnectionStringSettings mySetting = ConfigurationManager.ConnectionStrings["DefaultConnection"];
@@ -74,8 +73,6 @@ namespace CzyDobre.Controllers
         {
             return View();
         }
-
-        
 
         //CzyDobre.pl/opinie
         [Route("opinie")]
@@ -164,7 +161,6 @@ namespace CzyDobre.Controllers
                     msg.Subject = model.Subject;
                     msg.Body = "Nazwa: " + model.Name + "\n" + "Email: " + model.Email + "\n" + "Wiadomość: " + model.Message;
 
-
                     //Sprawdzenie rozmiaru zalacznika
                     foreach (HttpPostedFileBase item in model.Attachment)
                     {
@@ -197,9 +193,7 @@ namespace CzyDobre.Controllers
                             }
                         }
                     }
-
-                    
-
+                
                     SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
                     System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
                         ConfigurationManager.AppSettings["EmailContactUs"].ToString(),
@@ -237,8 +231,6 @@ namespace CzyDobre.Controllers
             List<AspNetLocalization> loc = db.AspNetLocalizations.ToList();
             ViewBag.LocalizationsList = new SelectList(loc, "Id_Localization", "LocalizationCity");
 
-
-
             return View();
         }
 
@@ -252,9 +244,6 @@ namespace CzyDobre.Controllers
         {
             try
             {
-
-
-
                 DBEntities db = new DBEntities();
 
                 List<AspNetCategory> cats = db.AspNetCategories.ToList();
@@ -265,17 +254,11 @@ namespace CzyDobre.Controllers
 
                 List<AspNetLocalization> loc = db.AspNetLocalizations.ToList();
                 ViewBag.LocalizationsList = new SelectList(loc, "Id_Localization", "LocalizationCity");
-
-                
-
+              
                 List<string> zapisz = new List<string>();
 
                 zapisz = SaveImagesToProduct(prd);
-
-                
-
-
-
+             
                 //Console.WriteLine(zapisz);
 
                 AspNetProduct product = new AspNetProduct();
@@ -285,12 +268,7 @@ namespace CzyDobre.Controllers
                 product.Id_Localization = prd.Id_Localization;
                 product.Id_Ingredients = prd.Id_Ingredients;
                 
-
-
-
-
                 db.AspNetProducts.Add(product);
-
 
                 db.SaveChanges();
                 int latestId = product.Id_Product;
@@ -303,22 +281,15 @@ namespace CzyDobre.Controllers
                     db.AspNetImages.Add(image);
                     db.SaveChanges();
                 }
-
-
-                return RedirectToAction("Index");
-
-                
-
-
+                return RedirectToAction("Index");             
             }
 
             catch (Exception ex)
             {
                 throw ex;
-
             }
-
         }
+
         private List<string> SaveImagesToProduct(ProductFormModels model)
         {
             bool OK = false;
@@ -430,10 +401,7 @@ namespace CzyDobre.Controllers
             foreach (var item in test)
             {
                 this.AddNotification(item, NotificationType.ERROR);
-            }
-
-            
-           
+            }                 
             return View();
         }
 
