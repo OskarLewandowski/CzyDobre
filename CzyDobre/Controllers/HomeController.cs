@@ -248,10 +248,13 @@ namespace CzyDobre.Controllers
         [ValidateAntiForgeryToken]
         [CaptchaValidator(ErrorMessage = "Nieprawidłowe roziązanie pola Captcha", RequiredMessage = "Pole Captcha jest wymagane.")]
         [Authorize]
-        public ActionResult AddProducts(ProductFormModels prd,string Ostre)
+        public ActionResult AddProducts(ProductFormModels prd)
         {
             try
             {
+
+
+
                 DBEntities db = new DBEntities();
 
                 List<AspNetCategory> cats = db.AspNetCategories.ToList();
@@ -263,20 +266,49 @@ namespace CzyDobre.Controllers
                 List<AspNetLocalization> loc = db.AspNetLocalizations.ToList();
                 ViewBag.LocalizationsList = new SelectList(loc, "Id_Localization", "LocalizationCity");
 
+                
+
+                List<string> zapisz = new List<string>();
+
+                zapisz = SaveImagesToProduct(prd);
+
+                
+
+
+
+                //Console.WriteLine(zapisz);
+
                 AspNetProduct product = new AspNetProduct();
                 product.ProductName = prd.ProductName;
                 product.ProductDescription = prd.ProductDescription;
                 product.Id_Category = prd.Id_Category;
                 product.Id_Localization = prd.Id_Localization;
                 product.Id_Ingredients = prd.Id_Ingredients;
-                //product.ProductImage = prd.ProductImage; // dodawanie zdjecia do zrobienia !!!
+                
+
+
 
 
                 db.AspNetProducts.Add(product);
 
+
                 db.SaveChanges();
                 int latestId = product.Id_Product;
+                AspNetImage image = new AspNetImage();
+                foreach (var item in zapisz)
+                {
+                    this.AddNotification(item, NotificationType.ERROR);
+                    image.Url = item;
+                    image.Id_Product = product.Id_Product;
+                    db.AspNetImages.Add(image);
+                    db.SaveChanges();
+                }
+
+
                 return RedirectToAction("Index");
+
+                
+
 
             }
 
@@ -287,7 +319,91 @@ namespace CzyDobre.Controllers
             }
 
         }
+        private List<string> SaveImagesToProduct(ProductFormModels model)
+        {
+            bool OK = false;
+            int allSize = 0;
+            string ext = null;
+            //nazwy plikow do zapisania do bazy
+            List<string> imagesData = new List<string>();
+            //zewryfikowane zdjecia do wyslania 
+            List<HttpPostedFileBase> checkedFiles = new List<HttpPostedFileBase>();
 
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Account account = new Account(
+                        ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
+                        ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
+                        ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
+                    Cloudinary cloudinary = new Cloudinary(account);
+
+                    //Weryfikacja plików
+                    foreach (HttpPostedFileBase item in model.Image)
+                    {
+                        if (item != null && item.ContentLength > 0)
+                        {
+                            ext = Path.GetExtension(item.FileName.ToLower());
+
+                            if (ext == ".png" || ext == ".jpeg" || ext == ".jpg")
+                            {
+                                checkedFiles.Add(item);
+                                var byteCount = item.ContentLength;
+
+                                allSize = allSize + byteCount;
+                                if (allSize < 5242880)
+                                {
+                                    OK = true;
+                                }
+                                else
+                                {
+                                    OK = false;
+                                    this.AddNotification("Zdjęcia ważą za dużo! Maksymalna wartość zdjęć wynosi 5MB", NotificationType.WARNING);
+                                    return null;
+                                }
+                            }
+                            else
+                            {
+                                this.AddNotification("Plik nieprawidłowy: " + item.FileName, NotificationType.INFO);
+                            }
+                        }
+                        else
+                        {
+                            this.AddNotification("Nie wybrano pliku", NotificationType.INFO);
+                        }
+                    }
+
+                    //Po weryfikacji
+                    if (OK == true)
+                    {
+                        foreach (HttpPostedFileBase item in checkedFiles)
+                        {
+                            var filename = UniqueNumber() + item.FileName;
+                            imagesData.Add(filename);
+
+                            var uploadParams = new ImageUploadParams()
+                            {
+                                UseFilename = true,
+                                UniqueFilename = false,
+                                File = new FileDescription(filename, item.InputStream),
+                                Folder = "CzyDobre-images"
+                            };
+                            var uploadResult = cloudinary.Upload(uploadParams);
+                            //this.AddNotification(filename, NotificationType.SUCCESS);
+                        }
+                        ModelState.Clear();
+                        this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.Clear();
+                    this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                }
+            }
+            return imagesData;
+        }
 
 
         //CzyDobre.pl/dodaj-opinie
@@ -305,22 +421,23 @@ namespace CzyDobre.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult AddOpinion(AddOpinionViewModels model)
+        public ActionResult AddOpinion( AddOpinionViewModels model)
         {
             List<string> test = new List<string>();
 
-            test = SaveImages(model);
+            test = SaveImagesToOpinion(model);
 
             foreach (var item in test)
             {
                 this.AddNotification(item, NotificationType.ERROR);
             }
 
+            
            
             return View();
         }
 
-        private List<string> SaveImages(AddOpinionViewModels model)
+        private List<string> SaveImagesToOpinion(AddOpinionViewModels model)
         {
             bool OK = false;
             int allSize = 0;
