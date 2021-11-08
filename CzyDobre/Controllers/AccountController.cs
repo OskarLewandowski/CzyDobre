@@ -619,7 +619,8 @@ namespace CzyDobre.Controllers
         {
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
             var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = userID, code = code }, protocol: Request.Url.Scheme);
-            await UserManager.SendEmailAsync(userID, "Aktywacja Konta", "Kliknij ,aby Aktywować! <a href=\"" + callbackUrl + "\"</a>");
+            string html = "<a href=\"" + callbackUrl + "\">link</a><br/>";
+            await UserManager.SendEmailAsync(userID, "Aktywacja Konta", "<h3> Aktywuj swoje konto klikając w ten " + html + "lub kopiując poniższy link bezpośrednio do przeglądarki </h3>" + callbackUrl);
 
             return callbackUrl;
         }
