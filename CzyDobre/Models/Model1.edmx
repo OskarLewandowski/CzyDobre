@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="novum_czydobre.plBaza.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="novum_czydobre.plModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -410,38 +410,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <EntityContainer Name="novum_czydobreplBazaStoreContainer">
+        <EntityContainer Name="novum_czydobreplModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetCategories" EntityType="Self.AspNetCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetLocalizations" EntityType="Self.AspNetLocalizations" Schema="dbo" store:Type="Tables" />
@@ -535,7 +504,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="novum_czydobre.plBaza" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="novum_czydobre.plModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -1025,56 +994,15 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(novum_czydobre.plBaza.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(novum_czydobre.plBaza.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="novum_czydobreplBazaStoreContainer" CdmEntityContainer="DBEntities">
+        <EntityContainerMapping StorageEntityContainer="novum_czydobreplModelStoreContainer" CdmEntityContainer="DBEntities">
           <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.C__MigrationHistory">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
@@ -1084,7 +1012,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetCategories">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetCategory">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetCategory">
               <MappingFragment StoreEntitySet="AspNetCategories">
                 <ScalarProperty Name="Id_Category" ColumnName="Id_Category" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
@@ -1093,7 +1021,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetLocalizations">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetLocalization">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetLocalization">
               <MappingFragment StoreEntitySet="AspNetLocalizations">
                 <ScalarProperty Name="Id_Localization" ColumnName="Id_Localization" />
                 <ScalarProperty Name="LocalizationAdress" ColumnName="LocalizationAdress" />
@@ -1103,7 +1031,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetProducts">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetProduct">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetProduct">
               <MappingFragment StoreEntitySet="AspNetProducts">
                 <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
                 <ScalarProperty Name="Id_Category" ColumnName="Id_Category" />
@@ -1116,7 +1044,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRatings">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetRating">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRating">
               <MappingFragment StoreEntitySet="AspNetRating">
                 <ScalarProperty Name="Id_Rating" ColumnName="Id_Rating" />
                 <ScalarProperty Name="RateService" ColumnName="RateService" />
@@ -1131,7 +1059,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRestaurantCalendars">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetRestaurantCalendar">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRestaurantCalendar">
               <MappingFragment StoreEntitySet="AspNetRestaurantCalendar">
                 <ScalarProperty Name="Id_RestaurantCalendar" ColumnName="Id_RestaurantCalendar" />
                 <ScalarProperty Name="Id_RestaurantCalendarDay" ColumnName="Id_RestaurantCalendarDay" />
@@ -1142,7 +1070,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRestaurantCalendarDays">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetRestaurantCalendarDay">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRestaurantCalendarDay">
               <MappingFragment StoreEntitySet="AspNetRestaurantCalendarDay">
                 <ScalarProperty Name="Id_RestaurantCalendarDay" ColumnName="Id_RestaurantCalendarDay" />
                 <ScalarProperty Name="RestaurantCalendarDay" ColumnName="RestaurantCalendarDay" />
@@ -1150,7 +1078,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRestaurantOpenings">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetRestaurantOpening">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRestaurantOpening">
               <MappingFragment StoreEntitySet="AspNetRestaurantOpening">
                 <ScalarProperty Name="Id_RestaurantOpening" ColumnName="Id_RestaurantOpening" />
                 <ScalarProperty Name="Id_RestaurantCalendar" ColumnName="Id_RestaurantCalendar" />
@@ -1158,7 +1086,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRestaurants">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetRestaurant">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRestaurant">
               <MappingFragment StoreEntitySet="AspNetRestaurants">
                 <ScalarProperty Name="Id_Restaurant" ColumnName="Id_Restaurant" />
                 <ScalarProperty Name="Id_Localization" ColumnName="Id_Localization" />
@@ -1172,7 +1100,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRestaurantsTypes">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetRestaurantsType">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRestaurantsType">
               <MappingFragment StoreEntitySet="AspNetRestaurantsType">
                 <ScalarProperty Name="Id_RestaurantType" ColumnName="Id_RestaurantType" />
                 <ScalarProperty Name="RestaurantTypeName" ColumnName="RestaurantTypeName" />
@@ -1181,7 +1109,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetReviews">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetReview">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetReview">
               <MappingFragment StoreEntitySet="AspNetReviews">
                 <ScalarProperty Name="Id_Review" ColumnName="Id_Review" />
                 <ScalarProperty Name="ReviewContent" ColumnName="ReviewContent" />
@@ -1191,7 +1119,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetRole">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1199,7 +1127,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetUserClaim">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -1209,7 +1137,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetUserLogin">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -1218,7 +1146,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetUser">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -1239,7 +1167,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.sysdiagram">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -1250,7 +1178,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetImages">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetImage">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetImage">
               <MappingFragment StoreEntitySet="AspNetImages">
                 <ScalarProperty Name="Id_Image" ColumnName="Id_Image" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
@@ -1259,7 +1187,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetIngredients">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetIngredient">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetIngredient">
               <MappingFragment StoreEntitySet="AspNetIngredients">
                 <ScalarProperty Name="Id_Ingredients" ColumnName="Id_Ingredients" />
                 <ScalarProperty Name="IngredientsName" ColumnName="IngredientsName" />
@@ -1267,14 +1195,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetTastes">
-            <EntityTypeMapping TypeName="novum_czydobre.plBaza.AspNetTaste">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetTaste">
               <MappingFragment StoreEntitySet="AspNetTaste">
                 <ScalarProperty Name="Id_taste" ColumnName="Id_taste" />
                 <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="novum_czydobre.plBaza.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="novum_czydobre.plModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
@@ -1282,30 +1210,6 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="novum_czydobre.plBaza.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="novum_czydobre.plBaza.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="novum_czydobre.plBaza.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="novum_czydobre.plBaza.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="novum_czydobre.plBaza.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="novum_czydobre.plBaza.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="novum_czydobre.plBaza.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="novum_czydobre.plBaza.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="novum_czydobre.plBaza.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
