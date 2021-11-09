@@ -63,14 +63,23 @@ namespace CzyDobre.Controllers
         public ActionResult Index()
             {
             DBEntities db = new DBEntities();
-            var top1 = db.AspNetProducts.FirstOrDefault(x => x.Id_Product ==1);
+            var top1 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").FirstOrDefault();
+            var top2 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(1).FirstOrDefault();
+            var top3 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(2).FirstOrDefault();
+            var top4 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(3).FirstOrDefault();
+
             RattingViewModel topplace = new RattingViewModel();
 
-            topplace.ProductName = top1.ProductName;
-            topplace.OpinionCounter = 1;
+            topplace.ProductNameTop1 = top1.ProductName;
+            topplace.OpinionCounterTop1 = top1.Opinion_Counter;
+            topplace.ProductNameTop2 = top2.ProductName;
+            topplace.OpinionCounterTop2 = top2.Opinion_Counter;
+            topplace.ProductNameTop3 = top3.ProductName;
+            topplace.OpinionCounterTop3 = top3.Opinion_Counter;
+            topplace.ProductNameTop4 = top4.ProductName;
+            topplace.OpinionCounterTop4 = top4.Opinion_Counter;
 
-
-                return View(topplace);
+            return View(topplace);
             }
         
 
