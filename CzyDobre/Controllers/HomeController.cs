@@ -240,54 +240,64 @@ namespace CzyDobre.Controllers
         [ValidateAntiForgeryToken]
         [CaptchaValidator(ErrorMessage = "Nieprawidłowe roziązanie pola Captcha", RequiredMessage = "Pole Captcha jest wymagane.")]
         [Authorize]
-        public ActionResult AddProducts(ProductFormModels prd)
+        public ActionResult AddProducts(ProductFormModels prd,bool captchaValid)
         {
-            try
+            if (ModelState.IsValid && captchaValid == true)
             {
-                DBEntities db = new DBEntities();
-
-                List<AspNetCategory> cats = db.AspNetCategories.ToList();
-                ViewBag.CategoryList = new SelectList(cats, "Id_Category", "CategoryName");
-
-                List<AspNetIngredient> ing = db.AspNetIngredients.ToList();
-                ViewBag.IngredientsList = new SelectList(ing, "Id_Ingredients", "IngredientsName");
-
-                List<AspNetLocalization> loc = db.AspNetLocalizations.ToList();
-                ViewBag.LocalizationsList = new SelectList(loc, "Id_Localization", "LocalizationCity");
-              
-                List<string> zapisz = new List<string>();
-
-                zapisz = SaveImagesToProduct(prd);
-             
-                //Console.WriteLine(zapisz);
-
-                AspNetProduct product = new AspNetProduct();
-                product.ProductName = prd.ProductName;
-                product.ProductDescription = prd.ProductDescription;
-                product.Id_Category = prd.Id_Category;
-                product.Id_Localization = prd.Id_Localization;
-                product.Id_Ingredients = prd.Id_Ingredients;
-                
-                db.AspNetProducts.Add(product);
-
-                db.SaveChanges();
-                int latestId = product.Id_Product;
-                AspNetImage image = new AspNetImage();
-                foreach (var item in zapisz)
+                try
                 {
-                    this.AddNotification(item, NotificationType.ERROR);
-                    image.Url = item;
-                    image.Id_Product = product.Id_Product;
-                    db.AspNetImages.Add(image);
-                    db.SaveChanges();
-                }
-                return RedirectToAction("Index");             
-            }
+                    DBEntities db = new DBEntities();
 
-            catch (Exception ex)
-            {
-                throw ex;
+                    List<AspNetCategory> cats = db.AspNetCategories.ToList();
+                    ViewBag.CategoryList = new SelectList(cats, "Id_Category", "CategoryName");
+
+                    List<AspNetIngredient> ing = db.AspNetIngredients.ToList();
+                    ViewBag.IngredientsList = new SelectList(ing, "Id_Ingredients", "IngredientsName");
+
+                    List<AspNetLocalization> loc = db.AspNetLocalizations.ToList();
+                    ViewBag.LocalizationsList = new SelectList(loc, "Id_Localization", "LocalizationCity");
+
+                    List<string> zapisz = new List<string>();
+
+                    zapisz = SaveImagesToProduct(prd);
+
+                    //Console.WriteLine(zapisz);
+
+                    AspNetProduct product = new AspNetProduct();
+                    product.ProductName = prd.ProductName;
+                    product.ProductDescription = prd.ProductDescription;
+                    product.Id_Category = prd.Id_Category;
+                    product.Id_Localization = prd.Id_Localization;
+                    product.Id_Ingredients = prd.Id_Ingredients;
+
+                    db.AspNetProducts.Add(product);
+
+                    db.SaveChanges();
+                    int latestId = product.Id_Product;
+                    AspNetImage image = new AspNetImage();
+                    foreach (var item in zapisz)
+                    {
+                        this.AddNotification(item, NotificationType.ERROR);
+                        image.Url = item;
+                        image.Id_Product = product.Id_Product;
+                        db.AspNetImages.Add(image);
+                        db.SaveChanges();
+                    }
+                    return RedirectToAction("Index");
+                }
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
+            else
+            {
+                this.AddNotification("Brak danych !", NotificationType.ERROR);
+                return RedirectToAction("AddProducts");
+                
+            }
+            return View();
         }
 
         private List<string> SaveImagesToProduct(ProductFormModels model)

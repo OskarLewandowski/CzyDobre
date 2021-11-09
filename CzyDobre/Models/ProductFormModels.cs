@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CzyDobre.Models
 {
@@ -21,6 +22,7 @@ namespace CzyDobre.Models
         [Required]
         [Display(Name = "Kategoria")]
         public Nullable<int> Id_Category { get; set; }
+
 
         [Required]
         [Display(Name = "Składniki")]
