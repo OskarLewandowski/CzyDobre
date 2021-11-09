@@ -14,8 +14,3 @@ $star_rating.on('click', function () {
     $(this).siblings('input.rating-value').val($(this).data('rating'));
     return SetRatingStar($(this).parent());
 });
-
-$star_rating.on('click', function () {
-    var $count = $(this).closest(".review").find('.fa-star').length;
-    $(this).closest(".figure").find('.count_place').text($count);
-});
