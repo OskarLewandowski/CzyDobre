@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -61,9 +61,18 @@ namespace CzyDobre.Controllers
         //CzyDobre.pl/
         [AllowAnonymous]
         public ActionResult Index()
-        {
-            return View();
-        }
+            {
+            DBEntities db = new DBEntities();
+            var top1 = db.AspNetProducts.FirstOrDefault(x => x.Id_Product ==1);
+            RattingViewModel topplace = new RattingViewModel();
+
+            topplace.ProductName = top1.ProductName;
+            topplace.OpinionCounter = 1;
+
+
+                return View(topplace);
+            }
+        
 
         //CzyDobre.pl/o-nas
         [Route("o-nas")]

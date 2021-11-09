@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CzyDobre.Models.RattingViewModel
+@{
     ViewBag.Title = "Sprawdź Czy Dobre!";
     Layout = "~/Views/Shared/_FrontpageLayout.cshtml";
 }
@@ -8,6 +9,8 @@
 }
 
 
+@if (Model != null)
+{
 
 <div class="body-content container">
     <p class="section-header">Popularne</p>
@@ -22,7 +25,7 @@
                             <figure class="figure">
                                 <img src="~/image/kebab.jpg" class="figure-img img-fluid  heightimg" alt="kebs" />
                                 <div class="text-center heighttitle pt-2 text-yellow">
-                                    Kebab
+                                    @Model.ProductNameTop1
                                 </div>
                                 <div class="review">
                                     <div class="row">
@@ -48,7 +51,7 @@
                                     </div>
                                 </div>
                                 <div class="countreviews text-center">
-                                    <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                                    <div class="d-inline count_place">@Model.OpinionCounterTop2</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                                 </div>
                             </figure>
                         </div>
@@ -56,7 +59,7 @@
                             <figure class="figure">
                                 <img src="~/image/zapiekanka.jpg" class="figure-img img-fluid  heightimg" alt="zapieksa" />
                                 <div class="text-center heighttitle pt-2 text-yellow">
-                                    Zapiekanka
+                                    @Model.ProductNameTop2
                                 </div>
                                 <div class="review">
                                     <div class="row">
@@ -82,7 +85,7 @@
                                     </div>
                                 </div>
                                 <div class="countreviews text-center">
-                                    <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                                    <div class="d-inline count_place">@Model.OpinionCounterTop2</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                                 </div>
                             </figure>
                         </div>
@@ -90,7 +93,7 @@
                             <figure class="figure">
                                 <img src="~/image/lody.jpeg" class="figure-img img-fluid  heightimg" alt="lod" />
                                 <div class="text-center heighttitle pt-2 text-yellow">
-                                    Lody
+                                    @Model.ProductNameTop3
                                 </div>
                                 <div class="review">
                                     <div class="row">
@@ -116,7 +119,7 @@
                                     </div>
                                 </div>
                                 <div class="countreviews text-center">
-                                    <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                                    <div class="d-inline count_place">@Model.OpinionCounterTop3</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                                 </div>
                             </figure>
                         </div>
@@ -124,7 +127,7 @@
                             <figure class="figure">
                                 <img src="~/image/hamburger.jpeg" class="figure-img img-fluid  heightimg" alt="burger" />
                                 <div class="text-center heighttitle pt-2 text-yellow">
-                                    Cheeseburger
+                                    @Model.ProductNameTop4
                                 </div>
                                 <div class="review">
                                     <div class="row">
@@ -150,7 +153,7 @@
                                     </div>
                                 </div>
                                 <div class="countreviews text-center">
-                                    <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                                    <div class="d-inline count_place">@Model.OpinionCounterTop4</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                                 </div>
                             </figure>
                         </div>
@@ -175,7 +178,7 @@
                 <figure class="figure">
                     <img src="~/image/kebab.jpg" class="figure-img img-fluid  heightimg" alt="kebs" />
                     <div class="text-center heighttitle pt-2 text-yellow">
-                        Kebab
+                        @Model.ProductNameTop1
                     </div>
                     <div class= "review first">
                         <div class="row">
@@ -201,7 +204,7 @@
                         </div>
                     </div>
                     <div class="countreviews text-center">
-                        <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                        <div class="d-inline count_place">@Model.OpinionCounterTop1</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                     </div>
                 </figure>
             </div>
@@ -209,7 +212,7 @@
                 <figure class="figure">
                     <img src="~/image/zapiekanka.jpg" class="figure-img img-fluid  heightimg" alt="zapieksa" />
                     <div class="text-center heighttitle pt-2 text-yellow">
-                        Zapiekanka
+                        @Model.ProductNameTop2
                     </div>
                     <div class="review">
                         <div class="row">
@@ -235,7 +238,7 @@
                         </div>
                     </div>
                     <div class="countreviews text-center">
-                        <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                        <div class="d-inline count_place">@Model.OpinionCounterTop2</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                     </div>
                 </figure>
             </div>
@@ -243,7 +246,7 @@
                 <figure class="figure">
                     <img src="~/image/lody.jpeg" class="figure-img img-fluid  heightimg" alt="lod" />
                     <div class="text-center heighttitle pt-2 text-yellow">
-                        Lody
+                        @Model.ProductNameTop3
                     </div>
                     <div class="review">
                         <div class="row">
@@ -269,7 +272,7 @@
                         </div>
                     </div>
                     <div class="countreviews text-center">
-                        <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                        <div class="d-inline count_place">@Model.OpinionCounterTop3</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                     </div>
                 </figure>
             </div>
@@ -277,7 +280,7 @@
                 <figure class="figure">
                     <img src="~/image/hamburger.jpeg" class="figure-img img-fluid  heightimg" alt="burger" />
                     <div class="text-center heighttitle pt-2 text-yellow">
-                        Cheeseburger
+                        @Model.ProductNameTop4
                     </div>
                     <div class="review">
                         <div class="row">
@@ -303,7 +306,7 @@
                         </div>
                     </div>
                     <div class="countreviews text-center">
-                        <div class="d-inline count_place">0</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                        <div class="d-inline count_place">@Model.OpinionCounterTop4</div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                     </div>
                 </figure>
             </div>
@@ -311,3 +314,4 @@
     </div>
 
 </div>
+}
