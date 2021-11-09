@@ -14,6 +14,42 @@
             {
                 @Html.AntiForgeryToken()
                 <div class="form-group" align="center">
+                    @Html.LabelFor(m => m.ProductName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.ProductName, new { placeholder = "Nazwa produktu", @class = "pl-4 form-control" })
+                        @Html.ValidationMessageFor(m => m.ProductName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" align="center">
+                    @Html.LabelFor(m => m.ProductDescription, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                       @Html.TextBoxFor(m => m.ProductDescription, new { placeholder = "Opis produktu", @class = "pl-4 form-control" })
+                        @Html.ValidationMessageFor(m => m.ProductDescription, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" align="center">
+                    @Html.LabelFor(m => m.Id_Category, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("CategoryList")
+                        @Html.ValidationMessageFor(m => m.Id_Category, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" align="center">
+                    @Html.LabelFor(m => m.Id_Ingredients, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("IngredientsList")
+                        @Html.ValidationMessageFor(m => m.Id_Ingredients, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" align="center">
+                    @Html.LabelFor(m => m.Id_Localization, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("LocalizationsList")
+                        @Html.ValidationMessageFor(m => m.Id_Localization, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" align="center">
+                    @Html.LabelFor(m => m.Photo, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
                         @Html.TextBoxFor(m => m.Photo, new { type = "file", multiple = "multiple", @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Photo, "", new { @class = "text-danger" })

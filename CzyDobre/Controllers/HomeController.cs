@@ -383,6 +383,16 @@ namespace CzyDobre.Controllers
         [Authorize]
         public ActionResult AddOpinion()
         {
+            DBEntities db = new DBEntities();
+            List<AspNetCategory> cats = db.AspNetCategories.ToList();
+            ViewBag.CategoryList = new SelectList(cats, "Id_Category", "CategoryName");
+
+            List<AspNetIngredient> ing = db.AspNetIngredients.ToList();
+            ViewBag.IngredientsList = new SelectList(ing, "Id_Ingredients", "IngredientsName");
+
+            List<AspNetLocalization> loc = db.AspNetLocalizations.ToList();
+            ViewBag.LocalizationsList = new SelectList(loc, "Id_Localization", "LocalizationCity");
+
             return View();
         }
 
@@ -392,16 +402,53 @@ namespace CzyDobre.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult AddOpinion( AddOpinionViewModels model)
+        public ActionResult AddOpinion(AddOpinionViewModels model)
         {
-            List<string> test = new List<string>();
-
-            test = SaveImagesToOpinion(model);
-
-            foreach (var item in test)
+            if(ModelState.IsValid)
             {
-                this.AddNotification(item, NotificationType.ERROR);
-            }                 
+                try
+                {
+                    DBEntities db = new DBEntities();
+
+                    ViewBag.CategoryList = new SelectList(db.AspNetCategories.ToList(), "Id_Category", "CategoryName");
+                    ViewBag.IngredientsList = new SelectList(db.AspNetIngredients.ToList(), "Id_Ingredients", "IngredientsName");
+                    ViewBag.LocalizationsList = new SelectList(db.AspNetLocalizations.ToList(), "Id_Localization", "LocalizationCity");
+
+                    List<string> zapisz = new List<string>();
+
+                    zapisz = SaveImagesToOpinion(model);
+
+                    //Console.WriteLine(zapisz);
+
+                    AspNetProduct product = new AspNetProduct();
+                    product.ProductName = model.ProductName;
+                    product.ProductDescription = model.ProductDescription;
+                    product.Id_Category = model.Id_Category;
+                    product.Id_Localization = model.Id_Localization;
+                    product.Id_Ingredients = model.Id_Ingredients;
+
+                    db.AspNetProducts.Add(product);
+
+                    db.SaveChanges();
+                    int latestId = product.Id_Product;
+                    AspNetImage image = new AspNetImage();
+                    foreach (var item in zapisz)
+                    {
+                        this.AddNotification(item, NotificationType.ERROR);
+                        image.Url = item;
+                        image.Id_Product = product.Id_Product;
+                        db.AspNetImages.Add(image);
+                        db.SaveChanges();
+                    }
+                    ModelState.Clear();
+                    this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.Clear();
+                    this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                }
+            }
             return View();
         }
 
