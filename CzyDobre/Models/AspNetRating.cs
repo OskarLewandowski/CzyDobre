@@ -19,12 +19,11 @@ namespace CzyDobre.Models
         public short RateTaste { get; set; }
         public short RateIngredients { get; set; }
         public short RateComposition { get; set; }
-        public Nullable<int> Id_Review { get; set; }
+        public string Comment { get; set; }
         public bool RateAdcompliance { get; set; }
         public Nullable<double> RateTotal { get; set; }
         public Nullable<int> Id_Product { get; set; }
     
         public virtual AspNetProduct AspNetProduct { get; set; }
-        public virtual AspNetReview AspNetReview { get; set; }
     }
 }

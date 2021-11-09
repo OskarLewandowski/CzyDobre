@@ -14,20 +14,12 @@ namespace CzyDobre.Models
     
     public partial class AspNetReview
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AspNetReview()
-        {
-            this.AspNetRatings = new HashSet<AspNetRating>();
-        }
-    
-        public int Id_Review { get; set; }
+        public string Id_Review { get; set; }
         public string ReviewContent { get; set; }
         public int Id_Product { get; set; }
         public string Id_User { get; set; }
     
         public virtual AspNetProduct AspNetProduct { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetRating> AspNetRatings { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
     }
 }

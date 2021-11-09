@@ -35,7 +35,7 @@ namespace CzyDobre.Controllers
             {
                 con.Open();
                 com.Connection = con;
-                com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName ,RateService, RateTaste ,RateComposition ,RateIngredients ,RateAdcompliance FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product";
+                com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName ,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product";
                 dr = com.ExecuteReader();
                 while (dr.Read())
                 {
@@ -46,6 +46,7 @@ namespace CzyDobre.Controllers
                         RateTaste = dr["RateTaste"].ToString(),
                         RateComposition = dr["RateComposition"].ToString(),
                         RateIngredients = dr["RateIngredients"].ToString(),
+                        RateTotal = dr["RateTotal"].ToString(),
                         RateAdcompliance = dr["RateAdcompliance"].ToString()
                     });
                 }
@@ -285,8 +286,7 @@ namespace CzyDobre.Controllers
                     product.ProductName = prd.ProductName;
                     product.ProductDescription = prd.ProductDescription;
                     product.Id_Category = prd.Id_Category;
-                    product.Id_Localization = prd.Id_Localization;
-                    product.Id_Ingredients = prd.Id_Ingredients;
+                    product.Id_Localization = prd.Id_Localization;                    
 
                     db.AspNetProducts.Add(product);
 
@@ -295,7 +295,7 @@ namespace CzyDobre.Controllers
                     AspNetImage image = new AspNetImage();
                     foreach (var item in zapisz)
                     {
-                        this.AddNotification(item, NotificationType.ERROR);
+                        
                         image.Url = item;
                         image.Id_Product = product.Id_Product;
                         db.AspNetImages.Add(image);
@@ -401,6 +401,7 @@ namespace CzyDobre.Controllers
                     this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
                 }
             }
+           
             return imagesData;
         }
 
@@ -412,14 +413,10 @@ namespace CzyDobre.Controllers
         public ActionResult AddOpinion()
         {
             DBEntities db = new DBEntities();
-            List<AspNetCategory> cats = db.AspNetCategories.ToList();
-            ViewBag.CategoryList = new SelectList(cats, "Id_Category", "CategoryName");
+            List<AspNetProduct> prod = db.AspNetProducts.ToList();
+            ViewBag.ProductsList = new SelectList(db.AspNetProducts.ToList(), "Id_Product", "ProductName");
 
-            List<AspNetIngredient> ing = db.AspNetIngredients.ToList();
-            ViewBag.IngredientsList = new SelectList(ing, "Id_Ingredients", "IngredientsName");
-
-            List<AspNetLocalization> loc = db.AspNetLocalizations.ToList();
-            ViewBag.LocalizationsList = new SelectList(loc, "Id_Localization", "LocalizationCity");
+           
 
             return View();
         }
@@ -430,7 +427,7 @@ namespace CzyDobre.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult AddOpinion(AddOpinionViewModels model)
+        public ActionResult AddOpinion(AddOpinionViewModels opn)
         {
             if(ModelState.IsValid)
             {
@@ -438,44 +435,56 @@ namespace CzyDobre.Controllers
                 {
                     DBEntities db = new DBEntities();
 
-                    ViewBag.CategoryList = new SelectList(db.AspNetCategories.ToList(), "Id_Category", "CategoryName");
-                    ViewBag.IngredientsList = new SelectList(db.AspNetIngredients.ToList(), "Id_Ingredients", "IngredientsName");
-                    ViewBag.LocalizationsList = new SelectList(db.AspNetLocalizations.ToList(), "Id_Localization", "LocalizationCity");
+                    List<AspNetProduct> prod = db.AspNetProducts.ToList();
+                    ViewBag.ProductsList = new SelectList(db.AspNetProducts.ToList(), "Id_Product", "ProductName");
+
+                    
+
 
                     List<string> zapisz = new List<string>();
 
-                    zapisz = SaveImagesToOpinion(model);
+                    zapisz = SaveImagesToOpinion(opn);
 
                     //Console.WriteLine(zapisz);
 
-                    AspNetProduct product = new AspNetProduct();
-                    product.ProductName = model.ProductName;
-                    product.ProductDescription = model.ProductDescription;
-                    product.Id_Category = model.Id_Category;
-                    product.Id_Localization = model.Id_Localization;
-                    product.Id_Ingredients = model.Id_Ingredients;
+                    AspNetRating rate = new AspNetRating();
+                    rate.Id_Product = opn.Id_Product;
+                    rate.RateComposition = opn.RateComposition;
+                    rate.RateIngredients = opn.RateIngredients;
+                    rate.RateService = opn.RateService;
+                    rate.RateTaste= opn.RateTaste;
+                    rate.Comment = opn.Review;
+                    rate.RateTotal = (rate.RateComposition + rate.RateIngredients + rate.RateService + rate.RateTaste) / 4 ;
 
-                    db.AspNetProducts.Add(product);
-
+                    db.AspNetRatings.Add(rate);
                     db.SaveChanges();
-                    int latestId = product.Id_Product;
+
+                    
                     AspNetImage image = new AspNetImage();
                     foreach (var item in zapisz)
                     {
-                        this.AddNotification(item, NotificationType.ERROR);
+                        
                         image.Url = item;
-                        image.Id_Product = product.Id_Product;
+                        image.Id_Product = rate.Id_Product;
                         db.AspNetImages.Add(image);
                         db.SaveChanges();
                     }
+                    return RedirectToAction("Index");
+
                     ModelState.Clear();
-                    this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
+                    this.AddNotification("Opinia została wysłana, dziękujemy za opinię.", NotificationType.SUCCESS);
                 }
                 catch (Exception ex)
                 {
                     ModelState.Clear();
                     this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
                 }
+            }
+            else
+            {
+                this.AddNotification("Brak danych !", NotificationType.ERROR);
+                return RedirectToAction("AddOpinion");
+
             }
             return View();
         }

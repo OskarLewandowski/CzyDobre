@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
@@ -9,27 +10,29 @@ namespace CzyDobre.Models
 {
     public class AddOpinionViewModels
     {
-        [Required(ErrorMessage = "Nazwa produktu jest wymagana")]
-        [StringLength(128, MinimumLength = 4, ErrorMessage = "Nazwa produktu musi być ciągiem o długości minimalnej 4 znaków i maksymalnej 128 znaków")]
-        [Display(Name = "Nazwa Produktu")]
-        public string ProductName { get; set; }
+        [ViewData]
+        [Display(Name = "Produkt")]
+        public Nullable<int> Id_Product { get; set; }
 
-        [Required(ErrorMessage = "Opis produktu jest wymagany")]
-        [StringLength(255, MinimumLength = 16, ErrorMessage = "Opis produktu musi być ciągiem o długości minimalnej 4 znaków i maksymalnej 128 znaków")]
-        [Display(Name = "Opis Produktu")]
-        public string ProductDescription { get; set; }
+        
+        [Display(Name = "Wygląd")]
+        public short RateComposition { get; set; }
 
-        [CheckIdCategory]
-        [Display(Name = "Kategoria")]
-        public Nullable<int> Id_Category { get; set; }
+        
+        [Display(Name = "Cena")]
+        public short RateIngredients { get; set; }
 
-        [CheckIdIngredients]
-        [Display(Name = "Składniki")]
-        public Nullable<int> Id_Ingredients { get; set; }
+        
+        [Display(Name = "Smak")]
+        public short RateTaste { get; set; }
 
-        [CheckIdLocalization]
-        [Display(Name = "Lokalizacja")]
-        public Nullable<int> Id_Localization { get; set; }
+        [Display(Name = "Obsługa")]
+        public short RateService { get; set; }
+
+        [Display(Name = "Recenzja")]
+        public string Review { get; set; }
+
+
 
         [Required]
         [Display(Name = "Zdjęcie Produktu")]
@@ -37,7 +40,7 @@ namespace CzyDobre.Models
         public List<HttpPostedFileBase> Photo { get; set; }
     }
 
-
+    /*
     public class CheckIdCategory : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -60,7 +63,7 @@ namespace CzyDobre.Models
         {
             var file = (AddOpinionViewModels)validationContext.ObjectInstance;
 
-            if (file.Id_Category == null)
+            if (file.Id_Ingredients == null)
             {
                 return new ValidationResult("Wymagane są składniki");
             }
@@ -77,7 +80,7 @@ namespace CzyDobre.Models
         {
             var file = (AddOpinionViewModels)validationContext.ObjectInstance;
 
-            if (file.Id_Category == null)
+            if (file.Id_Localization == null)
             {
                 return new ValidationResult("Wymagana jest lokalizacja");
             }
@@ -87,7 +90,7 @@ namespace CzyDobre.Models
             }
         }
     }
-
+    */
     public class ImageFileCheck : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -137,4 +140,5 @@ namespace CzyDobre.Models
             return new ValidationResult("Wymagane jest zdjecie, o rozszerzeniu .png, .jpg, .jpeg");
         }
     }
+    
 }
