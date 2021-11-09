@@ -21,7 +21,6 @@ namespace CzyDobre.Controllers
         SqlCommand com = new SqlCommand();
         SqlDataReader dr;
         List<OpinionViewModels> opinionViewModels = new List<OpinionViewModels>();
-
         private void DisplayDataOpinion()
         {
             ConnectionStringSettings mySetting = ConfigurationManager.ConnectionStrings["DefaultConnection"];
@@ -74,8 +73,6 @@ namespace CzyDobre.Controllers
         {
             return View();
         }
-
-        
 
         //CzyDobre.pl/opinie
         [Route("opinie")]
@@ -164,7 +161,6 @@ namespace CzyDobre.Controllers
                     msg.Subject = model.Subject;
                     msg.Body = "Nazwa: " + model.Name + "\n" + "Email: " + model.Email + "\n" + "Wiadomość: " + model.Message;
 
-
                     //Sprawdzenie rozmiaru zalacznika
                     foreach (HttpPostedFileBase item in model.Attachment)
                     {
@@ -197,9 +193,7 @@ namespace CzyDobre.Controllers
                             }
                         }
                     }
-
-                    
-
+                
                     SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
                     System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
                         ConfigurationManager.AppSettings["EmailContactUs"].ToString(),
@@ -237,8 +231,6 @@ namespace CzyDobre.Controllers
             List<AspNetLocalization> loc = db.AspNetLocalizations.ToList();
             ViewBag.LocalizationsList = new SelectList(loc, "Id_Localization", "LocalizationCity");
 
-
-
             return View();
         }
 
@@ -252,9 +244,6 @@ namespace CzyDobre.Controllers
         {
             try
             {
-
-
-
                 DBEntities db = new DBEntities();
 
                 List<AspNetCategory> cats = db.AspNetCategories.ToList();
@@ -265,17 +254,11 @@ namespace CzyDobre.Controllers
 
                 List<AspNetLocalization> loc = db.AspNetLocalizations.ToList();
                 ViewBag.LocalizationsList = new SelectList(loc, "Id_Localization", "LocalizationCity");
-
-                
-
+              
                 List<string> zapisz = new List<string>();
 
                 zapisz = SaveImagesToProduct(prd);
-
-                
-
-
-
+             
                 //Console.WriteLine(zapisz);
 
                 AspNetProduct product = new AspNetProduct();
@@ -285,12 +268,7 @@ namespace CzyDobre.Controllers
                 product.Id_Localization = prd.Id_Localization;
                 product.Id_Ingredients = prd.Id_Ingredients;
                 
-
-
-
-
                 db.AspNetProducts.Add(product);
-
 
                 db.SaveChanges();
                 int latestId = product.Id_Product;
@@ -303,22 +281,15 @@ namespace CzyDobre.Controllers
                     db.AspNetImages.Add(image);
                     db.SaveChanges();
                 }
-
-
-                return RedirectToAction("Index");
-
-                
-
-
+                return RedirectToAction("Index");             
             }
 
             catch (Exception ex)
             {
                 throw ex;
-
             }
-
         }
+
         private List<string> SaveImagesToProduct(ProductFormModels model)
         {
             bool OK = false;
@@ -412,6 +383,16 @@ namespace CzyDobre.Controllers
         [Authorize]
         public ActionResult AddOpinion()
         {
+            DBEntities db = new DBEntities();
+            List<AspNetCategory> cats = db.AspNetCategories.ToList();
+            ViewBag.CategoryList = new SelectList(cats, "Id_Category", "CategoryName");
+
+            List<AspNetIngredient> ing = db.AspNetIngredients.ToList();
+            ViewBag.IngredientsList = new SelectList(ing, "Id_Ingredients", "IngredientsName");
+
+            List<AspNetLocalization> loc = db.AspNetLocalizations.ToList();
+            ViewBag.LocalizationsList = new SelectList(loc, "Id_Localization", "LocalizationCity");
+
             return View();
         }
 
@@ -421,19 +402,53 @@ namespace CzyDobre.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult AddOpinion( AddOpinionViewModels model)
+        public ActionResult AddOpinion(AddOpinionViewModels model)
         {
-            List<string> test = new List<string>();
-
-            test = SaveImagesToOpinion(model);
-
-            foreach (var item in test)
+            if(ModelState.IsValid)
             {
-                this.AddNotification(item, NotificationType.ERROR);
-            }
+                try
+                {
+                    DBEntities db = new DBEntities();
 
-            
-           
+                    ViewBag.CategoryList = new SelectList(db.AspNetCategories.ToList(), "Id_Category", "CategoryName");
+                    ViewBag.IngredientsList = new SelectList(db.AspNetIngredients.ToList(), "Id_Ingredients", "IngredientsName");
+                    ViewBag.LocalizationsList = new SelectList(db.AspNetLocalizations.ToList(), "Id_Localization", "LocalizationCity");
+
+                    List<string> zapisz = new List<string>();
+
+                    zapisz = SaveImagesToOpinion(model);
+
+                    //Console.WriteLine(zapisz);
+
+                    AspNetProduct product = new AspNetProduct();
+                    product.ProductName = model.ProductName;
+                    product.ProductDescription = model.ProductDescription;
+                    product.Id_Category = model.Id_Category;
+                    product.Id_Localization = model.Id_Localization;
+                    product.Id_Ingredients = model.Id_Ingredients;
+
+                    db.AspNetProducts.Add(product);
+
+                    db.SaveChanges();
+                    int latestId = product.Id_Product;
+                    AspNetImage image = new AspNetImage();
+                    foreach (var item in zapisz)
+                    {
+                        this.AddNotification(item, NotificationType.ERROR);
+                        image.Url = item;
+                        image.Id_Product = product.Id_Product;
+                        db.AspNetImages.Add(image);
+                        db.SaveChanges();
+                    }
+                    ModelState.Clear();
+                    this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.Clear();
+                    this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                }
+            }
             return View();
         }
 
