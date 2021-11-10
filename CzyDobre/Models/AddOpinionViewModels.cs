@@ -10,25 +10,25 @@ namespace CzyDobre.Models
 {
     public class AddOpinionViewModels
     {
-        [ViewData]
+        [Required]
         [Display(Name = "Produkt")]
         public Nullable<int> Id_Product { get; set; }
 
-        
+        [Required]
         [Display(Name = "Wygląd")]
         public short RateComposition { get; set; }
 
-        
+        [Required]
         [Display(Name = "Cena")]
         public short RateIngredients { get; set; }
 
-        
+        [Required]
         [Display(Name = "Smak")]
         public short RateTaste { get; set; }
-
+        [Required]
         [Display(Name = "Obsługa")]
         public short RateService { get; set; }
-
+        [Required]
         [Display(Name = "Recenzja")]
         public string Review { get; set; }
 
