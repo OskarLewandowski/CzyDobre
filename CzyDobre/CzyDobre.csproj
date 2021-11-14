@@ -734,6 +734,7 @@
     <Content Include="Views\Shared\_NavbarPartial.cshtml" />
     <Content Include="Views\Home\AddProducts.cshtml" />
     <Content Include="Views\Home\index.cshtml" />
+    <Content Include="Views\Account\DeleteRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

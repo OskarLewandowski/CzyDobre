@@ -14,9 +14,11 @@
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <div class="dropdown-divider"></div>
-                        @Html.ActionLink("Menu roli", "Index", "Role", null , new { @class = "dropdown-item" })
-                        @Html.ActionLink("Dodaj rolę", "Create", "Role", null,  new { @class = "dropdown-item" })
-                        @Html.ActionLink("Przypisz rolę", "RegisterRole","Account", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Menu roli", "Index", "Role", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Dodaj rolę", "Create", "Role", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Przypisz rolę", "RegisterRole", "Account", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Usuń rolę", "DeleteRole", "Account", null, new { @class = "dropdown-item" })
+
                     }
                     <div class="dropdown-divider"></div>
                     <a href="javascript:document.getElementById('logoutForm').submit()" class="dropdown-item">Wyloguj</a>

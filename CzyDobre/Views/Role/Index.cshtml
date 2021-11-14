@@ -12,6 +12,8 @@
 
         @Html.ActionLink("Przypisz rolę użytkownikowi", "RegisterRole", "Account", null, new { @class = "btn btn-primary" })
 
+        @Html.ActionLink("Usuń rolę użytkownikowi", "DeleteRole", "Account", null, new { @class = "btn btn-primary" })
+
         <hr />
     </div>
     <table class="table table-bordered table-hover">
@@ -21,7 +23,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <th>@item.Name</th>
+                <th>ID: @item.Id<br>Nazwa: @item.Name</th>
             </tr>
         }
     </table>

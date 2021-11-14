@@ -22,6 +22,7 @@ namespace CzyDobre.Controllers
         public ActionResult Index()
         {
             var Roles = context.Roles.ToList();
+
             return View(Roles);
         }
 
@@ -38,5 +39,6 @@ namespace CzyDobre.Controllers
             context.SaveChanges();
             return RedirectToAction("Index");
         }
+        //TODO usuniecie stworzonej roli Delete
     }
 }
