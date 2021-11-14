@@ -1,15 +1,4 @@
-﻿////var z = 3;
-////var list = document.getElementById("taste-1").getElementsByTagName("span");
-
-////[].forEach.call(list, function (x) {
-////    if (z >= x.getAttribute('data-rating'))
-////    {
-////        x.classList.remove('fa-star-o');
-////        x.classList.add('fa-star');
-////    }
-////});
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $.ajax({
         url: "/Home/GetRate",
         method: "GET",

@@ -68,6 +68,7 @@ namespace CzyDobre.Controllers
             }
 
         [HttpGet]
+        [AllowAnonymous]
         public JsonResult GetRate()
         {
             DBEntities db = new DBEntities();
