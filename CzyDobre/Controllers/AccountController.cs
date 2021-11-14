@@ -259,6 +259,42 @@ namespace CzyDobre.Controllers
         }
 
         //
+        // GET: /Account/RegisterRole
+        //CzyDobre.pl/rejestracja-roli
+        [Route("usuwanie-roli")]
+        [Route("Account/DeleteRole")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult DeleteRole()
+        {
+            ViewBag.Name = new SelectList(_context.Roles.ToList(), "Name", "Name");
+            ViewBag.UserName = new SelectList(_context.Users.ToList(), "UserName", "UserName");
+            return View();
+        }
+
+        //
+        // POST: /Account/RegisterRole
+        //CzyDobre.pl/rejestracja-roli
+        [Route("usuwanie-roli")]
+        [Route("Account/DeleteRole")]
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteRole(RegisterViewModel model, ApplicationUser user)
+        {
+            var userId = _context.Users.Where(i => i.UserName == user.UserName).Select(s => s.Id);
+            string updateId = "";
+
+            foreach (var item in userId)
+            {
+                updateId = item.ToString();
+            }
+
+            await this.UserManager.RemoveFromRoleAsync(updateId, model.Name);
+            return RedirectToAction("Index", "Home");
+        }
+
+        //
         // GET: /Account/ConfirmEmail
         //CzyDobre.pl/potwierdz-email
         [Route("potwierdz-email")]
