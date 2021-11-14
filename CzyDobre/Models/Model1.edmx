@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="novum_czydobre.plDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="novum_czydobre.plDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -43,6 +43,9 @@
           <Property Name="Id_Localization" Type="int" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
           <Property Name="Opinion_Counter" Type="int" />
+          <Property Name="AvarageTaste" Type="int" />
+          <Property Name="AvarageService" Type="int" />
+          <Property Name="AvarageIngredients" Type="int" />
         </EntityType>
         <EntityType Name="AspNetRating">
           <Key>
@@ -515,8 +518,7 @@
             <End Role="AspNetReviews" EntitySet="AspNetReviews" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="novum_czydobre.plDB" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -568,6 +570,9 @@
           <NavigationProperty Name="AspNetIngredient" Relationship="Self.FK_AspNetProducts_AspNetIngredients" FromRole="AspNetProducts" ToRole="AspNetIngredients" />
           <NavigationProperty Name="AspNetRatings" Relationship="Self.FK_AspNetRating_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetRating" />
           <NavigationProperty Name="AspNetReviews" Relationship="Self.FK_AspNetReviews_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetReviews" />
+          <Property Name="AvarageTaste" Type="Int32" />
+          <Property Name="AvarageService" Type="Int32" />
+          <Property Name="AvarageIngredients" Type="Int32" />
         </EntityType>
         <EntityType Name="AspNetRating">
           <Key>
@@ -1071,6 +1076,9 @@
           <EntitySetMapping Name="AspNetProducts">
             <EntityTypeMapping TypeName="novum_czydobre.plDB.AspNetProduct">
               <MappingFragment StoreEntitySet="AspNetProducts">
+                <ScalarProperty Name="AvarageIngredients" ColumnName="AvarageIngredients" />
+                <ScalarProperty Name="AvarageService" ColumnName="AvarageService" />
+                <ScalarProperty Name="AvarageTaste" ColumnName="AvarageTaste" />
                 <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
                 <ScalarProperty Name="Id_Category" ColumnName="Id_Category" />
                 <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />

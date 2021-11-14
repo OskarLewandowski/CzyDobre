@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -12,6 +12,7 @@ using reCAPTCHA.MVC;
 using System.Data.SqlClient;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Newtonsoft.Json;
 
 namespace CzyDobre.Controllers
 {
@@ -63,27 +64,48 @@ namespace CzyDobre.Controllers
         [AllowAnonymous]
         public ActionResult Index()
             {
+            return View();
+            }
+
+        [HttpGet]
+        public JsonResult GetRate()
+        {
             DBEntities db = new DBEntities();
+            RattingViewModel rate = new RattingViewModel();
+
             var top1 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").FirstOrDefault();
             var top2 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(1).FirstOrDefault();
             var top3 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(2).FirstOrDefault();
             var top4 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(3).FirstOrDefault();
 
-            RattingViewModel topplace = new RattingViewModel();
+            rate.ProductNameTop1 = top1.ProductName;
+            rate.OpinionCounterTop1 = top1.Opinion_Counter;
+            rate.TasteRateTop1 = top1.AvarageTaste;
+            rate.ServiceRateTop1 = top1.AvarageService;
+            rate.IngredientsRateTop1 = top1.AvarageIngredients;
+            rate.ProductNameTop2 = top2.ProductName;
+            rate.OpinionCounterTop2 = top2.Opinion_Counter;
+            rate.TasteRateTop2 = top2.AvarageTaste;
+            rate.ServiceRateTop2 = top2.AvarageService;
+            rate.IngredientsRateTop2 = top2.AvarageIngredients;
+            rate.ProductNameTop3 = top3.ProductName;
+            rate.OpinionCounterTop3 = top3.Opinion_Counter;
+            rate.TasteRateTop3 = top3.AvarageTaste;
+            rate.ServiceRateTop3 = top3.AvarageService;
+            rate.IngredientsRateTop3 = top3.AvarageIngredients;
+            rate.ProductNameTop4 = top4.ProductName;
+            rate.OpinionCounterTop4 = top4.Opinion_Counter;
+            rate.TasteRateTop4 = top4.AvarageTaste;
+            rate.ServiceRateTop4 = top4.AvarageService;
+            rate.IngredientsRateTop4 = top4.AvarageIngredients;
+ 
+      
 
-            topplace.ProductNameTop1 = top1.ProductName;
-            topplace.OpinionCounterTop1 = top1.Opinion_Counter;
-            topplace.ProductNameTop2 = top2.ProductName;
-            topplace.OpinionCounterTop2 = top2.Opinion_Counter;
-            topplace.ProductNameTop3 = top3.ProductName;
-            topplace.OpinionCounterTop3 = top3.Opinion_Counter;
-            topplace.ProductNameTop4 = top4.ProductName;
-            topplace.OpinionCounterTop4 = top4.Opinion_Counter;
 
-            return View(topplace);
-            }
-        
 
+            var json = JsonConvert.SerializeObject(rate);
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
         //CzyDobre.pl/o-nas
         [Route("o-nas")]
         [Route("Home/About")]

@@ -29,6 +29,9 @@ namespace CzyDobre.Models
         public Nullable<int> Id_Localization { get; set; }
         public string ProductName { get; set; }
         public Nullable<int> Opinion_Counter { get; set; }
+        public Nullable<int> AvarageTaste { get; set; }
+        public Nullable<int> AvarageService { get; set; }
+        public Nullable<int> AvarageIngredients { get; set; }
     
         public virtual AspNetCategory AspNetCategory { get; set; }
         public virtual AspNetLocalization AspNetLocalization { get; set; }
