@@ -506,12 +506,11 @@ input:focus {
     width: 65%;
     margin-bottom: 3%;
     padding: 2%;
-    border: none;
+    border: solid #cb422f;
 }
 
 .OAuth-Button-Google:hover{
     color: #cb422f;
-    border: solid;
     background-color: white;
 }
 
@@ -522,12 +521,11 @@ input:focus {
     width: 65%;
     margin-bottom: 3%;
     padding: 2%;
-    border: none;
+    border: solid #1877f2;
 }
 
 .OAuth-Button-Facebook:hover {
     color: #1877f2;
-    border: solid;
     background-color: white;
 }
 
@@ -538,12 +536,11 @@ input:focus {
     width: 65%;
     margin-bottom: 3%;
     padding: 2%;
-    border: none;
+    border: solid #00acee;
 }
 
 .OAuth-Button-Twitter:hover {
     color: #00acee;
-    border: solid;
     background-color: white;
 }
 /* OAuth END*/
