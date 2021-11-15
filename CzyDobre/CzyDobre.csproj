@@ -589,6 +589,7 @@
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\ratting.js" />
+    <Content Include="Scripts\siteTable.js" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
     <Content Include="Scripts\src\methods\destroy.js" />
@@ -738,6 +739,7 @@
     <Content Include="Views\Account\DeleteRole.cshtml" />
     <Content Include="Views\Shared\_UserSettingsLayout.cshtml" />
     <Content Include="Views\Role\Delete.cshtml" />
+    <Content Include="Views\Role\DisplayRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

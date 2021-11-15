@@ -23,9 +23,43 @@ namespace CzyDobre.Controllers
         // GET: Role
         public ActionResult Index()
         {
-            var Roles = _context.Roles.ToList();
+            //Wyswietla lepiej ale sie powtarza
+            //var usersWithRoles = (from user in _context.Users
+            //                      from userRole in user.Roles
+            //                      join roles in _context.Roles on userRole.RoleId equals
+            //                      roles.Id
+            //                      select new
+            //                      {
+            //                          IdUser = user.Id,
+            //                          Email = user.Email,
+            //                          IdRole = (from userRole in user.Roles
+            //                                    join role in _context.Roles on userRole.RoleId equals role.Id
+            //                                    select role.Id).ToList(),
+            //                          RoleNames = (from userRole in user.Roles
+            //                                       join role in _context.Roles on userRole.RoleId equals role.Id
+            //                                       select role.Name).ToList()
+            //                      }).ToList().Select(p => new RoleViewModels()
 
-            return View(Roles);
+            //                      {
+            //                          IdUser = p.IdUser,
+            //                          Email = p.Email,
+            //                          IdRole = string.Join(", ", p.IdRole),
+            //                          Role = string.Join(", ", p.RoleNames)
+            //                      });
+
+            var usersWithRoles = (from user in _context.Users
+                                  from userRole in user.Roles
+                                  join role in _context.Roles on userRole.RoleId equals
+                                  role.Id
+                                  select new RoleViewModels()
+                                  {
+                                      IdUser = user.Id,
+                                      Email = user.Email,
+                                      IdRole = role.Id,
+                                      Role = role.Name
+                                  }).ToList();
+
+            return View(usersWithRoles);
         }
 
         [Route("tworzenie-roli")]
@@ -91,6 +125,15 @@ namespace CzyDobre.Controllers
                 return RedirectToAction("Delete", "Role");
             }
             return View();
+        }
+
+        [Route("wyswietlanie-roli")]
+        [Route("Role/DisplayRole")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult DisplayRole()
+        {
+            var Roles = _context.Roles.ToList();
+            return View(Roles);
         }
     }
 }
