@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CzyDobre.Models;
 using reCAPTCHA.MVC;
+using CzyDobre.Extensions;
 
 namespace CzyDobre.Controllers
 {
@@ -247,15 +248,24 @@ namespace CzyDobre.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RegisterRole(RegisterViewModel model, ApplicationUser user)
         {
-            var userId = _context.Users.Where(i => i.UserName == user.UserName).Select(s => s.Id);
-            string updateId = "";
-            foreach (var item in userId)
+            try
             {
-                updateId = item.ToString();
-            }
+                var userId = _context.Users.Where(i => i.UserName == user.UserName).Select(s => s.Id);
+                string updateId = "";
+                foreach (var item in userId)
+                {
+                    updateId = item.ToString();
+                }
 
-            await this.UserManager.AddToRolesAsync(updateId, model.Name);
-            return RedirectToAction("Index", "Home");
+                await this.UserManager.AddToRolesAsync(updateId, model.Name);
+                this.AddNotification("Operacja wykonana pomyslnie!", NotificationType.SUCCESS);
+                return RedirectToAction("RegisterRole", "Account");
+            }
+            catch (Exception ex)
+            {
+                this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                return RedirectToAction("RegisterRole", "Account");
+            }
         }
 
         //
@@ -282,16 +292,25 @@ namespace CzyDobre.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteRole(RegisterViewModel model, ApplicationUser user)
         {
-            var userId = _context.Users.Where(i => i.UserName == user.UserName).Select(s => s.Id);
-            string updateId = "";
-
-            foreach (var item in userId)
+            try
             {
-                updateId = item.ToString();
-            }
+                var userId = _context.Users.Where(i => i.UserName == user.UserName).Select(s => s.Id);
+                string updateId = "";
 
-            await this.UserManager.RemoveFromRoleAsync(updateId, model.Name);
-            return RedirectToAction("Index", "Home");
+                foreach (var item in userId)
+                {
+                    updateId = item.ToString();
+                }
+
+                await this.UserManager.RemoveFromRoleAsync(updateId, model.Name);
+                this.AddNotification("Operacja wykonana pomyślnie!", NotificationType.SUCCESS);
+                return RedirectToAction("DeleteRole", "Account");
+            }
+            catch (Exception ex)
+            {
+                this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                return RedirectToAction("DeleteRole", "Account");
+            }
         }
 
         //
