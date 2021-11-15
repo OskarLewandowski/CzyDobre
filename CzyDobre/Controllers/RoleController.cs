@@ -19,8 +19,9 @@ namespace CzyDobre.Controllers
             _context = new ApplicationDbContext();
         }
 
+        [Route("panel-roli")]
+        [Route("Role")]
         [Authorize(Roles = "Admin")]
-        // GET: Role
         public ActionResult Index()
         {
             //Wyswietla lepiej ale sie powtarza
@@ -89,8 +90,6 @@ namespace CzyDobre.Controllers
                 this.AddNotification("Ups! Coś poszło nie tak", NotificationType.ERROR);
                 return RedirectToAction("Create", "Role");
             }
-            this.AddNotification("Ups! Coś poszło nie tak", NotificationType.ERROR);
-            return RedirectToAction("Create", "Role");
         }
 
         [Route("usuwanie-roli")]
