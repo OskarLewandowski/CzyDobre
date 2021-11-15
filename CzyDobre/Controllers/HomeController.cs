@@ -64,7 +64,50 @@ namespace CzyDobre.Controllers
         [AllowAnonymous]
         public ActionResult Index()
             {
-            return View();
+            DBEntities db = new DBEntities();
+            RattingViewModel rateImage = new RattingViewModel();
+            var top1 = (from top1p in db.AspNetProducts
+                        join top1i in db.AspNetImages
+                        on top1p.Id_Product equals top1i.Id_Product
+                        orderby top1p.Opinion_Counter descending
+                        select new
+                        {
+                            Url1 = top1i.Url
+                        }).FirstOrDefault();
+            var top2 = (from top2p in db.AspNetProducts
+                        join top2i in db.AspNetImages
+                        on top2p.Id_Product equals top2i.Id_Product
+                        orderby top2p.Opinion_Counter descending
+                        select new
+                        {
+                            Url2 = top2i.Url
+                        }).Skip(1).FirstOrDefault();
+            var top3 = (from top3p in db.AspNetProducts
+                        join top3i in db.AspNetImages
+                        on top3p.Id_Product equals top3i.Id_Product
+                        orderby top3p.Opinion_Counter descending
+                        select new
+                        {
+                            Url3 = top3i.Url
+                        }).Skip(2).FirstOrDefault();
+            var top4 = (from top4p in db.AspNetProducts
+                        join top4i in db.AspNetImages
+                        on top4p.Id_Product equals top4i.Id_Product
+                        orderby top4p.Opinion_Counter descending
+                        select new
+                        {
+                            Url4 = top4i.Url
+                        }).Skip(3).FirstOrDefault();
+            string link = "https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/";
+            string fullLink1 = link + top1.Url1;
+            string fulLink2 = link + top2.Url2;
+            string fulLink3 = link + top3.Url3;
+            string fulLink4 = link + top4.Url4;
+            rateImage.Image1 = fullLink1;
+            rateImage.Image2 = fulLink2;
+            rateImage.Image3 = fulLink3;
+            rateImage.Image4 = fulLink4;
+            return View(rateImage);
             }
 
         [HttpGet]
