@@ -10,6 +10,8 @@
     <div class="buttonRole">
         @Html.ActionLink("Stwórz nową rolę", "Create", "Role", null, new { @class = "btn btn-primary" })
 
+        @Html.ActionLink("Usuń stworzoną rolę", "Delete", "Role", null, new { @class = "btn btn-primary" })
+
         @Html.ActionLink("Przypisz rolę użytkownikowi", "RegisterRole", "Account", null, new { @class = "btn btn-primary" })
 
         @Html.ActionLink("Usuń rolę użytkownikowi", "DeleteRole", "Account", null, new { @class = "btn btn-primary" })

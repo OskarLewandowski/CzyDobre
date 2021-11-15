@@ -1,0 +1,24 @@
+﻿@using CzyDobre.Models
+@model RoleViewModels
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="role-div">
+    <h2>Usuwanie roli</h2>
+    <hr />
+    @using (Html.BeginForm("Delete", "Role", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <table class="table table-bordered table-hover">
+            <tr>
+                <td>Wprowadź nazwę roli do usunięcia</td>
+                <td>@Html.EditorFor(m => m.RoleName)</td>
+                @Html.ValidationMessageFor(m => m.RoleName, "", new { @class = "text-danger" })
+
+            </tr>
+        </table>
+        <input type="submit" value="Usuń rolę" class="btn btn-success" />
+        <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+    }
+</div>

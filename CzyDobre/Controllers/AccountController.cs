@@ -227,7 +227,7 @@ namespace CzyDobre.Controllers
         //
         // GET: /Account/RegisterRole
         //CzyDobre.pl/rejestracja-roli
-        [Route("rejestracja-roli")]
+        [Route("przypisanie-roli")]
         [Route("Account/RegisterRole")]
         [Authorize(Roles = "Admin")]
         [HttpGet]
@@ -241,7 +241,7 @@ namespace CzyDobre.Controllers
         //
         // POST: /Account/RegisterRole
         //CzyDobre.pl/rejestracja-roli
-        [Route("rejestracja-roli")]
+        [Route("przypisanie-roli")]
         [Route("Account/RegisterRole")]
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -258,7 +258,7 @@ namespace CzyDobre.Controllers
                 }
 
                 await this.UserManager.AddToRolesAsync(updateId, model.Name);
-                this.AddNotification("Operacja wykonana pomyslnie!", NotificationType.SUCCESS);
+                this.AddNotification("Operacja wykonana pomyślnie!", NotificationType.SUCCESS);
                 return RedirectToAction("RegisterRole", "Account");
             }
             catch (Exception ex)
@@ -271,7 +271,7 @@ namespace CzyDobre.Controllers
         //
         // GET: /Account/RegisterRole
         //CzyDobre.pl/rejestracja-roli
-        [Route("usuwanie-roli")]
+        [Route("usuwanie-przypisanej-roli")]
         [Route("Account/DeleteRole")]
         [Authorize(Roles = "Admin")]
         [HttpGet]
@@ -285,7 +285,7 @@ namespace CzyDobre.Controllers
         //
         // POST: /Account/RegisterRole
         //CzyDobre.pl/rejestracja-roli
-        [Route("usuwanie-roli")]
+        [Route("usuwanie-przypisanej-roli")]
         [Route("Account/DeleteRole")]
         [HttpPost]
         [Authorize(Roles = "Admin")]
