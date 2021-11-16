@@ -476,6 +476,20 @@ namespace CzyDobre.Controllers
             return Json(ListOfAddress, JsonRequestBehavior.AllowGet);
         }
 
+        
+
+        public JsonResult GetProducts(string term)
+
+        {
+            DBEntities db = new DBEntities();
+            List<string> Products = db.AspNetCategories.Where(s => s.CategoryName.StartsWith(term))
+
+                .Select(x => x.CategoryName).ToList();
+
+            return Json(Products, JsonRequestBehavior.AllowGet);
+        }
+
+
         //CzyDobre.pl/dodaj-opinie
         [Route("dodaj-opinie")]
         [Route("Home/AddOpinion")]
