@@ -10,13 +10,13 @@
 namespace CzyDobre.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagrams_Result
+    public partial class AspNetLocalization1
     {
-        public string Database { get; set; }
-        public string Name { get; set; }
-        public int ID { get; set; }
-        public string Owner { get; set; }
-        public int OwnerID { get; set; }
+        public int Id_Localization { get; set; }
+        public string LocalizationName { get; set; }
+        public Nullable<double> Latitude { get; set; }
+        public Nullable<double> Longitude { get; set; }
     }
 }
