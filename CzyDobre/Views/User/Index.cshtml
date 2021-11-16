@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="role-div">
+    <h2>Panel Administacyjny</h2>
+    <hr />
+    <div class="buttonRole">
+        @Html.ActionLink("Zarządzaj użytkownikami", "UserList", "User", null, new { @class = "btn btn-primary" })
+
+        @Html.ActionLink("Dodaj użytkownika", "AddUser", "User", null, new { @class = "btn btn-primary" })
+        <hr />
+    </div>
+</div>
