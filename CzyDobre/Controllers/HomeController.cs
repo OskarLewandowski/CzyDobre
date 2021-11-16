@@ -468,7 +468,13 @@ namespace CzyDobre.Controllers
            
             return imagesData;
         }
+        public JsonResult GetMapMarker()
+        {
+            DBEntities db = new DBEntities();
+            var ListOfAddress = db.AspNetLocalizations1.ToList();
 
+            return Json(ListOfAddress, JsonRequestBehavior.AllowGet);
+        }
 
         //CzyDobre.pl/dodaj-opinie
         [Route("dodaj-opinie")]
