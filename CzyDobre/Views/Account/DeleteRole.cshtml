@@ -5,7 +5,7 @@
 }
 
 <div class="role-div">
-    <h2>Usuń rolę</h2>
+    <h2>Usuń przypisaną rolę</h2>
     @using (Html.BeginForm("DeleteRole", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()

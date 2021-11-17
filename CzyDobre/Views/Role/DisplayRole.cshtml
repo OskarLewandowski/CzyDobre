@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+@{
+    ViewBag.Title = "DisplayRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="role-div">
+    <h2>Wyświetlanie roli</h2>
+    <hr />
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th class="table-role">Stworzone role</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>ID: @item.Id<br>Nazwa: @item.Name</th>
+            </tr>
+        }
+    </table>
+
+</div>

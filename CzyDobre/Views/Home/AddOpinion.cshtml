@@ -13,49 +13,135 @@
             using (Html.BeginForm("AddOpinion", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
             {
                 @Html.AntiForgeryToken()
-    <div class="form-group" align="center">
-        @Html.Label("Danie", new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.Id_Product, ViewBag.ProductsList as SelectList, "--Wybierz Produkt--", new { @class = "pl-4 form-control" })
-        </div>
-       
-        @Html.ActionLink("Nie widzisz swojego dania na liście? Kliknij tutaj,aby je dodać", "AddProducts", "Home", null)
-    </div>
-    <div class="form-group" align="center">
-        @Html.LabelFor(m => m.RateService, new { @class = "col-md-1 control-label" })
+                <div class="form-group" align="center">
+                    @Html.Label("Danie", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.Id_Product, ViewBag.ProductsList as SelectList, "--Wybierz Produkt--", new { @class = "pl-4 form-control" })
+                    </div>
 
-        @Html.RadioButton("RateService", 1, new { @class = " control-label" })
-        @Html.RadioButton("RateService", 2, new { @class = " control-label" })
-        @Html.RadioButton("RateService", 3, new { @class = " control-label" })
-        @Html.RadioButton("RateService", 4, new { @class = " control-label" })
-        @Html.RadioButton("RateService", 5, new { @class = " control-label" })
+                    @Html.ActionLink("Nie widzisz swojego dania na liście? Kliknij tutaj,aby je dodać", "AddProducts", "Home", null)
+                </div>
 
+                <div class="form-group" align="center">
+                    @Html.LabelFor(m => m.RateService, new { @class = "col-md-1 control-label" })
 
-
-        @Html.LabelFor(m => m.RateIngredients, new { @class = "col-md-1 control-label" })
-
-        @Html.RadioButton("RateIngredients", 1, new { @class = " control-label" })
-        @Html.RadioButton("RateIngredients", 2, new { @class = " control-label" })
-        @Html.RadioButton("RateIngredients", 3, new { @class = " control-label" })
-        @Html.RadioButton("RateIngredients", 4, new { @class = " control-label" })
-        @Html.RadioButton("RateIngredients", 5, new { @class = " control-label" })
+                    @Html.RadioButton("RateService", 1, new { @class = " control-label" })
+                    @Html.RadioButton("RateService", 2, new { @class = " control-label" })
+                    @Html.RadioButton("RateService", 3, new { @class = " control-label" })
+                    @Html.RadioButton("RateService", 4, new { @class = " control-label" })
+                    @Html.RadioButton("RateService", 5, new { @class = " control-label" })
 
 
 
-        @Html.LabelFor(m => m.RateTaste, new { @class = "col-md-1 control-label" })
+                    @Html.LabelFor(m => m.RateIngredients, new { @class = "col-md-1 control-label" })
 
-        @Html.RadioButton("RateTaste", 1, new { @class = " control-label" })
-        @Html.RadioButton("RateTaste", 2, new { @class = " control-label" })
-        @Html.RadioButton("RateTaste", 3, new { @class = " control-label" })
-        @Html.RadioButton("RateTaste", 4, new { @class = " control-label" })
-        @Html.RadioButton("RateTaste", 5, new { @class = " control-label" })
+                    @Html.RadioButton("RateIngredients", 1, new { @class = " control-label" })
+                    @Html.RadioButton("RateIngredients", 2, new { @class = " control-label" })
+                    @Html.RadioButton("RateIngredients", 3, new { @class = " control-label" })
+                    @Html.RadioButton("RateIngredients", 4, new { @class = " control-label" })
+                    @Html.RadioButton("RateIngredients", 5, new { @class = " control-label" })
 
 
-    </div>
+
+                    @Html.LabelFor(m => m.RateTaste, new { @class = "col-md-1 control-label" })
+
+                    @Html.RadioButton("RateTaste", 1, new { @class = " control-label" })
+                    @Html.RadioButton("RateTaste", 2, new { @class = " control-label" })
+                    @Html.RadioButton("RateTaste", 3, new { @class = " control-label" })
+                    @Html.RadioButton("RateTaste", 4, new { @class = " control-label" })
+                    @Html.RadioButton("RateTaste", 5, new { @class = " control-label" })
+
+
+                </div>
+                <div class="form-group" align="center">
+                    @Html.Label("Lokalizacja", new { @class = "col-md-2 control-label" })
+                    <div id="MapDiv" style="width: 500px; height: 500px">
+                    </div>
+
+                    
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw4M0s-wdhkjGK1L5BkWzyilxKp15QnGY"></script>
+                        <script type="text/javascript">
+
+                            $.ajax({
+                                url: '/home/GetMapMarker',
+                                type: 'GET',
+                                success: function (data) {
+                                    //create a blank array
+                                    var markers = [];
+
+                                    //loop the list of addresses returned from Ajax request
+                                    $.each(data, function (index, item) {
+                                        //create a blank array of address
+                                        var marker = {};
+
+                                        //fill data
+                                        marker["title"] = item.LocalizationName;
+                                        marker["lat"] = item.Latitude;
+                                        marker["lng"] = item.Longitude;
+
+
+                                        //push the current marker details in markers array
+                                        markers.push(marker);
+                                    })
+
+                                    //call Map function with all markers passed as list of arrays
+                                    initializeMap(markers);
+
+                                }
+                            });
+
+
+                            function initializeMap(markers) {
+                                //you can check your marker data in console
+                                console.log(markers);
+                                //Create Google map options
+                                var GoogleMapOptions = {
+                                    center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+                                    zoom: 15,
+                                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                                };
+
+
+                                //create a variable of InfoWindow type to show data on clicking map icon
+                                var infoWindow = new google.maps.InfoWindow();
+                                var map = new google.maps.Map(document.getElementById("MapDiv"), GoogleMapOptions);
+
+
+                                //loop through each marker data
+                                for (i = 0; i < markers.length; i++) {
+                                    var data = markers[i]
+                                    //set lat long of current marker
+                                    var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+
+                                    var marker = new google.maps.Marker({
+                                        position: myLatlng,
+                                        map: map,
+                                        title: data.title
+                                    });
+
+                                    (function (marker, data) {
+                                        // add a on marker click event
+                                        google.maps.event.addListener(marker, "click", function (e) {
+                                            //show description
+                                            infoWindow.setContent(data.title);
+                                            infoWindow.open(map, marker);
+                                        });
+                                    })(marker, data);
+                                }
+                            }
+
+                        </script>
+                    
+
+
+                </div>
+
+
                 <div class="form-group" align="center">
                     @Html.LabelFor(m => m.Review, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextAreaFor(m => m.Review, new { @class = "pl-6 form-control" ,@rows="10" })
+                        @Html.TextAreaFor(m => m.Review, new { @class = "pl-6 form-control", @rows = "10" })
                         @Html.ValidationMessageFor(m => m.Review, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -80,5 +166,5 @@
             <h2 style="text-align: center">Już wkrótce dostępne!</h2>
         }
     </div>
-</div>
+            </div>
 @Html.Partial("_Loading")

@@ -379,11 +379,9 @@ namespace CzyDobre.Controllers
             }
             else
             {
-                this.AddNotification("Brak danych !", NotificationType.ERROR);
-                return RedirectToAction("AddProducts");
-                
+                this.AddNotification("Brak danych!", NotificationType.ERROR);
+                return RedirectToAction("AddProducts");            
             }
-            return View();
         }
 
         private List<string> SaveImagesToProduct(ProductFormModels model)
@@ -472,7 +470,13 @@ namespace CzyDobre.Controllers
            
             return imagesData;
         }
+        public JsonResult GetMapMarker()
+        {
+            DBEntities db = new DBEntities();
+            var ListOfAddress = db.AspNetLocalizations1.ToList();
 
+            return Json(ListOfAddress, JsonRequestBehavior.AllowGet);
+        }
 
         //CzyDobre.pl/dodaj-opinie
         [Route("dodaj-opinie")]
@@ -544,10 +548,9 @@ namespace CzyDobre.Controllers
                         db.AspNetImages.Add(image);
                         db.SaveChanges();
                     }
-                    return RedirectToAction("Index");
-
                     ModelState.Clear();
                     this.AddNotification("Opinia została wysłana, dziękujemy za opinię.", NotificationType.SUCCESS);
+                    return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {

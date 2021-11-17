@@ -1,5 +1,4 @@
-﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -10,22 +9,38 @@
     <div class="buttonRole">
         @Html.ActionLink("Stwórz nową rolę", "Create", "Role", null, new { @class = "btn btn-primary" })
 
+        @Html.ActionLink("Wyświetl stworzone role", "DisplayRole", "Role", null, new { @class = "btn btn-primary" })
+
+        @Html.ActionLink("Usuń stworzoną rolę", "Delete", "Role", null, new { @class = "btn btn-primary" })
+
         @Html.ActionLink("Przypisz rolę użytkownikowi", "RegisterRole", "Account", null, new { @class = "btn btn-primary" })
 
         @Html.ActionLink("Usuń rolę użytkownikowi", "DeleteRole", "Account", null, new { @class = "btn btn-primary" })
 
         <hr />
     </div>
-    <table class="table table-bordered table-hover">
-        <tr>
-            <th class="table-role">Stworzone role</th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <th>ID: @item.Id<br>Nazwa: @item.Name</th>
-            </tr>
-        }
-    </table>
 
+    <div class="table">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr class="table-role">
+                    <th>ID Użytkownika</th>
+                    <th>Nazwa Użytkownika</th>
+                    <th>ID Roli</th>
+                    <th>Nazwa Roli</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IdUser</td>
+                        <td>@item.Email</td>
+                        <td>@item.IdRole</td>
+                        <td>@item.Role</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

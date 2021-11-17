@@ -12,34 +12,76 @@ namespace CzyDobre.Controllers
     [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
-        ApplicationDbContext context;
+        ApplicationDbContext _context;
 
         public RoleController()
         {
-            context = new ApplicationDbContext();
+            _context = new ApplicationDbContext();
         }
 
-        // GET: Role
+        [Route("panel-roli")]
+        [Route("Role")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            var Roles = context.Roles.ToList();
+            //Wyswietla lepiej ale sie powtarza
+            //var usersWithRoles = (from user in _context.Users
+            //                      from userRole in user.Roles
+            //                      join roles in _context.Roles on userRole.RoleId equals
+            //                      roles.Id
+            //                      select new
+            //                      {
+            //                          IdUser = user.Id,
+            //                          Email = user.Email,
+            //                          IdRole = (from userRole in user.Roles
+            //                                    join role in _context.Roles on userRole.RoleId equals role.Id
+            //                                    select role.Id).ToList(),
+            //                          RoleNames = (from userRole in user.Roles
+            //                                       join role in _context.Roles on userRole.RoleId equals role.Id
+            //                                       select role.Name).ToList()
+            //                      }).ToList().Select(p => new RoleViewModels()
 
-            return View(Roles);
+            //                      {
+            //                          IdUser = p.IdUser,
+            //                          Email = p.Email,
+            //                          IdRole = string.Join(", ", p.IdRole),
+            //                          Role = string.Join(", ", p.RoleNames)
+            //                      });
+
+            var usersWithRoles = (from user in _context.Users
+                                  from userRole in user.Roles
+                                  join role in _context.Roles on userRole.RoleId equals
+                                  role.Id
+                                  select new RoleViewModels()
+                                  {
+                                      IdUser = user.Id,
+                                      Email = user.Email,
+                                      IdRole = role.Id,
+                                      Role = role.Name
+                                  }).ToList();
+
+            return View(usersWithRoles);
         }
 
+        [Route("tworzenie-roli")]
+        [Route("Role/Create")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             var Role = new IdentityRole();
             return View(Role);
         }
 
+        [Route("tworzenie-roli")]
+        [Route("Role/Create")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult Create(IdentityRole Role)
         {
             if(Role.Name != null)
             {
-                context.Roles.Add(Role);
-                context.SaveChanges();
+                _context.Roles.Add(Role);
+                _context.SaveChanges();
                 this.AddNotification("Rola \"" + Role.Name + "\" dodana!", NotificationType.SUCCESS);
                 return RedirectToAction("Create", "Role");
             }
@@ -48,9 +90,49 @@ namespace CzyDobre.Controllers
                 this.AddNotification("Ups! Coś poszło nie tak", NotificationType.ERROR);
                 return RedirectToAction("Create", "Role");
             }
-            this.AddNotification("Ups! Coś poszło nie tak", NotificationType.ERROR);
-            return RedirectToAction("Create", "Role");
         }
-        //TODO usuniecie stworzonej roli Delete
+
+        [Route("usuwanie-roli")]
+        [Route("Role/Delete")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult Delete()
+        {
+            return View();
+        }
+
+        [Route("usuwanie-roli")]
+        [Route("Role/Delete")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult Delete(RoleViewModels model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var role = _context.Roles.Where(d => d.Name == model.RoleName).FirstOrDefault();
+                    _context.Roles.Remove(role);
+                    _context.SaveChanges();
+                    this.AddNotification("Operacja wykonana pomyślnie!", NotificationType.SUCCESS);
+                    return RedirectToAction("Delete", "Role");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                return RedirectToAction("Delete", "Role");
+            }
+            return View();
+        }
+
+        [Route("wyswietlanie-roli")]
+        [Route("Role/DisplayRole")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult DisplayRole()
+        {
+            var Roles = _context.Roles.ToList();
+            return View(Roles);
+        }
     }
 }
