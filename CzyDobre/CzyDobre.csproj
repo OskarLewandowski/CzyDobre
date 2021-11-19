@@ -740,9 +740,9 @@
     <Content Include="Views\Shared\_UserSettingsLayout.cshtml" />
     <Content Include="Views\Role\Delete.cshtml" />
     <Content Include="Views\Role\DisplayRole.cshtml" />
-    <Content Include="Views\User\AddUser.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\UserList.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

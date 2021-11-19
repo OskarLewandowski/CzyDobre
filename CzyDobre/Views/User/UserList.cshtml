@@ -33,8 +33,7 @@
                         <td>@item.LastName</td>
                         <td>@item.NickName</td>
                         <td>
-
-                            <a href="#" class="btn btn-primary">Edytuj</a>
+                            <a href="@Url.Action("Edit", "User", new {item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName})" class="btn btn-primary">Edytuj</a>
                             <hr />
                             <a class="btn btn-danger" href="@Url.Action("Delete", "User" , new { idUser = item.Id, nick = item.NickName})">Usuń</a>
                         </td>

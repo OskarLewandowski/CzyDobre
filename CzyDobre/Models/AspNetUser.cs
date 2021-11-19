@@ -26,9 +26,9 @@ namespace CzyDobre.Models
     
         public string Id { get; set; }
         [EmailAddress]
-        [Required(ErrorMessage = "Pole Email jest wymagane")]
-        [Display(Name = "Email*")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
+        [Display(Name = "Potwierdzenie adresu Email")]
         public bool EmailConfirmed { get; set; }
         public string PasswordHash { get; set; }
         public string SecurityStamp { get; set; }
@@ -39,14 +39,11 @@ namespace CzyDobre.Models
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
-        [Required(ErrorMessage = "Pole Imiê jest wymagane")]
-        [Display(Name = "Imiê*")]
+        [Display(Name = "Imiê")]
         public string FirstName { get; set; }
-        [Display(Name = "Nazwisko*")]
-        [Required(ErrorMessage = "Pole Nazwisko jest wymagane")]
+        [Display(Name = "Nazwisko")]
         public string LastName { get; set; }
-        [Display(Name = "Nazwa*")]
-        [Required(ErrorMessage = "Pole Nazwa jest wymagane")]
+        [Display(Name = "Nazwa")]
         public string NickName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

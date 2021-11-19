@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace CzyDobre.Controllers
@@ -13,7 +14,6 @@ namespace CzyDobre.Controllers
     {
         DBEntities db = new DBEntities();
 
-
         [Route("zarzadzanie-uzytkownikami")]
         [Route("User/Index")]
         [Authorize(Roles = "Admin")]
@@ -22,20 +22,11 @@ namespace CzyDobre.Controllers
             return View();
         }
 
-
-        [Route("dodaj-uzytkownika")]
-        [Route("User/AddUser")]
-        [Authorize(Roles = "Admin")]
-        public ActionResult AddUser()
-        {
-            return View();
-        }
-
-        [Route("dodaj-uzytkownika")]
-        [Route("User/AddUser")]
+        [Route("edytuj-uzytkownika")]
+        [Route("User/EditUser")]
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult AddUser(AspNetUser model)
+        public ActionResult EditUser(AspNetUser model)
         {
             try
             {
@@ -43,26 +34,36 @@ namespace CzyDobre.Controllers
                 {
                     AspNetUser aspNetUser = new AspNetUser();
 
+                    aspNetUser.Id = model.Id;
                     aspNetUser.Email = model.Email;
+                    aspNetUser.EmailConfirmed = model.EmailConfirmed;
+                    aspNetUser.PasswordHash = model.PasswordHash;
+                    aspNetUser.SecurityStamp = model.SecurityStamp;
+                    aspNetUser.PhoneNumber = model.PhoneNumber;
+                    aspNetUser.PhoneNumberConfirmed = model.PhoneNumberConfirmed;
+                    aspNetUser.TwoFactorEnabled = model.TwoFactorEnabled;
+                    aspNetUser.LockoutEndDateUtc = model.LockoutEndDateUtc;
+                    aspNetUser.LockoutEnabled = model.LockoutEnabled;
+                    aspNetUser.AccessFailedCount = model.AccessFailedCount;
                     aspNetUser.UserName = model.Email;
                     aspNetUser.FirstName = model.FirstName;
                     aspNetUser.LastName = model.LastName;
                     aspNetUser.NickName = model.NickName;
 
-                    db.AspNetUsers.Add(aspNetUser);
+                    db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
-                    this.AddNotification($"Użytkownik, dodany pomyślnie", NotificationType.ERROR);
-                    return RedirectToAction("AddUser", "User");
+                    this.AddNotification($"Użytkownik, edytowany pomyślnie", NotificationType.SUCCESS);
+                    return View("Edit");
                 }
-                this.AddNotification($"Ups!, Proszę uzupełnic brakujące pola", NotificationType.ERROR);
+                this.AddNotification($"Błąd!, Błędne dane", NotificationType.ERROR);
             }
             catch (Exception ex)
             {
                 ModelState.Clear();
                 this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
-                return RedirectToAction("AddUser", "User");
+                return View("Edit");
             }
-            return View();
+            return View("Edit");
         }
 
         [Route("lista-uzytkownikow")]
@@ -79,12 +80,9 @@ namespace CzyDobre.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(string idUser, string nick)
         {
-            //var id = _context.Users.Where(m => m.Id == idUser).FirstOrDefault();
             var id = db.AspNetUsers.Where(m => m.Id == idUser).FirstOrDefault();
             if (id != null)
             {
-                //_context.Users.Remove(id);
-                //_context.SaveChanges();
                 db.AspNetUsers.Remove(id);
                 db.SaveChanges();
 
@@ -94,5 +92,19 @@ namespace CzyDobre.Controllers
             return View("UserList", userList);
         }
 
+        [Route("edytowanie-uzytkownika")]
+        [Route("User/Edit")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit(AspNetUser obj)
+        {
+            if(obj !=null)
+            {
+                return View(obj);
+            }
+            else
+            {
+                return View();
+            }
+        }
     }
 }
