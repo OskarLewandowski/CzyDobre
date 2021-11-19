@@ -45,7 +45,7 @@
             });
             var service2 = document.getElementById("service-2").getElementsByTagName("span");
             [].forEach.call(service2, function (x) {
-                if (data.ServiceRateTop1 >= x.getAttribute('data-rating')) {
+                if (data.ServiceRateTop2 >= x.getAttribute('data-rating')) {
                     x.classList.remove('fa-star-o');
                     x.classList.add('fa-star');
                 }
