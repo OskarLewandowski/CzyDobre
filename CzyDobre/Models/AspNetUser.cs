@@ -11,7 +11,8 @@ namespace CzyDobre.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class AspNetUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,7 +25,10 @@ namespace CzyDobre.Models
         }
     
         public string Id { get; set; }
+        [EmailAddress]
+        [Display(Name = "Email")]
         public string Email { get; set; }
+        [Display(Name = "Potwierdzenie adresu Email")]
         public bool EmailConfirmed { get; set; }
         public string PasswordHash { get; set; }
         public string SecurityStamp { get; set; }
@@ -35,8 +39,11 @@ namespace CzyDobre.Models
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
+        [Display(Name = "Imiê")]
         public string FirstName { get; set; }
+        [Display(Name = "Nazwisko")]
         public string LastName { get; set; }
+        [Display(Name = "Nazwa")]
         public string NickName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
