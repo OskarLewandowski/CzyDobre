@@ -1,58 +1,80 @@
 ﻿@{
     ViewBag.Title = "Opinie";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-    string[] NaglowkiTabeli = new string[]
-    {
-    "Produkt",
-    "Obsługa",
-    "Smak",
-    "Wygląd",
-    "Cena",
-    "Średnia",
-    "Weryfikacja",
-    };
 }
 <div class="row">
-    <div class="col-12 h-max">
-        <h1 class="titleH1">@ViewBag.Title</h1>
-        <div class="container mt-3 mb-3">
-            <div class="table">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            @{
-                                foreach (var head in NaglowkiTabeli)
-                                {
-                                    <th>
-                                        @head
-                                    </th>
-
+    @{
+        if (Model != null)
+        {
+            foreach (var Data in Model)
+            {
+            <div class="browse-card position-relative col-12 col-md-6 col-lg-4 p-2">
+                <h6 class="card-title text-center my-0 py-1">@Data.ProductName</h6>
+                <div class="card flex-column flex-sm-row flex-md-column flex-lg-row p-0 rounded-0">
+                    <div class="browse-image-wrapper col-sm-9 col-md-12 col-lg-8 p-0">
+                        <img src="https://via.placeholder.com/1080" />
+                    </div>
+                    <div class="p-2 col-sm-3 col-md-12 col-lg-4">
+                        <div class="card-text row flex-row flex-sm-column flex-md-row flex-lg-column">
+                            <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
+                                @{
+                                    <label class="my-1 col-12">Obsługa</label>
+                                    for (int i = 0; i < 5; i++)
+                                    {
+                                        if (i < Convert.ToInt32(Data.RateService))
+                                        {
+                                            <span class="fa fa-star"></span>
+                                        }
+                                        else
+                                        {
+                                            <span class="fa fa-star-o"></span>
+                                        }
+                                    }
                                 }
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            if (Model != null)
-                            {
-                                foreach (var Data in Model)
-                                {
-                                    <tr>
-                                        <td>@Data.ProductName</td>
-                                        <td>@Data.RateService</td>
-                                        <td>@Data.RateTaste</td>
-                                        <td>@Data.RateComposition</td>
-                                        <td>@Data.RateIngredients</td>
-                                        <td>@Data.RateTotal</td>
-                                        <td>@Data.RateAdcompliance</td>
-                                    </tr>
+                            </div>
+                            <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
+                                @{
+                                    <label class="my-1 col-12">Smak</label>
+                                    for (int i = 0; i < 5; i++)
+                                    {
+                                        if (i < Convert.ToInt32(Data.RateTaste))
+                                        {
+                                            <span class="fa fa-star"></span>
+                                        }
+                                        else
+                                        {
+                                            <span class="fa fa-star-o"></span>
+                                        }
+                                    }
                                 }
-                            }
-                        }
-                    </tbody>
-                </table>
+                            </div>
+                            <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
+                                @{
+                                    <label class="my-1 col-12">Cena</label>
+                                    for (int i = 0; i < 5; i++)
+                                    {
+                                        if (i < Convert.ToInt32(Data.RateIngredients))
+                                        {
+                                            <span class="fa fa-star"></span>
+                                        }
+                                        else
+                                        {
+                                            <span class="fa fa-star-o"></span>
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="stretched-link"></a>
             </div>
-        </div>
-    </div>
+            }
+        }
+        else
+            {
+                <p>Wystąpił błąd.</p>
+            }
+    }
 </div>
+

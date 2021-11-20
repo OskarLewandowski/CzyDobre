@@ -736,7 +736,7 @@ ul#navigation li a.last {
         margin-top: 30%;
     }
 }
-
+/* Slider START */
 .switch {
     position: relative;
     display: block;
@@ -778,3 +778,37 @@ input:checked + .slider {
 input:checked + .slider:before {
     left: 34px;
 }
+/* Slider END */
+/* Przeglądaj START */
+.browse-image-wrapper {
+    overflow: hidden;
+    height: 250px;
+    background-color: lightgray;
+}
+
+    .browse-image-wrapper > img {
+        width: 100%;
+        height: 100%;
+        max-height: 250px;
+        object-fit: cover;
+        transition: 0.3s ease;
+    }
+
+.browse-card {
+    cursor: pointer;
+}
+
+    .browse-card:hover img {
+        transform: scale(1.2);
+        transform-origin: 50% 50%;
+    }
+
+    .browse-card .card-title {
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-bottom: none;
+    }
+
+    .browse-card span {
+        font-size: 0.9rem;
+    }
+/* Przeglądaj END */
