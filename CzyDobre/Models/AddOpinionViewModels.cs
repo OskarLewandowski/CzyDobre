@@ -12,7 +12,7 @@ namespace CzyDobre.Models
     {
         [Required]
         [Display(Name = "Produkt")]
-        public Nullable<int> Id_Product { get; set; }
+        public string  PName { get; set; }
 
         [Required]
         [Display(Name = "Wygląd")]
@@ -31,8 +31,9 @@ namespace CzyDobre.Models
         [Required]
         [Display(Name = "Recenzja")]
         public string Review { get; set; }
-
-
+        [Required]
+        [Display(Name = "Lokalizacja")]
+        public string LocName { get; set; }
 
         [Required]
         [Display(Name = "Zdjęcie Produktu")]

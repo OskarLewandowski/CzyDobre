@@ -523,8 +523,9 @@ namespace CzyDobre.Controllers
 
                     List<AspNetProduct> prod = db.AspNetProducts.ToList();
                     ViewBag.ProductsList = new SelectList(db.AspNetProducts.ToList(), "Id_Product", "ProductName");
-
                     
+
+
 
 
                     List<string> zapisz = new List<string>();
@@ -533,15 +534,16 @@ namespace CzyDobre.Controllers
 
                     //Console.WriteLine(zapisz);
 
-                    var user = db.AspNetProducts.Where(u => u.Id_Product == opn.Id_Product).FirstOrDefault();
-                    user.Opinion_Counter += 1;
+                   // var user = db.AspNetProducts.Where(u => u.Id_Product == opn.Id_Product).FirstOrDefault();
+                   // user.Opinion_Counter += 1;
 
-                    user.AvarageTaste += opn.RateTaste;
-                    user.AvarageService += opn.RateService;
-                    user.AvarageIngredients += opn.RateIngredients;
+                  //  user.AvarageTaste += opn.RateTaste;
+                  //  user.AvarageService += opn.RateService;
+                  //  user.AvarageIngredients += opn.RateIngredients;
 
                     AspNetRating rate = new AspNetRating();
-                    rate.Id_Product = opn.Id_Product;
+                    
+                    //rate.Id_Product = opn.Id_Product;
                     rate.RateComposition = opn.RateComposition;
                     rate.RateIngredients = opn.RateIngredients;
                     rate.RateService = opn.RateService;
@@ -552,7 +554,11 @@ namespace CzyDobre.Controllers
                     db.AspNetRatings.Add(rate);
                     db.SaveChanges();
 
-                    
+                    AspNetLocalization1 loc = new AspNetLocalization1();
+                    loc.LocalizationName = opn.LocName;
+                    db.AspNetLocalizations1.Add(loc);
+                    db.SaveChanges();
+
                     AspNetImage image = new AspNetImage();
                     foreach (var item in zapisz)
                     {

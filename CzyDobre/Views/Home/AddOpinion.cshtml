@@ -19,31 +19,11 @@
         @Html.Label("Danie", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
 
-           
-            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
-
-
-            <script type="text/javascript">
-                $(document).ready(function() {
-
-                    $("#txtSearch").autocomplete({
-
-                        source: '@Url.Action("GetProducts", "Home")',
-
-                        minLength: 1
-
-                    });
-                });
-
-            </script>
-            @Html.TextBox("searchTerm", null, new { id = "txtSearch", Class = "autosuggest" })
-
-
             <!-- Html.DropDownListFor(m => m.Id_Product, ViewBag.ProductsList as SelectList, "--Wybierz Produkt--", new { class = "pl-4 form-control" }) -->
         </div>
 
         @Html.ActionLink("Nie widzisz swojego dania na liście? Kliknij tutaj,aby je dodać", "AddProducts", "Home", null)
-    </div>
+        </div>
 
                 <div class="form-group" align="center">
                     @Html.LabelFor(m => m.RateService, new { @class = "col-md-1 control-label" })
@@ -77,118 +57,20 @@
 
                 </div>
                 <div class="form-group" align="center">
-                    <button id="find-me">Pokaż gdzie jestem</button><br />
-                    <p id="status"></p>
-                    <a id="map-link" target="_blank"></a>
-                    @Html.Label("Lokalizacja", new { @class = "col-md-2 control-label" })
-                    <div id="MapDiv" style="width: 500px; height: 500px">
+
+                    @Html.Label("Lokalizacja", new { @class = "col-md-2 control-label"  })
+                    @Html.TextBoxFor(m=>m.LocName,new { @class = "col-md-2 control-label", @id = "pac-input", @type = "text", @placeholder = "Search Box" })
+                   
+                    <div id="map" style="width: 500px; height: 500px">
+
                     </div>
 
-
+                    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-                    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw4M0s-wdhkjGK1L5BkWzyilxKp15QnGY"></script>
-                    <script type="text/javascript">
+                    <script src="~/Scripts/GeoMapa.js"></script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw4M0s-wdhkjGK1L5BkWzyilxKp15QnGY&callback=initAutocomplete&libraries=places&v=weekly"
+                            async></script>
 
-                        $.ajax({
-                            url: '/home/GetMapMarker',
-                            type: 'GET',
-                            success: function (data) {
-                                //create a blank array
-                                var markers = [];
-
-                                //loop the list of addresses returned from Ajax request
-                                $.each(data, function (index, item) {
-                                    //create a blank array of address
-                                    var marker = {};
-
-                                    //fill data
-                                    marker["title"] = item.LocalizationName;
-                                    marker["lat"] = item.Latitude;
-                                    marker["lng"] = item.Longitude;
-
-
-                                    //push the current marker details in markers array
-                                    markers.push(marker);
-                                })
-
-                                //call Map function with all markers passed as list of arrays
-                                initializeMap(markers);
-
-                            }
-                        });
-
-
-                        function initializeMap(markers) {
-                            //you can check your marker data in console
-                            console.log(markers);
-                            //Create Google map options
-                            var GoogleMapOptions = {
-                                center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-                                zoom: 15,
-                                mapTypeId: google.maps.MapTypeId.ROADMAP
-                            };
-
-
-                            //create a variable of InfoWindow type to show data on clicking map icon
-                            var infoWindow = new google.maps.InfoWindow();
-                            var map = new google.maps.Map(document.getElementById("MapDiv"), GoogleMapOptions);
-
-
-                            //loop through each marker data
-                            for (i = 0; i < markers.length; i++) {
-                                var data = markers[i]
-                                //set lat long of current marker
-                                var myLatlng = new google.maps.LatLng(data.lat, data.lng);
-
-                                var marker = new google.maps.Marker({
-                                    position: myLatlng,
-                                    map: map,
-                                    title: data.title
-                                });
-
-                                (function (marker, data) {
-                                    // add a on marker click event
-                                    google.maps.event.addListener(marker, "click", function (e) {
-                                        //show description
-                                        infoWindow.setContent(data.title);
-                                        infoWindow.open(map, marker);
-                                    });
-                                })(marker, data);
-                            }
-                        }
-                        function geoFindMe() {
-
-                            const status = document.querySelector('#status');
-                            const mapLink = document.querySelector('#map-link');
-
-                            mapLink.href = '';
-                            mapLink.textContent = '';
-
-                            function success(position) {
-                                const latitude = position.coords.latitude;
-                                const longitude = position.coords.longitude;
-
-                                status.textContent = '';
-                                mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-                                mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
-                            }
-
-                            function error() {
-                                status.textContent = 'Unable to retrieve your location';
-                            }
-
-                            if (!navigator.geolocation) {
-                                status.textContent = 'Geolocation is not supported by your browser';
-                            } else {
-                                status.textContent = 'Locating…';
-                                navigator.geolocation.getCurrentPosition(success, error);
-                            }
-
-                        }
-
-                        document.querySelector('#find-me').addEventListener('click', geoFindMe);
-
-                    </script>
 
 
 
