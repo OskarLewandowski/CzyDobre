@@ -20,7 +20,7 @@ namespace CzyDobre.Controllers
         }
 
         [Route("panel-roli")]
-        [Route("Role")]
+        [Route("Role/Index")]
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
