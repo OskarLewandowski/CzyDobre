@@ -17,17 +17,17 @@ namespace CzyDobre.Controllers
 {
     public class SearchController : Controller
     {
-        DBEntities db = new DBEntities();
+        
         // GET: Search
-        public JsonResult GetCustomers(string term)
-
+        
+        [HttpPost]
+        public JsonResult GetCountries(string Prefix)
         {
-            
-            List<string> Customers = db.AspNetProducts.Where(s => s.ProductName.StartsWith(term))
-
-                .Select(x => x.ProductName).ToList();
-
-            return Json(Customers, JsonRequestBehavior.AllowGet);
+            DBEntities db = new DBEntities();
+            var Countries = (from c in db.AspNetProducts
+                             where c.ProductName.StartsWith(Prefix)
+                             select new { c.ProductName, c.Id_Product });
+            return Json(Countries, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -17,8 +17,16 @@
 
         
         @Html.Label("Danie", new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        <div class="col-md-10 ui-widget">
 
+
+
+            @Html.TextBoxFor(model => model.PName,  new { @class = "form-control", @id = "PName" })
+           
+
+
+
+            <script src="~/Scripts/AutoComplete.js"></script>
             <!-- Html.DropDownListFor(m => m.Id_Product, ViewBag.ProductsList as SelectList, "--Wybierz Produkt--", new { class = "pl-4 form-control" }) -->
         </div>
 
