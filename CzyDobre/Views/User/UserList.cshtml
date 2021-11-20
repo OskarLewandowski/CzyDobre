@@ -10,7 +10,7 @@
     <div style="text-align: center;">@Html.Partial("_Notifications")</div>
     <hr />
     <div class="table">
-        <table class="table table-bordered table-hover">
+        <table id="users" class="table table-bordered table-hover display">
             <thead>
                 <tr class="table-role">
                     <th>ID</th>
@@ -43,3 +43,12 @@
         </table>
     </div>
 </div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#users').DataTable();
+        });
+    </script>
+}
