@@ -21,8 +21,9 @@ namespace CzyDobre.Models
         public short RateComposition { get; set; }
         public string Comment { get; set; }
         public bool RateAdcompliance { get; set; }
-        public Nullable<double> RateTotal { get; set; }
-        public Nullable<int> Id_Product { get; set; }
+        public double RateTotal { get; set; }
+        public int Id_Product { get; set; }
+        public string LocName { get; set; }
     
         public virtual AspNetProduct AspNetProduct { get; set; }
     }

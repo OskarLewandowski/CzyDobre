@@ -1,24 +1,26 @@
-﻿$(document).ready(function () {
-    $("#PName").autocomplete({
+﻿$(function () {
+    $("#ProductSE").autocomplete({
         source: function (request, response) {
             $.ajax({
-                url: "/Search/GetCountries",
-                type: "POST",
+                url: '/Home/AutoComplete/',
+                data: "{'prefix': '" + request.term + "'}",
                 dataType: "json",
-                data: { Prefix: request.term },
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     response($.map(data, function (item) {
-                        return { label: item.PName, value: item.PName };
+                        return item;
                     }))
-
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
                 }
-            })
+            });
         },
-        messages: {
-            noResults: "",
-            results: function (count) {
-                return count + (count > 1 ? ' results' : ' result ') + ' found';
-            }
-        }
+     
+        minLength: 1
     });
-})
+});

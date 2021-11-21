@@ -470,6 +470,7 @@ namespace CzyDobre.Controllers
            
             return imagesData;
         }
+        /*
         public JsonResult GetMapMarker()
         {
             DBEntities db = new DBEntities();
@@ -477,21 +478,8 @@ namespace CzyDobre.Controllers
 
             return Json(ListOfAddress, JsonRequestBehavior.AllowGet);
         }
-
-        
-
-        public JsonResult GetProducts(string term)
-
-        {
-            DBEntities db = new DBEntities();
-            List<string> Products = db.AspNetCategories.Where(s => s.CategoryName.StartsWith(term))
-
-                .Select(x => x.CategoryName).ToList();
-
-            return Json(Products, JsonRequestBehavior.AllowGet);
-        }
-
-
+        */
+       
         //CzyDobre.pl/dodaj-opinie
         [Route("dodaj-opinie")]
         [Route("Home/AddOpinion")]
@@ -505,6 +493,19 @@ namespace CzyDobre.Controllers
            
 
             return View();
+        }
+        public JsonResult AutoComplete(string prefix)
+        {
+            DBEntities db = new DBEntities();
+            var customers = (from AspNetProduct in db.AspNetProducts
+                             where AspNetProduct.ProductName.StartsWith(prefix)
+                             select new
+                             {
+                                 label = AspNetProduct.ProductName,
+                                 val = AspNetProduct.Id_Product
+                             }).ToList();
+
+            return Json(customers);
         }
 
         //CzyDobre.pl/dodaj-opinie
@@ -521,8 +522,7 @@ namespace CzyDobre.Controllers
                 {
                     DBEntities db = new DBEntities();
 
-                    List<AspNetProduct> prod = db.AspNetProducts.ToList();
-                    ViewBag.ProductsList = new SelectList(db.AspNetProducts.ToList(), "Id_Product", "ProductName");
+                    
                     
 
 
@@ -534,30 +534,30 @@ namespace CzyDobre.Controllers
 
                     //Console.WriteLine(zapisz);
 
-                   // var user = db.AspNetProducts.Where(u => u.Id_Product == opn.Id_Product).FirstOrDefault();
-                   // user.Opinion_Counter += 1;
+                    //var user = db.AspNetProducts.Where(u => u.Id_Product == opn.Id_Product).FirstOrDefault();
+                   
+                   //user.Opinion_Counter += 1;
 
-                  //  user.AvarageTaste += opn.RateTaste;
-                  //  user.AvarageService += opn.RateService;
-                  //  user.AvarageIngredients += opn.RateIngredients;
+                    //user.AvarageTaste += opn.RateTaste;
+                    //user.AvarageService += opn.RateService;
+                   // user.AvarageIngredients += opn.RateIngredients;
 
                     AspNetRating rate = new AspNetRating();
-                    
-                    //rate.Id_Product = opn.Id_Product;
+
+                    var query = db.AspNetProducts.Where(s => s.ProductName == opn.PName).Select(s=>s.Id_Product).FirstOrDefault();
+
+                    rate.Id_Product = query;
                     rate.RateComposition = opn.RateComposition;
                     rate.RateIngredients = opn.RateIngredients;
                     rate.RateService = opn.RateService;
                     rate.RateTaste= opn.RateTaste;
                     rate.Comment = opn.Review;
                     rate.RateTotal = (rate.RateComposition + rate.RateIngredients + rate.RateService + rate.RateTaste) / 4 ;
-
+                    rate.LocName = opn.LocName;
                     db.AspNetRatings.Add(rate);
                     db.SaveChanges();
 
-                    AspNetLocalization1 loc = new AspNetLocalization1();
-                    loc.LocalizationName = opn.LocName;
-                    db.AspNetLocalizations1.Add(loc);
-                    db.SaveChanges();
+                  
 
                     AspNetImage image = new AspNetImage();
                     foreach (var item in zapisz)

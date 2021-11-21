@@ -44,6 +44,6 @@ namespace CzyDobre.Models
         public virtual DbSet<AspNetImage> AspNetImages { get; set; }
         public virtual DbSet<AspNetIngredient> AspNetIngredients { get; set; }
         public virtual DbSet<AspNetTaste> AspNetTastes { get; set; }
-        public virtual DbSet<AspNetLocalization1> AspNetLocalizations1 { get; set; }
+        public virtual DbSet<AspNetCoordinate> AspNetCoordinates { get; set; }
     }
 }

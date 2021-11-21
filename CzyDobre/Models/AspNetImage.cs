@@ -17,6 +17,7 @@ namespace CzyDobre.Models
         public int Id_Image { get; set; }
         public string Url { get; set; }
         public Nullable<int> Id_Product { get; set; }
+        public Nullable<bool> Icon { get; set; }
     
         public virtual AspNetProduct AspNetProduct { get; set; }
     }

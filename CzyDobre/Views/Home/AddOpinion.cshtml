@@ -16,13 +16,15 @@
     <div class="form-group" align="center">
 
         
-        @Html.Label("Danie", new { @class = "col-md-2 control-label" })
+        @Html.Label("Wszukaj Danie !", new { @class = "col-md-2 control-label" })
         <div class="col-md-10 ui-widget">
 
 
 
-            @Html.TextBoxFor(model => model.PName,  new { @class = "form-control", @id = "PName" })
-           
+            
+            @Html.TextBoxFor(m => m.PName, new { @class = "pl-4 form-control", @id = "ProductSE" })
+            
+
 
 
 

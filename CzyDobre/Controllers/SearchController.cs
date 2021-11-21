@@ -20,14 +20,6 @@ namespace CzyDobre.Controllers
         
         // GET: Search
         
-        [HttpPost]
-        public JsonResult GetCountries(string Prefix)
-        {
-            DBEntities db = new DBEntities();
-            var Countries = (from c in db.AspNetProducts
-                             where c.ProductName.StartsWith(Prefix)
-                             select new { c.ProductName, c.Id_Product });
-            return Json(Countries, JsonRequestBehavior.AllowGet);
-        }
+        
     }
 }

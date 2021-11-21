@@ -33,6 +33,9 @@ namespace CzyDobre.Models
         public Nullable<int> Id_Localization { get; set; }
 
         [Required]
+        public List<HttpPostedFileBase> Icon { get; set; }
+
+        [Required]
         public List<HttpPostedFileBase> Image { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace CzyDobre.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetLocalization1
+    public partial class AspNetCoordinate
     {
         public int Id_Localization { get; set; }
         public string LocalizationName { get; set; }
