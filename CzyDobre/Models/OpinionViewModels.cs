@@ -14,5 +14,6 @@ namespace CzyDobre.Models
         public string RateIngredients { get; set; }
         public string RateTotal { get; set; }
         public string RateAdcompliance { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
