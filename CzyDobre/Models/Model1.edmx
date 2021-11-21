@@ -27,10 +27,10 @@
           <Key>
             <PropertyRef Name="Id_Localization" />
           </Key>
-          <Property Name="Id_Localization" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LocalizationAdress" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Id_Localization" Type="int" Nullable="false" />
+          <Property Name="LocalizationAdress" Type="nvarchar" MaxLength="150" />
           <Property Name="LocalizationCity" Type="nvarchar" MaxLength="90" Nullable="false" />
-          <Property Name="Id_RestaurantType" Type="int" Nullable="false" />
+          <Property Name="Id_RestaurantType" Type="int" />
         </EntityType>
         <EntityType Name="AspNetProducts">
           <Key>
@@ -39,7 +39,6 @@
           <Property Name="Id_Product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Id_Category" Type="int" />
           <Property Name="ProductDescription" Type="nvarchar" MaxLength="250" />
-          <Property Name="Id_Ingredients" Type="int" />
           <Property Name="Id_Localization" Type="int" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
           <Property Name="Opinion_Counter" Type="int" />
@@ -180,8 +179,6 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AspNetCoordinates">
           <Key>
             <PropertyRef Name="Id_Localization" />
@@ -226,18 +223,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AspNetLocalizations_AspNetRestaurantsType">
-          <End Role="AspNetRestaurantsType" Type="Self.AspNetRestaurantsType" Multiplicity="1" />
-          <End Role="AspNetLocalizations" Type="Self.AspNetLocalizations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetRestaurantsType">
-              <PropertyRef Name="Id_RestaurantType" />
-            </Principal>
-            <Dependent Role="AspNetLocalizations">
-              <PropertyRef Name="Id_RestaurantType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AspNetProducts_AspNetCategories">
           <End Role="AspNetCategories" Type="Self.AspNetCategories" Multiplicity="0..1" />
           <End Role="AspNetProducts" Type="Self.AspNetProducts" Multiplicity="*" />
@@ -247,18 +232,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
             </Principal>
             <Dependent Role="AspNetProducts">
               <PropertyRef Name="Id_Category" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AspNetProducts_AspNetIngredients">
-          <End Role="AspNetIngredients" Type="Self.AspNetIngredients" Multiplicity="0..1" />
-          <End Role="AspNetProducts" Type="Self.AspNetProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetIngredients">
-              <PropertyRef Name="Id_Ingredients" />
-            </Principal>
-            <Dependent Role="AspNetProducts">
-              <PropertyRef Name="Id_Ingredients" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -378,18 +351,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Restaurants_Localizations">
-          <End Role="AspNetLocalizations" Type="Self.AspNetLocalizations" Multiplicity="0..1" />
-          <End Role="AspNetRestaurants" Type="Self.AspNetRestaurants" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetLocalizations">
-              <PropertyRef Name="Id_Localization" />
-            </Principal>
-            <Dependent Role="AspNetRestaurants">
-              <PropertyRef Name="Id_Localization" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Restaurants_RestaurantOpening">
           <End Role="AspNetRestaurantOpening" Type="Self.AspNetRestaurantOpening" Multiplicity="0..1" />
           <End Role="AspNetRestaurants" Type="Self.AspNetRestaurants" Multiplicity="*" />
@@ -432,31 +393,16 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetCoordinates" EntityType="Self.AspNetCoordinates" Schema="novum_Andzej" store:Type="Tables" />
           <EntitySet Name="AspNetImages" EntityType="Self.AspNetImages" Schema="novum_Andzej" store:Type="Tables" />
           <EntitySet Name="AspNetIngredients" EntityType="Self.AspNetIngredients" Schema="novum_Andzej" store:Type="Tables" />
           <EntitySet Name="AspNetTaste" EntityType="Self.AspNetTaste" Schema="novum_Andzej" store:Type="Tables" />
-          <EntitySet Name="AspNetCoordinates" EntityType="Self.AspNetCoordinates" store:Type="Tables" store:Schema="novum_Andzej">
-            <DefiningQuery>SELECT 
-    [AspNetCoordinates].[Id_Localization] AS [Id_Localization], 
-    [AspNetCoordinates].[LocalizationName] AS [LocalizationName], 
-    [AspNetCoordinates].[Latitude] AS [Latitude], 
-    [AspNetCoordinates].[Longitude] AS [Longitude]
-    FROM [novum_Andzej].[AspNetCoordinates] AS [AspNetCoordinates]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_AspNetImages_AspNetProducts" Association="Self.FK_AspNetImages_AspNetProducts">
             <End Role="AspNetProducts" EntitySet="AspNetProducts" />
             <End Role="AspNetImages" EntitySet="AspNetImages" />
           </AssociationSet>
-          <AssociationSet Name="FK_AspNetLocalizations_AspNetRestaurantsType" Association="Self.FK_AspNetLocalizations_AspNetRestaurantsType">
-            <End Role="AspNetRestaurantsType" EntitySet="AspNetRestaurantsType" />
-            <End Role="AspNetLocalizations" EntitySet="AspNetLocalizations" />
-          </AssociationSet>
           <AssociationSet Name="FK_AspNetProducts_AspNetCategories" Association="Self.FK_AspNetProducts_AspNetCategories">
             <End Role="AspNetCategories" EntitySet="AspNetCategories" />
-            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AspNetProducts_AspNetIngredients" Association="Self.FK_AspNetProducts_AspNetIngredients">
-            <End Role="AspNetIngredients" EntitySet="AspNetIngredients" />
             <End Role="AspNetProducts" EntitySet="AspNetProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_AspNetProducts_AspNetLocalizations" Association="Self.FK_AspNetProducts_AspNetLocalizations">
@@ -495,10 +441,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
             <End Role="AspNetRestaurantCalendarDay" EntitySet="AspNetRestaurantCalendarDay" />
             <End Role="AspNetRestaurantOpening" EntitySet="AspNetRestaurantOpening" />
           </AssociationSet>
-          <AssociationSet Name="FK_Restaurants_Localizations" Association="Self.FK_Restaurants_Localizations">
-            <End Role="AspNetLocalizations" EntitySet="AspNetLocalizations" />
-            <End Role="AspNetRestaurants" EntitySet="AspNetRestaurants" />
-          </AssociationSet>
           <AssociationSet Name="FK_Restaurants_RestaurantOpening" Association="Self.FK_Restaurants_RestaurantOpening">
             <End Role="AspNetRestaurantOpening" EntitySet="AspNetRestaurantOpening" />
             <End Role="AspNetRestaurants" EntitySet="AspNetRestaurants" />
@@ -536,13 +478,11 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
           <Key>
             <PropertyRef Name="Id_Localization" />
           </Key>
-          <Property Name="Id_Localization" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LocalizationAdress" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id_Localization" Type="Int32" Nullable="false" />
+          <Property Name="LocalizationAdress" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="LocalizationCity" Type="String" MaxLength="90" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Id_RestaurantType" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AspNetRestaurantsType" Relationship="Self.FK_AspNetLocalizations_AspNetRestaurantsType" FromRole="AspNetLocalizations" ToRole="AspNetRestaurantsType" />
+          <Property Name="Id_RestaurantType" Type="Int32" />
           <NavigationProperty Name="AspNetProducts" Relationship="Self.FK_AspNetProducts_AspNetLocalizations" FromRole="AspNetLocalizations" ToRole="AspNetProducts" />
-          <NavigationProperty Name="AspNetRestaurants" Relationship="Self.FK_Restaurants_Localizations" FromRole="AspNetLocalizations" ToRole="AspNetRestaurants" />
         </EntityType>
         <EntityType Name="AspNetProduct">
           <Key>
@@ -551,7 +491,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
           <Property Name="Id_Product" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Id_Category" Type="Int32" />
           <Property Name="ProductDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Id_Ingredients" Type="Int32" />
           <Property Name="Id_Localization" Type="Int32" />
           <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Opinion_Counter" Type="Int32" />
@@ -561,7 +500,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
           <NavigationProperty Name="AspNetCategory" Relationship="Self.FK_AspNetProducts_AspNetCategories" FromRole="AspNetProducts" ToRole="AspNetCategories" />
           <NavigationProperty Name="AspNetLocalization" Relationship="Self.FK_AspNetProducts_AspNetLocalizations" FromRole="AspNetProducts" ToRole="AspNetLocalizations" />
           <NavigationProperty Name="AspNetImages" Relationship="Self.FK_AspNetImages_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetImages" />
-          <NavigationProperty Name="AspNetIngredient" Relationship="Self.FK_AspNetProducts_AspNetIngredients" FromRole="AspNetProducts" ToRole="AspNetIngredients" />
           <NavigationProperty Name="AspNetRatings" Relationship="Self.FK_AspNetRating_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetRating" />
           <NavigationProperty Name="AspNetReviews" Relationship="Self.FK_AspNetReviews_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetReviews" />
         </EntityType>
@@ -622,7 +560,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
           <Property Name="RestaurantFanpage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="RestaurantImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="RestaurantName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetLocalization" Relationship="Self.FK_Restaurants_Localizations" FromRole="AspNetRestaurants" ToRole="AspNetLocalizations" />
           <NavigationProperty Name="AspNetRestaurantOpening" Relationship="Self.FK_Restaurants_RestaurantOpening" FromRole="AspNetRestaurants" ToRole="AspNetRestaurantOpening" />
         </EntityType>
         <EntityType Name="AspNetRestaurantsType">
@@ -632,7 +569,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
           <Property Name="Id_RestaurantType" Type="Int32" Nullable="false" />
           <Property Name="RestaurantTypeName" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
           <Property Name="RestaurantTypeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetLocalizations" Relationship="Self.FK_AspNetLocalizations_AspNetRestaurantsType" FromRole="AspNetRestaurantsType" ToRole="AspNetLocalizations" />
         </EntityType>
         <EntityType Name="AspNetReview">
           <Key>
@@ -708,6 +644,15 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="AspNetCoordinate">
+          <Key>
+            <PropertyRef Name="Id_Localization" />
+          </Key>
+          <Property Name="Id_Localization" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocalizationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+        </EntityType>
         <EntityType Name="AspNetImage">
           <Key>
             <PropertyRef Name="Id_Image" />
@@ -724,7 +669,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
           </Key>
           <Property Name="Id_Ingredients" Type="Int32" Nullable="false" />
           <Property Name="IngredientsName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AspNetProducts" Relationship="Self.FK_AspNetProducts_AspNetIngredients" FromRole="AspNetIngredients" ToRole="AspNetProducts" />
         </EntityType>
         <EntityType Name="AspNetTaste">
           <Key>
@@ -732,15 +676,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
           </Key>
           <Property Name="Id_taste" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AspNetCoordinate">
-          <Key>
-            <PropertyRef Name="Id_Localization" />
-          </Key>
-          <Property Name="Id_Localization" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LocalizationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Latitude" Type="Double" />
-          <Property Name="Longitude" Type="Double" />
         </EntityType>
         <Association Name="FK_AspNetProducts_AspNetCategories">
           <End Role="AspNetCategories" Type="Self.AspNetCategory" Multiplicity="0..1" />
@@ -751,18 +686,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
             </Principal>
             <Dependent Role="AspNetProducts">
               <PropertyRef Name="Id_Category" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AspNetLocalizations_AspNetRestaurantsType">
-          <End Role="AspNetRestaurantsType" Type="Self.AspNetRestaurantsType" Multiplicity="1" />
-          <End Role="AspNetLocalizations" Type="Self.AspNetLocalization" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetRestaurantsType">
-              <PropertyRef Name="Id_RestaurantType" />
-            </Principal>
-            <Dependent Role="AspNetLocalizations">
-              <PropertyRef Name="Id_RestaurantType" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -778,18 +701,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Restaurants_Localizations">
-          <End Role="AspNetLocalizations" Type="Self.AspNetLocalization" Multiplicity="0..1" />
-          <End Role="AspNetRestaurants" Type="Self.AspNetRestaurant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetLocalizations">
-              <PropertyRef Name="Id_Localization" />
-            </Principal>
-            <Dependent Role="AspNetRestaurants">
-              <PropertyRef Name="Id_Localization" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AspNetImages_AspNetProducts">
           <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="0..1" />
           <End Role="AspNetImages" Type="Self.AspNetImage" Multiplicity="*" />
@@ -799,18 +710,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
             </Principal>
             <Dependent Role="AspNetImages">
               <PropertyRef Name="Id_Product" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AspNetProducts_AspNetIngredients">
-          <End Role="AspNetIngredients" Type="Self.AspNetIngredient" Multiplicity="0..1" />
-          <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetIngredients">
-              <PropertyRef Name="Id_Ingredients" />
-            </Principal>
-            <Dependent Role="AspNetProducts">
-              <PropertyRef Name="Id_Ingredients" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -935,33 +834,21 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="AspNetCoordinates" EntityType="Self.AspNetCoordinate" />
           <EntitySet Name="AspNetImages" EntityType="Self.AspNetImage" />
           <EntitySet Name="AspNetIngredients" EntityType="Self.AspNetIngredient" />
           <EntitySet Name="AspNetTastes" EntityType="Self.AspNetTaste" />
-          <EntitySet Name="AspNetCoordinates" EntityType="Self.AspNetCoordinate" />
           <AssociationSet Name="FK_AspNetProducts_AspNetCategories" Association="Self.FK_AspNetProducts_AspNetCategories">
             <End Role="AspNetCategories" EntitySet="AspNetCategories" />
             <End Role="AspNetProducts" EntitySet="AspNetProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AspNetLocalizations_AspNetRestaurantsType" Association="Self.FK_AspNetLocalizations_AspNetRestaurantsType">
-            <End Role="AspNetRestaurantsType" EntitySet="AspNetRestaurantsTypes" />
-            <End Role="AspNetLocalizations" EntitySet="AspNetLocalizations" />
           </AssociationSet>
           <AssociationSet Name="FK_AspNetProducts_AspNetLocalizations" Association="Self.FK_AspNetProducts_AspNetLocalizations">
             <End Role="AspNetLocalizations" EntitySet="AspNetLocalizations" />
             <End Role="AspNetProducts" EntitySet="AspNetProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK_Restaurants_Localizations" Association="Self.FK_Restaurants_Localizations">
-            <End Role="AspNetLocalizations" EntitySet="AspNetLocalizations" />
-            <End Role="AspNetRestaurants" EntitySet="AspNetRestaurants" />
-          </AssociationSet>
           <AssociationSet Name="FK_AspNetImages_AspNetProducts" Association="Self.FK_AspNetImages_AspNetProducts">
             <End Role="AspNetProducts" EntitySet="AspNetProducts" />
             <End Role="AspNetImages" EntitySet="AspNetImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AspNetProducts_AspNetIngredients" Association="Self.FK_AspNetProducts_AspNetIngredients">
-            <End Role="AspNetIngredients" EntitySet="AspNetIngredients" />
-            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_AspNetRating_AspNetProducts" Association="Self.FK_AspNetRating_AspNetProducts">
             <End Role="AspNetProducts" EntitySet="AspNetProducts" />
@@ -1041,7 +928,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
                 <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
                 <ScalarProperty Name="Id_Category" ColumnName="Id_Category" />
                 <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
-                <ScalarProperty Name="Id_Ingredients" ColumnName="Id_Ingredients" />
                 <ScalarProperty Name="Id_Localization" ColumnName="Id_Localization" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="Opinion_Counter" ColumnName="Opinion_Counter" />
@@ -1186,6 +1072,16 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AspNetCoordinates">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetCoordinate">
+              <MappingFragment StoreEntitySet="AspNetCoordinates">
+                <ScalarProperty Name="Id_Localization" ColumnName="Id_Localization" />
+                <ScalarProperty Name="LocalizationName" ColumnName="LocalizationName" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AspNetImages">
             <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetImage">
               <MappingFragment StoreEntitySet="AspNetImages">
@@ -1209,16 +1105,6 @@ warning 6002: The table/view 'novum_czydobre.pl.novum_Andzej.AspNetCoordinates' 
               <MappingFragment StoreEntitySet="AspNetTaste">
                 <ScalarProperty Name="Id_taste" ColumnName="Id_taste" />
                 <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetCoordinates">
-            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetCoordinate">
-              <MappingFragment StoreEntitySet="AspNetCoordinates">
-                <ScalarProperty Name="Id_Localization" ColumnName="Id_Localization" />
-                <ScalarProperty Name="LocalizationName" ColumnName="LocalizationName" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -14,16 +14,7 @@ namespace CzyDobre.Models
     
     public partial class AspNetIngredient
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AspNetIngredient()
-        {
-            this.AspNetProducts = new HashSet<AspNetProduct>();
-        }
-    
         public int Id_Ingredients { get; set; }
         public string IngredientsName { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetProduct> AspNetProducts { get; set; }
     }
 }

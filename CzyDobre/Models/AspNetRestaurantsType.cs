@@ -14,17 +14,8 @@ namespace CzyDobre.Models
     
     public partial class AspNetRestaurantsType
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AspNetRestaurantsType()
-        {
-            this.AspNetLocalizations = new HashSet<AspNetLocalization>();
-        }
-    
         public int Id_RestaurantType { get; set; }
         public string RestaurantTypeName { get; set; }
         public string RestaurantTypeDescription { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetLocalization> AspNetLocalizations { get; set; }
     }
 }

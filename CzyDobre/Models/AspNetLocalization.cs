@@ -18,18 +18,14 @@ namespace CzyDobre.Models
         public AspNetLocalization()
         {
             this.AspNetProducts = new HashSet<AspNetProduct>();
-            this.AspNetRestaurants = new HashSet<AspNetRestaurant>();
         }
     
         public int Id_Localization { get; set; }
         public string LocalizationAdress { get; set; }
         public string LocalizationCity { get; set; }
-        public int Id_RestaurantType { get; set; }
+        public Nullable<int> Id_RestaurantType { get; set; }
     
-        public virtual AspNetRestaurantsType AspNetRestaurantsType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetProduct> AspNetProducts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetRestaurant> AspNetRestaurants { get; set; }
     }
 }

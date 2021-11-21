@@ -23,7 +23,6 @@ namespace CzyDobre.Models
         public string RestaurantImage { get; set; }
         public string RestaurantName { get; set; }
     
-        public virtual AspNetLocalization AspNetLocalization { get; set; }
         public virtual AspNetRestaurantOpening AspNetRestaurantOpening { get; set; }
     }
 }

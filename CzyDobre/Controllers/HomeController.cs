@@ -310,14 +310,6 @@ namespace CzyDobre.Controllers
         public ActionResult AddProducts()
         {
             DBEntities db = new DBEntities();
-            List<AspNetCategory> cats = db.AspNetCategories.ToList();
-            ViewBag.CategoryList = new SelectList(cats, "Id_Category", "CategoryName");
-
-            List<AspNetIngredient> ing = db.AspNetIngredients.ToList();
-            ViewBag.IngredientsList = new SelectList(ing, "Id_Ingredients", "IngredientsName");
-
-            List<AspNetLocalization> loc = db.AspNetLocalizations.ToList();
-            ViewBag.LocalizationsList = new SelectList(loc, "Id_Localization", "LocalizationCity");
 
             return View();
         }
@@ -326,7 +318,7 @@ namespace CzyDobre.Controllers
         [Route("Home/AddProducts")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [CaptchaValidator(ErrorMessage = "Nieprawidłowe roziązanie pola Captcha", RequiredMessage = "Pole Captcha jest wymagane.")]
+        [CaptchaValidator(ErrorMessage = "Nieprawidłowe rozwiązanie pola Captcha", RequiredMessage = "Pole Captcha jest wymagane.")]
         [Authorize]
         public ActionResult AddProducts(ProductFormModels prd,bool captchaValid)
         {
@@ -336,55 +328,167 @@ namespace CzyDobre.Controllers
                 {
                     DBEntities db = new DBEntities();
 
-                    List<AspNetCategory> cats = db.AspNetCategories.ToList();
-                    ViewBag.CategoryList = new SelectList(cats, "Id_Category", "CategoryName");
-
-                    List<AspNetIngredient> ing = db.AspNetIngredients.ToList();
-                    ViewBag.IngredientsList = new SelectList(ing, "Id_Ingredients", "IngredientsName");
-
-                    List<AspNetLocalization> loc = db.AspNetLocalizations.ToList();
-                    ViewBag.LocalizationsList = new SelectList(loc, "Id_Localization", "LocalizationCity");
+                    
 
                     List<string> zapisz = new List<string>();
-
+                    
+                    
                     zapisz = SaveImagesToProduct(prd);
+                    string zapiszIc = SaveIconToProduct(prd);
 
-                    //Console.WriteLine(zapisz);
 
                     AspNetProduct product = new AspNetProduct();
+                    AspNetLocalization loc = new AspNetLocalization();
+                    AspNetImage image = new AspNetImage();
+
+
+                    var query = db.AspNetCategories.Where(s => s.CategoryName == prd.CategoryName).Select(s => s.Id_Category).First();
+
+
+                    
+                    loc.LocalizationCity = prd.LocName;
+                    db.AspNetLocalizations.Add(loc);
+                    db.SaveChanges();
+
+                    
+                    
+                    var queryl = db.AspNetLocalizations.Where(s => s.LocalizationCity == prd.LocName).Select(s => s.Id_Localization).First();
+                    product.Id_Localization = queryl;
                     product.ProductName = prd.ProductName;
                     product.ProductDescription = prd.ProductDescription;
-                    product.Id_Category = prd.Id_Category;
-                    product.Id_Localization = prd.Id_Localization;                    
-
+                    product.Id_Category = query;
                     db.AspNetProducts.Add(product);
-
                     db.SaveChanges();
-                    int latestId = product.Id_Product;
-                    AspNetImage image = new AspNetImage();
+
+
+                    
+                    var queryp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName).Select(s => s.Id_Product).First();
+                    /*
+                    image.Url = zapiszIc;
+                    image.Id_Product = queryp;
+                    image.Icon = true;
+                    db.AspNetImages.Add(image);
+                    db.SaveChanges();
+                    */
+                    
+
                     foreach (var item in zapisz)
                     {
                         
                         image.Url = item;
-                        image.Id_Product = product.Id_Product;
+                        image.Id_Product = queryp;
+                        image.Icon = false; 
                         db.AspNetImages.Add(image);
                         db.SaveChanges();
                     }
-                    return RedirectToAction("Index");
+                    
+
+
+
+
+                    ModelState.Clear();
+                    this.AddNotification("Produkt został dodany pomyślnie.", NotificationType.SUCCESS);
+
                 }
 
                 catch (Exception ex)
                 {
+                    this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
                     throw ex;
                 }
             }
-            else
+            /*else
             {
                 this.AddNotification("Brak danych!", NotificationType.ERROR);
                 return RedirectToAction("AddProducts");            
             }
+            */
+            return View();
         }
+        private string SaveIconToProduct(ProductFormModels model)
+        {
+            bool OK = false;
+            int allSize = 0;
+            string ext = null;
+            //nazwy plikow do zapisania do bazy
+            string filename="";
+            //zewryfikowane zdjecia do wyslania 
+            HttpPostedFile checkedFiles;
 
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Account account = new Account(
+                        ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
+                        ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
+                        ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
+                    Cloudinary cloudinary = new Cloudinary(account);
+
+                    //Weryfikacja plików
+                    
+                        if (model.Icon != null && model.Icon.ContentLength > 0)
+                        {
+                            ext = Path.GetExtension(model.Icon.FileName.ToLower());
+
+                            if (ext == ".png" || ext == ".jpeg" || ext == ".jpg")
+                            {
+                                checkedFiles= model.Icon;
+                                var byteCount = model.Icon.ContentLength;
+
+                                allSize = allSize + byteCount;
+                                if (allSize < 5242880)
+                                {
+                                    OK = true;
+                                }
+                                else
+                                {
+                                    OK = false;
+                                    this.AddNotification("Zdjęcia ważą za dużo! Maksymalna wartość zdjęć wynosi 5MB", NotificationType.WARNING);
+                                    return null;
+                                }
+                            }
+                            else
+                            {
+                                this.AddNotification("Plik nieprawidłowy: " + model.Icon.FileName, NotificationType.INFO);
+                            }
+                        }
+                        else
+                        {
+                            this.AddNotification("Nie wybrano pliku", NotificationType.INFO);
+                        }
+                    
+
+                    //Po weryfikacji
+                    if (OK == true)
+                    {
+                        
+                            filename = UniqueNumber() + model.Icon.FileName;
+                            
+
+                            var uploadParams = new ImageUploadParams()
+                            {
+                                UseFilename = true,
+                                UniqueFilename = false,
+                                File = new FileDescription(filename, model.Icon.InputStream),
+                                Folder = "CzyDobre-images"
+                            };
+                            var uploadResult = cloudinary.Upload(uploadParams);
+                            //this.AddNotification(filename, NotificationType.SUCCESS);
+                        
+                        ModelState.Clear();
+                        this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.Clear();
+                    this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                }
+            }
+
+            return filename;
+        }
         private List<string> SaveImagesToProduct(ProductFormModels model)
         {
             bool OK = false;
@@ -488,8 +592,7 @@ namespace CzyDobre.Controllers
         public ActionResult AddOpinion()
         {
             DBEntities db = new DBEntities();
-            List<AspNetProduct> prod = db.AspNetProducts.ToList();
-            ViewBag.ProductsList = new SelectList(db.AspNetProducts.ToList(), "Id_Product", "ProductName");
+            
 
            
 
@@ -498,7 +601,7 @@ namespace CzyDobre.Controllers
         public JsonResult AutoComplete(string prefix)
         {
             DBEntities db = new DBEntities();
-            var customers = (from AspNetProduct in db.AspNetProducts
+            var  Products = (from AspNetProduct in db.AspNetProducts
                              where AspNetProduct.ProductName.StartsWith(prefix)
                              select new
                              {
@@ -506,7 +609,20 @@ namespace CzyDobre.Controllers
                                  val = AspNetProduct.Id_Product
                              }).ToList();
 
-            return Json(customers);
+            return Json(Products);
+        }
+        public JsonResult AutoCompleteCategory(string prefix)
+        {
+            DBEntities db = new DBEntities();
+            var Products = (from AspNetCategory in db.AspNetCategories
+                            where AspNetCategory.CategoryName.StartsWith(prefix)
+                            select new
+                            {
+                                label = AspNetCategory.CategoryName,
+                                val = AspNetCategory.Id_Category
+                            }).ToList();
+
+            return Json(Products);
         }
 
         //CzyDobre.pl/dodaj-opinie
@@ -522,12 +638,6 @@ namespace CzyDobre.Controllers
                 try
                 {
                     DBEntities db = new DBEntities();
-
-                    
-                    
-
-
-
 
                     List<string> zapisz = new List<string>();
 
@@ -571,7 +681,7 @@ namespace CzyDobre.Controllers
                     }
                     ModelState.Clear();
                     this.AddNotification("Opinia została wysłana, dziękujemy za opinię.", NotificationType.SUCCESS);
-                    return RedirectToAction("Index");
+                    
                 }
                 catch (Exception ex)
                 {
@@ -579,12 +689,14 @@ namespace CzyDobre.Controllers
                     this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
                 }
             }
+            /*
             else
             {
                 this.AddNotification("Brak danych !", NotificationType.ERROR);
                 return RedirectToAction("AddOpinion");
 
             }
+            */
             return View();
         }
 

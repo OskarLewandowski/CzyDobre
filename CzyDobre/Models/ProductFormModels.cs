@@ -21,21 +21,17 @@ namespace CzyDobre.Models
 
         [Required]
         [Display(Name = "Kategoria")]
-        public Nullable<int> Id_Category { get; set; }
+        public string CategoryName { get; set; }
 
-
-        [Required]
-        [Display(Name = "Składniki")]
-        public Nullable<int> Id_Ingredients { get; set; }
 
         [Required]
         [Display(Name = "Lokalizacja")]
-        public Nullable<int> Id_Localization { get; set; }
+        public string LocName { get; set; }
 
-        [Required]
-        public List<HttpPostedFileBase> Icon { get; set; }
+       
+        public HttpPostedFile Icon { get; set; }
 
-        [Required]
+        
         public List<HttpPostedFileBase> Image { get; set; }
     }
 }
