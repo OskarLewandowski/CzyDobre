@@ -14,7 +14,7 @@ namespace CzyDobre
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/bootstrap.js",
                         "~/scripts/datatables/jquery.datatables.js",
-                        "~/scripts/datatables/datatables.bootstrap.js",
+                        "~/scripts/datatables/datatables.bootstrap4.js",
                         "~/scripts/jquery-ui-1.13.0.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
