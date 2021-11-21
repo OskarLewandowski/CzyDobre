@@ -29,7 +29,8 @@ namespace CzyDobre
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/bootstrap.css",
                         "~/content/datatables/css/datatables.bootstrap.css",
-                        "~/Content/site.css"));
+                        "~/Content/main.css",
+                        "~/Content/themes/base/jquery-ui.css"));
 
             bundles.Add(new StyleBundle("~/Fontello/css/fontello").Include(
                         "~/Fontello/css/animation.css",
