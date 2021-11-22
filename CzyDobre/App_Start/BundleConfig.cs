@@ -28,7 +28,7 @@ namespace CzyDobre
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/bootstrap.css",
-                        "~/content/datatables/css/datatables.bootstrap.css",
+                        "~/content/datatables/css/datatables.bootstrap4.css",
                         "~/Content/main.css",
                         "~/Content/themes/base/jquery-ui.css"));
 
