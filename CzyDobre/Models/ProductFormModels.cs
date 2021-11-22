@@ -28,10 +28,11 @@ namespace CzyDobre.Models
         [Display(Name = "Lokalizacja")]
         public string LocName { get; set; }
 
-       
-        public HttpPostedFile Icon { get; set; }
+        [Required]
+        public List<HttpPostedFileBase> Icon { get; set; }
 
         
         public List<HttpPostedFileBase> Image { get; set; }
+
     }
 }

@@ -27,7 +27,7 @@
           <Key>
             <PropertyRef Name="Id_Localization" />
           </Key>
-          <Property Name="Id_Localization" Type="int" Nullable="false" />
+          <Property Name="Id_Localization" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LocalizationAdress" Type="nvarchar" MaxLength="150" />
           <Property Name="LocalizationCity" Type="nvarchar" MaxLength="90" Nullable="false" />
           <Property Name="Id_RestaurantType" Type="int" />
@@ -478,7 +478,7 @@
           <Key>
             <PropertyRef Name="Id_Localization" />
           </Key>
-          <Property Name="Id_Localization" Type="Int32" Nullable="false" />
+          <Property Name="Id_Localization" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LocalizationAdress" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="LocalizationCity" Type="String" MaxLength="90" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Id_RestaurantType" Type="Int32" />

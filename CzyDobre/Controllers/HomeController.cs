@@ -333,8 +333,8 @@ namespace CzyDobre.Controllers
                     List<string> zapisz = new List<string>();
                     
                     
-                    zapisz = SaveImagesToProduct(prd);
-                    string zapiszIc = SaveIconToProduct(prd);
+                    zapisz = SaveIconToProduct(prd);
+                    
 
 
                     AspNetProduct product = new AspNetProduct();
@@ -363,21 +363,21 @@ namespace CzyDobre.Controllers
 
                     
                     var queryp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName).Select(s => s.Id_Product).First();
-                    /*
-                    image.Url = zapiszIc;
-                    image.Id_Product = queryp;
-                    image.Icon = true;
-                    db.AspNetImages.Add(image);
-                    db.SaveChanges();
-                    */
                     
+                    //image.Url = zapiszIc;
+                    //image.Id_Product = queryp;
+                   // image.Icon = true;
+                    //db.AspNetImages.Add(image);
+                    //db.SaveChanges();
 
+
+                      
                     foreach (var item in zapisz)
                     {
                         
                         image.Url = item;
                         image.Id_Product = queryp;
-                        image.Icon = false; 
+                        image.Icon = true; 
                         db.AspNetImages.Add(image);
                         db.SaveChanges();
                     }
@@ -405,15 +405,15 @@ namespace CzyDobre.Controllers
             */
             return View();
         }
-        private string SaveIconToProduct(ProductFormModels model)
+        private List<string> SaveIconToProduct(ProductFormModels model)
         {
             bool OK = false;
             int allSize = 0;
             string ext = null;
             //nazwy plikow do zapisania do bazy
-            string filename="";
+            List<string> imagesData = new List<string>();
             //zewryfikowane zdjecia do wyslania 
-            HttpPostedFile checkedFiles;
+            List<HttpPostedFileBase> checkedFiles = new List<HttpPostedFileBase>();
 
             if (ModelState.IsValid)
             {
@@ -426,15 +426,16 @@ namespace CzyDobre.Controllers
                     Cloudinary cloudinary = new Cloudinary(account);
 
                     //Weryfikacja plików
-                    
-                        if (model.Icon != null && model.Icon.ContentLength > 0)
+                    foreach (HttpPostedFileBase item in model.Icon)
+                    {
+                        if (item != null && item.ContentLength > 0)
                         {
-                            ext = Path.GetExtension(model.Icon.FileName.ToLower());
+                            ext = Path.GetExtension(item.FileName.ToLower());
 
                             if (ext == ".png" || ext == ".jpeg" || ext == ".jpg")
                             {
-                                checkedFiles= model.Icon;
-                                var byteCount = model.Icon.ContentLength;
+                                checkedFiles.Add(item);
+                                var byteCount = item.ContentLength;
 
                                 allSize = allSize + byteCount;
                                 if (allSize < 5242880)
@@ -450,32 +451,33 @@ namespace CzyDobre.Controllers
                             }
                             else
                             {
-                                this.AddNotification("Plik nieprawidłowy: " + model.Icon.FileName, NotificationType.INFO);
+                                this.AddNotification("Plik nieprawidłowy: " + item.FileName, NotificationType.INFO);
                             }
                         }
                         else
                         {
                             this.AddNotification("Nie wybrano pliku", NotificationType.INFO);
                         }
-                    
+                    }
 
                     //Po weryfikacji
                     if (OK == true)
                     {
-                        
-                            filename = UniqueNumber() + model.Icon.FileName;
-                            
+                        foreach (HttpPostedFileBase item in checkedFiles)
+                        {
+                            var filename = UniqueNumber() + item.FileName;
+                            imagesData.Add(filename);
 
                             var uploadParams = new ImageUploadParams()
                             {
                                 UseFilename = true,
                                 UniqueFilename = false,
-                                File = new FileDescription(filename, model.Icon.InputStream),
+                                File = new FileDescription(filename, item.InputStream),
                                 Folder = "CzyDobre-images"
                             };
                             var uploadResult = cloudinary.Upload(uploadParams);
                             //this.AddNotification(filename, NotificationType.SUCCESS);
-                        
+                        }
                         ModelState.Clear();
                         this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
                     }
@@ -487,7 +489,7 @@ namespace CzyDobre.Controllers
                 }
             }
 
-            return filename;
+            return imagesData;
         }
         private List<string> SaveImagesToProduct(ProductFormModels model)
         {
