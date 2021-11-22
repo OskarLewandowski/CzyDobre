@@ -80,8 +80,9 @@ namespace CzyDobre.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Pole Hasło jest wymagane")]
-        [StringLength(100, MinimumLength = 6, ErrorMessage = "Hasło musi zawierać co najmniej 6 znaków")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "Hasło musi zawierać co najmniej 6 znaków w tym przynajmniej: jedną małą literę (a-z), jedną dużą literę (A-Z), jedną cyfrę (0-9) oraz jeden znak specjalny (@ $ ! % * ? &)")]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$", ErrorMessage = "Hasło musi zawierać co najmniej 6 znaków w tym przynajmniej: jedną małą literę (a-z), jedną dużą literę (A-Z), jedną cyfrę (0-9) oraz jeden znak specjalny (@ $ ! % * ? &)")]
         [Display(Name = "Hasło")]
         public string Password { get; set; }
 
@@ -101,6 +102,7 @@ namespace CzyDobre.Models
         [Required(ErrorMessage = "Pole Hasło jest wymagane")]
         [StringLength(100, ErrorMessage = "{0} musi zawierać co najmniej następującą liczbę znaków: {2}.", MinimumLength = 6)]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$", ErrorMessage = "Hasło musi zawierać co najmniej 6 znaków w tym przynajmniej: jedną małą literę (a-z), jedną dużą literę (A-Z), jedną cyfrę (0-9) oraz jeden znak specjalny (@ $ ! % * ? &)")]
         [Display(Name = "Hasło")]
         public string Password { get; set; }
 
