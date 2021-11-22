@@ -21,7 +21,7 @@
     </div>
 
     <div class="table">
-        <table class="table table-bordered table-hover">
+        <table id="roles" class="table table-bordered table-hover display">
             <thead>
                 <tr class="table-role">
                     <th>ID Użytkownika</th>
@@ -44,3 +44,13 @@
         </table>
     </div>
 </div>
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#roles').DataTable();
+        });
+    </script>
+}
