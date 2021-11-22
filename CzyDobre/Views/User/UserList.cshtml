@@ -15,10 +15,10 @@
                 <tr class="table-role">
                     <th>ID</th>
                     <th>Email</th>
-                    <th>EmailConfirmed</th>
-                    <th>FirstName</th>
-                    <th>LastName</th>
-                    <th>NickName</th>
+                    <th>Zweryfikowany Email</th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Nick</th>
                     <th>Akcja</th>
                 </tr>
             </thead>
@@ -28,12 +28,21 @@
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.Email</td>
-                        <td>@item.EmailConfirmed</td>
+
+                        @if (item.EmailConfirmed == true)
+                        {
+                            <td>Tak</td>
+                        }
+                        else
+                        {
+                            <td>Nie</td>
+                        }
+
                         <td>@item.FirstName</td>
                         <td>@item.LastName</td>
                         <td>@item.NickName</td>
                         <td>
-                            <a href="@Url.Action("Edit", "User", new {item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName})" class="btn btn-primary">Edytuj</a>
+                            <a href="@Url.Action("Edit", "User", new {item.Id, item.Email, item.EmailConfirmed, item.FirstName, item.LastName, item.NickName})" class="btn btn-primary">Edytuj</a>
                             <hr />
                             <a class="btn btn-danger" href="@Url.Action("Delete", "User" , new { idUser = item.Id, nick = item.NickName})">Usuń</a>
                         </td>
