@@ -45,12 +45,15 @@
     </div>
 </div>
 
-
 @section scripts
 {
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#roles').DataTable();
+            $('#roles').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pl.json"
+                }
+            });
         });
     </script>
 }

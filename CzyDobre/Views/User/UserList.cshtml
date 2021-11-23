@@ -57,7 +57,11 @@
 {
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#users').DataTable();
+            $('#users').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pl.json"
+                }
+            });
         });
     </script>
 }
