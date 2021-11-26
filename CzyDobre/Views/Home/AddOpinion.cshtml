@@ -15,15 +15,15 @@
                 @Html.AntiForgeryToken()
     <div class="form-group" align="center">
 
-        
+
         @Html.Label("Wszukaj Danie !", new { @class = "col-md-2 control-label" })
         <div class="col-md-10 ui-widget">
 
 
 
-            
+
             @Html.TextBoxFor(m => m.PName, new { @class = "pl-4 form-control", @id = "ProductSE" })
-            
+
 
 
 
@@ -31,9 +31,10 @@
             <script defer src="~/Scripts/AutoComplete.js"></script>
             <!-- Html.DropDownListFor(m => m.Id_Product, ViewBag.ProductsList as SelectList, "--Wybierz Produkt--", new { class = "pl-4 form-control" }) -->
         </div>
-
-        @Html.ActionLink("Nie widzisz swojego dania na liście? Kliknij tutaj,aby je dodać", "AddProducts", "Home", null)
+        <div>
+            @Html.ActionLink("Nie widzisz swojego dania na liście? Kliknij tutaj,aby je dodać", "AddProducts", "Home", null, new { @class = "btn btn-link" })
         </div>
+    </div>
 
                 <div class="form-group" align="center">
                     @Html.LabelFor(m => m.RateService, new { @class = "col-md-1 control-label" })
