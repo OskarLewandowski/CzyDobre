@@ -168,6 +168,9 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="64" />
           <Property Name="LastName" Type="nvarchar" MaxLength="64" />
           <Property Name="NickName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="LastBanDays" Type="int" />
+          <Property Name="BanComment" Type="text" />
+          <Property Name="WhoGaveBan" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -629,6 +632,9 @@
           <Property Name="FirstName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="NickName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastBanDays" Type="Int32" />
+          <Property Name="BanComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="WhoGaveBan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetReviews" Relationship="Self.FK_Reviews_Users" FromRole="AspNetUsers" ToRole="AspNetReviews" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
@@ -1058,6 +1064,9 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="LastBanDays" ColumnName="LastBanDays" />
+                <ScalarProperty Name="BanComment" ColumnName="BanComment" />
+                <ScalarProperty Name="WhoGaveBan" ColumnName="WhoGaveBan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

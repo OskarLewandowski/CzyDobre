@@ -38,6 +38,9 @@ namespace CzyDobre.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string NickName { get; set; }
+        public Nullable<int> LastBanDays { get; set; }
+        public string BanComment { get; set; }
+        public string WhoGaveBan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetReview> AspNetReviews { get; set; }
