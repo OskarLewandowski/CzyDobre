@@ -568,7 +568,7 @@ namespace CzyDobre.Controllers
                         //this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     ModelState.Clear();
                     //this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);

@@ -1029,6 +1029,8 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\UserList.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Ban.cshtml" />
+    <Content Include="Views\User\UnBan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

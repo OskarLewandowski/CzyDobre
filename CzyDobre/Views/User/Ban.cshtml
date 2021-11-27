@@ -1,0 +1,73 @@
+﻿@model CzyDobre.Models.AspNetUser
+@{
+    ViewBag.Title = "Ban";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h2>Zablokuj użytkownika</h2>
+    <hr />
+    @using (Html.BeginForm("BanUser", "User", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
+    {
+        <div class="container">
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.PasswordHash)
+            @Html.HiddenFor(m => m.SecurityStamp)
+            @Html.HiddenFor(m => m.PhoneNumber)
+            @Html.HiddenFor(m => m.PhoneNumberConfirmed)
+            @Html.HiddenFor(m => m.TwoFactorEnabled)
+            @Html.HiddenFor(m => m.LockoutEndDateUtc)
+            @Html.HiddenFor(m => m.LockoutEnabled)
+            @Html.HiddenFor(m => m.AccessFailedCount)
+            @Html.HiddenFor(m => m.UserName)
+            @Html.HiddenFor(m => m.WhoGaveBan)
+            @Html.HiddenFor(m => m.EmailConfirmed)
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.NickName, new { @class = "col-md-2 control-label" })
+                @Html.TextBoxFor(m => m.NickName, new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(m => m.NickName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.BanComment, new { @class = "col-md-2 control-label" })
+                @Html.TextAreaFor(m => m.BanComment, new { @class = "form-control"})
+                @Html.ValidationMessageFor(m => m.BanComment, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.LastBanDays, new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.LastBanDays, new[] {
+                 new SelectListItem() {Text = "1 dzień", Value = "1"},
+                 new SelectListItem() {Text = "3 dni", Value = "3"},
+                 new SelectListItem() {Text = "7 dni", Value = "3"},
+                 new SelectListItem() {Text = "30 dni", Value = "30"},
+                 new SelectListItem() {Text = "Perm Ban", Value = "99999"},
+                 })
+                @Html.ValidationMessageFor(m => m.LastBanDays, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group" align="center">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Zablokuj" class="btn btn-success" style="font-size: 20px" />
+                    <input type="reset" value="Anuluj" class="btn btn-danger" style="font-size: 20px" />
+                    @Html.ActionLink("Wróć do listy", "UserList", "User", null, new { @class = "btn btn-info" })
+                </div>
+            </div>
+            <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+        </div>
+    }
+</div>
+@Html.Partial("_Loading")
