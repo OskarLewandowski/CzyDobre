@@ -13,7 +13,7 @@
             using (Html.BeginForm("AddOpinion", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
             {
                 @Html.AntiForgeryToken()
-    <div class="form-group" align="center">
+        <div class="form-group" align="center">
         <div style="text-align: center;">@Html.Partial("_Notifications")</div>
 
         @Html.Label("Danie: ", new { @class = "col-md-2 control-label" })
