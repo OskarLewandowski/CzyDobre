@@ -14,8 +14,7 @@
             <thead>
                 <tr class="table-role">
                     <th>ID</th>
-                    <th>Email</th>
-                    <th>Zweryfikowany Email</th>
+                    <th>Email | Potwierdzenie?</th>
                     <th>Zablokowany</th>
                     <th>Imię</th>
                     <th>Nazwisko</th>
@@ -28,15 +27,14 @@
                 {
                     <tr>
                         <td>@item.Id</td>
-                        <td>@item.Email</td>
 
                         @if (item.EmailConfirmed == true)
                         {
-                            <td>Tak</td>
+                            <td> @item.Email Tak✔️</td>
                         }
                         else
                         {
-                            <td>Nie</td>
+                            <td>@item.Email Nie❌</td>
                         }
 
                         @if (item.LockoutEndDateUtc != null)
