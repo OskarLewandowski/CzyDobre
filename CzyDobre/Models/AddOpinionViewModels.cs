@@ -10,32 +10,29 @@ namespace CzyDobre.Models
 {
     public class AddOpinionViewModels
     {
-        [Required]
+        [Required(ErrorMessage = "Danie jest wymagane!")]
         [Display(Name = "Produkt")]
         public string  PName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Pole jest wymagane!")]
         [Display(Name = "Wygląd")]
         public short RateComposition { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Ocena ceny jest wymagana!")]
         [Display(Name = "Cena")]
         public short RateIngredients { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Ocena smaku jest wymagana!")]
         [Display(Name = "Smak")]
         public short RateTaste { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Ocena obsługi  jest wymagana!")]
         [Display(Name = "Obsługa")]
         public short RateService { get; set; }
-        [Required]
+       
         [Display(Name = "Recenzja")]
         public string Review { get; set; }
-        [Required]
-        [Display(Name = "Lokalizacja")]
-        public string LocName { get; set; }
+       
 
-        [Required]
         [Display(Name = "Zdjęcie Produktu")]
         [ImageFileCheck]
         public List<HttpPostedFileBase> Photo { get; set; }

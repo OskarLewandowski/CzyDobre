@@ -14,16 +14,16 @@
             {
                 @Html.AntiForgeryToken()
     <div class="form-group" align="center">
+        <div style="text-align: center;">@Html.Partial("_Notifications")</div>
 
-
-        @Html.Label("Wszukaj Danie !", new { @class = "col-md-2 control-label" })
+        @Html.Label("Danie: ", new { @class = "col-md-2 control-label" })
         <div class="col-md-10 ui-widget">
 
 
 
 
-            @Html.TextBoxFor(m => m.PName, new { @class = "pl-4 form-control", @id = "ProductSE" })
-
+            @Html.TextBoxFor(m => m.PName, new { @class = "pl-4 form-control", @id = "ProductSE", @placeholder = "Wpisz nazwę dania ,które chcesz wyszukać" })
+            @Html.ValidationMessageFor(m => m.PName, "", new { @class = "text-danger" })
 
 
 
@@ -36,56 +36,37 @@
         </div>
     </div>
 
-                <div class="form-group" align="center">
-                    @Html.LabelFor(m => m.RateService, new { @class = "col-md-1 control-label" })
+    <div class="form-group" align="center">
+        @Html.LabelFor(m => m.RateService, new { @class = "col-md-1 control-label" })
 
-                    @Html.RadioButton("RateService", 1, new { @class = " control-label" })
-                    @Html.RadioButton("RateService", 2, new { @class = " control-label" })
-                    @Html.RadioButton("RateService", 3, new { @class = " control-label" })
-                    @Html.RadioButton("RateService", 4, new { @class = " control-label" })
-                    @Html.RadioButton("RateService", 5, new { @class = " control-label" })
-
-
-
-                    @Html.LabelFor(m => m.RateIngredients, new { @class = "col-md-1 control-label" })
-
-                    @Html.RadioButton("RateIngredients", 1, new { @class = " control-label" })
-                    @Html.RadioButton("RateIngredients", 2, new { @class = " control-label" })
-                    @Html.RadioButton("RateIngredients", 3, new { @class = " control-label" })
-                    @Html.RadioButton("RateIngredients", 4, new { @class = " control-label" })
-                    @Html.RadioButton("RateIngredients", 5, new { @class = " control-label" })
+        @Html.RadioButton("RateService", 1, new { @class = " control-label" })
+        @Html.RadioButton("RateService", 2, new { @class = " control-label" })
+        @Html.RadioButton("RateService", 3, new { @class = " control-label" })
+        @Html.RadioButton("RateService", 4, new { @class = " control-label" })
+        @Html.RadioButton("RateService", 5, new { @class = " control-label" })
+        @Html.ValidationMessageFor(m => m.RateService, "", new { @class = "text-danger" })
 
 
+        @Html.LabelFor(m => m.RateIngredients, new { @class = "col-md-1 control-label" })
 
-                    @Html.LabelFor(m => m.RateTaste, new { @class = "col-md-1 control-label" })
-
-                    @Html.RadioButton("RateTaste", 1, new { @class = " control-label" })
-                    @Html.RadioButton("RateTaste", 2, new { @class = " control-label" })
-                    @Html.RadioButton("RateTaste", 3, new { @class = " control-label" })
-                    @Html.RadioButton("RateTaste", 4, new { @class = " control-label" })
-                    @Html.RadioButton("RateTaste", 5, new { @class = " control-label" })
-
-
-                </div>
-                <div class="form-group" align="center">
-
-                    @Html.Label("Lokalizacja", new { @class = "col-md-2 control-label"  })
-                    @Html.TextBoxFor(m=>m.LocName,new { @class = "col-md-2 control-label", @id = "pac-input", @type = "text", @placeholder = "Search Box" })
-                   
-                    <div id="map" style="width: 500px; height: 500px">
-
-                    </div>
-
-                    
-                    <script src="~/Scripts/GeoMapa.js"></script>
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw4M0s-wdhkjGK1L5BkWzyilxKp15QnGY&callback=initAutocomplete&libraries=places&v=weekly"
-                            async></script>
+        @Html.RadioButton("RateIngredients", 1, new { @class = " control-label" })
+        @Html.RadioButton("RateIngredients", 2, new { @class = " control-label" })
+        @Html.RadioButton("RateIngredients", 3, new { @class = " control-label" })
+        @Html.RadioButton("RateIngredients", 4, new { @class = " control-label" })
+        @Html.RadioButton("RateIngredients", 5, new { @class = " control-label" })
+        @Html.ValidationMessageFor(m => m.RateIngredients, "", new { @class = "text-danger" })
 
 
+        @Html.LabelFor(m => m.RateTaste, new { @class = "col-md-1 control-label" })
 
+        @Html.RadioButton("RateTaste", 1, new { @class = " control-label" })
+        @Html.RadioButton("RateTaste", 2, new { @class = " control-label" })
+        @Html.RadioButton("RateTaste", 3, new { @class = " control-label" })
+        @Html.RadioButton("RateTaste", 4, new { @class = " control-label" })
+        @Html.RadioButton("RateTaste", 5, new { @class = " control-label" })
+        @Html.ValidationMessageFor(m => m.RateTaste, "", new { @class = "text-danger" })
 
-                </div>
-
+    </div>
 
                 <div class="form-group" align="center">
                     @Html.LabelFor(m => m.Review, new { @class = "col-md-2 control-label" })
@@ -107,7 +88,7 @@
                         <input type="submit" value="Wyślij" class="btn btn-success" style="font-size: 20px" />
                     </div>
                 </div>
-                <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+                
             }
         }
         else

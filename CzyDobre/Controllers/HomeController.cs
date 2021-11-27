@@ -479,7 +479,7 @@ namespace CzyDobre.Controllers
                             //this.AddNotification(filename, NotificationType.SUCCESS);
                         }
                         ModelState.Clear();
-                        this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
+                        //this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
                     }
                 }
                 catch (Exception ex)
@@ -512,7 +512,7 @@ namespace CzyDobre.Controllers
                     Cloudinary cloudinary = new Cloudinary(account);
 
                     //Weryfikacja plików
-                    foreach (HttpPostedFileBase item in model.Image)
+                    foreach (HttpPostedFileBase item in model.Icon)
                     {
                         if (item != null && item.ContentLength > 0)
                         {
@@ -565,13 +565,13 @@ namespace CzyDobre.Controllers
                             //this.AddNotification(filename, NotificationType.SUCCESS);
                         }
                         ModelState.Clear();
-                        this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
+                        //this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
                     }
                 }
                 catch (Exception ex)
                 {
                     ModelState.Clear();
-                    this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                    //this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
                 }
             }
            
@@ -657,32 +657,46 @@ namespace CzyDobre.Controllers
 
                     AspNetRating rate = new AspNetRating();
 
-                    var query = db.AspNetProducts.Where(s => s.ProductName == opn.PName).Select(s=>s.Id_Product).FirstOrDefault();
+                    
+                    var query = db.AspNetProducts.Where(s => s.ProductName == opn.PName).Select(s => s.Id_Product).FirstOrDefault();
+                    int q = query;
+                    
 
-                    rate.Id_Product = query;
-                    rate.RateComposition = opn.RateComposition;
-                    rate.RateIngredients = opn.RateIngredients;
-                    rate.RateService = opn.RateService;
-                    rate.RateTaste= opn.RateTaste;
-                    rate.Comment = opn.Review;
-                    rate.RateTotal = (rate.RateComposition + rate.RateIngredients + rate.RateService + rate.RateTaste) / 4 ;
-                    rate.LocName = opn.LocName;
-                    db.AspNetRatings.Add(rate);
-                    db.SaveChanges();
+                    if (query!=0)
+                    {
+                        rate.Id_Product = query;
+                        rate.RateComposition = opn.RateComposition;
+                        rate.RateIngredients = opn.RateIngredients;
+                        rate.RateService = opn.RateService;
+                        rate.RateTaste = opn.RateTaste;
+                        rate.Comment = opn.Review;
+                        rate.RateTotal = (rate.RateComposition + rate.RateIngredients + rate.RateService + rate.RateTaste) / 4;
+                        db.AspNetRatings.Add(rate);
+                        db.SaveChanges();
+
+                        AspNetImage image = new AspNetImage();
+                        foreach (var item in zapisz)
+                        {
+
+                            image.Url = item;
+                            image.Id_Product = rate.Id_Product;
+                            db.AspNetImages.Add(image);
+                            db.SaveChanges();
+                        }
+                        ModelState.Clear();
+                        this.AddNotification("Opinia została wysłana, dziękujemy za opinię.", NotificationType.SUCCESS);
+
+                    }
+                    else
+                    {
+                        this.AddNotification("Nie ma takiego produktu w naszej bazie ! Wprowadź ponownie nazwę produktu lub dodaj nowy!", NotificationType.ERROR);
+                        return View();
+                    }
+                    
 
                   
 
-                    AspNetImage image = new AspNetImage();
-                    foreach (var item in zapisz)
-                    {
-                        
-                        image.Url = item;
-                        image.Id_Product = rate.Id_Product;
-                        db.AspNetImages.Add(image);
-                        db.SaveChanges();
-                    }
-                    ModelState.Clear();
-                    this.AddNotification("Opinia została wysłana, dziękujemy za opinię.", NotificationType.SUCCESS);
+                   ;
                     
                 }
                 catch (Exception ex)
@@ -776,7 +790,7 @@ namespace CzyDobre.Controllers
                             //this.AddNotification(filename, NotificationType.SUCCESS);
                         }
                         ModelState.Clear();
-                        this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
+                        //this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
                     }                
                 }
                 catch (Exception ex)
