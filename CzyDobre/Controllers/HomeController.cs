@@ -349,14 +349,46 @@ namespace CzyDobre.Controllers
                             db.AspNetProducts.Add(product);
                             db.SaveChanges();
 
+                            var queryp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName).Select(s => s.Id_Product).FirstOrDefault();
+                            
+                            foreach (var item in zapisz)
+                            {
+
+                                image.Url = item;
+                                image.Id_Product = queryp;
+                                image.Icon = true;
+                                db.AspNetImages.Add(image);
+                                db.SaveChanges();
+                            }
+
+                            ModelState.Clear();
+                            this.AddNotification("Produkt został dodany pomyślnie.", NotificationType.SUCCESS);
+                        }
+                        else
+                        {
+
+                            this.AddNotification("Nie ma takiej miejscowości w naszej bazie !", NotificationType.ERROR);
+                            
+                        }
+                       
+                    }
+                    else
+                    {
+                        var queryl = db.AspNetCities.Where(s => s.LocalizationCity == prd.LocName).Select(s => s.Id_City).FirstOrDefault();
+
+
+                        if (queryl != 0)
+                        {
+                            product.Id_CIty = queryl;
+                            product.ProductName = prd.ProductName;
+                            product.ProductDescription = prd.ProductDescription;
+                            product.Id_Category = 23;
+                            db.AspNetProducts.Add(product);
+                            db.SaveChanges();
+
 
 
                             var queryp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName).Select(s => s.Id_Product).FirstOrDefault();
-                            
-
-
-
-
 
                             foreach (var item in zapisz)
                             {
@@ -368,37 +400,18 @@ namespace CzyDobre.Controllers
                                 db.SaveChanges();
                             }
 
-
-
-
-
                             ModelState.Clear();
                             this.AddNotification("Produkt został dodany pomyślnie.", NotificationType.SUCCESS);
                         }
                         else
                         {
+
                             this.AddNotification("Nie ma takiej miejscowości w naszej bazie !", NotificationType.ERROR);
-                            
+
                         }
-                        
 
                     }
-                    else
-                    {
-                        this.AddNotification("Nie ma takiej kategorii w naszej bazie !", NotificationType.ERROR);
-                        
-                    }
-
-
-
-                    
-
-                    
-                    
-                    
-
                 }
-
                 catch (Exception ex)
                 {
                     this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
@@ -611,7 +624,7 @@ namespace CzyDobre.Controllers
         public JsonResult AutoComplete(string prefix)
         {
             DBEntities db = new DBEntities();
-            var  Products = (from AspNetProduct in db.AspNetProducts
+            var  Products = (from AspNetProduct  in db.AspNetProducts
                              where AspNetProduct.ProductName.StartsWith(prefix)
                              select new
                              {
