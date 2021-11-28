@@ -346,6 +346,8 @@ namespace CzyDobre.Controllers
                             product.ProductName = prd.ProductName;
                             product.ProductDescription = prd.ProductDescription;
                             product.Id_Category = query;
+                            var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
+                            product.Who = queru;
                             db.AspNetProducts.Add(product);
                             db.SaveChanges();
 
@@ -383,6 +385,8 @@ namespace CzyDobre.Controllers
                             product.ProductName = prd.ProductName;
                             product.ProductDescription = prd.ProductDescription;
                             product.Id_Category = 23;
+                            var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
+                            product.Who = queru;
                             db.AspNetProducts.Add(product);
                             db.SaveChanges();
 
@@ -693,7 +697,7 @@ namespace CzyDobre.Controllers
 
                     
                     var query = db.AspNetProducts.Where(s => s.ProductName == opn.PName).Select(s => s.Id_Product).FirstOrDefault();
-                    int q = query;
+
                     
 
                     if (query!=0)
@@ -704,6 +708,8 @@ namespace CzyDobre.Controllers
                         rate.RateService = opn.RateService;
                         rate.RateTaste = opn.RateTaste;
                         rate.Comment = opn.Review;
+                        var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
+                        rate.Who = queru;
                         rate.RateTotal = (rate.RateComposition + rate.RateIngredients + rate.RateService + rate.RateTaste) / 4;
                         db.AspNetRatings.Add(rate);
                         db.SaveChanges();

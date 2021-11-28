@@ -23,8 +23,9 @@ namespace CzyDobre.Models
         public bool RateAdcompliance { get; set; }
         public double RateTotal { get; set; }
         public int Id_Product { get; set; }
-        public string LocName { get; set; }
+        public string Who { get; set; }
     
         public virtual AspNetProduct AspNetProduct { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }
