@@ -318,76 +318,84 @@ namespace CzyDobre.Controllers
         [Route("Home/AddProducts")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [CaptchaValidator(ErrorMessage = "Nieprawidłowe rozwiązanie pola Captcha", RequiredMessage = "Pole Captcha jest wymagane.")]
         [Authorize]
-        public ActionResult AddProducts(ProductFormModels prd,bool captchaValid)
+        public ActionResult AddProducts(ProductFormModels prd)
         {
-            if (ModelState.IsValid && captchaValid == true)
+            if (ModelState.IsValid )
             {
                 try
                 {
                     DBEntities db = new DBEntities();
-
-                    
-
                     List<string> zapisz = new List<string>();
-                    
-                    
                     zapisz = SaveIconToProduct(prd);
-                    
-
-
                     AspNetProduct product = new AspNetProduct();
-                    AspNetLocalization loc = new AspNetLocalization();
+                    AspNetCity loc = new AspNetCity();
                     AspNetImage image = new AspNetImage();
 
 
-                    var query = db.AspNetCategories.Where(s => s.CategoryName == prd.CategoryName).Select(s => s.Id_Category).First();
-
-
+                    var query = db.AspNetCategories.Where(s => s.CategoryName == prd.CategoryName).Select(s => s.Id_Category).FirstOrDefault();
                     
-                    loc.LocalizationCity = prd.LocName;
-                    db.AspNetLocalizations.Add(loc);
-                    db.SaveChanges();
-
-                    
-                    
-                    var queryl = db.AspNetLocalizations.Where(s => s.LocalizationCity == prd.LocName).Select(s => s.Id_Localization).First();
-                    product.Id_Localization = queryl;
-                    product.ProductName = prd.ProductName;
-                    product.ProductDescription = prd.ProductDescription;
-                    product.Id_Category = query;
-                    db.AspNetProducts.Add(product);
-                    db.SaveChanges();
-
-
-                    
-                    var queryp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName).Select(s => s.Id_Product).First();
-                    
-                    //image.Url = zapiszIc;
-                    //image.Id_Product = queryp;
-                   // image.Icon = true;
-                    //db.AspNetImages.Add(image);
-                    //db.SaveChanges();
-
-
-                      
-                    foreach (var item in zapisz)
+                    if (query != 0)
                     {
+                        var queryl = db.AspNetCities.Where(s => s.LocalizationCity == prd.LocName).Select(s => s.Id_City).FirstOrDefault();
                         
-                        image.Url = item;
-                        image.Id_Product = queryp;
-                        image.Icon = true; 
-                        db.AspNetImages.Add(image);
-                        db.SaveChanges();
+                        
+                        if(queryl!= 0)
+                        {
+                            product.Id_CIty = queryl;
+                            product.ProductName = prd.ProductName;
+                            product.ProductDescription = prd.ProductDescription;
+                            product.Id_Category = query;
+                            db.AspNetProducts.Add(product);
+                            db.SaveChanges();
+
+
+
+                            var queryp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName).Select(s => s.Id_Product).FirstOrDefault();
+                            
+
+
+
+
+
+                            foreach (var item in zapisz)
+                            {
+
+                                image.Url = item;
+                                image.Id_Product = queryp;
+                                image.Icon = true;
+                                db.AspNetImages.Add(image);
+                                db.SaveChanges();
+                            }
+
+
+
+
+
+                            ModelState.Clear();
+                            this.AddNotification("Produkt został dodany pomyślnie.", NotificationType.SUCCESS);
+                        }
+                        else
+                        {
+                            this.AddNotification("Nie ma takiej miejscowości w naszej bazie !", NotificationType.ERROR);
+                            
+                        }
+                        
+
                     }
+                    else
+                    {
+                        this.AddNotification("Nie ma takiej kategorii w naszej bazie !", NotificationType.ERROR);
+                        
+                    }
+
+
+
                     
 
-
-
-
-                    ModelState.Clear();
-                    this.AddNotification("Produkt został dodany pomyślnie.", NotificationType.SUCCESS);
+                    
+                    
+                    
 
                 }
 
@@ -626,6 +634,19 @@ namespace CzyDobre.Controllers
 
             return Json(Products);
         }
+        public JsonResult AutoCompleteCity(string prefix)
+        {
+            DBEntities db = new DBEntities();
+            var Products = (from AspNetCity in db.AspNetCities
+                            where AspNetCity.LocalizationCity.StartsWith(prefix)
+                            select new
+                            {
+                                label = AspNetCity.LocalizationCity,
+                                val = AspNetCity.Id_City
+                            }).ToList();
+
+            return Json(Products);
+        }
 
         //CzyDobre.pl/dodaj-opinie
         [Route("dodaj-opinie")]
@@ -690,7 +711,7 @@ namespace CzyDobre.Controllers
                     else
                     {
                         this.AddNotification("Nie ma takiego produktu w naszej bazie ! Wprowadź ponownie nazwę produktu lub dodaj nowy!", NotificationType.ERROR);
-                        return View();
+                       
                     }
                     
 

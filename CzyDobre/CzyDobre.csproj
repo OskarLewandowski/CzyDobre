@@ -416,6 +416,9 @@
     <Compile Include="Models\AspNetCategory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetCity.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AspNetCoordinate.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -423,9 +426,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetIngredient.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetLocalization.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetProduct.cs">
@@ -465,6 +465,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetVoivode.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CountryModel.cs" />
@@ -863,6 +866,7 @@
     <Content Include="Content\DataTables\css\common.scss" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <Content Include="Scripts\GeoMapa.js" />
+    <Content Include="Scripts\AutoCompleteCity.js" />
     <Content Include="Scripts\Mapa.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.0.min.map" />
