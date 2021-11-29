@@ -21,10 +21,17 @@
 
 
 
-
+            <style>
+                .imageClass {
+                    width: 16px;
+                    height: 30px;
+                }
+            </style>
             @Html.TextBoxFor(m => m.PName, new { @class = "pl-4 form-control", @id = "ProductSE", @placeholder = "Wpisz nazwę dania ,które chcesz wyszukać" })
             @Html.ValidationMessageFor(m => m.PName, "", new { @class = "text-danger" })
-
+            
+            
+            
 
 
 

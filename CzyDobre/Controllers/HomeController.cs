@@ -36,7 +36,7 @@ namespace CzyDobre.Controllers
             {
                 con.Open();
                 com.Connection = con;
-                com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[novum_Andzej].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[novum_Andzej].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[novum_Andzej].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product";
+                com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product";
                 dr = com.ExecuteReader();
                 while (dr.Read())
                 {
@@ -628,14 +628,18 @@ namespace CzyDobre.Controllers
         public JsonResult AutoComplete(string prefix)
         {
             DBEntities db = new DBEntities();
-            var  Products = (from AspNetProduct  in db.AspNetProducts
+            var  Products = (from AspNetProduct  in db.AspNetProducts 
+                             join AspNetImage in db.AspNetImages on AspNetProduct.Id_Product equals AspNetImage.Id_Product
+                             where AspNetImage.Icon == true
                              where AspNetProduct.ProductName.StartsWith(prefix)
                              select new
                              {
                                  label = AspNetProduct.ProductName,
+                                 img = AspNetImage.Url,
                                  val = AspNetProduct.Id_Product
-                             }).ToList();
 
+                             }).ToList();
+            
             return Json(Products);
         }
         public JsonResult AutoCompleteCategory(string prefix)
