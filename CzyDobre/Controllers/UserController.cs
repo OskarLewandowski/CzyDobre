@@ -191,6 +191,7 @@ namespace CzyDobre.Controllers
                 if (ModelState.IsValid)
                 {
                     AspNetUser aspNetUser = new AspNetUser();
+                    var adminName = User.Identity.Name;
 
                     aspNetUser.Id = model.Id;
                     aspNetUser.Email = model.Email;
@@ -207,9 +208,9 @@ namespace CzyDobre.Controllers
                     aspNetUser.LastName = model.LastName;
                     aspNetUser.NickName = model.NickName;
                     aspNetUser.LockoutEndDateUtc = model.LockoutEndDateUtc;
-                    aspNetUser.LastBanDays = aspNetUser.LastBanDays;
-                    aspNetUser.BanComment = aspNetUser.BanComment;
-                    aspNetUser.WhoGaveBan = aspNetUser.WhoGaveBan;
+                    aspNetUser.LastBanDays = model.LastBanDays;
+                    aspNetUser.BanComment = model.BanComment;
+                    aspNetUser.WhoGaveBan = adminName;
                     
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
@@ -243,7 +244,7 @@ namespace CzyDobre.Controllers
                     this.AddNotification($"Użytkownik, odblokowany pomyślnie", NotificationType.SUCCESS);
                     return View("UnBan");
                 }
-                this.AddNotification($"Błąd!, Błędne dane", NotificationType.ERROR);
+                this.AddNotification($"Błąd!, Błędne dane. Prawidłowy format daty to: DD/MM/RRRR GG:MM:SS", NotificationType.ERROR);
             }
             catch (Exception ex)
             {
