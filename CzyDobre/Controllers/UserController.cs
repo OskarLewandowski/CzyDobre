@@ -120,7 +120,6 @@ namespace CzyDobre.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    bool ban = true;
                     AspNetUser aspNetUser = new AspNetUser();
 
                     var adminName = User.Identity.Name;
@@ -150,7 +149,8 @@ namespace CzyDobre.Controllers
 
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
-                    SendEmail(model.Email, model.LastBanDays, model.BanComment, updatedEndBanDate, ban);
+
+                    SendBanEmail(model.Email, model.LastBanDays, model.BanComment, updatedEndBanDate);
                     this.AddNotification($"Użytkownik, zablokowany pomyślnie", NotificationType.SUCCESS);
                     return View("Ban");
                 }
@@ -190,10 +190,8 @@ namespace CzyDobre.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    bool unban = false;
-                    int result = 0;
                     AspNetUser aspNetUser = new AspNetUser();
-                    
+
                     aspNetUser.Id = model.Id;
                     aspNetUser.Email = model.Email;
                     aspNetUser.EmailConfirmed = model.EmailConfirmed;
@@ -216,7 +214,31 @@ namespace CzyDobre.Controllers
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
 
-                    SendEmail(model.Email, model.LastBanDays, model.BanComment, model.LockoutEndDateUtc, unban);
+                    //MEJLOWANIE
+                    DateTime? d1 = model.LockoutEndDateUtc;
+                    DateTime d2 = DateTime.Now;
+
+                    if (d1 != null)
+                    {
+                        int result = DateTime.Compare((DateTime)d1, d2);
+
+                        if(result < 0)
+                        {
+                            SendChangedBanEmail(model.Email, model.LastBanDays, model.BanComment, model.LockoutEndDateUtc);
+                        }
+                        else if(result == 0)
+                        {
+                            this.AddNotification($"Błędna data, wiadomośc nie została wysłana", NotificationType.WARNING);
+                        }
+                        else
+                        {
+                            SendUnBanEmail(model.Email, model.LastBanDays, model.BanComment, model.LockoutEndDateUtc);
+                        }
+                    }
+                    else
+                    {
+                        SendUnBanEmail(model.Email, model.LastBanDays, model.BanComment, model.LockoutEndDateUtc);
+                    }
 
                     this.AddNotification($"Użytkownik, odblokowany pomyślnie", NotificationType.SUCCESS);
                     return View("UnBan");
@@ -247,52 +269,75 @@ namespace CzyDobre.Controllers
             }
         }
 
-        public void SendEmail(string DoEmail, int? IleDnie, string PowodBlokady, DateTime? DoKiedy, bool Ban)
+        public void SendBanEmail(string DoEmail, int? IleDnie, string PowodBlokady, DateTime? DoKiedy)
         {
-            if(Ban == true)
+            var wiadomosc = ConfigurationManager.AppSettings["EmailNoReply"].ToString();
+
+            MailMessage msg = new MailMessage();
+            msg.From = new MailAddress(wiadomosc);
+            msg.To.Add(DoEmail);
+            msg.Subject = "Twoje konto zostało zablokowane - CzyDobre.pl";
+            if(IleDnie == 1)
             {
-                var wiadomosc = ConfigurationManager.AppSettings["EmailNoReply"].ToString();
- 
-                MailMessage msg = new MailMessage();
-                msg.From = new MailAddress(wiadomosc);
-                msg.To.Add(DoEmail);
-                msg.Subject = "Twoje konto zostało zablokowane - CzyDobre.pl";
-                msg.Body = "Dzień dobry, " + DoEmail + "\n" + "Na twoje konto została nałożona blokada na: " + IleDnie + " dni" + "\n" + "Za: " + PowodBlokady + "\n" + 
-                    "Twoje konto zostanie odblowane " + DoKiedy + "\n" + "Pozdrawiamy zespół CzyDobre.pl" + "\n" + "kontakt@czydobre.pl";
-
-                SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
-                System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
-                    ConfigurationManager.AppSettings["EmailNoReply"].ToString(),
-                    ConfigurationManager.AppSettings["PasswordNoReply"].ToString());
-                smtpClient.Credentials = credentials;
-                smtpClient.EnableSsl = true;
-                smtpClient.Send(msg);
+                msg.Body = "Dzień dobry, " + DoEmail + "\n" + "Na twoje konto została nałożona blokada na: " + IleDnie + " dzień" + "\n" + "Powód blokady: " + PowodBlokady + "\n" +
+                "Twoje konto zostanie odblokowane: " + DoKiedy + "\n\n" + "Pozdrawiamy zespół CzyDobre.pl" + "\n\n" + "W razie pytań prosimy o kontakt mejlowy: kontakt@czydobre.pl lub za pomocą formularza kontaktowego: https://www.czydobre.pl/kontakt";
             }
-            else if(Ban == false)
+            else if(IleDnie == 99999)
             {
-                var wiadomosc = ConfigurationManager.AppSettings["EmailNoReply"].ToString();
-
-                MailMessage msg = new MailMessage();
-                msg.From = new MailAddress(wiadomosc);
-                msg.To.Add(DoEmail);
-                msg.Subject = "Twoje konto zostało odblokowane - CzyDobre.pl";
-                msg.Body = "Dzień dobry, " + DoEmail + "\n" + "Twoje konto zostało odblokowane."+ "\n" + "Pozdrawiamy zespół CzyDobre.pl" + "\n" + "kontakt@czydobre.pl";
-
-                SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
-                System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
-                    ConfigurationManager.AppSettings["EmailNoReply"].ToString(),
-                    ConfigurationManager.AppSettings["PasswordNoReply"].ToString());
-                smtpClient.Credentials = credentials;
-                smtpClient.EnableSsl = true;
-                smtpClient.Send(msg);
-
-                //if (aspNetUser.LockoutEndDateUtc != null)
-                //{
-                //    DateTime dateCheck = (DateTime)aspNetUser.LockoutEndDateUtc;
-                //    result = DateTime.Compare(DateTime.Now, dateCheck);
-                //}
+                msg.Body = "Dzień dobry, " + DoEmail + "\n" + "Na twoje konto została nałożona permanentna blokada" + "\n" + "Powód blokady: " + PowodBlokady + "\n" +
+                "Pozdrawiamy zespół CzyDobre.pl" + "\n\n" + "W razie pytań prosimy o kontakt mejlowy: kontakt@czydobre.pl lub za pomocą formularza kontaktowego: https://www.czydobre.pl/kontakt";
             }
+            else
+            {
+                msg.Body = "Dzień dobry, " + DoEmail + "\n" + "Na twoje konto została nałożona blokada na: " + IleDnie + " dni" + "\n" + "Powód blokady: " + PowodBlokady + "\n" +
+                "Twoje konto zostanie odblokowane: " + DoKiedy + "\n\n" + "Pozdrawiamy zespół CzyDobre.pl" + "\n\n" + "W razie pytań prosimy o kontakt mejlowy: kontakt@czydobre.pl lub za pomocą formularza kontaktowego: https://www.czydobre.pl/kontakt";
+            }
+          
+            SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
+                ConfigurationManager.AppSettings["EmailNoReply"].ToString(),
+                ConfigurationManager.AppSettings["PasswordNoReply"].ToString());
+            smtpClient.Credentials = credentials;
+            smtpClient.EnableSsl = true;
+            smtpClient.Send(msg);
         }
 
+        public void SendUnBanEmail(string DoEmail, int? IleDnie, string PowodBlokady, DateTime? DoKiedy)
+        {
+            var wiadomosc = ConfigurationManager.AppSettings["EmailNoReply"].ToString();
+
+            MailMessage msg = new MailMessage();
+            msg.From = new MailAddress(wiadomosc);
+            msg.To.Add(DoEmail);
+            msg.Subject = "Twoje konto zostało odblokowane - CzyDobre.pl";
+            msg.Body = "Dzień dobry, " + DoEmail + "\n" + "Informujemy, że twoje konto zostało odblokowane." +"\n"+ "Zapraszamy ponownie na CzyDobre.pl" + "\n\n" + "Pozdrawiamy zespół CzyDobre.pl" + "\n\n" + "W razie pytań prosimy o kontakt mejlowy: kontakt@czydobre.pl lub za pomocą formularza kontaktowego: https://www.czydobre.pl/kontakt";
+
+            SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
+                ConfigurationManager.AppSettings["EmailNoReply"].ToString(),
+                ConfigurationManager.AppSettings["PasswordNoReply"].ToString());
+            smtpClient.Credentials = credentials;
+            smtpClient.EnableSsl = true;
+            smtpClient.Send(msg);
+        }
+
+        public void SendChangedBanEmail(string DoEmail, int? IleDnie, string PowodBlokady, DateTime? DoKiedy)
+        {
+            var wiadomosc = ConfigurationManager.AppSettings["EmailNoReply"].ToString();
+
+            MailMessage msg = new MailMessage();
+            msg.From = new MailAddress(wiadomosc);
+            msg.To.Add(DoEmail);
+            msg.Subject = "Blokada konta została zmieniona - CzyDobre.pl";
+            msg.Body = "Dzień dobry, " + DoEmail + "\n" + "Na twoim koncie została zmienniona blokada." + "\n" + "Twoje konto zostanie odblowane " + DoKiedy + "\n\n" + "Pozdrawiamy zespół CzyDobre.pl" + "\n\n" + "W razie pytań prosimy o kontakt mejlowy: kontakt@czydobre.pl lub za pomocą formularza kontaktowego: https://www.czydobre.pl/kontakt";
+      
+            SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
+                ConfigurationManager.AppSettings["EmailNoReply"].ToString(),
+                ConfigurationManager.AppSettings["PasswordNoReply"].ToString());
+            smtpClient.Credentials = credentials;
+            smtpClient.EnableSsl = true;
+            smtpClient.Send(msg);
+        }
     }
 }
