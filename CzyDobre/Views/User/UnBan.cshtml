@@ -56,12 +56,10 @@
                 @Html.ValidationMessageFor(m => m.LastBanDays, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.Label("Data końca blokady", new { @class = "col-md-2 control-label" })
+                @Html.Label("Data końca blokady MM/DD/RRRR GG:MM:SS", new { @class = "col-lg-4 control-label" })
                 @Html.TextBoxFor(m => m.LockoutEndDateUtc, new { @class = "form-control"})
                 @Html.ValidationMessageFor(m => m.LockoutEndDateUtc, "", new { @class = "text-danger" })
                 <p style="text-align: center">W celu modifikacji długości blokady należy zmodyfikować datę. <br />W celu usunięcia blokady należy usunąć datę.</p>
-
-
             </div>
             <div class="form-group" align="center">
                 <div class="col-md-offset-2 col-md-10">

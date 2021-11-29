@@ -124,7 +124,7 @@ namespace CzyDobre.Controllers
                     AspNetUser aspNetUser = new AspNetUser();
 
                     var adminName = User.Identity.Name;
-                    double addDays = (double)model.LastBanDays;
+                    double addDays = (double)model.LastBanDays;                
 
                     aspNetUser.Id = model.Id;
                     aspNetUser.Email = model.Email;
@@ -144,11 +144,13 @@ namespace CzyDobre.Controllers
                     aspNetUser.LastBanDays = model.LastBanDays;
                     aspNetUser.BanComment = model.BanComment;
                     aspNetUser.WhoGaveBan = adminName;
-                    
+
+                    double date = ((addDays * 24 * 60)+60);
+                    DateTime? updatedEndBanDate = DateTime.Now.AddMinutes(date);
 
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
-                    SendEmail(model.Email, model.LastBanDays, model.BanComment, aspNetUser.LockoutEndDateUtc, ban);
+                    SendEmail(model.Email, model.LastBanDays, model.BanComment, updatedEndBanDate, ban);
                     this.AddNotification($"Użytkownik, zablokowany pomyślnie", NotificationType.SUCCESS);
                     return View("Ban");
                 }
@@ -189,9 +191,9 @@ namespace CzyDobre.Controllers
                 if (ModelState.IsValid)
                 {
                     bool unban = false;
-
+                    int result = 0;
                     AspNetUser aspNetUser = new AspNetUser();
-
+                    
                     aspNetUser.Id = model.Id;
                     aspNetUser.Email = model.Email;
                     aspNetUser.EmailConfirmed = model.EmailConfirmed;
@@ -211,10 +213,11 @@ namespace CzyDobre.Controllers
                     aspNetUser.BanComment = aspNetUser.BanComment;
                     aspNetUser.WhoGaveBan = aspNetUser.WhoGaveBan;
                     
-
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
+
                     SendEmail(model.Email, model.LastBanDays, model.BanComment, model.LockoutEndDateUtc, unban);
+
                     this.AddNotification($"Użytkownik, odblokowany pomyślnie", NotificationType.SUCCESS);
                     return View("UnBan");
                 }
@@ -250,7 +253,6 @@ namespace CzyDobre.Controllers
             {
                 var wiadomosc = ConfigurationManager.AppSettings["EmailNoReply"].ToString();
  
-
                 MailMessage msg = new MailMessage();
                 msg.From = new MailAddress(wiadomosc);
                 msg.To.Add(DoEmail);
@@ -270,7 +272,6 @@ namespace CzyDobre.Controllers
             {
                 var wiadomosc = ConfigurationManager.AppSettings["EmailNoReply"].ToString();
 
-
                 MailMessage msg = new MailMessage();
                 msg.From = new MailAddress(wiadomosc);
                 msg.To.Add(DoEmail);
@@ -284,6 +285,12 @@ namespace CzyDobre.Controllers
                 smtpClient.Credentials = credentials;
                 smtpClient.EnableSsl = true;
                 smtpClient.Send(msg);
+
+                //if (aspNetUser.LockoutEndDateUtc != null)
+                //{
+                //    DateTime dateCheck = (DateTime)aspNetUser.LockoutEndDateUtc;
+                //    result = DateTime.Compare(DateTime.Now, dateCheck);
+                //}
             }
         }
 
