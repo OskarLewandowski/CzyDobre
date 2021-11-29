@@ -630,13 +630,17 @@ namespace CzyDobre.Controllers
             DBEntities db = new DBEntities();
             var  Products = (from AspNetProduct  in db.AspNetProducts 
                              join AspNetImage in db.AspNetImages on AspNetProduct.Id_Product equals AspNetImage.Id_Product
+                             join AspNetCity in db.AspNetCities on AspNetProduct.Id_CIty equals AspNetCity.Id_City
                              where AspNetImage.Icon == true
                              where AspNetProduct.ProductName.StartsWith(prefix)
+                             
                              select new
                              {
                                  label = AspNetProduct.ProductName,
                                  img = AspNetImage.Url,
+                                 city = AspNetCity.LocalizationCity,
                                  val = AspNetProduct.Id_Product
+
 
                              }).ToList();
             
@@ -646,10 +650,10 @@ namespace CzyDobre.Controllers
         {
             DBEntities db = new DBEntities();
             var Products = (from AspNetCategory in db.AspNetCategories
-                            where AspNetCategory.CategoryName.StartsWith(prefix)
+                            //where AspNetCategory.CategoryName.StartsWith(prefix)
                             select new
                             {
-                                label = AspNetCategory.CategoryName,
+                                label = AspNetCategory.CategoryName.StartsWith(prefix),
                                 val = AspNetCategory.Id_Category
                             }).ToList();
 
