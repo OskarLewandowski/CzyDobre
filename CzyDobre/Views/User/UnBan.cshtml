@@ -21,50 +21,55 @@
             @Html.HiddenFor(m => m.EmailConfirmed)
 
             <div class="form-group">
-                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                @Html.Label("Adres Email", new { @class = "col-md-2 control-label" })
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = true })
                 @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                @Html.Label("Imię", new { @class = "col-md-2 control-label" })
                 @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @readonly = true })
                 @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                @Html.Label("Nazwisko", new { @class = "col-md-2 control-label" })
                 @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @readonly = true })
                 @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.NickName, new { @class = "col-md-2 control-label" })
+                @Html.Label("Nick", new { @class = "col-md-2 control-label" })
                 @Html.TextBoxFor(m => m.NickName, new { @class = "form-control", @readonly = true })
                 @Html.ValidationMessageFor(m => m.NickName, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.BanComment, new { @class = "col-md-2 control-label" })
+                @Html.Label("Powód zablokowania", new { @class = "col-md-2 control-label" })
                 @Html.TextAreaFor(m => m.BanComment, new { @class = "form-control", @readonly = true })
                 @Html.ValidationMessageFor(m => m.BanComment, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.WhoGaveBan, new { @class = "col-md-2 control-label" })
+                @Html.Label("Osoba nakładająca blokadę", new { @class = "col-md-2 control-label" })
                 @Html.TextBoxFor(m => m.WhoGaveBan, new { @class = "form-control", @readonly = true })
                 @Html.ValidationMessageFor(m => m.WhoGaveBan, "", new { @class = "text-danger" })
             </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.LockoutEndDateUtc, new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m => m.LockoutEndDateUtc, new { @class = "form-control"})
-                @Html.ValidationMessageFor(m => m.LockoutEndDateUtc, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.LastBanDays, new { @class = "col-md-2 control-label" })
+                       <div class="form-group">
+                @Html.Label("Ilość dni blokady", new { @class = "col-md-2 control-label" })
                 @Html.TextBoxFor(m => m.LastBanDays, new { @class = "form-control", @readonly = true })
                 @Html.ValidationMessageFor(m => m.LastBanDays, "", new { @class = "text-danger" })
             </div>
+            <div class="form-group">
+                @Html.Label("Data końca blokady", new { @class = "col-md-2 control-label" })
+                @Html.TextBoxFor(m => m.LockoutEndDateUtc, new { @class = "form-control"})
+                @Html.ValidationMessageFor(m => m.LockoutEndDateUtc, "", new { @class = "text-danger" })
+                <p style="text-align: center">W celu modifikacji długości blokady należy zmodyfikować datę. <br />W celu usunięcia blokady należy usunąć datę.</p>
+
+
+            </div>
             <div class="form-group" align="center">
                 <div class="col-md-offset-2 col-md-10">
+                    <br /><br />
                     <input type="submit" value="Odblokuj" class="btn btn-success" style="font-size: 20px" />
                     <input type="reset" value="Anuluj" class="btn btn-danger" style="font-size: 20px" />
                     @Html.ActionLink("Wróć do listy", "UserList", "User", null, new { @class = "btn btn-info" })
+                    <br /><br /><br />
                 </div>
             </div>
             <div style="text-align: center;">@Html.Partial("_Notifications")</div>
