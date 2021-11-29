@@ -21,11 +21,11 @@
     })
         .autocomplete('instance')._renderItem = function (ul, item) {
             return $('<li>')
-                .append("<img class='https://res.cloudinary.com/czydobre-pl/image/upload/v1638100053/CzyDobre-images/CzyDobre_6o3p6S7z6r1638100053_snapshot_2021_06_30_23_00_22_13117.png' />" )
-                .append('<a>' + item.label + '</a>')
+                .append("<img class='imageClass' src=" + 'https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/' + item.img +  ">" )
+                .append('<a>' + item.label + ', ' + item.city+ '</a>')
                 .appendTo(ul);
         };
-
+    
     function updateTextBox(event, ui) {
         $(this).val(ui.item.label);
         return false;

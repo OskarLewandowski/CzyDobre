@@ -18,13 +18,13 @@
 
         @Html.Label("Danie: ", new { @class = "col-md-2 control-label" })
         <div class="col-md-10 ui-widget">
-
+            
 
 
             <style>
                 .imageClass {
-                    width: 16px;
-                    height: 30px;
+                    width: 100px;
+                    height: 100px;
                 }
             </style>
             @Html.TextBoxFor(m => m.PName, new { @class = "pl-4 form-control", @id = "ProductSE", @placeholder = "Wpisz nazwę dania ,które chcesz wyszukać" })
@@ -78,7 +78,7 @@
                 <div class="form-group" align="center">
                     @Html.LabelFor(m => m.Review, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextAreaFor(m => m.Review, new { @class = "pl-6 form-control", @rows = "10" })
+                        @Html.TextAreaFor(m => m.Review, new { @class = "pl-6 form-control", @rows = "10",@placeholder = "Wpisz swój komentarz (Opcjonalne)" })
                         @Html.ValidationMessageFor(m => m.Review, "", new { @class = "text-danger" })
                     </div>
                 </div>
