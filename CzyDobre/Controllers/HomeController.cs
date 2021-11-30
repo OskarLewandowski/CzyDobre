@@ -671,7 +671,7 @@ namespace CzyDobre.Controllers
                     AspNetRating rate = new AspNetRating();
 
                     
-                    var query = db.AspNetProducts.Where(s => s.UniqName == opn.PName+querynp).Select(s => s.Id_Product).FirstOrDefault();
+                    var query = db.AspNetProducts.Where(s => s.UniqName == opn.PName+querynp.ToString()).Select(s => s.Id_Product).FirstOrDefault();
 
                     
 
