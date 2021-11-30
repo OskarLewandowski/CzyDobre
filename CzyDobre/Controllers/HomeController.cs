@@ -672,7 +672,7 @@ namespace CzyDobre.Controllers
 
                     
                     var query = db.AspNetProducts.Where(s => s.UniqName == opn.PName+(querynp-1).ToString()).Select(s => s.Id_Product).FirstOrDefault();
-                    this.AddNotification(opn.PName + querynp.ToString(), NotificationType.INFO);
+                    //this.AddNotification(opn.PName + querynp.ToString(), NotificationType.INFO);
                     
 
                     if (query!=0)
