@@ -19,11 +19,12 @@ namespace CzyDobre.Models
         [Display(Name = "Opis Produktu")]
         public string ProductDescription { get; set; }
 
+        [StringLength(100)]
         [Required(ErrorMessage = "Kategoria jest wymagana!")]
         [Display(Name = "Kategoria")]
         public string CategoryName { get; set; }
 
-
+        [StringLength(100)]
         [Required(ErrorMessage = "Lokalizacja jest wymagana!")]
         [Display(Name = "Lokalizacja")]
         public string LocName { get; set; }

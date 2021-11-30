@@ -10,6 +10,7 @@ namespace CzyDobre.Models
 {
     public class AddOpinionViewModels
     {
+        [StringLength(100)]
         [Required(ErrorMessage = "Danie jest wymagane!")]
         [Display(Name = "Produkt")]
         public string  PName { get; set; }
@@ -28,7 +29,8 @@ namespace CzyDobre.Models
         [Required(ErrorMessage = "Ocena obsługi  jest wymagana!")]
         [Display(Name = "Obsługa")]
         public short RateService { get; set; }
-       
+
+        [StringLength(250)]
         [Display(Name = "Recenzja")]
         public string Review { get; set; }
 
