@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="99f31cf0cdab43bf9b1304c845bc2a6a" Name="Diagram1">
+      <Diagram DiagramId="54de3c7fa1af423bad582742fbcf6a9d" Name="Diagram1">
         <EntityTypeShape EntityType="novum_czydobre.plModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetCategory" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetCity" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetCoordinate" Width="1.5" PointX="9.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetImage" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetProduct" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetProduct" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetRating" Width="1.5" PointX="7.5" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetRestaurantCalendar" Width="1.5" PointX="12" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetRestaurantCalendarDay" Width="1.5" PointX="9.75" PointY="3" IsExpanded="true" />
@@ -18,8 +18,8 @@
         <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetRestaurant" Width="1.5" PointX="14.25" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetRestaurantsType" Width="1.5" PointX="9.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetRole" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
         <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetUser" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetVoivode" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
         <EntityTypeShape EntityType="novum_czydobre.plModel.sysdiagram" Width="1.5" PointX="11.75" PointY="7.75" IsExpanded="true" />

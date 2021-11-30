@@ -22,15 +22,16 @@ namespace CzyDobre.Models
         }
     
         public int Id_Product { get; set; }
-        public Nullable<int> Id_Category { get; set; }
+        public int Id_Category { get; set; }
         public string ProductDescription { get; set; }
         public string ProductName { get; set; }
-        public Nullable<int> Opinion_Counter { get; set; }
+        public int Opinion_Counter { get; set; }
         public Nullable<int> AvarageTaste { get; set; }
         public Nullable<int> AvarageService { get; set; }
         public Nullable<int> AvarageIngredients { get; set; }
-        public Nullable<int> Id_CIty { get; set; }
+        public int Id_City { get; set; }
         public string Who { get; set; }
+        public string UniqName { get; set; }
     
         public virtual AspNetCategory AspNetCategory { get; set; }
         public virtual AspNetCity AspNetCity { get; set; }

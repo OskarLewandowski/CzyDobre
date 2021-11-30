@@ -54,15 +54,16 @@
             <PropertyRef Name="Id_Product" />
           </Key>
           <Property Name="Id_Product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Id_Category" Type="int" />
+          <Property Name="Id_Category" Type="int" Nullable="false" />
           <Property Name="ProductDescription" Type="nvarchar" MaxLength="250" />
-          <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
-          <Property Name="Opinion_Counter" Type="int" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Opinion_Counter" Type="int" Nullable="false" />
           <Property Name="AvarageTaste" Type="int" />
           <Property Name="AvarageService" Type="int" />
           <Property Name="AvarageIngredients" Type="int" />
-          <Property Name="Id_CIty" Type="int" />
-          <Property Name="Who" Type="nvarchar" MaxLength="128" />
+          <Property Name="Id_City" Type="int" Nullable="false" />
+          <Property Name="Who" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UniqName" Type="nchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="AspNetRating">
           <Key>
@@ -75,7 +76,7 @@
           <Property Name="RateComposition" Type="smallint" Nullable="false" />
           <Property Name="Comment" Type="nvarchar" MaxLength="250" />
           <Property Name="RateAdcompliance" Type="bit" Nullable="false" />
-          <Property Name="RateTotal" Type="float" Nullable="false" />
+          <Property Name="RateTotal" Type="float" />
           <Property Name="Id_Product" Type="int" Nullable="false" />
           <Property Name="Who" Type="nvarchar" MaxLength="128" />
         </EntityType>
@@ -237,7 +238,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AspNetProducts_AspNetCategories">
-          <End Role="AspNetCategories" Type="Self.AspNetCategories" Multiplicity="0..1" />
+          <End Role="AspNetCategories" Type="Self.AspNetCategories" Multiplicity="1" />
           <End Role="AspNetProducts" Type="Self.AspNetProducts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetCategories">
@@ -249,19 +250,19 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AspNetProducts_AspNetCities">
-          <End Role="AspNetCities" Type="Self.AspNetCities" Multiplicity="0..1" />
+          <End Role="AspNetCities" Type="Self.AspNetCities" Multiplicity="1" />
           <End Role="AspNetProducts" Type="Self.AspNetProducts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetCities">
               <PropertyRef Name="Id_City" />
             </Principal>
             <Dependent Role="AspNetProducts">
-              <PropertyRef Name="Id_CIty" />
+              <PropertyRef Name="Id_City" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AspNetProducts_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="AspNetProducts" Type="Self.AspNetProducts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -525,15 +526,16 @@
             <PropertyRef Name="Id_Product" />
           </Key>
           <Property Name="Id_Product" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Id_Category" Type="Int32" />
+          <Property Name="Id_Category" Type="Int32" Nullable="false" />
           <Property Name="ProductDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Opinion_Counter" Type="Int32" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Opinion_Counter" Type="Int32" Nullable="false" />
           <Property Name="AvarageTaste" Type="Int32" />
           <Property Name="AvarageService" Type="Int32" />
           <Property Name="AvarageIngredients" Type="Int32" />
-          <Property Name="Id_CIty" Type="Int32" />
-          <Property Name="Who" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Id_City" Type="Int32" Nullable="false" />
+          <Property Name="Who" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UniqName" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="AspNetCategory" Relationship="Self.FK_AspNetProducts_AspNetCategories" FromRole="AspNetProducts" ToRole="AspNetCategories" />
           <NavigationProperty Name="AspNetCity" Relationship="Self.FK_AspNetProducts_AspNetCities" FromRole="AspNetProducts" ToRole="AspNetCities" />
           <NavigationProperty Name="AspNetImages" Relationship="Self.FK_AspNetImages_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetImages" />
@@ -551,7 +553,7 @@
           <Property Name="RateComposition" Type="Int16" Nullable="false" />
           <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="RateAdcompliance" Type="Boolean" Nullable="false" />
-          <Property Name="RateTotal" Type="Double" Nullable="false" />
+          <Property Name="RateTotal" Type="Double" />
           <Property Name="Id_Product" Type="Int32" Nullable="false" />
           <Property Name="Who" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetProduct" Relationship="Self.FK_AspNetRating_AspNetProducts" FromRole="AspNetRating" ToRole="AspNetProducts" />
@@ -698,7 +700,7 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <Association Name="FK_AspNetProducts_AspNetCategories">
-          <End Role="AspNetCategories" Type="Self.AspNetCategory" Multiplicity="0..1" />
+          <End Role="AspNetCategories" Type="Self.AspNetCategory" Multiplicity="1" />
           <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetCategories">
@@ -722,14 +724,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AspNetProducts_AspNetCities">
-          <End Role="AspNetCities" Type="Self.AspNetCity" Multiplicity="0..1" />
+          <End Role="AspNetCities" Type="Self.AspNetCity" Multiplicity="1" />
           <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetCities">
               <PropertyRef Name="Id_City" />
             </Principal>
             <Dependent Role="AspNetProducts">
-              <PropertyRef Name="Id_CIty" />
+              <PropertyRef Name="Id_City" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -746,7 +748,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AspNetProducts_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
           <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -988,8 +990,9 @@
                 <ScalarProperty Name="AvarageTaste" ColumnName="AvarageTaste" />
                 <ScalarProperty Name="AvarageService" ColumnName="AvarageService" />
                 <ScalarProperty Name="AvarageIngredients" ColumnName="AvarageIngredients" />
-                <ScalarProperty Name="Id_CIty" ColumnName="Id_CIty" />
+                <ScalarProperty Name="Id_City" ColumnName="Id_City" />
                 <ScalarProperty Name="Who" ColumnName="Who" />
+                <ScalarProperty Name="UniqName" ColumnName="UniqName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

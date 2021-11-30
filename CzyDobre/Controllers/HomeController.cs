@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -71,7 +71,7 @@ namespace CzyDobre.Controllers
             var top2 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(1).FirstOrDefault();
             var top3 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(2).FirstOrDefault();
             var top4 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(3).FirstOrDefault();
-
+        
             var top1image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top1.Id_Product + "')").FirstOrDefault();
             var top2image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top2.Id_Product + "')").FirstOrDefault();
             var top3image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top3.Id_Product + "')").FirstOrDefault();
@@ -100,9 +100,10 @@ namespace CzyDobre.Controllers
                 string fulLink4 = link + top4image.Url;
                 rateImage.Image4 = fulLink4;
             }
+                
             return View(rateImage);
             }
-
+       
         [HttpGet]
         [AllowAnonymous]
         public JsonResult GetRate()
@@ -338,12 +339,16 @@ namespace CzyDobre.Controllers
                     if (query != 0)
                     {
                         var queryl = db.AspNetCities.Where(s => s.LocalizationCity == prd.LocName).Select(s => s.Id_City).FirstOrDefault();
-                        
+
+                        int querynp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName ).Count();
+                        //this.AddNotification(querynp.ToString(), NotificationType.ERROR);
                         
                         if(queryl!= 0)
                         {
-                            product.Id_CIty = queryl;
+                            string uniq = prd.ProductName + querynp.ToString();
+                            product.Id_City = queryl;
                             product.ProductName = prd.ProductName;
+                            product.UniqName = uniq;
                             product.ProductDescription = prd.ProductDescription;
                             product.Id_Category = query;
                             var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
@@ -351,7 +356,7 @@ namespace CzyDobre.Controllers
                             db.AspNetProducts.Add(product);
                             db.SaveChanges();
 
-                            var queryp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName).Select(s => s.Id_Product).FirstOrDefault();
+                            var queryp = db.AspNetProducts.Where(s => s.UniqName == uniq).Select(s => s.Id_Product).FirstOrDefault();
                             
                             foreach (var item in zapisz)
                             {
@@ -372,49 +377,15 @@ namespace CzyDobre.Controllers
                             this.AddNotification("Nie ma takiej miejscowości w naszej bazie !", NotificationType.ERROR);
                             
                         }
-                       
+                        
                     }
+             
                     else
                     {
-                        var queryl = db.AspNetCities.Where(s => s.LocalizationCity == prd.LocName).Select(s => s.Id_City).FirstOrDefault();
-
-
-                        if (queryl != 0)
-                        {
-                            product.Id_CIty = queryl;
-                            product.ProductName = prd.ProductName;
-                            product.ProductDescription = prd.ProductDescription;
-                            product.Id_Category = 23;
-                            var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
-                            product.Who = queru;
-                            db.AspNetProducts.Add(product);
-                            db.SaveChanges();
-
-
-
-                            var queryp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName).Select(s => s.Id_Product).FirstOrDefault();
-
-                            foreach (var item in zapisz)
-                            {
-
-                                image.Url = item;
-                                image.Id_Product = queryp;
-                                image.Icon = true;
-                                db.AspNetImages.Add(image);
-                                db.SaveChanges();
-                            }
-
-                            ModelState.Clear();
-                            this.AddNotification("Produkt został dodany pomyślnie.", NotificationType.SUCCESS);
-                        }
-                        else
-                        {
-
-                            this.AddNotification("Nie ma takiej miejscowości w naszej bazie !", NotificationType.ERROR);
-
-                        }
+                        this.AddNotification("Przepraszamy ,nie ma takiej kategorii w naszej bazie !",NotificationType.ERROR);
 
                     }
+                    
                 }
                 catch (Exception ex)
                 {
@@ -422,6 +393,7 @@ namespace CzyDobre.Controllers
                     throw ex;
                 }
             }
+            
             /*else
             {
                 this.AddNotification("Brak danych!", NotificationType.ERROR);
@@ -630,9 +602,9 @@ namespace CzyDobre.Controllers
             DBEntities db = new DBEntities();
             var  Products = (from AspNetProduct  in db.AspNetProducts 
                              join AspNetImage in db.AspNetImages on AspNetProduct.Id_Product equals AspNetImage.Id_Product
-                             join AspNetCity in db.AspNetCities on AspNetProduct.Id_CIty equals AspNetCity.Id_City
+                             join AspNetCity in db.AspNetCities on AspNetProduct.Id_City equals AspNetCity.Id_City
                              where AspNetImage.Icon == true
-                             where AspNetProduct.ProductName.StartsWith(prefix)
+                             where AspNetProduct.ProductName.Contains(prefix)
                              
                              select new
                              {
@@ -650,10 +622,10 @@ namespace CzyDobre.Controllers
         {
             DBEntities db = new DBEntities();
             var Products = (from AspNetCategory in db.AspNetCategories
-                            //where AspNetCategory.CategoryName.StartsWith(prefix)
+                            where AspNetCategory.CategoryName.Contains(prefix)
                             select new
                             {
-                                label = AspNetCategory.CategoryName.StartsWith(prefix),
+                                label = AspNetCategory.CategoryName,
                                 val = AspNetCategory.Id_Category
                             }).ToList();
 
@@ -663,7 +635,7 @@ namespace CzyDobre.Controllers
         {
             DBEntities db = new DBEntities();
             var Products = (from AspNetCity in db.AspNetCities
-                            where AspNetCity.LocalizationCity.StartsWith(prefix)
+                            where AspNetCity.LocalizationCity.Contains(prefix)
                             select new
                             {
                                 label = AspNetCity.LocalizationCity,
@@ -692,14 +664,14 @@ namespace CzyDobre.Controllers
                     zapisz = SaveImagesToOpinion(opn);
 
                     //Console.WriteLine(zapisz);
-
-                    //var user = db.AspNetProducts.Where(u => u.Id_Product == opn.Id_Product).FirstOrDefault();
+                    int querynp = db.AspNetProducts.Where(s => s.ProductName == opn.PName).Count();
+                    var user = db.AspNetProducts.Where(u => u.UniqName == opn.PName+querynp.ToString()).FirstOrDefault();
                    
-                   //user.Opinion_Counter += 1;
+                    user.Opinion_Counter += 1;
 
-                    //user.AvarageTaste += opn.RateTaste;
-                    //user.AvarageService += opn.RateService;
-                   // user.AvarageIngredients += opn.RateIngredients;
+                    user.AvarageTaste += opn.RateTaste;
+                    user.AvarageService += opn.RateService;
+                    user.AvarageIngredients += opn.RateIngredients;
 
                     AspNetRating rate = new AspNetRating();
 
