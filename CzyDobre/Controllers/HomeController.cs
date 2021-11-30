@@ -604,7 +604,7 @@ namespace CzyDobre.Controllers
                              join AspNetImage in db.AspNetImages on AspNetProduct.Id_Product equals AspNetImage.Id_Product
                              join AspNetCity in db.AspNetCities on AspNetProduct.Id_City equals AspNetCity.Id_City
                              where AspNetImage.Icon == true
-                             where AspNetProduct.ProductName.StartsWith(prefix)
+                             where AspNetProduct.ProductName.Contains(prefix)
                              
                              select new
                              {
@@ -622,10 +622,10 @@ namespace CzyDobre.Controllers
         {
             DBEntities db = new DBEntities();
             var Products = (from AspNetCategory in db.AspNetCategories
-                            //where AspNetCategory.CategoryName.StartsWith(prefix)
+                            where AspNetCategory.CategoryName.Contains(prefix)
                             select new
                             {
-                                label = AspNetCategory.CategoryName.StartsWith(prefix),
+                                label = AspNetCategory.CategoryName,
                                 val = AspNetCategory.Id_Category
                             }).ToList();
 
@@ -635,7 +635,7 @@ namespace CzyDobre.Controllers
         {
             DBEntities db = new DBEntities();
             var Products = (from AspNetCity in db.AspNetCities
-                            where AspNetCity.LocalizationCity.StartsWith(prefix)
+                            where AspNetCity.LocalizationCity.Contains(prefix)
                             select new
                             {
                                 label = AspNetCity.LocalizationCity,
@@ -669,7 +669,7 @@ namespace CzyDobre.Controllers
                     AspNetRating rate = new AspNetRating();
 
                     
-                    var query = db.AspNetProducts.Where(s => s.ProductName == opn.PName).Select(s => s.Id_Product).FirstOrDefault();
+                    var query = db.AspNetProducts.Where(s => s.UniqName == opn.PName+querynp).Select(s => s.Id_Product).FirstOrDefault();
 
                     
 
