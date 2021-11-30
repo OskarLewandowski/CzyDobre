@@ -721,6 +721,8 @@
     <Content Include="Fontello\README.txt" />
     <Content Include="Global.asax" />
     <Content Include="googleb759cfb5ebebcab7.html" />
+    <Content Include="image\Add.png" />
+    <Content Include="image\Foto.png" />
     <Content Include="image\kontakt.png" />
     <Content Include="image\logo_czydobre.png" />
     <Content Include="image\frontpage-image.jpg" />
@@ -745,6 +747,7 @@
     </Content>
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\AutoCompleteCat.js" />
+    <Content Include="Scripts\DragAndDrop.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.js" />
