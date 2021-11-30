@@ -6,6 +6,7 @@
 @section scripts {
 
     <script src="@Url.Content("~/Scripts/ratting.js")"></script>
+    <script src="@Url.Content("~/Scripts/rattingMobile.js")"></script>
 }
 
 
@@ -21,136 +22,133 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <figure class="figure">
-                                <img src="~/image/kebab.jpg" class="figure-img img-fluid  heightimg" alt="kebs" />
-                                <div class="text-center heighttitle pt-2 text-yellow">
-                                    
+                                <img src="@Model.Image1" class="figure-img img-fluid  heightimg" alt="Most popular product" />
+                                <div class="text-center heighttitle pt-2 text-yellow " id="ProductName1m">
                                 </div>
-                                <div class="review">
+                                <div class="review first">
                                     <div class="row">
                                         <div class="col-3 category">Smak: </div>
-                                        <div class="star-rating col-9">
+                                        <div class="star-rating col-9" id="taste-1m">
                                             <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
-                                            <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                            <input type="hidden" name="whatever1" class="rating-value" value="1.1">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Obsługa: </div>
-                                        <div class="star-rating col-9">
+                                        <div class="star-rating col-9" id="service-1m">
                                             <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
-                                            <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                            <input type="hidden" name="whatever1" class="rating-value" value="1.1">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Cena: </div>
-                                        <div class="star-rating col-9">
+                                        <div class="star-rating col-9" id="ingredients-1m">
                                             <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
-                                            <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                            <input type="hidden" name="whatever1" class="rating-value" value="1.1">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="countreviews text-center">
-                                    <div class="d-inline count_place"></div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                                    <div class="d-inline count_place" id="CountRate1m"></div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                                 </div>
                             </figure>
                         </div>
                         <div class="carousel-item">
                             <figure class="figure">
-                                <img src="~/image/zapiekanka.jpg" class="figure-img img-fluid  heightimg" alt="zapieksa" />
-                                <div class="text-center heighttitle pt-2 text-yellow">
+                                <img src="@Model.Image2" class="figure-img img-fluid  heightimg" alt="Most popular product" />
+                                <div class="text-center heighttitle pt-2 text-yellow " id="ProductName2m">
                                 </div>
-                                <div class="review">
+                                <div class="review first">
                                     <div class="row">
                                         <div class="col-3 category">Smak: </div>
-                                        <div class="star-rating col-9">
+                                        <div class="star-rating col-9" id="taste-2m">
                                             <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
-                                            <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                            <input type="hidden" name="whatever1" class="rating-value" value="1.1">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Obsługa: </div>
-                                        <div class="star-rating col-9">
+                                        <div class="star-rating col-9" id="service-2m">
                                             <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
-                                            <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                            <input type="hidden" name="whatever1" class="rating-value" value="1.1">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Cena: </div>
-                                        <div class="star-rating col-9">
+                                        <div class="star-rating col-9" id="ingredients-2m">
                                             <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
-                                            <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                            <input type="hidden" name="whatever1" class="rating-value" value="1.1">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="countreviews text-center">
-                                    <div class="d-inline count_place"></div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                                    <div class="d-inline count_place" id="CountRate2m"></div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                                 </div>
                             </figure>
                         </div>
                         <div class="carousel-item">
                             <figure class="figure">
-                                <img src="~/image/lody.jpeg" class="figure-img img-fluid  heightimg" alt="lod" />
-                                <div class="text-center heighttitle pt-2 text-yellow">
-                        
+                                <img src="@Model.Image3" class="figure-img img-fluid  heightimg" alt="Most popular product" />
+                                <div class="text-center heighttitle pt-2 text-yellow " id="ProductName3m">
                                 </div>
-                                <div class="review">
+                                <div class="review first">
                                     <div class="row">
                                         <div class="col-3 category">Smak: </div>
-                                        <div class="star-rating col-9">
+                                        <div class="star-rating col-9" id="taste-3m">
                                             <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
-                                            <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                            <input type="hidden" name="whatever1" class="rating-value" value="1.1">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Obsługa: </div>
-                                        <div class="star-rating col-9">
+                                        <div class="star-rating col-9" id="service-3m">
                                             <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
-                                            <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                            <input type="hidden" name="whatever1" class="rating-value" value="1.1">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Cena: </div>
-                                        <div class="star-rating col-9">
+                                        <div class="star-rating col-9" id="ingredients-3m">
                                             <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
-                                            <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                            <input type="hidden" name="whatever1" class="rating-value" value="1.1">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="countreviews text-center">
-                                    <div class="d-inline count_place"></div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                                    <div class="d-inline count_place" id="CountRate3m"></div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                                 </div>
                             </figure>
                         </div>
                         <div class="carousel-item">
                             <figure class="figure">
-                                <img src="~/image/hamburger.jpeg" class="figure-img img-fluid  heightimg" alt="burger" />
-                                <div class="text-center heighttitle pt-2 text-yellow">
-                               
+                                <img src="@Model.Image4" class="figure-img img-fluid  heightimg" alt="Most popular product" />
+                                <div class="text-center heighttitle pt-2 text-yellow " id="ProductName4m">
                                 </div>
-                                <div class="review">
+                                <div class="review first">
                                     <div class="row">
                                         <div class="col-3 category">Smak: </div>
-                                        <div class="star-rating col-9">
+                                        <div class="star-rating col-9" id="taste-4m">
                                             <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
-                                            <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                            <input type="hidden" name="whatever1" class="rating-value" value="1.1">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Obsługa: </div>
-                                        <div class="star-rating col-9">
+                                        <div class="star-rating col-9" id="service-4m">
                                             <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
-                                            <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                            <input type="hidden" name="whatever1" class="rating-value" value="1.1">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 category">Cena: </div>
-                                        <div class="star-rating col-9">
+                                        <div class="star-rating col-9" id="ingredients-4m">
                                             <span class="fa fa-star-o " data-rating="1"></span><span class="fa fa-star-o " data-rating="2"></span><span class="fa fa-star-o " data-rating="3"></span><span class="fa fa-star-o " data-rating="4"></span><span class="fa fa-star-o " data-rating="5"></span>
-                                            <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                            <input type="hidden" name="whatever1" class="rating-value" value="1.1">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="countreviews text-center">
-                                    <div class="d-inline count_place"></div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
+                                    <div class="d-inline count_place" id="CountRate4m"></div>  <img src="~/image/icon.png" class="figure-img img-fluid icon" alt="like" />
                                 </div>
                             </figure>
                         </div>
@@ -173,10 +171,10 @@
         <div class="row">
             <div class="col-6 col-lg-3 mt-5">
                 <figure class="figure">
-                    <img src="@Model.Image1" class ="figure-img img-fluid  heightimg" alt="kebs" />
-                    <div class="text-center heighttitle pt-2 text-yellow" id="ProductName1">                 
+                    <img src="@Model.Image1" class="figure-img img-fluid  heightimg" alt="Most popular product" />
+                    <div class="text-center heighttitle pt-2 text-yellow" id="ProductName1">
                     </div>
-                    <div class= "review first">
+                    <div class="review first">
                         <div class="row">
                             <div class="col-3 category">Smak: </div>
                             <div class="star-rating col-9" id="taste-1">
@@ -208,7 +206,7 @@
                 <figure class="figure">
                     <img src="@Model.Image2" class="figure-img img-fluid  heightimg" alt="zapieksa" />
                     <div class="text-center heighttitle pt-2 text-yellow" id="ProductName2">
-                     
+
                     </div>
                     <div class="review">
                         <div class="row">
@@ -242,7 +240,7 @@
                 <figure class="figure">
                     <img src="@Model.Image3" class="figure-img img-fluid  heightimg" alt="lod" />
                     <div class="text-center heighttitle pt-2 text-yellow" id="ProductName3">
-             
+
                     </div>
                     <div class="review">
                         <div class="row">

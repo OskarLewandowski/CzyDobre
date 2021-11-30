@@ -604,7 +604,7 @@ namespace CzyDobre.Controllers
                              join AspNetImage in db.AspNetImages on AspNetProduct.Id_Product equals AspNetImage.Id_Product
                              join AspNetCity in db.AspNetCities on AspNetProduct.Id_City equals AspNetCity.Id_City
                              where AspNetImage.Icon == true
-                             where AspNetProduct.ProductName.Contains(prefix)
+                             where AspNetProduct.ProductName.StartsWith(prefix)
                              
                              select new
                              {
@@ -622,10 +622,10 @@ namespace CzyDobre.Controllers
         {
             DBEntities db = new DBEntities();
             var Products = (from AspNetCategory in db.AspNetCategories
-                            where AspNetCategory.CategoryName.Contains(prefix)
+                            //where AspNetCategory.CategoryName.StartsWith(prefix)
                             select new
                             {
-                                label = AspNetCategory.CategoryName,
+                                label = AspNetCategory.CategoryName.StartsWith(prefix),
                                 val = AspNetCategory.Id_Category
                             }).ToList();
 
@@ -635,7 +635,7 @@ namespace CzyDobre.Controllers
         {
             DBEntities db = new DBEntities();
             var Products = (from AspNetCity in db.AspNetCities
-                            where AspNetCity.LocalizationCity.Contains(prefix)
+                            where AspNetCity.LocalizationCity.StartsWith(prefix)
                             select new
                             {
                                 label = AspNetCity.LocalizationCity,
@@ -665,13 +665,6 @@ namespace CzyDobre.Controllers
 
                     //Console.WriteLine(zapisz);
                     int querynp = db.AspNetProducts.Where(s => s.ProductName == opn.PName).Count();
-                    var user = db.AspNetProducts.Where(u => u.UniqName == opn.PName+querynp.ToString()).FirstOrDefault();
-                   
-                    user.Opinion_Counter += 1;
-
-                    user.AvarageTaste += opn.RateTaste;
-                    user.AvarageService += opn.RateService;
-                    user.AvarageIngredients += opn.RateIngredients;
 
                     AspNetRating rate = new AspNetRating();
 
@@ -682,6 +675,19 @@ namespace CzyDobre.Controllers
 
                     if (query!=0)
                     {
+
+                        var user = db.AspNetProducts.Where(u => u.ProductName == opn.PName).FirstOrDefault();
+                        if(user.Opinion_Counter == 0 )
+                        {
+                            user.AvarageService = 0;
+                            user.AvarageTaste = 0;
+                            user.AvarageIngredients = 0;
+                        }
+                        user.Opinion_Counter += 1;
+                        user.AvarageTaste += opn.RateTaste;
+                        user.AvarageService += opn.RateService;
+                        user.AvarageIngredients += opn.RateIngredients;
+
                         rate.Id_Product = query;
                         rate.RateComposition = opn.RateComposition;
                         rate.RateIngredients = opn.RateIngredients;
