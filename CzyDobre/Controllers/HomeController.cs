@@ -651,7 +651,7 @@ namespace CzyDobre.Controllers
         [Route("dodaj-opinie")]
         [Route("Home/AddOpinion")]
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
         [ValidateAntiForgeryToken]
         public ActionResult AddOpinion(AddOpinionViewModels opn)
         {
