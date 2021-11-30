@@ -672,12 +672,12 @@ namespace CzyDobre.Controllers
 
                     
                     var query = db.AspNetProducts.Where(s => s.UniqName == opn.PName+querynp.ToString()).Select(s => s.Id_Product).FirstOrDefault();
-
+                    this.AddNotification(query.ToString(), NotificationType.INFO);
                     
 
-                    if (query!=0)
+                    if (query==0)
                     {
-
+                        
                         var user = db.AspNetProducts.Where(u => u.ProductName == opn.PName).FirstOrDefault();
                         if(user.Opinion_Counter == 0 )
                         {
@@ -713,7 +713,7 @@ namespace CzyDobre.Controllers
                         }
                         ModelState.Clear();
                         this.AddNotification("Opinia została wysłana, dziękujemy za opinię.", NotificationType.SUCCESS);
-
+                        
                     }
                     else
                     {
