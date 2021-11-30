@@ -1,8 +1,8 @@
 ﻿$(function () {
-    $("#CategorySE").autocomplete({
+    $("#pac-input").autocomplete({
         source: function (request, response) {
             $.ajax({
-                url: '/Home/AutoCompleteCategory/',
+                url: '/Home/AutoCompleteCity/',
                 data: "{'prefix': '" + request.term + "'}",
                 dataType: "json",
                 type: "POST",
@@ -20,7 +20,7 @@
                 }
             });
         },
-     
-        
+
+        minLength: 1
     });
 });

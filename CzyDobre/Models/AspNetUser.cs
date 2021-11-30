@@ -11,51 +11,42 @@ namespace CzyDobre.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class AspNetUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AspNetUser()
         {
-            this.AspNetReviews = new HashSet<AspNetReview>();
+            this.AspNetProducts = new HashSet<AspNetProduct>();
+            this.AspNetRatings = new HashSet<AspNetRating>();
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.AspNetRoles = new HashSet<AspNetRole>();
         }
-
-        [Display(Name = "ID")]
+    
         public string Id { get; set; }
-        [Display(Name = "Adres Email")]
         public string Email { get; set; }
-        [Display(Name = "Czy adres Email potwierdzony? ")]
         public bool EmailConfirmed { get; set; }
         public string PasswordHash { get; set; }
         public string SecurityStamp { get; set; }
         public string PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
         public bool TwoFactorEnabled { get; set; }
-        [Display(Name = "Zablokowany do")]
         public Nullable<System.DateTime> LockoutEndDateUtc { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
-        [Display(Name = "Nazwa u¿ytkownika")]
         public string UserName { get; set; }
-        [Display(Name = "Imiê")]
         public string FirstName { get; set; }
-        [Display(Name = "Nazwisko")]
         public string LastName { get; set; }
-        [Display(Name = "Nick")]
         public string NickName { get; set; }
-        [Display(Name = "Iloœæ dni blokady")]
         public Nullable<int> LastBanDays { get; set; }
-        [Display(Name = "Powód zablokowania")]
         public string BanComment { get; set; }
-        [Display(Name = "Kto nada³ blokadê")]
         public string WhoGaveBan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetReview> AspNetReviews { get; set; }
+        public virtual ICollection<AspNetProduct> AspNetProducts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetRating> AspNetRatings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -27,7 +27,9 @@ namespace CzyDobre.Models
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetCategory> AspNetCategories { get; set; }
-        public virtual DbSet<AspNetLocalization> AspNetLocalizations { get; set; }
+        public virtual DbSet<AspNetCity> AspNetCities { get; set; }
+        public virtual DbSet<AspNetCoordinate> AspNetCoordinates { get; set; }
+        public virtual DbSet<AspNetImage> AspNetImages { get; set; }
         public virtual DbSet<AspNetProduct> AspNetProducts { get; set; }
         public virtual DbSet<AspNetRating> AspNetRatings { get; set; }
         public virtual DbSet<AspNetRestaurantCalendar> AspNetRestaurantCalendars { get; set; }
@@ -35,14 +37,12 @@ namespace CzyDobre.Models
         public virtual DbSet<AspNetRestaurantOpening> AspNetRestaurantOpenings { get; set; }
         public virtual DbSet<AspNetRestaurant> AspNetRestaurants { get; set; }
         public virtual DbSet<AspNetRestaurantsType> AspNetRestaurantsTypes { get; set; }
-        public virtual DbSet<AspNetReview> AspNetReviews { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<AspNetVoivode> AspNetVoivodes { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<AspNetCoordinate> AspNetCoordinates { get; set; }
-        public virtual DbSet<AspNetImage> AspNetImages { get; set; }
         public virtual DbSet<AspNetIngredient> AspNetIngredients { get; set; }
         public virtual DbSet<AspNetTaste> AspNetTastes { get; set; }
     }

@@ -19,26 +19,26 @@ namespace CzyDobre.Models
         {
             this.AspNetImages = new HashSet<AspNetImage>();
             this.AspNetRatings = new HashSet<AspNetRating>();
-            this.AspNetReviews = new HashSet<AspNetReview>();
         }
     
         public int Id_Product { get; set; }
-        public Nullable<int> Id_Category { get; set; }
+        public int Id_Category { get; set; }
         public string ProductDescription { get; set; }
-        public Nullable<int> Id_Localization { get; set; }
         public string ProductName { get; set; }
-        public Nullable<int> Opinion_Counter { get; set; }
+        public int Opinion_Counter { get; set; }
         public Nullable<int> AvarageTaste { get; set; }
         public Nullable<int> AvarageService { get; set; }
         public Nullable<int> AvarageIngredients { get; set; }
+        public int Id_City { get; set; }
+        public string Who { get; set; }
+        public string UniqName { get; set; }
     
         public virtual AspNetCategory AspNetCategory { get; set; }
-        public virtual AspNetLocalization AspNetLocalization { get; set; }
+        public virtual AspNetCity AspNetCity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetImage> AspNetImages { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRating> AspNetRatings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetReview> AspNetReviews { get; set; }
     }
 }

@@ -14,19 +14,19 @@
             @Html.AntiForgeryToken()
             <div class="form-group" align="center">
                 <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.ProductName, new { placeholder = "Nazwa Produktu", @class = "pl-4 form-control" })
+                    @Html.TextBoxFor(m => m.ProductName, new { placeholder = "Wpisz nazwę dla nowego produktu", @class = "pl-4 form-control" })
                     @Html.ValidationMessageFor(m => m.ProductName, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group" align="center">
                 <div class="col-md-10">
-                    @Html.TextAreaFor(m => m.ProductDescription, new { placeholder = "Opis Produktu", @class = "pl-4 form-control" })
+                    @Html.TextAreaFor(m => m.ProductDescription, new { placeholder = "Wpisz opis produktu", @class = "pl-4 form-control" })
                     @Html.ValidationMessageFor(m => m.ProductDescription, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group" align="center">
                 <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.CategoryName, new { placeholder = "Znajdz kategorie", @class = "pl-4 form-control", @id = "CategorySE" })
+                    @Html.TextBoxFor(m => m.CategoryName, new { placeholder = "Wpisz poszukiwaną kategorie", @class = "pl-4 form-control", @id = "CategorySE" })
                     @Html.ValidationMessageFor(m => m.CategoryName, "", new { @class = "text-danger" })
 
                     <script defer src="~/Scripts/AutoCompleteCat.js"></script>
@@ -35,28 +35,35 @@
 
             <div class="form-group" align="center">
                 <div class="col-md-10">
-                    @Html.Label("Wstaw Zdjęcie Tytułowe:", new { @class = "col-md-4 control-label" })
+                    @Html.TextBoxFor(m => m.LocName, new { @placeholder = "Wpisz swoje miasto", @class = "pl-4 form-control", @id = "pac-input" })
+                    @Html.ValidationMessageFor(m => m.LocName, "", new { @class = "text-danger" })
+                    <script defer src="~/Scripts/AutoCompleteCity.js"></script>
+                </div>
+                <!--
+            <div id="map" style="width: 500px; height: 500px">
+
+            </div>
+
+
+            <script src="~/Scripts/GeoMapa.js"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw4M0s-wdhkjGK1L5BkWzyilxKp15QnGY&callback=initAutocomplete&libraries=places&v=weekly"
+                    async></script>
+             -->
+
+            </div>
+            <div class="form-group" align="center">
+                <div class="col-md-10">
+                    @Html.Label("Wstaw Zdjęcie Katalogowe:", new { @class = "col-md-4 control-label" })
                     @Html.TextBoxFor(m => m.Icon, new { @type = "file", @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Icon, "", new { @class = "text-danger" })
+
+
+
                     <p style="text-align: left; padding: 3px;">Maksymalna wielkość załącznika wynosi 5MB</p>
                 </div>
             </div>
 
-            <div class="form-group" align="center">
-                @Html.Label("Lokalizacja", new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m => m.LocName, new { @class = "col-md-2 control-label", @id = "pac-input", @type = "text", @placeholder = "Search Box" })
-                
 
-                <div id="map" style="width: 500px; height: 500px">
-
-                </div>
-
-
-                <script src="~/Scripts/GeoMapa.js"></script>
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw4M0s-wdhkjGK1L5BkWzyilxKp15QnGY&callback=initAutocomplete&libraries=places&v=weekly"
-                        async></script>
-                @Html.ValidationMessageFor(m => m.LocName, "", new { @class = "text-danger" })
-            </div>
 
             <div class="form-group" align="center">
                 <div class="col-md-10">
@@ -66,10 +73,7 @@
 
                 </div>
             </div>
-            <div class="form-group" align="center" style="color: #df3545ff">
-                @Html.Recaptcha()
-                @Html.ValidationMessage("ReCaptcha")
-            </div>
+
 
             <div class="form-group" align="center">
                 <div class="col-md-offset-2 col-md-10">

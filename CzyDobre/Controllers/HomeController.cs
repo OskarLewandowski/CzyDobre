@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -36,7 +36,7 @@ namespace CzyDobre.Controllers
             {
                 con.Open();
                 com.Connection = con;
-                com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[novum_Andzej].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[novum_Andzej].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[novum_Andzej].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product";
+                com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product";
                 dr = com.ExecuteReader();
                 while (dr.Read())
                 {
@@ -71,7 +71,7 @@ namespace CzyDobre.Controllers
             var top2 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(1).FirstOrDefault();
             var top3 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(2).FirstOrDefault();
             var top4 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(3).FirstOrDefault();
-
+        
             var top1image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top1.Id_Product + "')").FirstOrDefault();
             var top2image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top2.Id_Product + "')").FirstOrDefault();
             var top3image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top3.Id_Product + "')").FirstOrDefault();
@@ -100,9 +100,10 @@ namespace CzyDobre.Controllers
                 string fulLink4 = link + top4image.Url;
                 rateImage.Image4 = fulLink4;
             }
+                
             return View(rateImage);
             }
-
+       
         [HttpGet]
         [AllowAnonymous]
         public JsonResult GetRate()
@@ -318,85 +319,81 @@ namespace CzyDobre.Controllers
         [Route("Home/AddProducts")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [CaptchaValidator(ErrorMessage = "Nieprawidłowe rozwiązanie pola Captcha", RequiredMessage = "Pole Captcha jest wymagane.")]
         [Authorize]
-        public ActionResult AddProducts(ProductFormModels prd,bool captchaValid)
+        public ActionResult AddProducts(ProductFormModels prd)
         {
-            if (ModelState.IsValid && captchaValid == true)
+            if (ModelState.IsValid )
             {
                 try
                 {
                     DBEntities db = new DBEntities();
-
-                    
-
                     List<string> zapisz = new List<string>();
-                    
-                    
                     zapisz = SaveIconToProduct(prd);
-                    
-
-
                     AspNetProduct product = new AspNetProduct();
-                    AspNetLocalization loc = new AspNetLocalization();
+                    AspNetCity loc = new AspNetCity();
                     AspNetImage image = new AspNetImage();
 
 
-                    var query = db.AspNetCategories.Where(s => s.CategoryName == prd.CategoryName).Select(s => s.Id_Category).First();
-
-
+                    var query = db.AspNetCategories.Where(s => s.CategoryName == prd.CategoryName).Select(s => s.Id_Category).FirstOrDefault();
                     
-                    loc.LocalizationCity = prd.LocName;
-                    db.AspNetLocalizations.Add(loc);
-                    db.SaveChanges();
-
-                    
-                    
-                    var queryl = db.AspNetLocalizations.Where(s => s.LocalizationCity == prd.LocName).Select(s => s.Id_Localization).First();
-                    product.Id_Localization = queryl;
-                    product.ProductName = prd.ProductName;
-                    product.ProductDescription = prd.ProductDescription;
-                    product.Id_Category = query;
-                    db.AspNetProducts.Add(product);
-                    db.SaveChanges();
-
-
-                    
-                    var queryp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName).Select(s => s.Id_Product).First();
-                    
-                    //image.Url = zapiszIc;
-                    //image.Id_Product = queryp;
-                   // image.Icon = true;
-                    //db.AspNetImages.Add(image);
-                    //db.SaveChanges();
-
-
-                      
-                    foreach (var item in zapisz)
+                    if (query != 0)
                     {
+                        var queryl = db.AspNetCities.Where(s => s.LocalizationCity == prd.LocName).Select(s => s.Id_City).FirstOrDefault();
+
+                        int querynp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName ).Count();
+                        //this.AddNotification(querynp.ToString(), NotificationType.ERROR);
                         
-                        image.Url = item;
-                        image.Id_Product = queryp;
-                        image.Icon = true; 
-                        db.AspNetImages.Add(image);
-                        db.SaveChanges();
+                        if(queryl!= 0)
+                        {
+                            string uniq = prd.ProductName + querynp.ToString();
+                            product.Id_City = queryl;
+                            product.ProductName = prd.ProductName;
+                            product.UniqName = uniq;
+                            product.ProductDescription = prd.ProductDescription;
+                            product.Id_Category = query;
+                            var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
+                            product.Who = queru;
+                            db.AspNetProducts.Add(product);
+                            db.SaveChanges();
+
+                            var queryp = db.AspNetProducts.Where(s => s.UniqName == uniq).Select(s => s.Id_Product).FirstOrDefault();
+                            
+                            foreach (var item in zapisz)
+                            {
+
+                                image.Url = item;
+                                image.Id_Product = queryp;
+                                image.Icon = true;
+                                db.AspNetImages.Add(image);
+                                db.SaveChanges();
+                            }
+
+                            ModelState.Clear();
+                            this.AddNotification("Produkt został dodany pomyślnie.", NotificationType.SUCCESS);
+                        }
+                        else
+                        {
+
+                            this.AddNotification("Nie ma takiej miejscowości w naszej bazie !", NotificationType.ERROR);
+                            
+                        }
+                        
+                    }
+             
+                    else
+                    {
+                        this.AddNotification("Przepraszamy ,nie ma takiej kategorii w naszej bazie !",NotificationType.ERROR);
+
                     }
                     
-
-
-
-
-                    ModelState.Clear();
-                    this.AddNotification("Produkt został dodany pomyślnie.", NotificationType.SUCCESS);
-
                 }
-
                 catch (Exception ex)
                 {
                     this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
                     throw ex;
                 }
             }
+            
             /*else
             {
                 this.AddNotification("Brak danych!", NotificationType.ERROR);
@@ -603,25 +600,46 @@ namespace CzyDobre.Controllers
         public JsonResult AutoComplete(string prefix)
         {
             DBEntities db = new DBEntities();
-            var  Products = (from AspNetProduct in db.AspNetProducts
+            var  Products = (from AspNetProduct  in db.AspNetProducts 
+                             join AspNetImage in db.AspNetImages on AspNetProduct.Id_Product equals AspNetImage.Id_Product
+                             join AspNetCity in db.AspNetCities on AspNetProduct.Id_City equals AspNetCity.Id_City
+                             where AspNetImage.Icon == true
                              where AspNetProduct.ProductName.StartsWith(prefix)
+                             
                              select new
                              {
                                  label = AspNetProduct.ProductName,
+                                 img = AspNetImage.Url,
+                                 city = AspNetCity.LocalizationCity,
                                  val = AspNetProduct.Id_Product
-                             }).ToList();
 
+
+                             }).ToList();
+            
             return Json(Products);
         }
         public JsonResult AutoCompleteCategory(string prefix)
         {
             DBEntities db = new DBEntities();
             var Products = (from AspNetCategory in db.AspNetCategories
-                            where AspNetCategory.CategoryName.StartsWith(prefix)
+                            //where AspNetCategory.CategoryName.StartsWith(prefix)
                             select new
                             {
-                                label = AspNetCategory.CategoryName,
+                                label = AspNetCategory.CategoryName.StartsWith(prefix),
                                 val = AspNetCategory.Id_Category
+                            }).ToList();
+
+            return Json(Products);
+        }
+        public JsonResult AutoCompleteCity(string prefix)
+        {
+            DBEntities db = new DBEntities();
+            var Products = (from AspNetCity in db.AspNetCities
+                            where AspNetCity.LocalizationCity.StartsWith(prefix)
+                            select new
+                            {
+                                label = AspNetCity.LocalizationCity,
+                                val = AspNetCity.Id_City
                             }).ToList();
 
             return Json(Products);
@@ -646,30 +664,38 @@ namespace CzyDobre.Controllers
                     zapisz = SaveImagesToOpinion(opn);
 
                     //Console.WriteLine(zapisz);
-
-                    //var user = db.AspNetProducts.Where(u => u.Id_Product == opn.Id_Product).FirstOrDefault();
-                   
-                   //user.Opinion_Counter += 1;
-
-                    //user.AvarageTaste += opn.RateTaste;
-                    //user.AvarageService += opn.RateService;
-                   // user.AvarageIngredients += opn.RateIngredients;
+                    int querynp = db.AspNetProducts.Where(s => s.ProductName == opn.PName).Count();
 
                     AspNetRating rate = new AspNetRating();
 
                     
                     var query = db.AspNetProducts.Where(s => s.ProductName == opn.PName).Select(s => s.Id_Product).FirstOrDefault();
-                    int q = query;
+
                     
 
                     if (query!=0)
                     {
+
+                        var user = db.AspNetProducts.Where(u => u.ProductName == opn.PName).FirstOrDefault();
+                        if(user.Opinion_Counter == 0 )
+                        {
+                            user.AvarageService = 0;
+                            user.AvarageTaste = 0;
+                            user.AvarageIngredients = 0;
+                        }
+                        user.Opinion_Counter += 1;
+                        user.AvarageTaste += opn.RateTaste;
+                        user.AvarageService += opn.RateService;
+                        user.AvarageIngredients += opn.RateIngredients;
+
                         rate.Id_Product = query;
                         rate.RateComposition = opn.RateComposition;
                         rate.RateIngredients = opn.RateIngredients;
                         rate.RateService = opn.RateService;
                         rate.RateTaste = opn.RateTaste;
                         rate.Comment = opn.Review;
+                        var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
+                        rate.Who = queru;
                         rate.RateTotal = (rate.RateComposition + rate.RateIngredients + rate.RateService + rate.RateTaste) / 4;
                         db.AspNetRatings.Add(rate);
                         db.SaveChanges();
@@ -690,7 +716,7 @@ namespace CzyDobre.Controllers
                     else
                     {
                         this.AddNotification("Nie ma takiego produktu w naszej bazie ! Wprowadź ponownie nazwę produktu lub dodaj nowy!", NotificationType.ERROR);
-                        return View();
+                       
                     }
                     
 

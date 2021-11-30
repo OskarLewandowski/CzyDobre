@@ -13,7 +13,13 @@
             using (Html.BeginForm("AddOpinion", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
             {
                 @Html.AntiForgeryToken()
-            <div class="row flex-column flex-lg-row">
+        <style>
+                .imageClass {
+                    width: 100px;
+                    height: 100px;
+                }
+            </style>    
+        <div class="row flex-column flex-lg-row">
                 <div id="dropSpot" class="position-relative d-flex flex-column col-12 col-lg-6 p-0">
                 <!--<label for="Photo" class="drag-and-drop-preview-parent">
                         <img src="https://via.placeholder.com/1080" id="preview" class="drag-and-drop-preview-image" />
@@ -71,7 +77,7 @@
                     <div class="form-group" align="center">
                         @Html.LabelFor(m => m.Review, new { @class = "control-label" })
                         <div class="col-md-10">
-                            @Html.TextAreaFor(m => m.Review, new { @class = "pl-6 form-control", @rows = "10" })
+                            @Html.TextAreaFor(m => m.Review, new { @class = "pl-6 form-control", @rows = "10",@placeholder = "Wpisz swój komentarz (Opcjonalne)" })
                             @Html.ValidationMessageFor(m => m.Review, "", new { @class = "text-danger" })
                         </div>
                     </div>

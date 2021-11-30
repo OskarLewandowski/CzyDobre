@@ -39,7 +39,16 @@
 
                         @if (item.LockoutEndDateUtc != null)
                         {
-                            <td style="color: red;">DO @item.LockoutEndDateUtc</td>
+                            int result = DateTime.Compare((DateTime)item.LockoutEndDateUtc, DateTime.Now);
+
+                            if(result < 0)
+                            {
+                                <td style="color: blue;">KONIEC BLOKADY @item.LockoutEndDateUtc</td>                            
+                            }
+                            else
+                            {
+                                <td style="color: red;">DO @item.LockoutEndDateUtc</td>                            
+                            }                                                                           
                         }
                         else
                         {

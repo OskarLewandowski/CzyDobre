@@ -31,7 +31,6 @@ namespace CzyDobre.Models
        
         [Display(Name = "Recenzja")]
         public string Review { get; set; }
-       
 
         [Display(Name = "Zdjęcie Produktu")]
         [ImageFileCheck]
