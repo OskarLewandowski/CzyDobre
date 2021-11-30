@@ -298,7 +298,7 @@ namespace CzyDobre.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ModelState.Clear();
+                    //ModelState.Clear();
                     this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
                 }
             }
@@ -477,13 +477,13 @@ namespace CzyDobre.Controllers
                             var uploadResult = cloudinary.Upload(uploadParams);
                             //this.AddNotification(filename, NotificationType.SUCCESS);
                         }
-                        ModelState.Clear();
+                        //ModelState.Clear();
                         //this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
                     }
                 }
                 catch (Exception ex)
                 {
-                    ModelState.Clear();
+                    //ModelState.Clear();
                     this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
                 }
             }
@@ -505,9 +505,9 @@ namespace CzyDobre.Controllers
                 try
                 {
                     Account account = new Account(
-                        ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
-                        ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
-                        ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
+                    ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
+                    ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
+                    ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
                     Cloudinary cloudinary = new Cloudinary(account);
 
                     //Weryfikacja plików
@@ -563,13 +563,13 @@ namespace CzyDobre.Controllers
                             var uploadResult = cloudinary.Upload(uploadParams);
                             //this.AddNotification(filename, NotificationType.SUCCESS);
                         }
-                        ModelState.Clear();
+                        //ModelState.Clear();
                         //this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
                     }
                 }
                 catch (Exception)
                 {
-                    ModelState.Clear();
+                    //ModelState.Clear();
                     //this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
                 }
             }
@@ -661,7 +661,7 @@ namespace CzyDobre.Controllers
                 {
                     DBEntities db = new DBEntities();
 
-                    List<string> zapisz = new List<string>();
+                    
 
                    
 
@@ -677,44 +677,68 @@ namespace CzyDobre.Controllers
 
                     if (query!=0)
                     {
-                        
-                        var user = db.AspNetProducts.Where(u => u.ProductName == opn.PName).FirstOrDefault();
-                        if(user.Opinion_Counter == 0 )
-                        {
-                            user.AvarageService = 0;
-                            user.AvarageTaste = 0;
-                            user.AvarageIngredients = 0;
-                        }
-                        user.Opinion_Counter += 1;
-                        user.AvarageTaste += opn.RateTaste;
-                        user.AvarageService += opn.RateService;
-                        user.AvarageIngredients += opn.RateIngredients;
-
-                        zapisz = SaveImagesToOpinion(opn);
-                        rate.Id_Product = query;
-                        rate.RateComposition = opn.RateComposition;
-                        rate.RateIngredients = opn.RateIngredients;
-                        rate.RateService = opn.RateService;
-                        rate.RateTaste = opn.RateTaste;
-                        rate.Comment = opn.Review;
+                        List<string> zapisz = new List<string>();
+                        var user = db.AspNetProducts.Where(u => u.UniqName == opn.PName + (querynp - 1).ToString()).FirstOrDefault();
                         var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
-                        rate.Who = queru;
-                        rate.RateTotal = (rate.RateComposition + rate.RateIngredients + rate.RateService + rate.RateTaste) / 4;
-                        db.AspNetRatings.Add(rate);
-                        db.SaveChanges();
+                        var uni = db.AspNetRatings.Where(u => u.Id_Product == query && u.Who == queru).Count();
+                        //this.AddNotification(uni.ToString(), NotificationType.ERROR);
 
-                        AspNetImage image = new AspNetImage();
-                        foreach (var item in zapisz)
-                        {
+                      if(uni==0)
+                      {
+                         if(opn.RateIngredients!=0 && opn.RateService!=0 && opn.RateTaste!=0 )
+                         {
+                                if (user.Opinion_Counter == 0)
+                                {
+                                    user.AvarageService = 0;
+                                    user.AvarageTaste = 0;
+                                    user.AvarageIngredients = 0;
+                                }
 
-                            image.Url = item;
-                            image.Id_Product = rate.Id_Product;
-                            db.AspNetImages.Add(image);
-                            db.SaveChanges();
-                        }
-                        ModelState.Clear();
-                        this.AddNotification("Opinia została wysłana, dziękujemy za opinię.", NotificationType.SUCCESS);
-                        
+                                user.Opinion_Counter += 1;
+                                user.AvarageTaste += opn.RateTaste;
+                                user.AvarageService += opn.RateService;
+                                user.AvarageIngredients += opn.RateIngredients;
+
+                                zapisz = SaveImagesToOpinion(opn);
+                                rate.Id_Product = query;
+
+                                rate.RateIngredients = opn.RateIngredients;
+                                rate.RateService = opn.RateService;
+                                rate.RateTaste = opn.RateTaste;
+                                rate.Comment = opn.Review;
+
+                                rate.Who = queru;
+                                rate.RateTotal = (rate.RateIngredients + rate.RateService + rate.RateTaste) / 3;
+                                db.AspNetRatings.Add(rate);
+                                db.SaveChanges();
+
+                                AspNetImage image = new AspNetImage();
+                                foreach (var item in zapisz)
+                                {
+
+                                    image.Url = item;
+                                    image.Id_Product = rate.Id_Product;
+                                    image.Icon = false;
+                                    db.AspNetImages.Add(image);
+                                    db.SaveChanges();
+                                }
+                                ModelState.Clear();
+                                this.AddNotification("Opinia została wysłana, dziękujemy za opinię.", NotificationType.SUCCESS);
+                         }
+                         else
+                            {
+                                this.AddNotification("Jedna z ocen pozostała pusta ,uzupełnij ją!", NotificationType.ERROR);
+                            }
+                         
+                                
+
+                      }
+                      else
+                      {
+                            this.AddNotification("Opinia została już wystawiona! Każdy użytkownik może ocenić dany produkt tylko raz", NotificationType.WARNING);
+                      }
+
+
                     }
                     else
                     {
@@ -725,12 +749,12 @@ namespace CzyDobre.Controllers
 
                   
 
-                   ;
+                   
                     
                 }
                 catch (Exception ex)
                 {
-                    ModelState.Clear();
+                    //ModelState.Clear();
                     this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
                 }
             }
@@ -818,13 +842,13 @@ namespace CzyDobre.Controllers
                             var uploadResult = cloudinary.Upload(uploadParams);
                             //this.AddNotification(filename, NotificationType.SUCCESS);
                         }
-                        ModelState.Clear();
+                        //ModelState.Clear();
                         //this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
                     }                
                 }
                 catch (Exception ex)
                 {
-                    ModelState.Clear();
+                   // ModelState.Clear();
                     this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
                 }        
             }
