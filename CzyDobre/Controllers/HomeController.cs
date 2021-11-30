@@ -663,7 +663,7 @@ namespace CzyDobre.Controllers
 
                     List<string> zapisz = new List<string>();
 
-                    zapisz = SaveImagesToOpinion(opn);
+                   
 
                     //Console.WriteLine(zapisz);
                     int querynp = db.AspNetProducts.Where(s => s.ProductName == opn.PName).Count();
@@ -671,11 +671,11 @@ namespace CzyDobre.Controllers
                     AspNetRating rate = new AspNetRating();
 
                     
-                    var query = db.AspNetProducts.Where(s => s.UniqName == opn.PName+querynp.ToString()).Select(s => s.Id_Product).FirstOrDefault();
-                    this.AddNotification(query.ToString(), NotificationType.INFO);
+                    var query = db.AspNetProducts.Where(s => s.UniqName == opn.PName+(querynp-1).ToString()).Select(s => s.Id_Product).FirstOrDefault();
+                    this.AddNotification(opn.PName + querynp.ToString(), NotificationType.INFO);
                     
 
-                    if (query==0)
+                    if (query!=0)
                     {
                         
                         var user = db.AspNetProducts.Where(u => u.ProductName == opn.PName).FirstOrDefault();
@@ -690,6 +690,7 @@ namespace CzyDobre.Controllers
                         user.AvarageService += opn.RateService;
                         user.AvarageIngredients += opn.RateIngredients;
 
+                        zapisz = SaveImagesToOpinion(opn);
                         rate.Id_Product = query;
                         rate.RateComposition = opn.RateComposition;
                         rate.RateIngredients = opn.RateIngredients;
