@@ -24,30 +24,6 @@ namespace CzyDobre.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            //Wyswietla lepiej ale sie powtarza
-            //var usersWithRoles = (from user in _context.Users
-            //                      from userRole in user.Roles
-            //                      join roles in _context.Roles on userRole.RoleId equals
-            //                      roles.Id
-            //                      select new
-            //                      {
-            //                          IdUser = user.Id,
-            //                          Email = user.Email,
-            //                          IdRole = (from userRole in user.Roles
-            //                                    join role in _context.Roles on userRole.RoleId equals role.Id
-            //                                    select role.Id).ToList(),
-            //                          RoleNames = (from userRole in user.Roles
-            //                                       join role in _context.Roles on userRole.RoleId equals role.Id
-            //                                       select role.Name).ToList()
-            //                      }).ToList().Select(p => new RoleViewModels()
-
-            //                      {
-            //                          IdUser = p.IdUser,
-            //                          Email = p.Email,
-            //                          IdRole = string.Join(", ", p.IdRole),
-            //                          Role = string.Join(", ", p.RoleNames)
-            //                      });
-
             var usersWithRoles = (from user in _context.Users
                                   from userRole in user.Roles
                                   join role in _context.Roles on userRole.RoleId equals

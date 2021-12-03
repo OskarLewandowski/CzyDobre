@@ -193,7 +193,9 @@ namespace CzyDobre.Controllers
                     UserName = model.Email,
                     Email = model.Email
                 };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
+                await this.UserManager.AddToRolesAsync(user.Id, "User");
                 if (result.Succeeded)
                 {
                     //  Comment the following line to prevent log in until the user is confirmed.
@@ -552,6 +554,7 @@ namespace CzyDobre.Controllers
                     NickName = model.NickName
                 };
                 var result = await UserManager.CreateAsync(user);
+                await this.UserManager.AddToRolesAsync(user.Id, "User");
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
