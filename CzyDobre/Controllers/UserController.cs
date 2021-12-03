@@ -220,32 +220,7 @@ namespace CzyDobre.Controllers
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
 
-                    //MEJLOWANIE
-                    DateTime? d1 = model.LockoutEndDateUtc;
-                    DateTime d2 = DateTime.Now;
-
-                    if (d1 != null)
-                    {
-                        int result = DateTime.Compare((DateTime)d1, d2);
-
-                        if(result < 0)
-                        {
-                            SendChangedBanEmail(model.Email, model.LastBanDays, model.BanComment, model.LockoutEndDateUtc);
-                        }
-                        else if(result == 0)
-                        {
-                            this.AddNotification($"Błędna data, wiadomość nie została wysłana", NotificationType.WARNING);
-                        }
-                        else
-                        {
-                            SendUnBanEmail(model.Email, model.LastBanDays, model.BanComment, model.LockoutEndDateUtc);
-                        }
-                    }
-                    else
-                    {
-                        SendUnBanEmail(model.Email, model.LastBanDays, model.BanComment, model.LockoutEndDateUtc);
-                    }
-
+                    SendUnBanEmail(model.Email);
                     this.AddNotification($"Użytkownik, odblokowany pomyślnie", NotificationType.SUCCESS);
                     return View("UnBan");
                 }
@@ -325,32 +300,7 @@ namespace CzyDobre.Controllers
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
 
-                    //MEJLOWANIE
-                     d1 = model.LockoutEndDateUtc;
-                     d2 = DateTime.Now;
-
-                    if (d1 != null)
-                    {
-                        int result = DateTime.Compare((DateTime)d1, d2);
-
-                        if (result < 0)
-                        {
-                            SendChangedBanEmail(model.Email, model.LastBanDays, model.BanComment, model.LockoutEndDateUtc);
-                        }
-                        else if (result == 0)
-                        {
-                            this.AddNotification($"Błędna data, wiadomośc nie została wysłana", NotificationType.WARNING);
-                        }
-                        else
-                        {
-                            SendUnBanEmail(model.Email, model.LastBanDays, model.BanComment, model.LockoutEndDateUtc);
-                        }
-                    }
-                    else
-                    {
-                        SendUnBanEmail(model.Email, model.LastBanDays, model.BanComment, model.LockoutEndDateUtc);
-                    }
-
+                    SendChangedBanEmail(model.Email, model.BanComment, model.LockoutEndDateUtc);
                     this.AddNotification($"Blokada, została zmieniona pomyślnie", NotificationType.SUCCESS);
                     return View("UnBanEdit");
                 }
@@ -426,7 +376,7 @@ namespace CzyDobre.Controllers
             smtpClient.EnableSsl = true;
             smtpClient.Send(msg);
         }
-        public void SendUnBanEmail(string DoEmail, int? IleDnie, string PowodBlokady, DateTime? DoKiedy)
+        public void SendUnBanEmail(string DoEmail)
         {
             var wiadomosc = ConfigurationManager.AppSettings["EmailNoReply"].ToString();
 
@@ -444,7 +394,7 @@ namespace CzyDobre.Controllers
             smtpClient.EnableSsl = true;
             smtpClient.Send(msg);
         }
-        public void SendChangedBanEmail(string DoEmail, int? IleDnie, string PowodBlokady, DateTime? DoKiedy)
+        public void SendChangedBanEmail(string DoEmail, string PowodBlokady, DateTime? DoKiedy)
         {
             var wiadomosc = ConfigurationManager.AppSettings["EmailNoReply"].ToString();
 
@@ -452,7 +402,7 @@ namespace CzyDobre.Controllers
             msg.From = new MailAddress(wiadomosc);
             msg.To.Add(DoEmail);
             msg.Subject = "Blokada konta została zmieniona - CzyDobre.pl";
-            msg.Body = "Dzień dobry, " + DoEmail + "\n" + "Na twoim koncie została zmienniona blokada." + "\n" + "Twoje konto zostanie odblowane " + DoKiedy + "\n\n" + "Pozdrawiamy zespół CzyDobre.pl" + "\n\n" + "W razie pytań prosimy o kontakt mejlowy: kontakt@czydobre.pl lub za pomocą formularza kontaktowego: https://www.czydobre.pl/kontakt";
+            msg.Body = "Dzień dobry, " + DoEmail + "\n" + "Na twoim koncie została zmienniona blokada." + "\n" + "Twoje konto zostanie odblowane " + DoKiedy + "\n" + "Powód blokady: " + PowodBlokady + "\n" + "\n\n" + "Pozdrawiamy zespół CzyDobre.pl" + "\n\n" + "W razie pytań prosimy o kontakt mejlowy: kontakt@czydobre.pl lub za pomocą formularza kontaktowego: https://www.czydobre.pl/kontakt";
       
             SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
             System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
