@@ -3,7 +3,6 @@
     ViewBag.Title = "Ban";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div>
     <h2>Zablokuj użytkownika</h2>
     <hr />
@@ -22,7 +21,6 @@
             @Html.HiddenFor(m => m.UserName)
             @Html.HiddenFor(m => m.WhoGaveBan)
             @Html.HiddenFor(m => m.EmailConfirmed)
-
             <div class="form-group">
                 @Html.Label("Adres Email", new { @class = "col-md-2 control-label" })
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = true })

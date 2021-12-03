@@ -24,7 +24,6 @@
             @Html.HiddenFor(m => m.NickName)
             @Html.HiddenFor(m => m.WhoGaveBan)
             @Html.HiddenFor(m => m.LastBanDays)
-
             <div class="form-group">
                 @Html.Label("Adres Email", new { @class = "col-md-2 control-label" })
                 @Html.TextAreaFor(m => m.Email, new { @class = "form-control", @readonly = true })
@@ -32,14 +31,14 @@
             </div>
             <div class="form-group">
                 @Html.Label("Powód zablokowania", new { @class = "col-md-2 control-label" })
-                @Html.TextAreaFor(m => m.BanComment, new { @class = "form-control"})
+                @Html.TextAreaFor(m => m.BanComment, new { placeholder = "Należy opisać powód zablokowania lub powód skrócenia blokady", @class = "form-control"})
                 @Html.ValidationMessageFor(m => m.BanComment, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 @Html.Label("Data końca blokady DD/MM/RRRR GG:MM:SS", new { @class = "col-lg-4 control-label" })
-                @Html.TextBoxFor(m => m.LockoutEndDateUtc, new { @class = "form-control"})
+                @Html.TextBoxFor(m => m.LockoutEndDateUtc, new { placeholder = "Należy podać datę w formacie: Dzień/Miesiąc/Rok Godzina:Minuta:Sekunda", @class = "form-control"})
                 @Html.ValidationMessageFor(m => m.LockoutEndDateUtc, "", new { @class = "text-danger" })
-                <p style="text-align: center">W celu modifikacji długości blokady należy wprowadzić nową datę.</p>
+                <p style="text-align: center">W celu zmiany długości blokady należy wprowadzić nową datę, w poprawnym formacie: Dzień/Miesiąc/Rok Godzina:Minuta:Sekunda</p>
             </div>
             <div class="form-group" align="center">
                 <div class="col-md-offset-2 col-md-10">

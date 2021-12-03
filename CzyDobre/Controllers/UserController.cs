@@ -115,7 +115,6 @@ namespace CzyDobre.Controllers
             }
         }
 
-
         [Route("zablokuj-uzytkownika")]
         [Route("User/BanUser")]
         [Authorize(Roles = "Admin")]
@@ -235,7 +234,7 @@ namespace CzyDobre.Controllers
                         }
                         else if(result == 0)
                         {
-                            this.AddNotification($"Błędna data, wiadomośc nie została wysłana", NotificationType.WARNING);
+                            this.AddNotification($"Błędna data, wiadomość nie została wysłana", NotificationType.WARNING);
                         }
                         else
                         {
@@ -286,7 +285,7 @@ namespace CzyDobre.Controllers
 
                         if (result < 0)
                         {
-                            this.AddNotification($"Zła data, nie mozna ustawić blokady w przeszłości", NotificationType.ERROR);
+                            this.AddNotification($"Zła data, nie mozna ustawić blokady na przeszłość", NotificationType.ERROR);
                             return View("UnBanEdit");
                         }
                         else if (result == 0)
@@ -366,7 +365,6 @@ namespace CzyDobre.Controllers
             return View("UnBanEdit");
         }
 
-
         [Route("edytowanie-blokady-uzytkownika")]
         [Route("User/UnBanEdit")]
         [Authorize(Roles = "Admin")]
@@ -396,7 +394,6 @@ namespace CzyDobre.Controllers
                 return View();
             }
         }
-
         public void SendBanEmail(string DoEmail, int? IleDnie, string PowodBlokady, DateTime? DoKiedy)
         {
             var wiadomosc = ConfigurationManager.AppSettings["EmailNoReply"].ToString();
@@ -429,7 +426,6 @@ namespace CzyDobre.Controllers
             smtpClient.EnableSsl = true;
             smtpClient.Send(msg);
         }
-
         public void SendUnBanEmail(string DoEmail, int? IleDnie, string PowodBlokady, DateTime? DoKiedy)
         {
             var wiadomosc = ConfigurationManager.AppSettings["EmailNoReply"].ToString();
@@ -448,7 +444,6 @@ namespace CzyDobre.Controllers
             smtpClient.EnableSsl = true;
             smtpClient.Send(msg);
         }
-
         public void SendChangedBanEmail(string DoEmail, int? IleDnie, string PowodBlokady, DateTime? DoKiedy)
         {
             var wiadomosc = ConfigurationManager.AppSettings["EmailNoReply"].ToString();
