@@ -913,7 +913,6 @@ input:checked + .radio-button-mark {
 }
 /* DragAndDrop END */
 /* LayoutWide START */
-
 .container-wide {
     width: 100%;
     max-width: 1440px;
@@ -921,6 +920,9 @@ input:checked + .radio-button-mark {
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+}
+body > .container-wide {
+    flex: 1 auto;
 }
 @media (min-width: 768px) {
     .container-wide {
