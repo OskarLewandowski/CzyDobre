@@ -421,7 +421,7 @@ namespace CzyDobre.Controllers
             msg.From = new MailAddress(wiadomosc);
             msg.To.Add(DoEmail);
             msg.Subject = "Twoje konto zostało usuniete - CzyDobre.pl";
-            msg.Body = "Dzień dobry, " + DoEmail + "\n" + "Informujemy, że twoje konto zostało pomyślnie usunięte." + "\n" + "Przykro nam, że się z nami rostajesz." + "\n" + "Zapraszamy ponownie jeśli zmienisz zdanie" + "\n\n" + "Pozdrawiamy zespół CzyDobre.pl" + "\n\n" + "W razie pytań prosimy o kontakt mejlowy: kontakt@czydobre.pl lub za pomocą formularza kontaktowego: https://www.czydobre.pl/kontakt";
+            msg.Body = "Dzień dobry, " + DoEmail + "\n" + "Informujemy, że twoje konto zostało usunięte." + "\n\n" + "Pozdrawiamy zespół CzyDobre.pl" + "\n\n" + "W razie pytań prosimy o kontakt mejlowy: kontakt@czydobre.pl lub za pomocą formularza kontaktowego: https://www.czydobre.pl/kontakt";
 
             SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
             System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
