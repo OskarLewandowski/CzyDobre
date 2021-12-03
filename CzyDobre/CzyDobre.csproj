@@ -1037,6 +1037,7 @@
     <Content Include="Views\User\Ban.cshtml" />
     <Content Include="Views\User\UnBan.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\User\UnBanEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

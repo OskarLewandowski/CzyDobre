@@ -35,6 +35,9 @@ namespace CzyDobre.Controllers
                 if(ModelState.IsValid)
                 {
                     AspNetUser aspNetUser = new AspNetUser();
+                    DateTime boxDate = (DateTime)model.LockoutEndDateUtc;
+                    string porawnaData = boxDate.ToString("MM.dd.yyyy HH:mm:ss");   
+                    DateTime date = Convert.ToDateTime(porawnaData);
 
                     aspNetUser.Id = model.Id;
                     aspNetUser.Email = model.Email;
@@ -44,13 +47,16 @@ namespace CzyDobre.Controllers
                     aspNetUser.PhoneNumber = model.PhoneNumber;
                     aspNetUser.PhoneNumberConfirmed = model.PhoneNumberConfirmed;
                     aspNetUser.TwoFactorEnabled = model.TwoFactorEnabled;
-                    aspNetUser.LockoutEndDateUtc = model.LockoutEndDateUtc;
                     aspNetUser.LockoutEnabled = model.LockoutEnabled;
                     aspNetUser.AccessFailedCount = model.AccessFailedCount;
                     aspNetUser.UserName = model.Email;
                     aspNetUser.FirstName = model.FirstName;
                     aspNetUser.LastName = model.LastName;
                     aspNetUser.NickName = model.NickName;
+                    aspNetUser.LockoutEndDateUtc = date;
+                    aspNetUser.LastBanDays = model.LastBanDays;
+                    aspNetUser.BanComment = model.BanComment;
+                    aspNetUser.WhoGaveBan = model.WhoGaveBan;
 
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
@@ -207,10 +213,10 @@ namespace CzyDobre.Controllers
                     aspNetUser.FirstName = model.FirstName;
                     aspNetUser.LastName = model.LastName;
                     aspNetUser.NickName = model.NickName;
-                    aspNetUser.LockoutEndDateUtc = model.LockoutEndDateUtc;
-                    aspNetUser.LastBanDays = model.LastBanDays;
-                    aspNetUser.BanComment = model.BanComment;
-                    aspNetUser.WhoGaveBan = adminName;
+                    aspNetUser.LockoutEndDateUtc = aspNetUser.LockoutEndDateUtc;
+                    aspNetUser.LastBanDays = aspNetUser.LastBanDays;
+                    aspNetUser.BanComment = aspNetUser.BanComment;
+                    aspNetUser.WhoGaveBan = aspNetUser.WhoGaveBan;
                     
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
@@ -244,7 +250,7 @@ namespace CzyDobre.Controllers
                     this.AddNotification($"Użytkownik, odblokowany pomyślnie", NotificationType.SUCCESS);
                     return View("UnBan");
                 }
-                this.AddNotification($"Błąd!, Błędne dane. Prawidłowy format daty to: DD/MM/RRRR GG:MM:SS", NotificationType.ERROR);
+                this.AddNotification($"Błąd!", NotificationType.ERROR);
             }
             catch (Exception ex)
             {
@@ -253,6 +259,127 @@ namespace CzyDobre.Controllers
                 return View("UnBan");
             }
             return View("UnBan");
+        }
+
+
+        [Route("zmien-blokade-uzytkownika")]
+        [Route("User/UnBanEditUser")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult UnBanEditUser(AspNetUser model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    DateTime? d1 = model.LockoutEndDateUtc;
+                    DateTime d2 = DateTime.Now;
+
+                    if (model.LockoutEndDateUtc == null)
+                    {
+                        this.AddNotification($"W ten sposób nie można odblokować użytkownika", NotificationType.ERROR);
+                        return View("UnBanEdit");
+                    }
+                    else if(d1 != null)
+                    {
+                        int result = DateTime.Compare((DateTime)d1, d2);
+
+                        if (result < 0)
+                        {
+                            this.AddNotification($"Zła data, nie mozna ustawić blokady w przeszłości", NotificationType.ERROR);
+                            return View("UnBanEdit");
+                        }
+                        else if (result == 0)
+                        {
+                            this.AddNotification($"Błędna data", NotificationType.WARNING);
+                        }
+                        else
+                        {
+                        }
+                    }
+
+                    AspNetUser aspNetUser = new AspNetUser();
+                    var adminName = User.Identity.Name;
+                    //DateTime boxDate = (DateTime)model.LockoutEndDateUtc;
+                    //string porawnaData = boxDate.ToString("MM.dd.yyyy HH:mm:ss");
+                    //DateTime date = Convert.ToDateTime(porawnaData);
+
+                    aspNetUser.Id = model.Id;
+                    aspNetUser.Email = model.Email;
+                    aspNetUser.EmailConfirmed = model.EmailConfirmed;
+                    aspNetUser.PasswordHash = model.PasswordHash;
+                    aspNetUser.SecurityStamp = model.SecurityStamp;
+                    aspNetUser.PhoneNumber = model.PhoneNumber;
+                    aspNetUser.PhoneNumberConfirmed = model.PhoneNumberConfirmed;
+                    aspNetUser.TwoFactorEnabled = model.TwoFactorEnabled;
+                    aspNetUser.LockoutEnabled = model.LockoutEnabled;
+                    aspNetUser.AccessFailedCount = model.AccessFailedCount;
+                    aspNetUser.UserName = model.Email;
+                    aspNetUser.FirstName = model.FirstName;
+                    aspNetUser.LastName = model.LastName;
+                    aspNetUser.NickName = model.NickName;
+                    aspNetUser.LockoutEndDateUtc = model.LockoutEndDateUtc;
+                    aspNetUser.LastBanDays = model.LastBanDays;
+                    aspNetUser.BanComment = model.BanComment;
+                    aspNetUser.WhoGaveBan = adminName;
+
+                    db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+
+                    //MEJLOWANIE
+                     d1 = model.LockoutEndDateUtc;
+                     d2 = DateTime.Now;
+
+                    if (d1 != null)
+                    {
+                        int result = DateTime.Compare((DateTime)d1, d2);
+
+                        if (result < 0)
+                        {
+                            SendChangedBanEmail(model.Email, model.LastBanDays, model.BanComment, model.LockoutEndDateUtc);
+                        }
+                        else if (result == 0)
+                        {
+                            this.AddNotification($"Błędna data, wiadomośc nie została wysłana", NotificationType.WARNING);
+                        }
+                        else
+                        {
+                            SendUnBanEmail(model.Email, model.LastBanDays, model.BanComment, model.LockoutEndDateUtc);
+                        }
+                    }
+                    else
+                    {
+                        SendUnBanEmail(model.Email, model.LastBanDays, model.BanComment, model.LockoutEndDateUtc);
+                    }
+
+                    this.AddNotification($"Blokada, została zmieniona pomyślnie", NotificationType.SUCCESS);
+                    return View("UnBanEdit");
+                }
+                this.AddNotification($"Błąd!, Błędne dane. Prawidłowy format daty to: DD/MM/RRRR GG:MM:SS", NotificationType.ERROR);
+            }
+            catch (Exception ex)
+            {
+                ModelState.Clear();
+                this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                return View("UnBanEdit");
+            }
+            return View("UnBanEdit");
+        }
+
+
+        [Route("edytowanie-blokady-uzytkownika")]
+        [Route("User/UnBanEdit")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult UnBanEdit(AspNetUser obj)
+        {
+            if (obj != null)
+            {
+                return View(obj);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [Route("odblokowanie-uzytkownika")]

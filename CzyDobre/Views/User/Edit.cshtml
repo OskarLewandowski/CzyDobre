@@ -20,6 +20,9 @@
             @Html.HiddenFor(m => m.LockoutEnabled)
             @Html.HiddenFor(m => m.AccessFailedCount)
             @Html.HiddenFor(m => m.UserName)
+            @Html.HiddenFor(m => m.BanComment)
+            @Html.HiddenFor(m => m.WhoGaveBan)
+            @Html.HiddenFor(m => m.LastBanDays)
             <div class="form-group">
                 @Html.Label("Adres Email", new { @class = "col-md-2 control-label" })
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
@@ -50,8 +53,7 @@
             </div>
             <div class="form-group" align="center">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Zapisz zmiany" class="btn btn-success" style="font-size: 20px" />
-                    <input type="reset" value="Anuluj" class="btn btn-danger" style="font-size: 20px" />
+                    <input type="submit" value="Zapisz zmiany" class="btn btn-success" onclick = "return confirm('Czy na pewno chcesz ZAPISAĆ ZMIANY?');" style="font-size: 20px" />
                     @Html.ActionLink("Wróć do listy", "UserList", "User", null, new { @class = "btn btn-info"})
                 </div>
             </div>

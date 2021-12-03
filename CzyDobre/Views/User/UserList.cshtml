@@ -59,17 +59,19 @@
                         <td>@item.LastName</td>
                         <td>@item.NickName</td>
                         <td>
-                            @Html.ActionLink("Edytuj", "Edit", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-primary", onclick = "return confirm('Czy na pewno chcesz EDYTOWAĆ użytkownika?');" })
+                            @Html.ActionLink("Edytuj", "Edit", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-primary" })
                             <hr />
-                            @Html.ActionLink("Usuń", "Delete", "User", new { idUser = item.Id, nick = item.NickName }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz USUNĄĆ użytkownika?');" })
+                            @Html.ActionLink("Usuń", "Delete", "User", new { idUser = item.Id, nick = item.NickName }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ użytkownika?');" })
                             <hr />
                             @if (item.LockoutEndDateUtc == null)
                             {
-                                @Html.ActionLink("BAN", "Ban", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-warning", onclick = "return confirm('Czy na pewno chcesz ZABLOKOWAĆ użytkownika?');" })
+                                @Html.ActionLink("Blokuj", "Ban", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-warning" })
                             }
                             else
                             {
-                                @Html.ActionLink("UNBAN", "UnBan", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-secondary", onclick = "return confirm('Czy na pewno chcesz ODBLOKOWAĆ użytkownika?');" })
+                                @Html.ActionLink("Odblokuj", "UnBan", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-secondary" })
+                                <hr />
+                                @Html.ActionLink("Edytuj Blokadę", "UnBanEdit", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-secondary" })
                             }
                         </td>
                     </tr>
