@@ -921,5 +921,25 @@ input:checked + .radio-button-mark {
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
-} 
+}
+@media (min-width: 768px) {
+    .container-wide {
+        max-width: 748px;
+    }
+}
+@media (min-width: 992px) {
+    .container-wide {
+        max-width: 960px;
+    }
+}
+@media (min-width: 1200px) {
+    .container-wide {
+        max-width: 1172px;
+    }
+}
+@media (min-width: 1480px) {
+    .container-wide {
+        max-width: 1440px;
+    }
+}
 /* LayoutWide END */
