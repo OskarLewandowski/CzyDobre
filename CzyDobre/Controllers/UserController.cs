@@ -86,14 +86,14 @@ namespace CzyDobre.Controllers
         [Route("usuwanie-uzytkownika")]
         [Route("User/Delete")]
         [Authorize(Roles = "Admin")]
-        public ActionResult Delete(string idUser, string nick)
+        public ActionResult Delete(string idUser, string nick, string email)
         {
             var id = db.AspNetUsers.Where(m => m.Id == idUser).FirstOrDefault();
             if (id != null)
             {
                 db.AspNetUsers.Remove(id);
                 db.SaveChanges();
-
+                DeleteAccountEmail(email);
                 this.AddNotification("Użytkownik \""+ nick + "\" został pomyślnie usunięty!", NotificationType.SUCCESS);
             }
             var userList = db.AspNetUsers.ToList();
@@ -404,6 +404,25 @@ namespace CzyDobre.Controllers
             msg.Subject = "Blokada konta została zmieniona - CzyDobre.pl";
             msg.Body = "Dzień dobry, " + DoEmail + "\n" + "Na twoim koncie została zmienniona blokada." + "\n" + "Twoje konto zostanie odblowane " + DoKiedy + "\n" + "Powód blokady: " + PowodBlokady + "\n" + "\n\n" + "Pozdrawiamy zespół CzyDobre.pl" + "\n\n" + "W razie pytań prosimy o kontakt mejlowy: kontakt@czydobre.pl lub za pomocą formularza kontaktowego: https://www.czydobre.pl/kontakt";
       
+            SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
+                ConfigurationManager.AppSettings["EmailNoReply"].ToString(),
+                ConfigurationManager.AppSettings["PasswordNoReply"].ToString());
+            smtpClient.Credentials = credentials;
+            smtpClient.EnableSsl = true;
+            smtpClient.Send(msg);
+        }
+
+        public void DeleteAccountEmail(string DoEmail)
+        {
+            var wiadomosc = ConfigurationManager.AppSettings["EmailNoReply"].ToString();
+
+            MailMessage msg = new MailMessage();
+            msg.From = new MailAddress(wiadomosc);
+            msg.To.Add(DoEmail);
+            msg.Subject = "Twoje konto zostało usuniete - CzyDobre.pl";
+            msg.Body = "Dzień dobry, " + DoEmail + "\n" + "Informujemy, że twoje konto zostało pomyślnie usunięte." + "\n" + "Przykro nam, że się z nami rostajesz." + "\n" + "Zapraszamy ponownie jeśli zmienisz zdanie" + "\n\n" + "Pozdrawiamy zespół CzyDobre.pl" + "\n\n" + "W razie pytań prosimy o kontakt mejlowy: kontakt@czydobre.pl lub za pomocą formularza kontaktowego: https://www.czydobre.pl/kontakt";
+
             SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
             System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
                 ConfigurationManager.AppSettings["EmailNoReply"].ToString(),

@@ -60,7 +60,7 @@
                         <td>
                             @Html.ActionLink("Edytuj", "Edit", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-primary" })
                             <hr />
-                            @Html.ActionLink("Usuń", "Delete", "User", new { idUser = item.Id, nick = item.NickName }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ użytkownika?');" })
+                            @Html.ActionLink("Usuń", "Delete", "User", new { idUser = item.Id, nick = item.NickName, email = item.Email}, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ użytkownika?');" })
                             <hr />
                             @if (item.LockoutEndDateUtc == null)
                             {
