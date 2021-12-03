@@ -8,10 +8,10 @@
             $('#ProductName2m').text(data.ProductNameTop2);
             $('#ProductName3m').text(data.ProductNameTop3);
             $('#ProductName4m').text(data.ProductNameTop4);
-            $('#CountRate1m').text(data.OpinionCounterTop1);
-            $('#CountRate2m').text(data.OpinionCounterTop2);
-            $('#CountRate3m').text(data.OpinionCounterTop3);
-            $('#CountRate4m').text(data.OpinionCounterTop4);
+            $('#CountRate1m').text("Oceniło: " + data.OpinionCounterTop1);
+            $('#CountRate2m').text("Oceniło: " + data.OpinionCounterTop2);
+            $('#CountRate3m').text("Oceniło: " + data.OpinionCounterTop3);
+            $('#CountRate4m').text("Oceniło: " + data.OpinionCounterTop4);
 
             var taste1 = document.getElementById("taste-1m").getElementsByTagName("span");
             [].forEach.call(taste1, function (x) {
