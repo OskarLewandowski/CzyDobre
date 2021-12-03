@@ -1,10 +1,10 @@
 ﻿@model List<CzyDobre.Models.AspNetUser>
 @{
     ViewBag.Title = "UserList";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutWide.cshtml";
 }
 <div class="role-div">
-    <h2>Użytkownicy</h2>
+    <h2 style="text-align: center;">Lista użytkowników</h2>
     <div style="text-align: center;">@Html.Partial("_Notifications")</div>
     <hr />
     <div class="table">
@@ -12,7 +12,8 @@
             <thead>
                 <tr class="table-role">
                     <th>ID</th>
-                    <th>Email | Potwierdzenie?</th>
+                    <th>Email</th>
+                    <th>Potwierdzony email</th>
                     <th>Zablokowany</th>
                     <th>Imię</th>
                     <th>Nazwisko</th>
@@ -25,14 +26,14 @@
                 {
                     <tr>
                         <td>@item.Id</td>
-
+                        <td>@item.Email</td>
                         @if (item.EmailConfirmed == true)
                         {
-                            <td> @item.Email Tak✔️</td>
+                            <td>Tak ✔️</td>
                         }
                         else
                         {
-                            <td>@item.Email Nie❌</td>
+                            <td>Nie ❌</td>
                         }
 
                         @if (item.LockoutEndDateUtc != null)
@@ -69,7 +70,7 @@
                             {
                                 @Html.ActionLink("Odblokuj", "UnBan", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-secondary" })
                                 <hr />
-                                @Html.ActionLink("Edytuj Blokadę", "UnBanEdit", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-secondary" })
+                                @Html.ActionLink("Edytuj Blokadę", "UnBanEdit", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-dark" })
                             }
                         </td>
                     </tr>

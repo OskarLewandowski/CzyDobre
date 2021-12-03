@@ -1,10 +1,10 @@
 ﻿@model CzyDobre.Models.AspNetUser
 @{
     ViewBag.Title = "Ban";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutWide.cshtml";
 }
 <div>
-    <h2>Zablokuj użytkownika</h2>
+    <h2 style="text-align: center;">Zablokuj użytkownika</h2>
     <hr />
     @using (Html.BeginForm("BanUser", "User", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
     {
