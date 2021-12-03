@@ -912,3 +912,14 @@ input:checked + .radio-button-mark {
     object-fit: cover !important;
 }
 /* DragAndDrop END */
+/* LayoutWide START */
+
+.container-wide {
+    width: 100%;
+    max-width: 1440px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+} 
+/* LayoutWide END */

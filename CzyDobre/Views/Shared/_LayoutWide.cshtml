@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl">
+<head runat="server">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Znajdź najlepiej oceniane dania w Twojej okolicy! Z nami znajdziesz łatwo i szybko najlepszy posiłek. Sprawdź czy dobre już teraz na CzyDobre.pl!" />
+    <meta name="keywords" content="znajdź, szybko, teraz, już, dobre, czy, sprawdź, posiłek, najlepszy, łatwo, czydobre, czydobrepl, top, pizza, kebab, spaghetti, zapienkanka, hamburger, jakość, najlepiej, oceniane, dania, znajdź" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CzyDobre.pl - @ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    @Html.Partial("_GoogleAnalytics")
+</head>
+<body>
+    @Html.Partial("_NavbarPartial")
+    <div class="container-wide bg-white">
+        @RenderBody()
+    </div>
+    @Html.Partial("_FooterPartial")
+    @Html.Partial("_SocialPartial")
+    @Styles.Render("~/Fontello/css/fontello")
+    @Scripts.Render("~/bundles/lib")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
