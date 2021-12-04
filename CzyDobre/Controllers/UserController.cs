@@ -35,9 +35,13 @@ namespace CzyDobre.Controllers
                 if(ModelState.IsValid)
                 {
                     AspNetUser aspNetUser = new AspNetUser();
-                    DateTime boxDate = (DateTime)model.LockoutEndDateUtc;
-                    string porawnaData = boxDate.ToString("MM.dd.yyyy HH:mm:ss");   
-                    DateTime date = Convert.ToDateTime(porawnaData);
+                    DateTime? date = null;
+                    if (model.LockoutEndDateUtc != null)
+                    {
+                        DateTime boxDate = (DateTime)model.LockoutEndDateUtc;
+                        string porawnaData = boxDate.ToString("MM.dd.yyyy HH:mm:ss");
+                        date = Convert.ToDateTime(porawnaData);
+                    }
 
                     aspNetUser.Id = model.Id;
                     aspNetUser.Email = model.Email;
@@ -274,9 +278,6 @@ namespace CzyDobre.Controllers
 
                     AspNetUser aspNetUser = new AspNetUser();
                     var adminName = User.Identity.Name;
-                    //DateTime boxDate = (DateTime)model.LockoutEndDateUtc;
-                    //string porawnaData = boxDate.ToString("MM.dd.yyyy HH:mm:ss");
-                    //DateTime date = Convert.ToDateTime(porawnaData);
 
                     aspNetUser.Id = model.Id;
                     aspNetUser.Email = model.Email;
