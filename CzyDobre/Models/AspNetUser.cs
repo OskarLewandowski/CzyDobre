@@ -11,8 +11,7 @@ namespace CzyDobre.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class AspNetUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -33,7 +32,6 @@ namespace CzyDobre.Models
         public string PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
         public bool TwoFactorEnabled { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{dd.MM.yyyy}")]
         public Nullable<System.DateTime> LockoutEndDateUtc { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }

@@ -14,18 +14,10 @@ namespace CzyDobre.Models
     
     public partial class AspNetCity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AspNetCity()
-        {
-            this.AspNetProducts = new HashSet<AspNetProduct>();
-        }
-    
         public int Id_City { get; set; }
         public int Id_Voivode { get; set; }
         public string LocalizationCity { get; set; }
     
         public virtual AspNetVoivode AspNetVoivode { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetProduct> AspNetProducts { get; set; }
     }
 }

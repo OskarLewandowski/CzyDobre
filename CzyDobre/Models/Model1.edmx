@@ -49,6 +49,13 @@
           <Property Name="Id_Product" Type="int" />
           <Property Name="Icon" Type="bit" />
         </EntityType>
+        <EntityType Name="AspNetPlaces">
+          <Key>
+            <PropertyRef Name="Id_Places" />
+          </Key>
+          <Property Name="Id_Places" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlaceName" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetProducts">
           <Key>
             <PropertyRef Name="Id_Product" />
@@ -61,9 +68,9 @@
           <Property Name="AvarageTaste" Type="int" />
           <Property Name="AvarageService" Type="int" />
           <Property Name="AvarageIngredients" Type="int" />
-          <Property Name="Id_City" Type="int" Nullable="false" />
           <Property Name="Who" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="UniqName" Type="nchar" MaxLength="250" />
+          <Property Name="Id_Places" Type="int" />
         </EntityType>
         <EntityType Name="AspNetRating">
           <Key>
@@ -206,13 +213,6 @@
           <Property Name="Id_Ingredients" Type="int" Nullable="false" />
           <Property Name="IngredientsName" Type="text" />
         </EntityType>
-        <EntityType Name="AspNetTaste">
-          <Key>
-            <PropertyRef Name="Id_taste" />
-          </Key>
-          <Property Name="Id_taste" Type="int" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
         <Association Name="FK_AspNetCities_AspNetVoivodes">
           <End Role="AspNetVoivodes" Type="Self.AspNetVoivodes" Multiplicity="1" />
           <End Role="AspNetCities" Type="Self.AspNetCities" Multiplicity="*" />
@@ -249,15 +249,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AspNetProducts_AspNetCities">
-          <End Role="AspNetCities" Type="Self.AspNetCities" Multiplicity="1" />
+        <Association Name="FK_AspNetProducts_AspNetPlaces">
+          <End Role="AspNetPlaces" Type="Self.AspNetPlaces" Multiplicity="0..1" />
           <End Role="AspNetProducts" Type="Self.AspNetProducts" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetCities">
-              <PropertyRef Name="Id_City" />
+            <Principal Role="AspNetPlaces">
+              <PropertyRef Name="Id_Places" />
             </Principal>
             <Dependent Role="AspNetProducts">
-              <PropertyRef Name="Id_City" />
+              <PropertyRef Name="Id_Places" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -395,6 +395,7 @@
           <EntitySet Name="AspNetCities" EntityType="Self.AspNetCities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetCoordinates" EntityType="Self.AspNetCoordinates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetImages" EntityType="Self.AspNetImages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetPlaces" EntityType="Self.AspNetPlaces" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetProducts" EntityType="Self.AspNetProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRating" EntityType="Self.AspNetRating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRestaurantCalendar" EntityType="Self.AspNetRestaurantCalendar" Schema="dbo" store:Type="Tables" />
@@ -410,7 +411,6 @@
           <EntitySet Name="AspNetVoivodes" EntityType="Self.AspNetVoivodes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetIngredients" EntityType="Self.AspNetIngredients" Schema="novum_Andzej" store:Type="Tables" />
-          <EntitySet Name="AspNetTaste" EntityType="Self.AspNetTaste" Schema="novum_Andzej" store:Type="Tables" />
           <AssociationSet Name="FK_AspNetCities_AspNetVoivodes" Association="Self.FK_AspNetCities_AspNetVoivodes">
             <End Role="AspNetVoivodes" EntitySet="AspNetVoivodes" />
             <End Role="AspNetCities" EntitySet="AspNetCities" />
@@ -423,8 +423,8 @@
             <End Role="AspNetCategories" EntitySet="AspNetCategories" />
             <End Role="AspNetProducts" EntitySet="AspNetProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK_AspNetProducts_AspNetCities" Association="Self.FK_AspNetProducts_AspNetCities">
-            <End Role="AspNetCities" EntitySet="AspNetCities" />
+          <AssociationSet Name="FK_AspNetProducts_AspNetPlaces" Association="Self.FK_AspNetProducts_AspNetPlaces">
+            <End Role="AspNetPlaces" EntitySet="AspNetPlaces" />
             <End Role="AspNetProducts" EntitySet="AspNetProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_AspNetProducts_AspNetUsers" Association="Self.FK_AspNetProducts_AspNetUsers">
@@ -500,7 +500,6 @@
           <Property Name="Id_Voivode" Type="Int32" Nullable="false" />
           <Property Name="LocalizationCity" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetVoivode" Relationship="Self.FK_AspNetCities_AspNetVoivodes" FromRole="AspNetCities" ToRole="AspNetVoivodes" />
-          <NavigationProperty Name="AspNetProducts" Relationship="Self.FK_AspNetProducts_AspNetCities" FromRole="AspNetCities" ToRole="AspNetProducts" />
         </EntityType>
         <EntityType Name="AspNetCoordinate">
           <Key>
@@ -521,6 +520,14 @@
           <Property Name="Icon" Type="Boolean" />
           <NavigationProperty Name="AspNetProduct" Relationship="Self.FK_AspNetImages_AspNetProducts" FromRole="AspNetImages" ToRole="AspNetProducts" />
         </EntityType>
+        <EntityType Name="AspNetPlace">
+          <Key>
+            <PropertyRef Name="Id_Places" />
+          </Key>
+          <Property Name="Id_Places" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlaceName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetProducts" Relationship="Self.FK_AspNetProducts_AspNetPlaces" FromRole="AspNetPlaces" ToRole="AspNetProducts" />
+        </EntityType>
         <EntityType Name="AspNetProduct">
           <Key>
             <PropertyRef Name="Id_Product" />
@@ -533,12 +540,12 @@
           <Property Name="AvarageTaste" Type="Int32" />
           <Property Name="AvarageService" Type="Int32" />
           <Property Name="AvarageIngredients" Type="Int32" />
-          <Property Name="Id_City" Type="Int32" Nullable="false" />
           <Property Name="Who" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UniqName" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+          <Property Name="Id_Places" Type="Int32" />
           <NavigationProperty Name="AspNetCategory" Relationship="Self.FK_AspNetProducts_AspNetCategories" FromRole="AspNetProducts" ToRole="AspNetCategories" />
-          <NavigationProperty Name="AspNetCity" Relationship="Self.FK_AspNetProducts_AspNetCities" FromRole="AspNetProducts" ToRole="AspNetCities" />
           <NavigationProperty Name="AspNetImages" Relationship="Self.FK_AspNetImages_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetImages" />
+          <NavigationProperty Name="AspNetPlace" Relationship="Self.FK_AspNetProducts_AspNetPlaces" FromRole="AspNetProducts" ToRole="AspNetPlaces" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetProducts_AspNetUsers" FromRole="AspNetProducts" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetRatings" Relationship="Self.FK_AspNetRating_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetRating" />
         </EntityType>
@@ -692,13 +699,6 @@
           <Property Name="Id_Ingredients" Type="Int32" Nullable="false" />
           <Property Name="IngredientsName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="AspNetTaste">
-          <Key>
-            <PropertyRef Name="Id_taste" />
-          </Key>
-          <Property Name="Id_taste" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <Association Name="FK_AspNetProducts_AspNetCategories">
           <End Role="AspNetCategories" Type="Self.AspNetCategory" Multiplicity="1" />
           <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="*" />
@@ -723,18 +723,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AspNetProducts_AspNetCities">
-          <End Role="AspNetCities" Type="Self.AspNetCity" Multiplicity="1" />
-          <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetCities">
-              <PropertyRef Name="Id_City" />
-            </Principal>
-            <Dependent Role="AspNetProducts">
-              <PropertyRef Name="Id_City" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AspNetImages_AspNetProducts">
           <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="0..1" />
           <End Role="AspNetImages" Type="Self.AspNetImage" Multiplicity="*" />
@@ -744,6 +732,18 @@
             </Principal>
             <Dependent Role="AspNetImages">
               <PropertyRef Name="Id_Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetProducts_AspNetPlaces">
+          <End Role="AspNetPlaces" Type="Self.AspNetPlace" Multiplicity="0..1" />
+          <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetPlaces">
+              <PropertyRef Name="Id_Places" />
+            </Principal>
+            <Dependent Role="AspNetProducts">
+              <PropertyRef Name="Id_Places" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -857,6 +857,7 @@
           <EntitySet Name="AspNetCities" EntityType="Self.AspNetCity" />
           <EntitySet Name="AspNetCoordinates" EntityType="Self.AspNetCoordinate" />
           <EntitySet Name="AspNetImages" EntityType="Self.AspNetImage" />
+          <EntitySet Name="AspNetPlaces" EntityType="Self.AspNetPlace" />
           <EntitySet Name="AspNetProducts" EntityType="Self.AspNetProduct" />
           <EntitySet Name="AspNetRatings" EntityType="Self.AspNetRating" />
           <EntitySet Name="AspNetRestaurantCalendars" EntityType="Self.AspNetRestaurantCalendar" />
@@ -871,7 +872,6 @@
           <EntitySet Name="AspNetVoivodes" EntityType="Self.AspNetVoivode" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="AspNetIngredients" EntityType="Self.AspNetIngredient" />
-          <EntitySet Name="AspNetTastes" EntityType="Self.AspNetTaste" />
           <AssociationSet Name="FK_AspNetProducts_AspNetCategories" Association="Self.FK_AspNetProducts_AspNetCategories">
             <End Role="AspNetCategories" EntitySet="AspNetCategories" />
             <End Role="AspNetProducts" EntitySet="AspNetProducts" />
@@ -880,13 +880,13 @@
             <End Role="AspNetVoivodes" EntitySet="AspNetVoivodes" />
             <End Role="AspNetCities" EntitySet="AspNetCities" />
           </AssociationSet>
-          <AssociationSet Name="FK_AspNetProducts_AspNetCities" Association="Self.FK_AspNetProducts_AspNetCities">
-            <End Role="AspNetCities" EntitySet="AspNetCities" />
-            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
-          </AssociationSet>
           <AssociationSet Name="FK_AspNetImages_AspNetProducts" Association="Self.FK_AspNetImages_AspNetProducts">
             <End Role="AspNetProducts" EntitySet="AspNetProducts" />
             <End Role="AspNetImages" EntitySet="AspNetImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetProducts_AspNetPlaces" Association="Self.FK_AspNetProducts_AspNetPlaces">
+            <End Role="AspNetPlaces" EntitySet="AspNetPlaces" />
+            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_AspNetProducts_AspNetUsers" Association="Self.FK_AspNetProducts_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -979,6 +979,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AspNetPlaces">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetPlace">
+              <MappingFragment StoreEntitySet="AspNetPlaces">
+                <ScalarProperty Name="Id_Places" ColumnName="Id_Places" />
+                <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AspNetProducts">
             <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetProduct">
               <MappingFragment StoreEntitySet="AspNetProducts">
@@ -990,9 +998,9 @@
                 <ScalarProperty Name="AvarageTaste" ColumnName="AvarageTaste" />
                 <ScalarProperty Name="AvarageService" ColumnName="AvarageService" />
                 <ScalarProperty Name="AvarageIngredients" ColumnName="AvarageIngredients" />
-                <ScalarProperty Name="Id_City" ColumnName="Id_City" />
                 <ScalarProperty Name="Who" ColumnName="Who" />
                 <ScalarProperty Name="UniqName" ColumnName="UniqName" />
+                <ScalarProperty Name="Id_Places" ColumnName="Id_Places" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1137,14 +1145,6 @@
               <MappingFragment StoreEntitySet="AspNetIngredients">
                 <ScalarProperty Name="Id_Ingredients" ColumnName="Id_Ingredients" />
                 <ScalarProperty Name="IngredientsName" ColumnName="IngredientsName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetTastes">
-            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetTaste">
-              <MappingFragment StoreEntitySet="AspNetTaste">
-                <ScalarProperty Name="Id_taste" ColumnName="Id_taste" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

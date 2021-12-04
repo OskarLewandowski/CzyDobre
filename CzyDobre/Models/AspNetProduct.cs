@@ -29,14 +29,14 @@ namespace CzyDobre.Models
         public Nullable<int> AvarageTaste { get; set; }
         public Nullable<int> AvarageService { get; set; }
         public Nullable<int> AvarageIngredients { get; set; }
-        public int Id_City { get; set; }
         public string Who { get; set; }
         public string UniqName { get; set; }
+        public Nullable<int> Id_Places { get; set; }
     
         public virtual AspNetCategory AspNetCategory { get; set; }
-        public virtual AspNetCity AspNetCity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetImage> AspNetImages { get; set; }
+        public virtual AspNetPlace AspNetPlace { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRating> AspNetRatings { get; set; }

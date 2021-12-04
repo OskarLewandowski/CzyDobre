@@ -332,7 +332,7 @@ namespace CzyDobre.Controllers
                     List<string> zapisz = new List<string>();
                     zapisz = SaveIconToProduct(prd);
                     AspNetProduct product = new AspNetProduct();
-                    AspNetCity loc = new AspNetCity();
+                    AspNetPlace loc = new AspNetPlace();
                     AspNetImage image = new AspNetImage();
 
 
@@ -340,7 +340,7 @@ namespace CzyDobre.Controllers
                     
                     if (query != 0)
                     {
-                        var queryl = db.AspNetCities.Where(s => s.LocalizationCity == prd.LocName).Select(s => s.Id_City).FirstOrDefault();
+                        var queryl = db.AspNetPlaces.Where(s => s.PlaceName == prd.LocName.ToString()).Select(s => s.Id_Places).FirstOrDefault();
 
                         int querynp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName ).Count();
                         //this.AddNotification(querynp.ToString(), NotificationType.ERROR);
@@ -348,7 +348,7 @@ namespace CzyDobre.Controllers
                         if(queryl!= 0)
                         {
                             string uniq = prd.ProductName + querynp.ToString();
-                            product.Id_City = queryl;
+                            product.Id_Places = queryl;
                             product.ProductName = prd.ProductName;
                             product.UniqName = uniq;
                             product.ProductDescription = prd.ProductDescription;
@@ -375,9 +375,38 @@ namespace CzyDobre.Controllers
                         }
                         else
                         {
-
-                            this.AddNotification("Nie ma takiej miejscowości w naszej bazie !", NotificationType.ERROR);
                             
+                            loc.PlaceName = prd.LocName;
+                            db.AspNetPlaces.Add(loc);
+                            db.SaveChanges();
+
+                            string uniq = prd.ProductName + querynp.ToString();
+                            product.Id_Places = queryl;
+                            product.ProductName = prd.ProductName;
+                            product.UniqName = uniq;
+                            product.ProductDescription = prd.ProductDescription;
+                            product.Id_Category = query;
+                            var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
+                            product.Who = queru;
+                            db.AspNetProducts.Add(product);
+                            db.SaveChanges();
+
+                            var queryp = db.AspNetProducts.Where(s => s.UniqName == uniq).Select(s => s.Id_Product).FirstOrDefault();
+
+                            foreach (var item in zapisz)
+                            {
+
+                                image.Url = item;
+                                image.Id_Product = queryp;
+                                image.Icon = true;
+                                db.AspNetImages.Add(image);
+                                db.SaveChanges();
+                            }
+
+                            ModelState.Clear();
+                            this.AddNotification("Produkt został dodany pomyślnie.", NotificationType.SUCCESS);
+
+
                         }
                         
                     }
@@ -604,7 +633,7 @@ namespace CzyDobre.Controllers
             DBEntities db = new DBEntities();
             var  Products = (from AspNetProduct  in db.AspNetProducts 
                              join AspNetImage in db.AspNetImages on AspNetProduct.Id_Product equals AspNetImage.Id_Product
-                             join AspNetCity in db.AspNetCities on AspNetProduct.Id_City equals AspNetCity.Id_City
+                             join AspNetPlaces in db.AspNetPlaces on AspNetProduct.Id_Places equals AspNetPlaces.Id_Places
                              where AspNetImage.Icon == true
                              where AspNetProduct.ProductName.Contains(prefix)
                              
@@ -612,7 +641,7 @@ namespace CzyDobre.Controllers
                              {
                                  label = AspNetProduct.ProductName,
                                  img = AspNetImage.Url,
-                                 city = AspNetCity.LocalizationCity,
+                                 city = AspNetPlaces.PlaceName,
                                  val = AspNetProduct.Id_Product
 
 

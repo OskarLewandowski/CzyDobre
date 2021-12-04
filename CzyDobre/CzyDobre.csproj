@@ -428,6 +428,9 @@
     <Compile Include="Models\AspNetIngredient.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetPlace.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AspNetProduct.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -450,9 +453,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetTaste.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUser.cs">

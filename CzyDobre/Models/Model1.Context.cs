@@ -30,6 +30,7 @@ namespace CzyDobre.Models
         public virtual DbSet<AspNetCity> AspNetCities { get; set; }
         public virtual DbSet<AspNetCoordinate> AspNetCoordinates { get; set; }
         public virtual DbSet<AspNetImage> AspNetImages { get; set; }
+        public virtual DbSet<AspNetPlace> AspNetPlaces { get; set; }
         public virtual DbSet<AspNetProduct> AspNetProducts { get; set; }
         public virtual DbSet<AspNetRating> AspNetRatings { get; set; }
         public virtual DbSet<AspNetRestaurantCalendar> AspNetRestaurantCalendars { get; set; }
@@ -44,6 +45,5 @@ namespace CzyDobre.Models
         public virtual DbSet<AspNetVoivode> AspNetVoivodes { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<AspNetIngredient> AspNetIngredients { get; set; }
-        public virtual DbSet<AspNetTaste> AspNetTastes { get; set; }
     }
 }
