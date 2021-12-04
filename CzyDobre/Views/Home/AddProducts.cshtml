@@ -35,20 +35,20 @@
 
             <div class="form-group" align="center">
                 <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.LocName, new { @placeholder = "Wpisz swoje miasto", @class = "pl-4 form-control", @id = "pac-input" })
+                    @Html.TextBoxFor(m => m.LocName, new { @placeholder = "Znajdz restauracje", @class = "pl-4 form-control", @id = "pac-input" })
                     @Html.ValidationMessageFor(m => m.LocName, "", new { @class = "text-danger" })
-                    <script defer src="~/Scripts/AutoCompleteCity.js"></script>
+                    <!-- <script defer src="~/Scripts/AutoCompleteCity.js"></script> -->
                 </div>
-                <!--
+                
             <div id="map" style="width: 500px; height: 500px">
 
             </div>
 
 
             <script src="~/Scripts/GeoMapa.js"></script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw4M0s-wdhkjGK1L5BkWzyilxKp15QnGY&callback=initAutocomplete&libraries=places&v=weekly"
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0tuBXTLrvFzw5UpAYttcdI33TZ4Bs3Mg&callback=initAutocomplete&libraries=places&v=weekly"
                     async></script>
-             -->
+             
 
             </div>
             <div class="form-group" align="center">
