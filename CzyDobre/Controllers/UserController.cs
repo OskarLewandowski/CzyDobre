@@ -149,8 +149,8 @@ namespace CzyDobre.Controllers
                     aspNetUser.BanComment = model.BanComment;
                     aspNetUser.WhoGaveBan = adminName;
 
-                    DateTime updatedEndBanDate = (DateTime)model.LockoutEndDateUtc;
-                    updatedEndBanDate.AddMinutes(70);
+                    double date = ((addDays * 24 * 60)+60);
+                    DateTime? updatedEndBanDate = DateTime.Now.AddMinutes(date);
 
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
@@ -274,6 +274,9 @@ namespace CzyDobre.Controllers
 
                     AspNetUser aspNetUser = new AspNetUser();
                     var adminName = User.Identity.Name;
+                    //DateTime boxDate = (DateTime)model.LockoutEndDateUtc;
+                    //string porawnaData = boxDate.ToString("MM.dd.yyyy HH:mm:ss");
+                    //DateTime date = Convert.ToDateTime(porawnaData);
 
                     aspNetUser.Id = model.Id;
                     aspNetUser.Email = model.Email;
@@ -296,10 +299,8 @@ namespace CzyDobre.Controllers
 
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
-                    DateTime updatedEndBanDate = (DateTime)model.LockoutEndDateUtc;
-                    updatedEndBanDate.AddMinutes(70);
 
-                    SendChangedBanEmail(model.Email, model.BanComment, updatedEndBanDate);
+                    SendChangedBanEmail(model.Email, model.BanComment, model.LockoutEndDateUtc);
                     this.AddNotification($"Blokada, została zmieniona pomyślnie", NotificationType.SUCCESS);
                     return View("UnBanEdit");
                 }
