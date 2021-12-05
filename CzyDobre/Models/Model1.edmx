@@ -76,7 +76,7 @@
           <Key>
             <PropertyRef Name="Id_Rating" />
           </Key>
-          <Property Name="Id_Rating" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Rating" Type="int" Nullable="false" />
           <Property Name="RateService" Type="smallint" Nullable="false" />
           <Property Name="RateTaste" Type="smallint" Nullable="false" />
           <Property Name="RateIngredients" Type="smallint" Nullable="false" />
@@ -553,7 +553,7 @@
           <Key>
             <PropertyRef Name="Id_Rating" />
           </Key>
-          <Property Name="Id_Rating" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Rating" Type="Int32" Nullable="false" />
           <Property Name="RateService" Type="Int16" Nullable="false" />
           <Property Name="RateTaste" Type="Int16" Nullable="false" />
           <Property Name="RateIngredients" Type="Int16" Nullable="false" />

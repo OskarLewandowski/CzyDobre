@@ -739,7 +739,10 @@ namespace CzyDobre.Controllers
                                 user.AvarageService += opn.RateService;
                                 user.AvarageIngredients += opn.RateIngredients;
 
+                                var qr = db.AspNetRatings.Count()+1;
+
                                 zapisz = SaveImagesToOpinion(opn);
+                                rate.Id_Rating = qr;
                                 rate.Id_Product = query;
 
                                 rate.RateIngredients = opn.RateIngredients;
