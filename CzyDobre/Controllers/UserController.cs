@@ -192,51 +192,39 @@ namespace CzyDobre.Controllers
         [Route("odblokuj-uzytkownika")]
         [Route("User/UnBanUser")]
         [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult UnBanUser(AspNetUser model)
+        public ActionResult UnBanUser(string itemId, string itemEmail, bool itemEmailConfirmed, string itemPasswordHash,string itemSecurityStamp, string itemPhoneNumber, bool itemPhoneNumberConfirmed, bool itemTwoFactorEnabled, DateTime? itemLockoutEndDateUtc, bool itemLockoutEnabled, int itemAccessFailedCount, string itemUserName, string itemFirstName, string itemLastName, string itemNickName, int itemLastBanDays, string itemBanComment, string itemWhoGaveBan )
         {
-            try
+            if (itemId != null)
             {
-                if (ModelState.IsValid)
-                {
-                    AspNetUser aspNetUser = new AspNetUser();
-                    var adminName = User.Identity.Name;
+                AspNetUser aspNetUser = new AspNetUser();
 
-                    aspNetUser.Id = model.Id;
-                    aspNetUser.Email = model.Email;
-                    aspNetUser.EmailConfirmed = model.EmailConfirmed;
-                    aspNetUser.PasswordHash = model.PasswordHash;
-                    aspNetUser.SecurityStamp = model.SecurityStamp;
-                    aspNetUser.PhoneNumber = model.PhoneNumber;
-                    aspNetUser.PhoneNumberConfirmed = model.PhoneNumberConfirmed;
-                    aspNetUser.TwoFactorEnabled = model.TwoFactorEnabled;
-                    aspNetUser.LockoutEnabled = model.LockoutEnabled;
-                    aspNetUser.AccessFailedCount = model.AccessFailedCount;
-                    aspNetUser.UserName = model.Email;
-                    aspNetUser.FirstName = model.FirstName;
-                    aspNetUser.LastName = model.LastName;
-                    aspNetUser.NickName = model.NickName;
-                    aspNetUser.LockoutEndDateUtc = aspNetUser.LockoutEndDateUtc;
-                    aspNetUser.LastBanDays = aspNetUser.LastBanDays;
-                    aspNetUser.BanComment = aspNetUser.BanComment;
-                    aspNetUser.WhoGaveBan = aspNetUser.WhoGaveBan;
-                    
-                    db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
+                aspNetUser.Id = itemId;
+                aspNetUser.Email = itemEmail;
+                aspNetUser.EmailConfirmed = itemEmailConfirmed;
+                aspNetUser.PasswordHash = itemPasswordHash;
+                aspNetUser.SecurityStamp = itemSecurityStamp;
+                aspNetUser.PhoneNumber = itemPhoneNumber;
+                aspNetUser.PhoneNumberConfirmed = itemPhoneNumberConfirmed;
+                aspNetUser.TwoFactorEnabled = itemTwoFactorEnabled;
+                aspNetUser.LockoutEnabled = itemLockoutEnabled;
+                aspNetUser.AccessFailedCount = itemAccessFailedCount;
+                aspNetUser.UserName = itemUserName;
+                aspNetUser.FirstName = itemFirstName;
+                aspNetUser.LastName = itemLastName;
+                aspNetUser.NickName = itemNickName;
+                aspNetUser.LockoutEndDateUtc = aspNetUser.LockoutEndDateUtc;
+                aspNetUser.LastBanDays = aspNetUser.LastBanDays;
+                aspNetUser.BanComment = aspNetUser.BanComment;
+                aspNetUser.WhoGaveBan = aspNetUser.WhoGaveBan;
 
-                    SendUnBanEmail(model.Email);
-                    this.AddNotification($"Użytkownik, odblokowany pomyślnie", NotificationType.SUCCESS);
-                    return View("UnBan");
-                }
-                this.AddNotification($"Błąd!", NotificationType.ERROR);
+                db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                SendUnBanEmail(itemEmail);
+                this.AddNotification($"Użytkownik, odblokowany pomyślnie", NotificationType.SUCCESS);
             }
-            catch (Exception ex)
-            {
-                ModelState.Clear();
-                this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
-                return View("UnBan");
-            }
-            return View("UnBan");
+            var userList = db.AspNetUsers.ToList();
+            return View("UserList", userList);
         }
 
 
