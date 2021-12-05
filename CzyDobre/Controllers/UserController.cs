@@ -252,10 +252,11 @@ namespace CzyDobre.Controllers
                 {
                     DateTime? d1 = model.LockoutEndDateUtc;
                     DateTime d2 = DateTime.Now;
+                    d2.AddDays(1);
 
                     if (model.LockoutEndDateUtc == null)
                     {
-                        this.AddNotification($"W ten sposób nie można odblokować użytkownika", NotificationType.ERROR);
+                        this.AddNotification($"Wymagane jest podanie daty w prawidłowym formacie DD/MM/RRRR GG:MM:SS", NotificationType.ERROR);
                         return View("UnBanEdit");
                     }
                     else if(d1 != null)
@@ -264,7 +265,7 @@ namespace CzyDobre.Controllers
 
                         if (result < 0)
                         {
-                            this.AddNotification($"Zła data, nie mozna ustawić blokady na przeszłość", NotificationType.ERROR);
+                            this.AddNotification($"Blokada musi trwać co najmniej jeden dzień!", NotificationType.ERROR);
                             return View("UnBanEdit");
                         }
                         else if (result == 0)

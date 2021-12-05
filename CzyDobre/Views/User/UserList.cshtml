@@ -68,7 +68,7 @@
                             }
                             else
                             {
-                                @Html.ActionLink("Odblokuj", "UnBan", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-secondary" })
+                                @Html.ActionLink("Odblokuj", "UnBan", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-secondary", onclick = "return confirm('Czy na pewno chcesz ODBLOKOWAĆ użytkownika?');" })
                                 <hr />
                                 @Html.ActionLink("Edytuj Blokadę", "UnBanEdit", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-dark" })
                             }
