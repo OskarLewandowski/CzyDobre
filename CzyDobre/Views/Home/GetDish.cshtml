@@ -1,0 +1,28 @@
+﻿@using CzyDobre.Models
+@using reCAPTCHA.MVC
+@model GetDishViewModels
+@{
+    ViewBag.Title = "Losuj danie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-12 h-max">
+        <h1 class="titleH1">@ViewBag.Title</h1>
+        <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+        @if (User.Identity.IsAuthenticated /* && User.IsInRole("Admin")*/)
+        {
+            using (Html.BeginForm("GetDish", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Wyślij" class="btn btn-success" style="font-size: 20px" />
+                </div>
+
+
+            }
+        }
+
+    </div>
+</div>
+@Html.Partial("_Loading")

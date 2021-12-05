@@ -910,5 +910,51 @@ namespace CzyDobre.Controllers
             var timeNuber = DateTimeOffset.Now.ToUnixTimeSeconds();
             return s + timeNuber.ToString() + "_";
         }
+        [Route("losuj-danie")]
+        [Route("Home/GetDish")]
+        [HttpGet]
+        public ActionResult GetDish()
+        {
+            
+
+
+
+
+            return View();
+        }
+
+        [Route("losuj-danie")]
+        [Route("Home/GetDish")]
+        [HttpPost]
+        public ActionResult GetDish(GetDishViewModels mod)
+        {
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    DBEntities db = new DBEntities();
+
+                    AspNetProduct prod = new AspNetProduct();
+                    AspNetRating rate = new AspNetRating();
+                    int numbers = db.AspNetProducts.Count();
+                    Random r = new Random();
+                    int n = r.Next(1,numbers);
+
+                    var product = db.AspNetProducts.Where(u => u.Id_Product == n).Select(u=>u.Id_Product).FirstOrDefault();
+
+                    
+                    this.AddNotification(product.ToString(), NotificationType.INFO);
+                }
+                catch (Exception ex)
+                {
+                    //ModelState.Clear();
+                    this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                }
+            }
+
+            return View();
+        }
     }
+    
 }
