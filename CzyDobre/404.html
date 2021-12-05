@@ -30,19 +30,28 @@
         }
 
         span {
-            animation: blink 1s infinite;
+            animation: blink 2s infinite;
         }
 
         @keyframes blink {
-            to {
-                opacity: .0;
+            30% {
+                opacity: 0.3;
             }
+            40% {
+                opacity: 0.4;
+            }
+            60% {
+                opacity: 1;
+            }
+        }
+
         }
         .image-burger {
             width: 100%;
             height: auto;
             text-align: center;
             pointer-events: none;
+            user-select: none;
         }
 
         .image-box {
@@ -51,6 +60,8 @@
             width: 28%;
             margin-left: auto;
             margin-right: auto;
+            pointer-events: none;
+            user-select: none;
         }
 
         .center-div {
@@ -95,7 +106,7 @@
         </a>
         <h3 class="text-consol-line">C:\CzyDobre.pl\Błąd_404</h3>
         <div class="image-box">
-            <img class="image-burger" src="https://res.cloudinary.com/czydobre-pl/image/upload/v1638714946/CzyDobre-www/404_muozdc.png" alt="Burger konsolowy">
+            <img class="image-burger" src="https://res.cloudinary.com/czydobre-pl/image/upload/v1638720804/CzyDobre-www/404-v2_nf54y8.png" alt="Burger 404 konsolowy">
         </div>
     </div>
 </body>
