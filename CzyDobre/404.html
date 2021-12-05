@@ -17,6 +17,12 @@
 
         h2 {
             font-size: 32px;
+            padding-bottom: 1%;
+        }
+
+        h3 {
+            font-size: 28px;
+            padding-top: 1%;
         }
 
         body {
@@ -32,22 +38,27 @@
                 opacity: .0;
             }
         }
-
-        .divCenter {
-            padding: 20px;
+        .image-burger {
+            width: 100%;
+            height: auto;
             text-align: center;
-        }
-        .textNormal {
-            text-align: center;
-            font-family: Consolas;
-            margin: auto;
-            color: #31ed35;
+            pointer-events: none;
         }
 
-        .textBig {
+        .image-box {
+            text-align: center;
+            height: 25%;
+            width: 25%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .center-div {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
             text-align: center;
             font-family: Consolas;
-            font-size: 32px;
             margin: auto;
             color: #31ed35;
         }
@@ -76,19 +87,15 @@
     </style>
 </head>
 <body>
-    <div class="divCenter">
-        <div class="divCenter">
-            <h1 class="textNormal"> Przepraszamy </h1>
-            <h2 class="textNormal"> Strona o podanym adresie nie istnieje </h2>
-            <div class="divCenter">
-                <a href="https://czydobre.pl/">
-                    <button class="button"><span>Strona główna</span></button>
-                </a>
-            </div>
-            <div class="divCenter">
-                <p class="textBig">C:\Users\CzyDobre.pl\Błąd_404</p>
-                <img style="padding-top: 2%;" src="https://res.cloudinary.com/czydobre-pl/image/upload/v1638714946/CzyDobre-www/404_muozdc.png" alt="Burger konsolowy" width="500" height="500">
-            </div>
+    <div class="center-div">
+        <h1> Przepraszamy </h1>
+        <h2> Strona o podanym adresie nie istnieje </h2>
+        <a href="https://czydobre.pl/">
+            <button class="button"><span>Strona główna</span></button>
+        </a>
+        <h3 class="text-consol-line">C:\Users\CzyDobre.pl\Błąd_404</h3>
+        <div class="image-box">
+            <img class="image-burger" src="https://res.cloudinary.com/czydobre-pl/image/upload/v1638714946/CzyDobre-www/404_muozdc.png" alt="Burger konsolowy">
         </div>
     </div>
 </body>
