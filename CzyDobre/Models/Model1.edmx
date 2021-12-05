@@ -51,16 +51,16 @@
         </EntityType>
         <EntityType Name="AspNetPlaces">
           <Key>
-            <PropertyRef Name="Id_Places" />
+            <PropertyRef Name="Id_Place" />
           </Key>
-          <Property Name="Id_Places" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PlaceName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Id_Place" Type="int" Nullable="false" />
+          <Property Name="PlaceName" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="AspNetProducts">
           <Key>
             <PropertyRef Name="Id_Product" />
           </Key>
-          <Property Name="Id_Product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Product" Type="int" Nullable="false" />
           <Property Name="Id_Category" Type="int" Nullable="false" />
           <Property Name="ProductDescription" Type="nvarchar" MaxLength="250" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -70,7 +70,7 @@
           <Property Name="AvarageIngredients" Type="int" />
           <Property Name="Who" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="UniqName" Type="nchar" MaxLength="250" />
-          <Property Name="Id_Places" Type="int" />
+          <Property Name="Id_Place" Type="int" />
         </EntityType>
         <EntityType Name="AspNetRating">
           <Key>
@@ -254,10 +254,10 @@
           <End Role="AspNetProducts" Type="Self.AspNetProducts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetPlaces">
-              <PropertyRef Name="Id_Places" />
+              <PropertyRef Name="Id_Place" />
             </Principal>
             <Dependent Role="AspNetProducts">
-              <PropertyRef Name="Id_Places" />
+              <PropertyRef Name="Id_Place" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -522,17 +522,17 @@
         </EntityType>
         <EntityType Name="AspNetPlace">
           <Key>
-            <PropertyRef Name="Id_Places" />
+            <PropertyRef Name="Id_Place" />
           </Key>
-          <Property Name="Id_Places" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PlaceName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id_Place" Type="Int32" Nullable="false" />
+          <Property Name="PlaceName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetProducts" Relationship="Self.FK_AspNetProducts_AspNetPlaces" FromRole="AspNetPlaces" ToRole="AspNetProducts" />
         </EntityType>
         <EntityType Name="AspNetProduct">
           <Key>
             <PropertyRef Name="Id_Product" />
           </Key>
-          <Property Name="Id_Product" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Product" Type="Int32" Nullable="false" />
           <Property Name="Id_Category" Type="Int32" Nullable="false" />
           <Property Name="ProductDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
@@ -542,7 +542,7 @@
           <Property Name="AvarageIngredients" Type="Int32" />
           <Property Name="Who" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UniqName" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
-          <Property Name="Id_Places" Type="Int32" />
+          <Property Name="Id_Place" Type="Int32" />
           <NavigationProperty Name="AspNetCategory" Relationship="Self.FK_AspNetProducts_AspNetCategories" FromRole="AspNetProducts" ToRole="AspNetCategories" />
           <NavigationProperty Name="AspNetImages" Relationship="Self.FK_AspNetImages_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetImages" />
           <NavigationProperty Name="AspNetPlace" Relationship="Self.FK_AspNetProducts_AspNetPlaces" FromRole="AspNetProducts" ToRole="AspNetPlaces" />
@@ -740,10 +740,10 @@
           <End Role="AspNetProducts" Type="Self.AspNetProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetPlaces">
-              <PropertyRef Name="Id_Places" />
+              <PropertyRef Name="Id_Place" />
             </Principal>
             <Dependent Role="AspNetProducts">
-              <PropertyRef Name="Id_Places" />
+              <PropertyRef Name="Id_Place" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -982,7 +982,7 @@
           <EntitySetMapping Name="AspNetPlaces">
             <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetPlace">
               <MappingFragment StoreEntitySet="AspNetPlaces">
-                <ScalarProperty Name="Id_Places" ColumnName="Id_Places" />
+                <ScalarProperty Name="Id_Place" ColumnName="Id_Place" />
                 <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1000,7 +1000,7 @@
                 <ScalarProperty Name="AvarageIngredients" ColumnName="AvarageIngredients" />
                 <ScalarProperty Name="Who" ColumnName="Who" />
                 <ScalarProperty Name="UniqName" ColumnName="UniqName" />
-                <ScalarProperty Name="Id_Places" ColumnName="Id_Places" />
+                <ScalarProperty Name="Id_Place" ColumnName="Id_Place" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

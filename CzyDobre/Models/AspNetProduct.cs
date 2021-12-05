@@ -31,7 +31,7 @@ namespace CzyDobre.Models
         public Nullable<int> AvarageIngredients { get; set; }
         public string Who { get; set; }
         public string UniqName { get; set; }
-        public Nullable<int> Id_Places { get; set; }
+        public Nullable<int> Id_Place { get; set; }
     
         public virtual AspNetCategory AspNetCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

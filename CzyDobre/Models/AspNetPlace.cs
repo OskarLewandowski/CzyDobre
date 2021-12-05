@@ -20,7 +20,7 @@ namespace CzyDobre.Models
             this.AspNetProducts = new HashSet<AspNetProduct>();
         }
     
-        public int Id_Places { get; set; }
+        public int Id_Place { get; set; }
         public string PlaceName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

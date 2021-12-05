@@ -340,22 +340,29 @@ namespace CzyDobre.Controllers
                     
                     if (query != 0)
                     {
-                        var queryl = db.AspNetPlaces.Where(s => s.PlaceName == prd.LocName.ToString()).Select(s => s.Id_Places).FirstOrDefault();
+                        var queryl = db.AspNetPlaces.Where(s => s.PlaceName == prd.LocName.ToString()).Select(s => s.Id_Place).FirstOrDefault();
 
                         int querynp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName ).Count();
-                        //this.AddNotification(querynp.ToString(), NotificationType.ERROR);
+
                         
-                        if(queryl!= 0)
+                        prd.n = db.AspNetProducts.Count()+1;
+
+                        //this.AddNotification(n.ToString(), NotificationType.ERROR);
+
+
+                        if (queryl!= 0)
                         {
+                            db.AspNetProducts.Add(product);
                             string uniq = prd.ProductName + querynp.ToString();
-                            product.Id_Places = queryl;
+                            product.Id_Product = prd.n;
+                            product.Id_Place = queryl;
                             product.ProductName = prd.ProductName;
                             product.UniqName = uniq;
                             product.ProductDescription = prd.ProductDescription;
                             product.Id_Category = query;
                             var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
                             product.Who = queru;
-                            db.AspNetProducts.Add(product);
+                            
                             db.SaveChanges();
 
                             var queryp = db.AspNetProducts.Where(s => s.UniqName == uniq).Select(s => s.Id_Product).FirstOrDefault();
@@ -375,13 +382,17 @@ namespace CzyDobre.Controllers
                         }
                         else
                         {
-                            
+                            var ql = db.AspNetPlaces.Count()+1;
+
+                            //this.AddNotification(queryl.ToString(), NotificationType.INFO);
+                            loc.Id_Place = ql;
                             loc.PlaceName = prd.LocName;
                             db.AspNetPlaces.Add(loc);
                             db.SaveChanges();
 
                             string uniq = prd.ProductName + querynp.ToString();
-                            product.Id_Places = queryl;
+                            product.Id_Product = prd.n;
+                            product.Id_Place = ql;
                             product.ProductName = prd.ProductName;
                             product.UniqName = uniq;
                             product.ProductDescription = prd.ProductDescription;
@@ -633,7 +644,7 @@ namespace CzyDobre.Controllers
             DBEntities db = new DBEntities();
             var  Products = (from AspNetProduct  in db.AspNetProducts 
                              join AspNetImage in db.AspNetImages on AspNetProduct.Id_Product equals AspNetImage.Id_Product
-                             join AspNetPlaces in db.AspNetPlaces on AspNetProduct.Id_Places equals AspNetPlaces.Id_Places
+                             join AspNetPlaces in db.AspNetPlaces on AspNetProduct.Id_Place equals AspNetPlaces.Id_Place
                              where AspNetImage.Icon == true
                              where AspNetProduct.ProductName.Contains(prefix)
                              
@@ -937,11 +948,20 @@ namespace CzyDobre.Controllers
 
                     AspNetProduct prod = new AspNetProduct();
                     AspNetRating rate = new AspNetRating();
-                    int numbers = db.AspNetProducts.Count();
+
+                    
+
+                    
+
+
+                    int numbers = db.AspNetProducts.Count()+1;
                     Random r = new Random();
                     int n = r.Next(1,numbers);
 
-                    var product = db.AspNetProducts.Where(u => u.Id_Product == n).Select(u=>u.Id_Product).FirstOrDefault();
+
+                    
+
+                    var product = db.AspNetProducts.Where(u => u.Id_Product == n).Select(u=>u.ProductName).FirstOrDefault();
 
                     
                     this.AddNotification(product.ToString(), NotificationType.INFO);

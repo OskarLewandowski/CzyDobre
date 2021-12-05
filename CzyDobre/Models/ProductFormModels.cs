@@ -2,14 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace CzyDobre.Models
 {
     public class ProductFormModels
     {
+
+        [DataMember]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int n { get; set; }
+
+
+
         [Required(ErrorMessage = "Nazwa Produktu jest wymagana!")]
         [StringLength(100)]
         [Display(Name = "Nazwa Produktu")]
