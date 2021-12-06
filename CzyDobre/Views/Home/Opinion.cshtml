@@ -2,91 +2,109 @@
     ViewBag.Title = "Opinie";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@section scripts {
+
+    <script src="@Url.Content("~/Scripts/sort.js")"></script>
+}
+
+
+<div class="mt-5">
+    <select name="sort" id="sort">
+        <option value="0 id="tekst" disabled selected hidden>Sortowanie</option>
+        <option value="1">A-Z </option>
+        <option value="2">Z-A</option>
+        <option value="3">Najpopularniejsze</option>
+    </select>
+    <div id="test"></div>
+</div>
+
+
 <div class="row">
     @{
         if (Model != null)
         {
             foreach (var Data in Model)
             {
-            <div class="browse-card position-relative col-12 col-md-6 col-lg-4 p-2">
-                <h6 class="card-title text-center my-0 py-1">@Data.ProductName</h6>
-                <div class="card flex-column flex-sm-row flex-md-column flex-lg-row p-0 rounded-0">
-                    <div class="browse-image-wrapper col-sm-9 col-md-12 col-lg-8 p-0">
-                        @{
-                            if (!String.IsNullOrEmpty(Data.ImageUrl))
-                            {
-                                string temp = Data.ImageUrl;
-                                Data.ImageUrl = "https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/";
-                                Data.ImageUrl += temp;
+                <div class="browse-card position-relative col-12 col-md-6 col-lg-4 p-2">
+                    <h6 class="card-title text-center my-0 py-1">@Data.ProductName</h6>
+                    <div class="card flex-column flex-sm-row flex-md-column flex-lg-row p-0 rounded-0">
+                        <div class="browse-image-wrapper col-sm-9 col-md-12 col-lg-8 p-0">
+                            @{
+                                if (!String.IsNullOrEmpty(Data.ImageUrl))
+                                {
+                                    string temp = Data.ImageUrl;
+                                    Data.ImageUrl = "https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/";
+                                    Data.ImageUrl += temp;
+                                }
+                                else
+                                {
+                                    Data.ImageUrl = "https://via.placeholder.com/1080";
+                                }
                             }
-                            else
-                            {
-                                Data.ImageUrl = "https://via.placeholder.com/1080";
-                            }
-                        }
-                        <img src="@Url.Content(Data.ImageUrl)" />
-                    </div>
-                    <div class="p-2 col-sm-3 col-md-12 col-lg-4">
-                        <div class="card-text row flex-row flex-sm-column flex-md-row flex-lg-column">
-                            <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
-                                @{
-                                    <label class="my-1 col-12">Obsługa</label>
-                                    for (int i = 0; i < 5; i++)
-                                    {
-                                        if (i < Convert.ToInt32(Data.RateService))
+                            <img src="@Url.Content(Data.ImageUrl)" />
+                        </div>
+                        <div class="p-2 col-sm-3 col-md-12 col-lg-4">
+                            <div class="card-text row flex-row flex-sm-column flex-md-row flex-lg-column">
+                                <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
+                                    @{
+                                        <label class="my-1 col-12">Obsługa</label>
+                                        for (int i = 0; i < 5; i++)
                                         {
-                                            <span class="fa fa-star"></span>
-                                        }
-                                        else
-                                        {
-                                            <span class="fa fa-star-o"></span>
+                                            if (i < Convert.ToInt32(Data.RateService))
+                                            {
+                                                <span class="fa fa-star"></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="fa fa-star-o"></span>
+                                            }
                                         }
                                     }
-                                }
-                            </div>
-                            <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
-                                @{
-                                    <label class="my-1 col-12">Smak</label>
-                                    for (int i = 0; i < 5; i++)
-                                    {
-                                        if (i < Convert.ToInt32(Data.RateTaste))
+                                </div>
+                                <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
+                                    @{
+                                        <label class="my-1 col-12">Smak</label>
+                                        for (int i = 0; i < 5; i++)
                                         {
-                                            <span class="fa fa-star"></span>
-                                        }
-                                        else
-                                        {
-                                            <span class="fa fa-star-o"></span>
-                                        }
-                                    }
-                                }
-                            </div>
-                            <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
-                                @{
-                                    <label class="my-1 col-12">Cena</label>
-                                    for (int i = 0; i < 5; i++)
-                                    {
-                                        if (i < Convert.ToInt32(Data.RateIngredients))
-                                        {
-                                            <span class="fa fa-star"></span>
-                                        }
-                                        else
-                                        {
-                                            <span class="fa fa-star-o"></span>
+                                            if (i < Convert.ToInt32(Data.RateTaste))
+                                            {
+                                                <span class="fa fa-star"></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="fa fa-star-o"></span>
+                                            }
                                         }
                                     }
-                                }
+                                </div>
+                                <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
+                                    @{
+                                        <label class="my-1 col-12">Cena</label>
+                                        for (int i = 0; i < 5; i++)
+                                        {
+                                            if (i < Convert.ToInt32(Data.RateIngredients))
+                                            {
+                                                <span class="fa fa-star"></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="fa fa-star-o"></span>
+                                            }
+                                        }
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <a href="#" class="stretched-link"></a>
                 </div>
-                <a href="#" class="stretched-link"></a>
-            </div>
             }
         }
         else
-            {
-                <p>Wystąpił błąd.</p>
-            }
+        {
+            <p>Wystąpił błąd.</p>
+        }
     }
 </div>
 
