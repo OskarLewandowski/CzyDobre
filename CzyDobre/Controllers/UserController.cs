@@ -221,7 +221,7 @@ namespace CzyDobre.Controllers
                 db.SaveChanges();
 
                 SendUnBanEmail(itemEmail);
-                this.AddNotification($"Użytkownik, odblokowany pomyślnie", NotificationType.SUCCESS);
+                this.AddNotification($"Użytkownik, \"" + itemNickName + "\" został odblokowany pomyślnie", NotificationType.SUCCESS);
             }
             var userList = db.AspNetUsers.ToList();
             return View("UserList", userList);
@@ -267,6 +267,7 @@ namespace CzyDobre.Controllers
 
                     AspNetUser aspNetUser = new AspNetUser();
                     var adminName = User.Identity.Name;
+                    DateTime? nowaData = null;
 
                     aspNetUser.Id = model.Id;
                     aspNetUser.Email = model.Email;
@@ -290,7 +291,13 @@ namespace CzyDobre.Controllers
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
 
-                    SendChangedBanEmail(model.Email, model.BanComment, model.LockoutEndDateUtc);
+                    if(model.LockoutEndDateUtc != null)
+                    {
+                        DateTime tempData = (DateTime)model.LockoutEndDateUtc;
+                        nowaData = tempData.AddMinutes(60);                   
+                    }
+
+                    SendChangedBanEmail(model.Email, model.BanComment, nowaData);
                     this.AddNotification($"Blokada, została zmieniona pomyślnie", NotificationType.SUCCESS);
                     return View("UnBanEdit");
                 }
