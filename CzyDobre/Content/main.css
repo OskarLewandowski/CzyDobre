@@ -780,6 +780,13 @@ input:checked + .slider:before {
 }
 /* Slider END */
 /* Przeglądaj START */
+
+.sortowanie{
+    height: 100%;
+}
+.mb-10{
+    margin-bottom: 5rem;
+}
 .browse-image-wrapper {
     overflow: hidden;
     height: 250px;
@@ -813,6 +820,17 @@ input:checked + .slider:before {
     }
 /* Przeglądaj END */
 /* DragAndDrop START */
+
+.reset{
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    margin-top: 10%;
+    width: 30%;
+    margin-top: 3em;
+    margin-left: 30%;
+    margin-right: 40%;
+}
 .drag-and-drop-file {
     width: 0.1px;
     height: 0.1px;
