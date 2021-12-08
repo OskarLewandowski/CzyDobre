@@ -240,7 +240,7 @@ namespace CzyDobre.Controllers
                 {
                     DateTime? d1 = model.LockoutEndDateUtc;
                     DateTime d2 = DateTime.Now;
-                    d2.AddMinutes(1440);
+                    d2.AddDays(1);
 
                     if (model.LockoutEndDateUtc == null)
                     {
