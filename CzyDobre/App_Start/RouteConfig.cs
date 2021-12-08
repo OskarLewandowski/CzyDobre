@@ -17,8 +17,8 @@ namespace CzyDobre
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{id}/{filtr1}/{filtr2}/filtr{3}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, filtr1 = UrlParameter.Optional, filtr2 =UrlParameter.Optional, filtr3=UrlParameter.Optional}
             );
         }
     }

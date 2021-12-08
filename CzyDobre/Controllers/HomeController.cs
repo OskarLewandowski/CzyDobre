@@ -24,7 +24,7 @@ namespace CzyDobre.Controllers
         SqlCommand com = new SqlCommand();
         SqlDataReader dr;
         List<OpinionViewModels> opinionViewModels = new List<OpinionViewModels>();
-        private void DisplayDataOpinion(int id)
+        private void DisplayDataOpinion(int id, int filtr1, int filtr2, int filtr3)
         {
             ConnectionStringSettings mySetting = ConfigurationManager.ConnectionStrings["DefaultConnection"];
             con.ConnectionString = mySetting.ConnectionString;
@@ -38,22 +38,54 @@ namespace CzyDobre.Controllers
             {
                 con.Open();
                 com.Connection = con;
-                if (id == 1)
+
+                if (filtr1 == 0 && filtr2 ==0 && filtr3 ==0)
                 {
-                    com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, dbo.AspNetProducts.Opinion_Counter, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product ORDER BY ProductName";
+                    if (id == 1)
+                    {
+                        com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, dbo.AspNetProducts.Opinion_Counter, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product ORDER BY ProductName";
+                    }
+                    else if (id == 2)
+                    {
+                        com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, dbo.AspNetProducts.Opinion_Counter, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product ORDER BY ProductName DESC";
+                    }
+                    else if (id == 3)
+                    {
+                        com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, dbo.AspNetProducts.Opinion_Counter, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product ORDER BY Opinion_Counter DESC";
+                    }
+                    else if (id == 4)
+                    {
+                        com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, dbo.AspNetProducts.Opinion_Counter, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product ORDER BY Id_Rating DESC";
+                    }
+                    else
+                    {
+                        com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, dbo.AspNetProducts.Opinion_Counter, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product";
+                    }
                 }
-                else if (id == 2)
+                else if (filtr2 !=0 || filtr3 !=0 || filtr1 !=0)
                 {
-                   com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, dbo.AspNetProducts.Opinion_Counter, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product ORDER BY ProductName DESC";
-                }
-                else if (id == 3)
-                {
-                    com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, dbo.AspNetProducts.Opinion_Counter, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product ORDER BY Opinion_Counter DESC";
-                }
-                else
-                {
-                    com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, dbo.AspNetProducts.Opinion_Counter, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product";
-                }
+                    if (id == 1)
+                    {
+                        com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, dbo.AspNetProducts.Opinion_Counter, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product WHERE RateTaste >= "+(filtr1+1) +"AND RateService >= "+ (filtr2+1)+"AND RateIngredients >= "+ (filtr3+1)+ "ORDER BY ProductName";
+                    }
+                    else if (id == 2)
+                    {
+                        com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, dbo.AspNetProducts.Opinion_Counter, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product WHERE RateTaste >= " + (filtr1 + 1) + "AND RateService >= " + (filtr2 + 1) + "AND RateIngredients >= " + (filtr3 + 1) + " ORDER BY ProductName DESC";
+                    }
+                    else if (id == 3)
+                    {
+                        com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, dbo.AspNetProducts.Opinion_Counter, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product WHERE RateTaste >= " + (filtr1 + 1) + "AND RateService >= " + (filtr2 + 1) + "AND RateIngredients >= " + (filtr3 + 1) + " ORDER BY Opinion_Counter DESC";
+                    }
+                    else if (id == 4)
+                    {
+                        com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, dbo.AspNetProducts.Opinion_Counter, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product WHERE RateTaste >=" + (filtr1 + 1) + "AND RateService >= " + (filtr2 + 1) + "AND RateIngredients >= " + (filtr3 + 1) + " ORDER BY Id_Rating DESC";
+                    }
+                    else
+                    {
+                        com.CommandText = "SELECT TOP 1000 dbo.AspNetProducts.ProductName, dbo.AspNetProducts.Opinion_Counter, Id_Rating,RateService, RateTaste ,RateComposition ,RateIngredients ,RateTotal ,RateAdcompliance, img.ImageURL FROM dbo.AspNetRating JOIN dbo.AspNetProducts ON dbo.AspNetProducts.Id_Product = dbo.AspNetRating.Id_Product JOIN (SELECT [novum_czydobre.pl].[dbo].[AspNetImages].[Id_Product] , MAX(cast([novum_czydobre.pl].[dbo].[AspNetImages].[Url] as varchar(max))) AS ImageURL FROM [novum_czydobre.pl].[dbo].[AspNetImages] GROUP BY [Id_Product]) img ON img.Id_Product = dbo.AspNetRating.Id_Product WHERE RateTaste >=" + (filtr1 + 1) + "AND RateService >= " + (filtr2 + 1) + "AND RateIngredients >= " + (filtr3 + 1);
+                    }
+                }       
+
                 dr = com.ExecuteReader();
                     while (dr.Read())
                     {
@@ -77,6 +109,7 @@ namespace CzyDobre.Controllers
                 throw ex;
             }
         }
+
 
         //CzyDobre.pl/
         [AllowAnonymous]
@@ -184,11 +217,12 @@ namespace CzyDobre.Controllers
         [Route("opinie")]
         [Route("Home/Opinion")]
         [AllowAnonymous]
-        public ActionResult Opinion(int id = 0)
+        public ActionResult Opinion(int id = 0, int filtr1 = 0, int filtr2 = 0, int filtr3 =0)
         {
-            DisplayDataOpinion(id);
+            DisplayDataOpinion(id,filtr1,filtr2,filtr3);
             return View(opinionViewModels);
         }
+
 
         //CzyDobre.pl/wyniki
         [Route("wyniki")]
