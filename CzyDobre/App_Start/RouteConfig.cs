@@ -16,9 +16,15 @@ namespace CzyDobre
             routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
+               name: "Opinion",
+               url: "{controller}/{action}/{id}/{filter1}/{filter2}/filter{3}",
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, filter1 = UrlParameter.Optional, filter2 = UrlParameter.Optional, filter3 = UrlParameter.Optional }
+           );
+
+            routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}/{filtr1}/{filtr2}/filtr{3}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, filtr1 = UrlParameter.Optional, filtr2 =UrlParameter.Optional, filtr3=UrlParameter.Optional}
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional}
             );
         }
     }
