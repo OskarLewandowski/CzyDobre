@@ -58,6 +58,14 @@ namespace CzyDobre.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class DeleteAccountViewModel
+    {
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Bieżące hasło")]
+        public string Password { get; set; }
+    }
+
     public class AddPhoneNumberViewModel
     {
         [Required]

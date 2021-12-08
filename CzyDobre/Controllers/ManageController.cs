@@ -7,6 +7,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CzyDobre.Models;
+using CzyDobre.Extensions;
+using System.Configuration;
+using System.Net.Mail;
 
 namespace CzyDobre.Controllers
 {
@@ -242,6 +245,86 @@ namespace CzyDobre.Controllers
             }
             AddErrors(result);
             return View(model);
+        }
+
+        //
+        // GET: /Manage/ChangePassword
+        public ActionResult DeleteAccount()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Manage/ChangePassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteAccount(DeleteAccountViewModel model)
+        {
+            try
+            {
+                if(ModelState.IsValid && model.Password != null)
+                {
+                    var userId = User.Identity.GetUserId();
+                    var userEmail = User.Identity.GetUserName();
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    var checkPass = await UserManager.CheckPasswordAsync(user, model.Password);
+
+                    if(checkPass == true)
+                    {
+                        DBEntities db = new DBEntities();
+                        var id = db.AspNetUsers.Where(m => m.Id == userId).FirstOrDefault();
+                        if(id != null)
+                        {
+                            db.AspNetUsers.Remove(id);
+                            db.SaveChanges();
+                            DeleteAccountEmail(userEmail);
+                            LogOff();
+                            this.AddNotification($"Twoje konto zostało usuniete", NotificationType.INFO);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        this.AddNotification($"Wystapił błąd, proszę spróbować za kilka minut", NotificationType.INFO);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        this.AddNotification($"Nieprawidłowe hasło", NotificationType.ERROR);
+                        return View("DeleteAccount");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.Clear();
+                this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
+        }
+
+        public void DeleteAccountEmail(string DoEmail)
+        {
+            var wiadomosc = ConfigurationManager.AppSettings["EmailNoReply"].ToString();
+
+            MailMessage msg = new MailMessage();
+            msg.From = new MailAddress(wiadomosc);
+            msg.To.Add(DoEmail);
+            msg.Subject = "Twoje konto zostało usuniete - CzyDobre.pl";
+            msg.Body = "Dzień dobry, " + DoEmail + "\n" + "Informujemy, że twoje konto zostało prawidłowo usunięte." + "\n" + "Przykro nam, że się z nami roztajesz, będziemy czekać na Twój powrót." + "\n\n" + "Pozdrawiamy zespół CzyDobre.pl" + "\n\n" + "W razie pytań prosimy o kontakt mejlowy: kontakt@czydobre.pl lub za pomocą formularza kontaktowego: https://www.czydobre.pl/kontakt";
+
+            SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
+                ConfigurationManager.AppSettings["EmailNoReply"].ToString(),
+                ConfigurationManager.AppSettings["PasswordNoReply"].ToString());
+            smtpClient.Credentials = credentials;
+            smtpClient.EnableSsl = true;
+            smtpClient.Send(msg);
         }
 
         //

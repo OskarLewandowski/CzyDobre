@@ -1042,6 +1042,7 @@
     <Content Include="Views\User\UnBanEdit.cshtml" />
     <Content Include="Views\Shared\_LayoutWide.cshtml" />
     <Content Include="Views\Home\GetDish.cshtml" />
+    <Content Include="Views\Manage\DeleteAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

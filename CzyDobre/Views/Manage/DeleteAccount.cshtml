@@ -1,0 +1,26 @@
+﻿@model CzyDobre.Models.DeleteAccountViewModel
+@{
+    ViewBag.Title = "Usuń konto";
+    Layout = "~/Views/Shared/_UserSettingsLayout.cshtml";
+}
+<h4>Usunięcie konta jest nieodwracalne</h4>
+@using (Html.BeginForm("DeleteAccount", "Manage", FormMethod.Post, new { role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "px-4 mb-1 control-label" })
+        <div class="col-md-10 p-0">
+            @Html.PasswordFor(m => m.Password, new { placeholder = "Podaj obecne hasło", @class = "px-4 form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zatwierdź" class="btn btn-success float-right" onclick="return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ swoje konto?');" />
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+}
