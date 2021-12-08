@@ -1044,6 +1044,7 @@
     <Content Include="Views\Shared\_LayoutWide.cshtml" />
     <Content Include="Views\Home\GetDish.cshtml" />
     <Content Include="Views\Manage\DeleteAccount.cshtml" />
+    <Content Include="Views\Home\OpinionDescription.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

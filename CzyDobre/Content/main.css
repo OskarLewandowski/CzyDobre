@@ -24,6 +24,9 @@ body > .container {
     padding: 0px;
 }
 
+.bg-lightpaleblue {
+    background-color: #E6F3FF !important;
+}
 .bgcolor {
     background-color: dodgerblue;
 }
@@ -930,6 +933,23 @@ input:checked + .radio-button-mark {
     object-fit: cover !important;
 }
 /* DragAndDrop END */
+/* Description START */
+.opinion-details-header {
+    font-weight: 500;
+    line-height: 1.2;
+    word-break: break-word;
+}
+.opinion-details-preview {
+    width: 100%;
+    max-height: 50vh;
+    height: 500px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    background: url(/image/Foto.png), rgb(43 48 53);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+/* Description END */
 /* LayoutWide START */
 .container-wide {
     width: 100%;

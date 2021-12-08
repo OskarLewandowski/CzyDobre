@@ -87,20 +87,21 @@ namespace CzyDobre.Controllers
                 }       
 
                 dr = com.ExecuteReader();
-                    while (dr.Read())
+                while (dr.Read())
+                {
+                    opinionViewModels.Add(new OpinionViewModels()
                     {
-                        opinionViewModels.Add(new OpinionViewModels()
-                        {
-                            ProductName = dr["ProductName"].ToString(),
-                            RateService = dr["RateService"].ToString(),
-                            RateTaste = dr["RateTaste"].ToString(),
-                            RateComposition = dr["RateComposition"].ToString(),
-                            RateIngredients = dr["RateIngredients"].ToString(),
-                            RateTotal = dr["RateTotal"].ToString(),
-                            RateAdcompliance = dr["RateAdcompliance"].ToString(),
-                            ImageUrl = dr["ImageURL"].ToString()
-                        });
-                    }
+                        ProductName = dr["ProductName"].ToString(),
+                        RatingId = Convert.ToInt32(dr["Id_Rating"]),
+                        RateService = dr["RateService"].ToString(),
+                        RateTaste = dr["RateTaste"].ToString(),
+                        RateComposition = dr["RateComposition"].ToString(),
+                        RateIngredients = dr["RateIngredients"].ToString(),
+                        RateTotal = dr["RateTotal"].ToString(),
+                        RateAdcompliance = dr["RateAdcompliance"].ToString(),
+                        ImageUrl = dr["ImageURL"].ToString()
+                    });
+                }
                 con.Close();
             }
             catch (Exception ex)
@@ -276,6 +277,72 @@ namespace CzyDobre.Controllers
         public ActionResult Contact()
         {
             return View();
+        }
+
+        [Route("opinia")]
+        [Route("Home/opinia/{id?}")]
+        [AllowAnonymous]
+        public ActionResult OpinionDescription(string id)
+        {
+            if (!String.IsNullOrEmpty(id))
+            {
+                int opinionId = Convert.ToInt32(id);
+                ViewBag.id = opinionId;
+                DBEntities db = new DBEntities();
+                OpinionViewModels opinionViewModel = new OpinionViewModels();
+                opinionViewModel.RatingId = opinionId;
+                var opinion = (from AspNetRating in db.AspNetRatings
+                               join AspNetProduct in db.AspNetProducts on AspNetRating.Id_Product equals AspNetProduct.Id_Product
+                               join AspNetUser in db.AspNetUsers on AspNetRating.Who equals AspNetUser.Id
+                               where AspNetRating.Id_Rating == opinionId
+                               select new{
+                                   RateService = AspNetRating.RateService,
+                                   RateTaste = AspNetRating.RateTaste,
+                                   RateIngredients = AspNetRating.RateIngredients,
+                                   Comment = AspNetRating.Comment,
+                                   AddedBy = AspNetUser.NickName,
+                                   ProductName = AspNetProduct.ProductName
+                               }
+                                   ).FirstOrDefault();
+                opinionViewModel.ProductName = opinion.ProductName.ToString();
+                opinionViewModel.RateService = opinion.RateService.ToString();
+                opinionViewModel.RateTaste = opinion.RateTaste.ToString();
+                opinionViewModel.RateIngredients = opinion.RateIngredients.ToString();
+                opinionViewModel.AddedBy = opinion.AddedBy.ToString();
+                if (!String.IsNullOrEmpty(opinion.Comment))
+                {
+                    opinionViewModel.Comment = opinion.Comment.ToString();
+                }
+                /*
+                using(SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"]))
+                using(SqlCommand command = new SqlCommand("SELECT * FROM dbo.AspNetProducts WHERE Id_Product = @opinionId", con))
+                {
+
+                }
+                    ConnectionStringSettings mySetting = ;
+                con.ConnectionString = mySetting.ConnectionString;
+                try
+                {
+                    con.Open();
+                    com.Connection = con; com.CommandText = "SELECT * FROM dbo.AspNetRating WHERE Id_Rating = @opinionId";
+                    com.CommandText = "SELECT * FROM dbo.AspNetProducts WHERE Id_Product = @opinionId";
+                    dr = com.ExecuteReader();
+
+                    opinionDetailModel.OpinionId = opinionId;
+                    opinionDetailModel.ProductName = dr["ProductName"].ToString();
+
+                    con.Close();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }*/
+                return View(opinionViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Opinion", "Home");
+            }
         }
 
         //CzyDobre.pl/kontakt

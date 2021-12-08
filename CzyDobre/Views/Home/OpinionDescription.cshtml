@@ -1,0 +1,93 @@
+﻿@using CzyDobre.Models
+@model OpinionViewModels
+@{
+    ViewBag.Title = "Opinia";
+    Layout = "~/Views/Shared/_LayoutWide.cshtml";
+}
+
+
+
+<div class="row flex-column flex-lg-row flex-grow-1">
+    <div class="col col-xl-7 p-0">
+        <div class="opinion-details-preview">
+        </div>
+    </div>
+    <div class="col col-xl-5 p-0">
+        <div class="w-100 p-4 border-bottom">
+            <h1 class="opinion-details-header text-center">@Model.ProductName</h1>
+            <div class="d-flex justify-content-between">
+                <span>Dodane przez: @Model.AddedBy</span>
+                <span class="ml-5 float-right">2021-06-12 13:25:56</span>
+            </div>
+        </div>
+        <div class="w-100 py-4 px-2 border-bottom d-flex justify-content-around">
+            <div class="text-center">
+                <span>Obsługa</span><br />
+                <div class="text-warning">
+                    @{
+                        int serviceCounter = Convert.ToInt32(Model.RateService);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (i < serviceCounter)
+                            {
+                                <span class="fa fa-star"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-star-o"></span>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+            <div class="text-center">
+                <span>Smak</span><br />
+                <div class="text-warning">
+                    @{
+                        int tasteCounter = Convert.ToInt32(Model.RateTaste);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (i < tasteCounter)
+                            {
+                                <span class="fa fa-star"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-star-o"></span>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+            <div class="text-center">
+                <span>Cena</span><br />
+                <div class="text-warning">
+                    @{
+                        int ingredientsCounter = Convert.ToInt32(Model.RateIngredients);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (i < ingredientsCounter)
+                            {
+                                <span class="fa fa-star"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-star-o"></span>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        @{
+            if (!String.IsNullOrEmpty(Model.Comment))
+            {
+                <div class="w-100 py-4 px-2 border-bottom">
+                    <p class="w-100 rounded bg-lightpaleblue p-3" style="text-indent:2em;">
+                        @Model.Comment
+                    </p>
+                </div>
+            }
+        }
+    </div>
+</div>

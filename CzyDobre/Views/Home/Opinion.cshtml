@@ -58,6 +58,7 @@
         {
             foreach (var Data in Model)
             {
+                string link = "opinia/" + Data.RatingId.ToString();
                 <div class="browse-card position-relative col-12 col-md-6 col-lg-4 p-2">
                     <h6 class="card-title text-center my-0 py-1">@Data.ProductName</h6>
                     <div class="card flex-column flex-sm-row flex-md-column flex-lg-row p-0 rounded-0">
@@ -129,7 +130,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="stretched-link"></a>
+                    <a href="@Url.Action(link)" class="stretched-link"></a>
                 </div>
             }
         }
