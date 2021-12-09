@@ -3,7 +3,7 @@
     ViewBag.Title = "Usuń konto";
     Layout = "~/Views/Shared/_UserSettingsLayout.cshtml";
 }
-<h4>Usunięcie konta jest nieodwracalne</h4>
+<h5>W celu usunięcia konta, należy podać hasło i potwierdzić chęć usunięcia konta przyciskiem "Usuń konto". Usunięcie konta jest nieodwracalne.</h5>
 @using (Html.BeginForm("DeleteAccount", "Manage", FormMethod.Post, new { role = "form", onsubmit = "Loading()" }))
 {
     @Html.AntiForgeryToken()
@@ -16,7 +16,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Zatwierdź" class="btn btn-success float-right" onclick="return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ swoje konto?');" />
+            <input type="submit" value="Usuń konto" class="btn btn-success float-right" onclick="return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ swoje konto?');" />
         </div>
     </div>
     <br />
