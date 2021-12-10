@@ -391,6 +391,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProduktController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -1045,6 +1046,7 @@
     <Content Include="Views\Home\GetDish.cshtml" />
     <Content Include="Views\Manage\DeleteAccount.cshtml" />
     <Content Include="Views\Home\OpinionDescription.cshtml" />
+    <Content Include="Views\Produkt\ProduktList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,74 @@
+﻿@model List<CzyDobre.Models.AspNetProduct>
+@using CzyDobre.Models
+@{
+    ViewBag.Title = "ProduktList";
+    Layout = "~/Views/Shared/_LayoutWide.cshtml";
+    DBEntities db = new DBEntities();
+}
+<div class="role-div">
+    <h2 style="text-align: center;">Lista produktów</h2>
+    <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+    <hr />
+    <div class="table">
+        <table id="produkty" class="table table-bordered table-hover display">
+            <thead>
+                <tr class="table-role">
+                    <th>ID produktu</th>
+                    <th>Nazwa kategorii</th>
+                    <th>Nazwa miejsca</th>
+                    <th>Nazwa produktu</th>
+                    <th>Opis produktu</th>
+                    <th>Dodał</th>
+                    <th>Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id_Product</td>
+                        <td>
+                            @{ 
+                                var wynikKategoria = db.AspNetCategories.Where(u => u.Id_Category == item.Id_Category).Select(u => u.CategoryName).FirstOrDefault();
+                            }
+                            @wynikKategoria
+                        </td>
+                        <td>
+                            @{
+                                var wynikMiejsce = db.AspNetPlaces.Where(u => u.Id_Place == item.Id_Place).Select(u => u.PlaceName).FirstOrDefault();
+                            }
+                            @wynikMiejsce                       
+                        </td>
+                        <td>@item.ProductName</td>
+                        <td>@item.ProductDescription</td>
+                        <td>
+                            @{
+                                var wynikKto = db.AspNetUsers.Where(u => u.Id == item.Who).Select(u => u.NickName).FirstOrDefault();
+                            }
+                            @wynikKto<br />
+                            @item.Who
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edytuj", "#", "#", new { }, new { @class = "btn btn-primary" })
+                            <hr />
+                            @Html.ActionLink("Usuń", "#", "#", new {}, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ produkt?');" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#produkty').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pl.json"
+                }
+            });
+        });
+    </script>
+}
