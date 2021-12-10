@@ -12,12 +12,12 @@ namespace CzyDobre.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetImage
+    public partial class AspNetRatingPicture
     {
-        public int Id_Image { get; set; }
+        public int Id_Picture { get; set; }
         public string Url { get; set; }
-        public Nullable<int> Id_Product { get; set; }
+        public Nullable<int> Id_Rating { get; set; }
     
-        public virtual AspNetProduct AspNetProduct { get; set; }
+        public virtual AspNetRating AspNetRating { get; set; }
     }
 }

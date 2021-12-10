@@ -488,7 +488,6 @@ namespace CzyDobre.Controllers
 
                                 image.Url = item;
                                 image.Id_Product = queryp;
-                                image.Icon = true;
                                 db.AspNetImages.Add(image);
                                 db.SaveChanges();
                             }
@@ -525,7 +524,7 @@ namespace CzyDobre.Controllers
 
                                 image.Url = item;
                                 image.Id_Product = queryp;
-                                image.Icon = true;
+                                
                                 db.AspNetImages.Add(image);
                                 db.SaveChanges();
                             }
@@ -761,7 +760,6 @@ namespace CzyDobre.Controllers
             var  Products = (from AspNetProduct  in db.AspNetProducts 
                              join AspNetImage in db.AspNetImages on AspNetProduct.Id_Product equals AspNetImage.Id_Product
                              join AspNetPlaces in db.AspNetPlaces on AspNetProduct.Id_Place equals AspNetPlaces.Id_Place
-                             where AspNetImage.Icon == true
                              where AspNetProduct.ProductName.Contains(prefix)
                              
                              select new
@@ -870,15 +868,15 @@ namespace CzyDobre.Controllers
                                 rate.RateTotal = (rate.RateIngredients + rate.RateService + rate.RateTaste) / 3;
                                 db.AspNetRatings.Add(rate);
                                 db.SaveChanges();
-
-                                AspNetImage image = new AspNetImage();
+                                
+                                
+                                AspNetRatingPicture image = new AspNetRatingPicture();
                                 foreach (var item in zapisz)
                                 {
 
                                     image.Url = item;
-                                    image.Id_Product = rate.Id_Product;
-                                    image.Icon = false;
-                                    db.AspNetImages.Add(image);
+                                    image.Id_Rating = qr;
+                                    db.AspNetRatingPictures.Add(image);
                                     db.SaveChanges();
                                 }
                                 ModelState.Clear();

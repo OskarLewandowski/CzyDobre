@@ -33,6 +33,7 @@ namespace CzyDobre.Models
         public virtual DbSet<AspNetPlace> AspNetPlaces { get; set; }
         public virtual DbSet<AspNetProduct> AspNetProducts { get; set; }
         public virtual DbSet<AspNetRating> AspNetRatings { get; set; }
+        public virtual DbSet<AspNetRatingPicture> AspNetRatingPictures { get; set; }
         public virtual DbSet<AspNetRestaurantCalendar> AspNetRestaurantCalendars { get; set; }
         public virtual DbSet<AspNetRestaurantCalendarDay> AspNetRestaurantCalendarDays { get; set; }
         public virtual DbSet<AspNetRestaurantOpening> AspNetRestaurantOpenings { get; set; }

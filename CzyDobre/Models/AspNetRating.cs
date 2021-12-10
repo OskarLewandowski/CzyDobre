@@ -14,6 +14,12 @@ namespace CzyDobre.Models
     
     public partial class AspNetRating
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AspNetRating()
+        {
+            this.AspNetRatingPictures = new HashSet<AspNetRatingPicture>();
+        }
+    
         public int Id_Rating { get; set; }
         public short RateService { get; set; }
         public short RateTaste { get; set; }
@@ -27,5 +33,7 @@ namespace CzyDobre.Models
     
         public virtual AspNetProduct AspNetProduct { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetRatingPicture> AspNetRatingPictures { get; set; }
     }
 }
