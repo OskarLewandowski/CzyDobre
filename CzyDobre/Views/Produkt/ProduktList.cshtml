@@ -19,6 +19,7 @@
                     <th>Nazwa produktu</th>
                     <th>Opis produktu</th>
                     <th>Dodał</th>
+                    <th>Zdjęcie</th>
                     <th>Akcja</th>
                 </tr>
             </thead>
@@ -49,9 +50,25 @@
                             @item.Who
                         </td>
                         <td>
-                            @Html.ActionLink("Edytuj", "#", "#", new { }, new { @class = "btn btn-primary" })
+                            @{
+                                string brakZdjecia = "https://res.cloudinary.com/czydobre-pl/image/upload/v1639157376/CzyDobre-www/Brak-zdjecia_fnfpal.png";
+                                string urlCzydobre = "https://res.cloudinary.com/czydobre-pl/image/upload/v1639154117/CzyDobre-images/";
+                                var wynikZdjecieUrl = db.AspNetImages.Where(u => u.Id_Product == item.Id_Product).Select(u => u.Url).FirstOrDefault();
+                                var url = urlCzydobre + wynikZdjecieUrl;
+                            }
+                            @if (wynikZdjecieUrl != "")
+                            {
+                                <img src="@url" alt="Zdjęcie produktu" width="200" height="200">                      
+                            }
+                            else
+                            {
+                                <img src="@brakZdjecia" alt="Brak zdjęcia produktu" width="200" height="200">
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edytuj", "Edit", "#", new { }, new { @class = "btn btn-primary" })
                             <hr />
-                            @Html.ActionLink("Usuń", "#", "#", new {}, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ produkt?');" })
+                            @Html.ActionLink("Usuń", "Delete", "Produkt", new { idProdukt = item.Id_Product, nazwaProduktu = item.ProductName }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ produkt?');" })
                         </td>
                     </tr>
                 }
