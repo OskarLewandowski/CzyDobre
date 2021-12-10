@@ -66,7 +66,9 @@
                             }
                         </td>
                         <td>
-                            @Html.ActionLink("Edytuj", "Edit", "#", new { }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Edytuj Dane", "Edit", "Produkt", new { item.Id_Product, item.Id_Category, item.Id_Place, item.ProductDescription, item.ProductName, item.Opinion_Counter, item.AvarageTaste, item.AvarageService, item.AvarageIngredients, item.Who, item.UniqName }, new { @class = "btn btn-primary" })
+                            <hr />
+                            @Html.ActionLink("Edytuj Zdjęcie", "EditImage", "Produkt", new { }, new { @class = "btn btn-primary" })
                             <hr />
                             @Html.ActionLink("Usuń", "Delete", "Produkt", new { idProdukt = item.Id_Product, nazwaProduktu = item.ProductName }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ produkt?');" })
                         </td>

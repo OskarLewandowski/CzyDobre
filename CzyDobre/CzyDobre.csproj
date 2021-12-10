@@ -1050,6 +1050,7 @@
     <Content Include="Views\Manage\DeleteAccount.cshtml" />
     <Content Include="Views\Home\OpinionDescription.cshtml" />
     <Content Include="Views\Produkt\ProduktList.cshtml" />
+    <Content Include="Views\Produkt\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
