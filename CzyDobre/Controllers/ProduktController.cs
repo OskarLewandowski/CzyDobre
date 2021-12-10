@@ -44,9 +44,40 @@ namespace CzyDobre.Controllers
         [Route("edytuj-produkt")]
         [Route("Produkt/EditProdukt")]
         [Authorize(Roles = "Admin, Moderator")]
-        public ActionResult EditProdukt(AspNetProduct obj)
+        public ActionResult EditProdukt(AspNetProduct model)
         {
-            return View();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    AspNetProduct aspNetProduct = new AspNetProduct();
+
+                    aspNetProduct.Id_Product = model.Id_Product;
+                    aspNetProduct.Id_Category = model.Id_Category;
+                    aspNetProduct.ProductDescription = model.ProductDescription;
+                    aspNetProduct.ProductName = model.ProductName;
+                    aspNetProduct.Opinion_Counter = model.Opinion_Counter;
+                    aspNetProduct.AvarageTaste = model.AvarageTaste;
+                    aspNetProduct.AvarageService = model.AvarageService;
+                    aspNetProduct.AvarageIngredients = model.AvarageIngredients;
+                    aspNetProduct.Who = model.Who;
+                    aspNetProduct.UniqName = model.UniqName;
+                    aspNetProduct.Id_Place = model.Id_Place;
+
+                    db.Entry(aspNetProduct).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    this.AddNotification($"Produkt, edytowany pomyślnie", NotificationType.SUCCESS);
+                    return View("Edit");
+                }
+                this.AddNotification($"Błąd!, Błędne dane", NotificationType.ERROR);
+            }
+            catch (Exception ex)
+            {
+                ModelState.Clear();
+                this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                return View("Edit");
+            }
+            return View("Edit");
         }
 
         [Route("usuwanie-produktu")]
