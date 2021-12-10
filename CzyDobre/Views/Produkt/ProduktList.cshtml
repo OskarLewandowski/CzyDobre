@@ -70,7 +70,7 @@
                             <hr />
                             @Html.ActionLink("Edytuj Zdjęcie", "EditImage", "Produkt", new { }, new { @class = "btn btn-primary" })
                             <hr />
-                            @Html.ActionLink("Usuń", "Delete", "Produkt", new { idProdukt = item.Id_Product, nazwaProduktu = item.ProductName }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ produkt?');" })
+                            @Html.ActionLink("Usuń", "Delete", "Produkt", new { idProdukt = item.Id_Product, nazwaProduktu = item.ProductName, imageUrl = wynikZdjecieUrl}, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ produkt?');" })
                         </td>
                     </tr>
                 }
