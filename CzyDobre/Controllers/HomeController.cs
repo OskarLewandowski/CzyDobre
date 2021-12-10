@@ -33,7 +33,7 @@ namespace CzyDobre.Controllers
             {
                 opinionViewModels.Clear();
             }
-
+            
             try
             {
                 con.Open();
@@ -1068,22 +1068,30 @@ namespace CzyDobre.Controllers
                     AspNetProduct prod = new AspNetProduct();
                     AspNetRating rate = new AspNetRating();
 
-                    
-
-                    
 
 
-                    int numbers = db.AspNetProducts.Count()+1;
+                    List<int> numbers = new List<int>();
+
+
+                    numbers = db.AspNetRatings.Select(u => u.Id_Product).Distinct().ToList();
                     Random r = new Random();
-                    int n = r.Next(1,numbers);
+                    int m = r.Next(numbers.Count());
+                    int n = numbers[m];
 
+                   
 
-                    
 
                     var product = db.AspNetProducts.Where(u => u.Id_Product == n).Select(u=>u.ProductName).FirstOrDefault();
+                    var rateS = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateService).FirstOrDefault();
+                    var rateP = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateIngredients).FirstOrDefault();
+                    var rateT = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateTaste).FirstOrDefault();
+                    
+                        string result = product.ToString() + " Smak: " + rateT.ToString() + " Cena: " + rateP.ToString() + " Obsługa: " + rateS.ToString();
+
+                        this.AddNotification(result.ToString(), NotificationType.INFO);
+                    
 
                     
-                    this.AddNotification(product.ToString(), NotificationType.INFO);
                 }
                 catch (Exception ex)
                 {
