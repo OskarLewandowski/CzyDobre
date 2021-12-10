@@ -7,12 +7,13 @@ using System.Web.Mvc;
 
 namespace CzyDobre.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Moderator")]
     public class ProduktController : Controller
     {
         DBEntities db = new DBEntities();
 
         // GET: Produkt
+        [Authorize(Roles = "Admin, Moderator")]
         public ActionResult ProduktList()
         {
             var produktList = db.AspNetProducts.ToList();
