@@ -47,7 +47,6 @@
           <Property Name="Id_Image" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Url" Type="ntext" />
           <Property Name="Id_Product" Type="int" />
-          <Property Name="Icon" Type="bit" />
         </EntityType>
         <EntityType Name="AspNetPlaces">
           <Key>
@@ -86,6 +85,14 @@
           <Property Name="RateTotal" Type="float" />
           <Property Name="Id_Product" Type="int" Nullable="false" />
           <Property Name="Who" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="AspNetRatingPictures">
+          <Key>
+            <PropertyRef Name="Id_Picture" />
+          </Key>
+          <Property Name="Id_Picture" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Url" Type="ntext" />
+          <Property Name="Id_Rating" Type="int" />
         </EntityType>
         <EntityType Name="AspNetRestaurantCalendar">
           <Key>
@@ -297,6 +304,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AspNetRatingPictures_AspNetRating">
+          <End Role="AspNetRating" Type="Self.AspNetRating" Multiplicity="0..1" />
+          <End Role="AspNetRatingPictures" Type="Self.AspNetRatingPictures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRating">
+              <PropertyRef Name="Id_Rating" />
+            </Principal>
+            <Dependent Role="AspNetRatingPictures">
+              <PropertyRef Name="Id_Rating" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -398,6 +417,7 @@
           <EntitySet Name="AspNetPlaces" EntityType="Self.AspNetPlaces" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetProducts" EntityType="Self.AspNetProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRating" EntityType="Self.AspNetRating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRatingPictures" EntityType="Self.AspNetRatingPictures" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRestaurantCalendar" EntityType="Self.AspNetRestaurantCalendar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRestaurantCalendarDay" EntityType="Self.AspNetRestaurantCalendarDay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRestaurantOpening" EntityType="Self.AspNetRestaurantOpening" Schema="dbo" store:Type="Tables" />
@@ -438,6 +458,10 @@
           <AssociationSet Name="FK_AspNetRating_AspNetUsers" Association="Self.FK_AspNetRating_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetRating" EntitySet="AspNetRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetRatingPictures_AspNetRating" Association="Self.FK_AspNetRatingPictures_AspNetRating">
+            <End Role="AspNetRating" EntitySet="AspNetRating" />
+            <End Role="AspNetRatingPictures" EntitySet="AspNetRatingPictures" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -517,7 +541,6 @@
           <Property Name="Id_Image" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Id_Product" Type="Int32" />
-          <Property Name="Icon" Type="Boolean" />
           <NavigationProperty Name="AspNetProduct" Relationship="Self.FK_AspNetImages_AspNetProducts" FromRole="AspNetImages" ToRole="AspNetProducts" />
         </EntityType>
         <EntityType Name="AspNetPlace">
@@ -565,6 +588,16 @@
           <Property Name="Who" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetProduct" Relationship="Self.FK_AspNetRating_AspNetProducts" FromRole="AspNetRating" ToRole="AspNetProducts" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetRating_AspNetUsers" FromRole="AspNetRating" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetRatingPictures" Relationship="Self.FK_AspNetRatingPictures_AspNetRating" FromRole="AspNetRating" ToRole="AspNetRatingPictures" />
+        </EntityType>
+        <EntityType Name="AspNetRatingPicture">
+          <Key>
+            <PropertyRef Name="Id_Picture" />
+          </Key>
+          <Property Name="Id_Picture" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Rating" Type="Int32" />
+          <NavigationProperty Name="AspNetRating" Relationship="Self.FK_AspNetRatingPictures_AspNetRating" FromRole="AspNetRatingPictures" ToRole="AspNetRating" />
         </EntityType>
         <EntityType Name="AspNetRestaurantCalendar">
           <Key>
@@ -783,6 +816,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AspNetRatingPictures_AspNetRating">
+          <End Role="AspNetRating" Type="Self.AspNetRating" Multiplicity="0..1" />
+          <End Role="AspNetRatingPictures" Type="Self.AspNetRatingPicture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRating">
+              <PropertyRef Name="Id_Rating" />
+            </Principal>
+            <Dependent Role="AspNetRatingPictures">
+              <PropertyRef Name="Id_Rating" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RestaurantCalendar_RestaurantCalendarDay">
           <End Role="AspNetRestaurantCalendarDay" Type="Self.AspNetRestaurantCalendarDay" Multiplicity="0..1" />
           <End Role="AspNetRestaurantCalendar" Type="Self.AspNetRestaurantCalendar" Multiplicity="*" />
@@ -860,6 +905,7 @@
           <EntitySet Name="AspNetPlaces" EntityType="Self.AspNetPlace" />
           <EntitySet Name="AspNetProducts" EntityType="Self.AspNetProduct" />
           <EntitySet Name="AspNetRatings" EntityType="Self.AspNetRating" />
+          <EntitySet Name="AspNetRatingPictures" EntityType="Self.AspNetRatingPicture" />
           <EntitySet Name="AspNetRestaurantCalendars" EntityType="Self.AspNetRestaurantCalendar" />
           <EntitySet Name="AspNetRestaurantCalendarDays" EntityType="Self.AspNetRestaurantCalendarDay" />
           <EntitySet Name="AspNetRestaurantOpenings" EntityType="Self.AspNetRestaurantOpening" />
@@ -899,6 +945,10 @@
           <AssociationSet Name="FK_AspNetRating_AspNetUsers" Association="Self.FK_AspNetRating_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetRating" EntitySet="AspNetRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetRatingPictures_AspNetRating" Association="Self.FK_AspNetRatingPictures_AspNetRating">
+            <End Role="AspNetRating" EntitySet="AspNetRatings" />
+            <End Role="AspNetRatingPictures" EntitySet="AspNetRatingPictures" />
           </AssociationSet>
           <AssociationSet Name="FK_RestaurantCalendar_RestaurantCalendarDay" Association="Self.FK_RestaurantCalendar_RestaurantCalendarDay">
             <End Role="AspNetRestaurantCalendarDay" EntitySet="AspNetRestaurantCalendarDays" />
@@ -975,7 +1025,6 @@
                 <ScalarProperty Name="Id_Image" ColumnName="Id_Image" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
-                <ScalarProperty Name="Icon" ColumnName="Icon" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1017,6 +1066,15 @@
                 <ScalarProperty Name="RateTotal" ColumnName="RateTotal" />
                 <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
                 <ScalarProperty Name="Who" ColumnName="Who" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRatingPictures">
+            <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRatingPicture">
+              <MappingFragment StoreEntitySet="AspNetRatingPictures">
+                <ScalarProperty Name="Id_Picture" ColumnName="Id_Picture" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Id_Rating" ColumnName="Id_Rating" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

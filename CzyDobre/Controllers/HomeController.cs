@@ -33,7 +33,7 @@ namespace CzyDobre.Controllers
             {
                 opinionViewModels.Clear();
             }
-
+            
             try
             {
                 con.Open();
@@ -488,7 +488,6 @@ namespace CzyDobre.Controllers
 
                                 image.Url = item;
                                 image.Id_Product = queryp;
-                                image.Icon = true;
                                 db.AspNetImages.Add(image);
                                 db.SaveChanges();
                             }
@@ -525,7 +524,7 @@ namespace CzyDobre.Controllers
 
                                 image.Url = item;
                                 image.Id_Product = queryp;
-                                image.Icon = true;
+                                
                                 db.AspNetImages.Add(image);
                                 db.SaveChanges();
                             }
@@ -761,7 +760,6 @@ namespace CzyDobre.Controllers
             var  Products = (from AspNetProduct  in db.AspNetProducts 
                              join AspNetImage in db.AspNetImages on AspNetProduct.Id_Product equals AspNetImage.Id_Product
                              join AspNetPlaces in db.AspNetPlaces on AspNetProduct.Id_Place equals AspNetPlaces.Id_Place
-                             where AspNetImage.Icon == true
                              where AspNetProduct.ProductName.Contains(prefix)
                              
                              select new
@@ -870,15 +868,15 @@ namespace CzyDobre.Controllers
                                 rate.RateTotal = (rate.RateIngredients + rate.RateService + rate.RateTaste) / 3;
                                 db.AspNetRatings.Add(rate);
                                 db.SaveChanges();
-
-                                AspNetImage image = new AspNetImage();
+                                
+                                
+                                AspNetRatingPicture image = new AspNetRatingPicture();
                                 foreach (var item in zapisz)
                                 {
 
                                     image.Url = item;
-                                    image.Id_Product = rate.Id_Product;
-                                    image.Icon = false;
-                                    db.AspNetImages.Add(image);
+                                    image.Id_Rating = qr;
+                                    db.AspNetRatingPictures.Add(image);
                                     db.SaveChanges();
                                 }
                                 ModelState.Clear();
@@ -1068,22 +1066,30 @@ namespace CzyDobre.Controllers
                     AspNetProduct prod = new AspNetProduct();
                     AspNetRating rate = new AspNetRating();
 
-                    
-
-                    
 
 
-                    int numbers = db.AspNetProducts.Count()+1;
+                    List<int> numbers = new List<int>();
+
+
+                    numbers = db.AspNetRatings.Select(u => u.Id_Product).Distinct().ToList();
                     Random r = new Random();
-                    int n = r.Next(1,numbers);
+                    int m = r.Next(numbers.Count());
+                    int n = numbers[m];
 
+                   
 
-                    
 
                     var product = db.AspNetProducts.Where(u => u.Id_Product == n).Select(u=>u.ProductName).FirstOrDefault();
+                    var rateS = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateService).FirstOrDefault();
+                    var rateP = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateIngredients).FirstOrDefault();
+                    var rateT = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateTaste).FirstOrDefault();
+                    
+                        string result = product.ToString() + " Smak: " + rateT.ToString() + " Cena: " + rateP.ToString() + " Obsługa: " + rateS.ToString();
+
+                        this.AddNotification(result.ToString(), NotificationType.INFO);
+                    
 
                     
-                    this.AddNotification(product.ToString(), NotificationType.INFO);
                 }
                 catch (Exception ex)
                 {
