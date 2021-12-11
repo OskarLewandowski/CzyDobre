@@ -1,5 +1,5 @@
 ﻿$(function () {
-    $("#CategorySE").autocomplete({
+    $("#CatSE").autocomplete({
         source: function (request, response) {
             $.ajax({
                 url: '/Produkt/AutoCompleteCategory/',
