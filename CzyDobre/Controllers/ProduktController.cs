@@ -110,7 +110,7 @@ namespace CzyDobre.Controllers
 
                 var Produkt = db.AspNetProducts.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
                 var ZdjecieProduktu = db.AspNetImages.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
-                var Opnia = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
+                var Opinia = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
                 var idOpini = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).Select(m => m.Id_Rating).FirstOrDefault();
                 var idZdjecie = db.AspNetRatingPictures.Where(m => m.Id_Rating == idOpini).FirstOrDefault();
 
@@ -119,19 +119,26 @@ namespace CzyDobre.Controllers
                 {
                     db.AspNetProducts.Remove(Produkt);
                     db.AspNetImages.Remove(ZdjecieProduktu);
-                    db.AspNetRatings.Remove(Opnia);
-                    db.AspNetRatingPictures.Remove(idZdjecie);
-
-                    while (Opnia == null)
+                    if(Opinia != null)
                     {
-                        Opnia = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
-                        db.AspNetRatings.Remove(Opnia);
+                        db.AspNetRatings.Remove(Opinia);
+
+                        while (Opinia == null)
+                        {
+                            Opinia = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
+                            db.AspNetRatings.Remove(Opinia);
+                        }
                     }
 
-                    while (idZdjecie == null)
+                    if (idZdjecie != null)
                     {
-                        idZdjecie = db.AspNetRatingPictures.Where(m => m.Id_Rating == idOpini).FirstOrDefault();
                         db.AspNetRatingPictures.Remove(idZdjecie);
+
+                        while (idZdjecie == null)
+                        {
+                            idZdjecie = db.AspNetRatingPictures.Where(m => m.Id_Rating == idOpini).FirstOrDefault();
+                            db.AspNetRatingPictures.Remove(idZdjecie);
+                        }
                     }
 
                     db.SaveChanges();
