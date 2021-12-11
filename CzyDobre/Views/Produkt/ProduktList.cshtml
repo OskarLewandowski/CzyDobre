@@ -20,6 +20,7 @@
                     <th>Opis produktu</th>
                     <th>Dodał</th>
                     <th>Zdjęcie</th>
+                    <th>Weryfikacja</th>
                     <th>Akcja</th>
                 </tr>
             </thead>
@@ -56,7 +57,7 @@
                                 var wynikZdjecieUrl = db.AspNetImages.Where(u => u.Id_Product == item.Id_Product).Select(u => u.Url).FirstOrDefault();
                                 var url = urlCzydobre + wynikZdjecieUrl;
                             }
-                            @if (wynikZdjecieUrl != "")
+                            @if (wynikZdjecieUrl != "" || wynikZdjecieUrl != null)
                             {
                                 <img src="@url" alt="Zdjęcie produktu" width="200" height="200">                      
                             }
@@ -65,10 +66,18 @@
                                 <img src="@brakZdjecia" alt="Brak zdjęcia produktu" width="200" height="200">
                             }
                         </td>
+                        @if (item.CzyDobre == true)
+                        {
+                            <td>Tak ✔️</td>
+                        }
+                        else
+                        {
+                            <td>Nie ❌</td>
+                        }
                         <td>
-                            @Html.ActionLink("Edytuj Dane", "Edit", "Produkt", new { item.Id_Product, item.Id_Category, item.Id_Place, item.ProductDescription, item.ProductName, item.Opinion_Counter, item.AvarageTaste, item.AvarageService, item.AvarageIngredients, item.Who, item.UniqName }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Zatwierdz", "Edit", "Produkt", new { item.Id_Product, item.Id_Category, item.Id_Place, item.ProductDescription, item.ProductName, item.Opinion_Counter, item.AvarageTaste, item.AvarageService, item.AvarageIngredients, item.Who, item.UniqName, item.CzyDobre }, new { @class = "btn btn-primary" })
                             <hr />
-                            @Html.ActionLink("Edytuj Zdjęcie", "EditImage", "Produkt", new { }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Anuluj", "Edit", "Produkt", new { item.Id_Product, item.Id_Category, item.Id_Place, item.ProductDescription, item.ProductName, item.Opinion_Counter, item.AvarageTaste, item.AvarageService, item.AvarageIngredients, item.Who, item.UniqName, item.CzyDobre }, new { @class = "btn btn-warning" })
                             <hr />
                             @Html.ActionLink("Usuń", "Delete", "Produkt", new { idProdukt = item.Id_Product, nazwaProduktu = item.ProductName, imageUrl = wynikZdjecieUrl}, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ produkt?');" })
                         </td>
