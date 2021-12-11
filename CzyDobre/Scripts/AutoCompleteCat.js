@@ -1,8 +1,8 @@
 ﻿$(function () {
-    $("#CategorySE").autocomplete({
+    $("#CatSE").autocomplete({
         source: function (request, response) {
             $.ajax({
-                url: '/Produkt/AutoCompleteCategory/',
+                url: '/Home/AutoCompleteCategory/',
                 data: "{'prefix': '" + request.term + "'}",
                 dataType: "json",
                 type: "POST",

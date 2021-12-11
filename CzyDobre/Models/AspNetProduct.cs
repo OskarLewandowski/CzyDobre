@@ -32,6 +32,7 @@ namespace CzyDobre.Models
         public string Who { get; set; }
         public string UniqName { get; set; }
         public Nullable<int> Id_Place { get; set; }
+        public Nullable<bool> CzyDobre { get; set; }
     
         public virtual AspNetCategory AspNetCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

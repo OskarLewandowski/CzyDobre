@@ -77,6 +77,7 @@ namespace CzyDobre.Controllers
                     aspNetProduct.Who = model.Who;
                     aspNetProduct.UniqName = model.UniqName;
                     aspNetProduct.Id_Place = model.Id_Place;
+                    aspNetProduct.CzyDobre = model.CzyDobre;
 
                     db.Entry(aspNetProduct).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
@@ -107,12 +108,38 @@ namespace CzyDobre.Controllers
                 ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
                 Cloudinary cloudinary = new Cloudinary(account);
 
-                var idProduktu = db.AspNetProducts.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
-                var idZdjecia = db.AspNetImages.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
-                if (idProduktu != null && idZdjecia != null)
+                var Produkt = db.AspNetProducts.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
+                var ZdjecieProduktu = db.AspNetImages.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
+                var Opinia = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
+                var idOpini = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).Select(m => m.Id_Rating).FirstOrDefault();
+                var idZdjecie = db.AspNetRatingPictures.Where(m => m.Id_Rating == idOpini).FirstOrDefault();
+
+
+                if (Produkt != null && ZdjecieProduktu != null)
                 {
-                    db.AspNetProducts.Remove(idProduktu);
-                    db.AspNetImages.Remove(idZdjecia);
+                    db.AspNetProducts.Remove(Produkt);
+                    db.AspNetImages.Remove(ZdjecieProduktu);
+                    if(Opinia != null)
+                    {
+                        db.AspNetRatings.Remove(Opinia);
+
+                        while (Opinia == null)
+                        {
+                            Opinia = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
+                            db.AspNetRatings.Remove(Opinia);
+                        }
+                    }
+
+                    if (idZdjecie != null)
+                    {
+                        db.AspNetRatingPictures.Remove(idZdjecie);
+
+                        while (idZdjecie == null)
+                        {
+                            idZdjecie = db.AspNetRatingPictures.Where(m => m.Id_Rating == idOpini).FirstOrDefault();
+                            db.AspNetRatingPictures.Remove(idZdjecie);
+                        }
+                    }
 
                     db.SaveChanges();
                     //usuwan rozszezenia .jpg 4 i .jpng 5
@@ -142,9 +169,9 @@ namespace CzyDobre.Controllers
                 var produktList = db.AspNetProducts.ToList();
                 return View("ProduktList", produktList);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                this.AddNotification($"Nie można usunać produktu, który posiada opinię", NotificationType.ERROR);
+                this.AddNotification($"Bład: " + ex, NotificationType.ERROR);
                 return RedirectToAction("ProduktList");
             }
         }

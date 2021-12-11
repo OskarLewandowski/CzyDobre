@@ -8,43 +8,43 @@
     <hr />
     @using (Html.BeginForm("EditProdukt", "Produkt", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
     {
-        <div class="container">
-            @Html.HiddenFor(m => m.Id_Product)
-            @Html.HiddenFor(m => m.Opinion_Counter)
-            @Html.HiddenFor(m => m.AvarageIngredients)
-            @Html.HiddenFor(m => m.AvarageService)
-            @Html.HiddenFor(m => m.AvarageTaste)
-            @Html.HiddenFor(m => m.Who)
-            @Html.HiddenFor(m => m.UniqName)
-            <div class="form-group">
-                @Html.Label("Nazwa kategorii", new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m=>m.Id_Category, new { @class = "form-control", @id = "CategorySE" })
-                @Html.ValidationMessageFor(m => m.Id_Category, "", new { @class = "text-danger" })
-                <script defer src="~/Scripts/AutoCompleteCatPE.js"></script>
-            </div>
-            <div class="form-group">
-                @Html.Label("Nazwa miejsca", new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m => m.Id_Place, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Id_Place, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.Label("Nazwa produktu", new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.ProductName, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.Label("Opis produktu", new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m => m.ProductDescription, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.ProductDescription, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group" align="center">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Zapisz zmiany" class="btn btn-success" onclick="return confirm('Czy na pewno chcesz ZAPISAĆ ZMIANY?');" style="font-size: 20px" />
-                    @Html.ActionLink("Wróć do listy", "ProduktList", "Produkt", null, new { @class = "btn btn-info" })
-                </div>
-            </div>
-            <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+<div class="container">
+    @Html.HiddenFor(m => m.Id_Product)
+    @Html.HiddenFor(m => m.Opinion_Counter)
+    @Html.HiddenFor(m => m.AvarageIngredients)
+    @Html.HiddenFor(m => m.AvarageService)
+    @Html.HiddenFor(m => m.AvarageTaste)
+    @Html.HiddenFor(m => m.Who)
+    @Html.HiddenFor(m => m.UniqName)
+    @Html.HiddenFor(m => m.Id_Category)
+    @Html.HiddenFor(m => m.Id_Place)
+
+    <div class="form-group">
+        @Html.Label("Nazwa produktu", new { @class = "col-md-2 control-label" })
+        @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ProductName, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Opis produktu", new { @class = "col-md-2 control-label" })
+        @Html.TextBoxFor(m => m.ProductDescription, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ProductDescription, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Potwierdzenie produktu:  ", new { @class = "control-label" })
+        @Html.DropDownListFor(m => m.CzyDobre, new[] {
+         new SelectListItem() {Text = "Potwierdzony", Value = bool.TrueString},
+         new SelectListItem() {Text = "Nie potwierdzony", Value = bool.FalseString}
+         })
+        @Html.ValidationMessageFor(m => m.CzyDobre, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group" align="center">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zapisz zmiany" class="btn btn-success" onclick="return confirm('Czy na pewno chcesz ZAPISAĆ ZMIANY?');" style="font-size: 20px" />
+            @Html.ActionLink("Wróć do listy", "ProduktList", "Produkt", null, new { @class = "btn btn-info" })
         </div>
+    </div>
+    <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+</div>
     }
 </div>
 @Html.Partial("_Loading")
