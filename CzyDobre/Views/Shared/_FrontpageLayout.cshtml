@@ -24,9 +24,10 @@
                     <p class="frontpage-welcome-text col-12 col-md-4 col-md">Czego szukasz?</p>
                     <div class="col-md">
                         <form id="search-form" method="get" action="opinie" class="input-group-lg input-group mx-auto col">
-                            <input name="query" type="search" class="form-control left-bullet-radius" placeholder="Wyszukaj..." aria-label="Search"
+                            <input id="CatSE" name="query" type="search" class="form-control left-bullet-radius" placeholder="Wyszukaj..." aria-label="Search"
                                    aria-describedby="search-addon" />
                             <button type="submit" class="btn btn-lg fa fa-search text-white right-bullet-radius"></button>
+                            <script defer src="~/Scripts/AutoCompleteCat.js"></script>
                         </form>
                     </div>
                     <style>
