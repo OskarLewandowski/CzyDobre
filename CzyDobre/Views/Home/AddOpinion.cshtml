@@ -21,9 +21,6 @@
             </style>    
         <div class="row flex-column flex-lg-row">
                 <div id="dropSpot" class="position-relative d-flex flex-column col-12 col-lg-6 p-0">
-                <!--<label for="Photo" class="drag-and-drop-preview-parent">
-                        <img src="https://via.placeholder.com/1080" id="preview" class="drag-and-drop-preview-image" />
-                    </label>-->
                     <div class="drag-and-drop-preview">
                         <img src="" id="previewMain" class="drag-and-drop-preview-main d-none" />
                     </div>
@@ -34,8 +31,6 @@
                     </div>
                     @Html.TextBoxFor(m => m.Photo, new { type = "file", multiple = "multiple", @class = "drag-and-drop-file" })
                     @Html.ValidationMessageFor(m => m.Photo, "", new { @class = "text-danger" })
-                    <!--Html.LabelFor(m => m.Photo, new { class = "upload-image-overlay" })-->
-                    <!--<p style="text-align: left; padding: 3px;">Maksymalna wielkość zdjęć wynosi 5MB. Możliwe formaty .png lub .jpeg</p>-->
                 </div>
                 <script defer src="\Scripts\DragAndDrop.js"></script>
                 <div class="col-12 col-lg-6">
