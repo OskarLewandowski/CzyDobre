@@ -939,13 +939,13 @@ input:checked + .radio-button-mark {
     line-height: 1.2;
     word-break: break-word;
 }
-.opinion-details-preview {
+.opinion-details-image-container {
     width: 100%;
     max-height: 50vh;
     height: 500px;
     box-sizing: border-box;
     border: 1px solid black;
-    background: url(/image/Foto.png), rgb(43 48 53);
+    background: rgb(43 48 53);
     background-repeat: no-repeat;
     background-position: center center;
 }
