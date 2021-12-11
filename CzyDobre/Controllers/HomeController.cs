@@ -132,7 +132,7 @@ namespace CzyDobre.Controllers
         [Route("opinie")]
         [Route("Home/Opinion")]
         [AllowAnonymous]
-        public ActionResult Opinion(int id = 0, int filtr1 = 0, int filtr2 = 0, int filtr3 =0)
+        public ActionResult Opinion(int id = 0, int filtr1 = 0, int filtr2 = 0, int filtr3 =0, string query = "")
         {
             List<OpinionViewModels> opinionViewModels = new List<OpinionViewModels>();
             try
@@ -144,6 +144,10 @@ namespace CzyDobre.Controllers
                     a => a.Id_Product,
                     b => b.Id_Product,
                     (a, b) => a.Id_Product);
+                if (!String.IsNullOrEmpty(query))
+                {
+                    SQLresult = SQLresult.Where(c => c.AspNetProduct.AspNetCategory.CategoryName.Contains(query));
+                }
                 if (filtr1 != 0)
                 {
                     SQLresult = SQLresult.Where(c => c.RateTaste >= filtr1 + 1);

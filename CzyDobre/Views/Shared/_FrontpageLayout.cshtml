@@ -23,10 +23,10 @@
                 <div class="frontpage-searchbox-container col-12 col-lg-8 col-xl-6  row align-items-center">
                     <p class="frontpage-welcome-text col-12 col-md-4 col-md">Czego szukasz?</p>
                     <div class="col-md">
-                        <form id="search-form" action="opinie" class="input-group-lg input-group mx-auto col">
-                            <input  type="search" class="form-control left-bullet-radius" placeholder="Wyszukaj..." aria-label="Search"
+                        <form id="search-form" method="get" action="opinie" class="input-group-lg input-group mx-auto col">
+                            <input name="query" type="search" class="form-control left-bullet-radius" placeholder="Wyszukaj..." aria-label="Search"
                                    aria-describedby="search-addon" />
-                            <button type="button" onclick="location.href='opinie'" class="btn btn-lg fa fa-search text-white right-bullet-radius"></button>
+                            <button type="submit" class="btn btn-lg fa fa-search text-white right-bullet-radius"></button>
                         </form>
                     </div>
                     <style>
