@@ -471,7 +471,31 @@ namespace CzyDobre.Controllers
                                 db.SaveChanges();
                             }
 
+                            var wiadomosc = ConfigurationManager.AppSettings["EmailContactUs"].ToString();
+                            bool OK = false;
+                            int allSize = 0;
+
+                            MailMessage msg = new MailMessage();
+                            msg.From = new MailAddress(wiadomosc);
+                            msg.To.Add(new MailAddress(wiadomosc));
+                            msg.Subject = "Nowy produkt nr:" + prd.n;
+                            msg.Body = "Do bazy został dodany nowy produkt ! " + "\n" + "Email: " + ConfigurationManager.AppSettings["EmailContactUs"].ToString() + "\n" + "Wiadomość: " + "Produkt dodany! Sprawdz baze";
+
+
+
+                            SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
+                            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
+                                ConfigurationManager.AppSettings["EmailContactUs"].ToString(),
+                                ConfigurationManager.AppSettings["PasswordContactUS"].ToString());
+                            smtpClient.Credentials = credentials;
+                            smtpClient.EnableSsl = true;
+                            smtpClient.Send(msg);
+
+                            
+                            this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
+
                             ModelState.Clear();
+
                             this.AddNotification("Produkt został dodany pomyślnie.", NotificationType.SUCCESS);
                         }
                         else
@@ -507,6 +531,30 @@ namespace CzyDobre.Controllers
                                 db.AspNetImages.Add(image);
                                 db.SaveChanges();
                             }
+
+                            var wiadomosc = ConfigurationManager.AppSettings["EmailContactUs"].ToString();
+                            bool OK = false;
+                            int allSize = 0;
+
+                            MailMessage msg = new MailMessage();
+                            msg.From = new MailAddress(wiadomosc);
+                            msg.To.Add(new MailAddress(wiadomosc));
+                            msg.Subject = "Nowy produkt nr:" + prd.n;
+                            msg.Body = "Do bazy został dodany nowy produkt ! " + "\n" + "Email: " + ConfigurationManager.AppSettings["EmailContactUs"].ToString() + "\n" + "Wiadomość: " + "Produkt dodany! Sprawdz baze";
+
+
+
+                            SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
+                            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
+                                ConfigurationManager.AppSettings["EmailContactUs"].ToString(),
+                                ConfigurationManager.AppSettings["PasswordContactUS"].ToString());
+                            smtpClient.Credentials = credentials;
+                            smtpClient.EnableSsl = true;
+                            smtpClient.Send(msg);
+
+                            ModelState.Clear();
+                            this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
+
 
                             ModelState.Clear();
                             this.AddNotification("Produkt został dodany pomyślnie.", NotificationType.SUCCESS);

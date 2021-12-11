@@ -40,6 +40,21 @@ namespace CzyDobre.Controllers
             }
         }
 
+        public JsonResult AutoCompleteCategory(int id)
+        {
+            DBEntities db = new DBEntities();
+            var Products = (from AspNetCategory in db.AspNetCategories
+                            where AspNetCategory.Id_Category.Equals(id)
+                            select new
+                            {
+                                label = AspNetCategory.Id_Category,
+                                val = AspNetCategory.CategoryName
+                            }).ToList();
+
+            return Json(Products);
+        }
+        
+
         [Route("edytuj-produkt")]
         [Route("Produkt/EditProdukt")]
         [Authorize(Roles = "Admin, Moderator")]

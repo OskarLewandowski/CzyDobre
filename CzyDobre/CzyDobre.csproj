@@ -475,7 +475,6 @@
     </Compile>
     <Compile Include="Models\GetDishViewModels.cs" />
     <Compile Include="Models\AddOpinionViewModels.cs" />
-    <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\Locations.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -751,6 +750,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
+    <Content Include="Scripts\AutoCompleteCatPE.js" />
     <Content Include="Scripts\AutoCompleteCat.js" />
     <Content Include="Scripts\DragAndDrop.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />

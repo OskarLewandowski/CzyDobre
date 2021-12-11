@@ -18,8 +18,9 @@
             @Html.HiddenFor(m => m.UniqName)
             <div class="form-group">
                 @Html.Label("Nazwa kategorii", new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m => m.Id_Category, new { @class = "form-control" })
+                @Html.TextBoxFor(m=>m.Id_Category, new { @class = "form-control", @id = "CategorySE" })
                 @Html.ValidationMessageFor(m => m.Id_Category, "", new { @class = "text-danger" })
+                <script defer src="~/Scripts/AutoCompleteCatPE.js"></script>
             </div>
             <div class="form-group">
                 @Html.Label("Nazwa miejsca", new { @class = "col-md-2 control-label" })
