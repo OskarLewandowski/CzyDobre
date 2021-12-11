@@ -38,7 +38,6 @@ namespace CzyDobre.Controllers
             {
                 return View();
             }
-            return View();
         }
 
         [Route("edytuj-produkt")]
@@ -128,13 +127,11 @@ namespace CzyDobre.Controllers
                 var produktList = db.AspNetProducts.ToList();
                 return View("ProduktList", produktList);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.AddNotification($"Nie można usunać produktu, który posiada opinię", NotificationType.ERROR);
                 return RedirectToAction("ProduktList");
             }
-            var produktListt = db.AspNetProducts.ToList();
-            return View("ProduktList", produktListt);
         }
     }
 }
