@@ -2,7 +2,7 @@
     $("#CategorySE").autocomplete({
         source: function (request, response) {
             $.ajax({
-                url: '/Home/AutoCompleteCategory/',
+                url: '/Produkt/AutoCompleteCategory/',
                 data: "{'prefix': '" + request.term + "'}",
                 dataType: "json",
                 type: "POST",
