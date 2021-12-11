@@ -99,7 +99,7 @@ namespace CzyDobre.Controllers
                         RateIngredients = dr["RateIngredients"].ToString(),
                         RateTotal = dr["RateTotal"].ToString(),
                         RateAdcompliance = dr["RateAdcompliance"].ToString(),
-                        ImageUrl = dr["ImageURL"].ToString()
+                        ImageUrls = new List<string> { dr["ImageURL"].ToString() }
                     });
                 }
                 con.Close();
@@ -304,6 +304,9 @@ namespace CzyDobre.Controllers
                                    ProductName = AspNetProduct.ProductName
                                }
                                    ).FirstOrDefault();
+                opinionViewModel.ImageUrls = (from AspNetRatingPicture in db.AspNetRatingPictures
+                                              where AspNetRatingPicture.Id_Rating == opinionId
+                                              select AspNetRatingPicture.Url).ToList();
                 opinionViewModel.ProductName = opinion.ProductName.ToString();
                 opinionViewModel.RateService = opinion.RateService.ToString();
                 opinionViewModel.RateTaste = opinion.RateTaste.ToString();
@@ -313,30 +316,6 @@ namespace CzyDobre.Controllers
                 {
                     opinionViewModel.Comment = opinion.Comment.ToString();
                 }
-                /*
-                using(SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"]))
-                using(SqlCommand command = new SqlCommand("SELECT * FROM dbo.AspNetProducts WHERE Id_Product = @opinionId", con))
-                {
-
-                }
-                    ConnectionStringSettings mySetting = ;
-                con.ConnectionString = mySetting.ConnectionString;
-                try
-                {
-                    con.Open();
-                    com.Connection = con; com.CommandText = "SELECT * FROM dbo.AspNetRating WHERE Id_Rating = @opinionId";
-                    com.CommandText = "SELECT * FROM dbo.AspNetProducts WHERE Id_Product = @opinionId";
-                    dr = com.ExecuteReader();
-
-                    opinionDetailModel.OpinionId = opinionId;
-                    opinionDetailModel.ProductName = dr["ProductName"].ToString();
-
-                    con.Close();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }*/
                 return View(opinionViewModel);
             }
             else

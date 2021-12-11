@@ -64,18 +64,18 @@
                     <div class="card flex-column flex-sm-row flex-md-column flex-lg-row p-0 rounded-0">
                         <div class="browse-image-wrapper col-sm-9 col-md-12 col-lg-8 p-0">
                             @{
-                                if (!String.IsNullOrEmpty(Data.ImageUrl))
+                                if (!String.IsNullOrEmpty(Data.ImageUrls[0]))
                                 {
-                                    string temp = Data.ImageUrl;
-                                    Data.ImageUrl = "https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/";
-                                    Data.ImageUrl += temp;
+                                    string temp = Data.ImageUrls[0];
+                                    Data.ImageUrls[0] = "https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/";
+                                    Data.ImageUrls[0] += temp;
                                 }
                                 else
                                 {
-                                    Data.ImageUrl = "https://via.placeholder.com/1080";
+                                    Data.ImageUrls[0] = "https://via.placeholder.com/1080";
                                 }
                             }
-                            <img src="@Url.Content(Data.ImageUrl)" />
+                            <img src="@Url.Content(Data.ImageUrls[0])" />
                         </div>
                         <div class="p-2 col-sm-3 col-md-12 col-lg-4">
                             <div class="card-text row flex-row flex-sm-column flex-md-row flex-lg-column">
