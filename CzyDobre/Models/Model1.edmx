@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="novum_czydobre.plModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="novum_czydobre.plModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -70,6 +70,7 @@
           <Property Name="Who" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="UniqName" Type="nchar" MaxLength="250" />
           <Property Name="Id_Place" Type="int" />
+          <Property Name="CzyDobre" Type="bit" />
         </EntityType>
         <EntityType Name="AspNetRating">
           <Key>
@@ -492,8 +493,7 @@
             <End Role="AspNetRestaurants" EntitySet="AspNetRestaurants" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="novum_czydobre.plModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -571,6 +571,7 @@
           <NavigationProperty Name="AspNetPlace" Relationship="Self.FK_AspNetProducts_AspNetPlaces" FromRole="AspNetProducts" ToRole="AspNetPlaces" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetProducts_AspNetUsers" FromRole="AspNetProducts" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetRatings" Relationship="Self.FK_AspNetRating_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetRating" />
+          <Property Name="CzyDobre" Type="Boolean" />
         </EntityType>
         <EntityType Name="AspNetRating">
           <Key>
@@ -1039,6 +1040,7 @@
           <EntitySetMapping Name="AspNetProducts">
             <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetProduct">
               <MappingFragment StoreEntitySet="AspNetProducts">
+                <ScalarProperty Name="CzyDobre" ColumnName="CzyDobre" />
                 <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
                 <ScalarProperty Name="Id_Category" ColumnName="Id_Category" />
                 <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
