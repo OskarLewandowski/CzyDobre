@@ -132,22 +132,31 @@ namespace CzyDobre.Controllers
         [Route("opinie")]
         [Route("Home/Opinion")]
         [AllowAnonymous]
-        public ActionResult Opinion(int id = 0, int filtr1 = 0, int filtr2 = 0, int filtr3 =0, string query = "")
+        public ActionResult Opinion(int id = 0, int filtr1 = 0, int filtr2 = 0, int filtr3 =0, string query = "", int page = 0, int pageSize = 18)
         {
+            if(page < 0)
+            {
+                page = 0;
+            }
             List<OpinionViewModels> opinionViewModels = new List<OpinionViewModels>();
             try
             {
+                // Tworzenie łącza do bazy Entity Framework
                 DBEntities db = new DBEntities();
 
+                // Deklaracja listy typu IQueryable do przechowywania rekordów; Dołączenie do niej Tabeli AspNetRatings i AspNetProducts.
                 IQueryable<AspNetRating> SQLresult = db.AspNetRatings;
                 SQLresult.Join(db.AspNetProducts,
                     a => a.Id_Product,
                     b => b.Id_Product,
                     (a, b) => a.Id_Product);
+
+                // Wyszukiwanie.
                 if (!String.IsNullOrEmpty(query))
                 {
                     SQLresult = SQLresult.Where(c => c.AspNetProduct.AspNetCategory.CategoryName.Contains(query));
                 }
+                // Aplikowanie filtrów.
                 if (filtr1 != 0)
                 {
                     SQLresult = SQLresult.Where(c => c.RateTaste >= filtr1 + 1);
@@ -160,6 +169,8 @@ namespace CzyDobre.Controllers
                 {
                     SQLresult = SQLresult.Where(c => c.RateIngredients >= filtr3 + 1);
                 }
+
+                // Ustawianie sortowania.
                 switch (id)
                 {
                     case 1:
@@ -178,6 +189,8 @@ namespace CzyDobre.Controllers
                         SQLresult = SQLresult.OrderByDescending(x => x.Id_Rating);
                         break;
                 }
+
+                // Wybieranie danych parametrów.
                 SQLresult.Select(a => new {
                     a.AspNetProduct.ProductName,
                     a.Id_Rating,
@@ -185,8 +198,24 @@ namespace CzyDobre.Controllers
                     a.RateTaste,
                     a.RateIngredients
                 });
-                SQLresult.ToList();
 
+                // Ustawienia zmiennych ViewBag dla stronicowania.
+                // Ilość Stron (Liczone od 0).
+                ViewBag.NumberOfPages = 0;
+                ViewBag.NumberOfPages = SQLresult.Count()/pageSize;
+                // Aktualna strona.
+                ViewBag.ActivePage = page;
+                // Aktualne filtry.
+                ViewBag.Filter1 = filtr1;
+                ViewBag.Filter2 = filtr2;
+                ViewBag.Filter3 = filtr3;
+                // Aktualne sortowanie.
+                ViewBag.SortBy = id;
+
+                // Wybieranie pageSize rekordów, omijając rekordy poprzednich stron.
+                SQLresult = SQLresult.Skip(page*pageSize).Take(pageSize);
+
+                //Uzupełnianie listy modeli danymi z zapytania.
                 foreach (var row in SQLresult)
                 {
                     opinionViewModels.Add(new OpinionViewModels()
