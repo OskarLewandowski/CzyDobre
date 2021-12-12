@@ -16,9 +16,6 @@ body > .container {
     font-size: 16px;
 }
 
-.space-custom {
-    padding-left: 200px;
-}
 
 .col-sm-12 {
     padding: 0px;
@@ -27,15 +24,7 @@ body > .container {
 .bg-lightpaleblue {
     background-color: #E6F3FF !important;
 }
-.bgcolor {
-    background-color: dodgerblue;
-}
 
-.widthsearch {
-    width: 50%;
-    margin-right: 25%;
-    margin-left: 25%;
-}
 
 figure {
     color: white;
@@ -46,9 +35,6 @@ figure {
     background-image: url("/image/popular-stars.jpg")
 }
 
-.mt-8 {
-    margin-top: 8%;
-}
 
 .heightimg {
     width: 12em;
@@ -84,54 +70,12 @@ figure {
     padding-bottom: 5px;
 }
 
-.w-99 {
-    width: 99%;
-}
 
-.map {
-    width: 90%;
-    height: 350px;
-    margin-left: 6%;
-    margin-right: 5%;
-}
-
-.body-content {/*
-    margin-top: 15px;
-    margin-bottom: 15px;
-    padding-top: 0px;
-    padding-bottom: 1px;
-    background-color: white;
-    -webkit-box-shadow: 0px 0px 8px 1px rgba(66, 68, 90, 1);
-    -moz-box-shadow: 0px 0px 8px 1px rgba(66, 68, 90, 1);
-    box-shadow: 0px 0px 8px 1px rgba(66, 68, 90, 1);*/
-}
 
 .form-control {
     border-radius: 14px 14px 14px 14px;
 }
 
-.radius {
-    border-radius: 0px 14px 14px 0px;
-    border-color: #FD695F;
-    background-color: #FD695F;
-}
-
-.hello {
-    height: 400px;
-}
-
-.fontsettings {
-    font-size: 36px;
-    font-weight: bold;
-    color: #8B8B8B;
-    margin-top: 5%;
-}
-
-.figurefoodbar {
-    width: 100%;
-    height: 136px;
-    border: none;
-}
 
 .width-100 { /* Umożliwia ustalanie limitów wysokości oraz szerokości według rozmiarów ekranu */
     width: 100%;
@@ -143,24 +87,6 @@ figure {
     height: auto; /*calc(100vh - 144px);*/
 }
 
-.popularnesettings {
-    background-color: white;
-    font-size: 55px;
-    color: #FD695F;
-    height: 105px;
-    font-weight: bold;
-}
-
-.wys {
-    height: 10%;
-    width: 100%;
-}
-
-.greybar {
-    height: 10px;
-    background-color: #EBEBEB;
-    width: 100%;
-}
 
 .login {
     height: 90%;
@@ -196,12 +122,7 @@ figure {
     background-color: #FD695F;
     color: white;
 }
-/* LOGIN */
-.login-container {
-    position: absolute;
-    top: 0;
-    right: 15%;
-}
+
 /* RATTING */
 .star-rating {
     line-height: 32px;
@@ -225,24 +146,12 @@ input:focus {
 }
 /* FOOTER */
 
-.footerbar{
-    width: 1px;
-    height: 140px;
-    background-color: white;
-}
 .footer {
     width: 100%;
     height: auto;
     background-color: #f5f5f5;
     font-size: 17px;
 }
-
-.vertical-row {
-    Float: left;
-    height: 150px;
-    width: 1px;
-    background-color: white;
-} 
 
 .padding-footer {
     padding: 12px 0 6px 0;
@@ -273,11 +182,6 @@ input:focus {
     background-color: rgba(255,255,255,75%);
     border-radius: 64px;
     margin: 0 auto;
-}
-.frontpage-searchbox-margin {
-    position: absolute;
-    top: 50 px;
-    left: 45 px;
 }
 
 
@@ -326,10 +230,6 @@ input:focus {
     background-color:white;
 }
 
-.icon{
-    width: 20px;
-    height: 20px;
-}
 
 /* SECTION */
 .section-line {
@@ -355,11 +255,6 @@ input:focus {
     background-position: center;
 }
 
-.full-screen {
-    width: 100%;
-    height: 100%;
-}
-
 .left-bullet-radius {
     border-radius: 1.5rem 0px 0px 1.5rem !important;
 }
@@ -370,24 +265,7 @@ input:focus {
     background-color: #343A40;
 }
 
-.frontpage-popular-image-bg {
-    width: 100%;
-    background-image: url("/image/popular.png");
-    background-size: cover;
-}
-
-.wid-100 {
-    width: 100%;
-}
-
 .ml-15 {
-    margin-left: 15%;
-}
-
-.rowwidth {
-    background-color: white;
-    width: 70%;
-    height: 100%;
     margin-left: 15%;
 }
 
@@ -418,15 +296,6 @@ input:focus {
 /* FAQ END */
 
 /* dane kontaktowe*/
-.contactText {
-    margin-left: 15%;
-    font-size: 24px;
-}
-
-.responsiveIMG {
-    width: 100%;
-    height: 100%;
-}
 
 .aboutText {
     margin-top: 3%;
@@ -436,11 +305,6 @@ input:focus {
     font-family: Arial;
 }
 
-.questionBorder {
-    font-size: 20px;
-    padding: 10px;
-    border: 2px solid blue;
-}
 
 /*social media START*/
 .social-links {
@@ -512,10 +376,10 @@ input:focus {
     border: solid #cb422f;
 }
 
-.OAuth-Button-Google:hover{
-    color: #cb422f;
-    background-color: white;
-}
+    .OAuth-Button-Google:hover {
+        color: #cb422f;
+        background-color: white;
+    }
 
 .OAuth-Button-Facebook {
     background-color: #1877f2;
@@ -527,10 +391,10 @@ input:focus {
     border: solid #1877f2;
 }
 
-.OAuth-Button-Facebook:hover {
-    color: #1877f2;
-    background-color: white;
-}
+    .OAuth-Button-Facebook:hover {
+        color: #1877f2;
+        background-color: white;
+    }
 
 .OAuth-Button-Twitter {
     background-color: #00acee;
@@ -542,19 +406,16 @@ input:focus {
     border: solid #00acee;
 }
 
-.OAuth-Button-Twitter:hover {
-    color: #00acee;
-    background-color: white;
-}
+    .OAuth-Button-Twitter:hover {
+        color: #00acee;
+        background-color: white;
+    }
+
 /* OAuth END*/
 .role-div {
     text-align: center;
 }
 
-.buttons-role{
-    text-align: center;
-    padding: 10px;
-}
 
 .table-role {
     background-color: #007bff;
@@ -729,67 +590,15 @@ ul#navigation li a.last {
         width: 70%;
     }
 
-    .mt-8 {
-        margin-top: 20%;
-    }
 }
 
-@media screen and (max-width: 600px) {
-    .mt-8 {
-        margin-top: 30%;
-    }
-}
-/* Slider START */
-.switch {
-    position: relative;
-    display: block;
-    box-sizing: border-box;
-    height: 30px;
-    width: 66px;
-    margin: 3px;
-}
-.switch input{
-    display:none;
-}
-.slider {
-    position: absolute;
-    left:0;
-    top:0;
-    bottom:0;
-    right:0;
-    cursor: pointer;
-    background-color: #E8E8E8;
-    transition: 0.5s;
-    border-radius: 15px;
-}
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 36px;
-    width: 36px;
-    top: -3px;
-    left: -3px;
-    background-color: #E8E8E8;
-    box-sizing: border-box;
-    border: 1px solid #bbb;
-    border-radius: 50%;
-    transition: all 0.5s ease;
-}
-input:checked + .slider {
-    background-color: #20c997;
-}
-input:checked + .slider:before {
-    left: 34px;
-}
-/* Slider END */
+
 /* Przeglądaj START */
 
 .sortowanie{
     height: 100%;
 }
-.mb-10{
-    margin-bottom: 5rem;
-}
+
 .browse-image-wrapper {
     overflow: hidden;
     height: 250px;
@@ -892,15 +701,6 @@ input:checked + .slider:before {
         position: absolute;
         cursor: pointer;
     }
-.drag-and-drop-remove {
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-    color: white;
-    background-color: black;
-    padding: 2px;
-}
 .radio-button {
     background-color: gray;
     width: 16px;
@@ -926,12 +726,7 @@ input:checked + .slider:before {
 input:checked + .radio-button-mark {
     background-color: #28a745;
 }
-.object-contain {
-    object-fit: contain !important;
-}
-.object-cover {
-    object-fit: cover !important;
-}
+
 /* DragAndDrop END */
 /* Description START */
 .opinion-details-header {
