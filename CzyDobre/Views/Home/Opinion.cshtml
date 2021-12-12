@@ -50,7 +50,7 @@
         </div>
             <button id="reset" class="reset">RESET</button>
     </div>
-    </div>
+</div>
 
 <div class="row">
     @{
@@ -140,4 +140,43 @@
         }
     }
 </div>
+@if (ViewBag.NumberOfPages>1) {
+    RouteValueDictionary routeValues = new RouteValueDictionary(ViewContext.RouteData.Values);
+    foreach (string key in Request.QueryString.Keys)
+    {
+        routeValues[key] = Request.QueryString[key].ToString();
+    }
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                @{routeValues["page"] = 0;}
+                @Html.ActionLink("Pierwsza", "Opinion", "Home", routeValues, new Dictionary<string, object> { { "class", "page-link" } })
+            </li>
+            @{
+                int startPage = Math.Max(ViewBag.ActivePage - 2, 0);
+                int endPage = Math.Min(ViewBag.ActivePage + 2, ViewBag.NumberOfPages-1);
+                
+                for (int i = startPage; i <= endPage; i++)
+                {
+                    string label = (i+1).ToString();
+                    routeValues["page"] = i;
+                    if (ViewBag.ActivePage == i)
+                    {
+                        <li class="page-item">@Html.ActionLink(label, "Opinion", "Home", routeValues, new Dictionary<string, object> { { "class", "page-link active bg-dark" } })</li>
+                    }
+                    else
+                    {
+                        <li class="page-item">@Html.ActionLink(label, "Opinion", "Home", routeValues, new Dictionary<string, object> { { "class", "page-link" } })</li>
+                    }
+                }
+            }
+        <li class="page-item">
+            @{routeValues["page"] = ViewBag.NumberOfPages - 1;}
+            @Html.ActionLink("Ostatnia", "Opinion", "Home", routeValues, new Dictionary<string, object> { { "class", "page-link" } })
+        </li>
+        </ul>
+    </nav>
+    <script>
 
+    </script>
+}

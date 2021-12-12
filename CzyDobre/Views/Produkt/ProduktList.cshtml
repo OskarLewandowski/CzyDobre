@@ -57,7 +57,7 @@
                                 var wynikZdjecieUrl = db.AspNetImages.Where(u => u.Id_Product == item.Id_Product).Select(u => u.Url).FirstOrDefault();
                                 var url = urlCzydobre + wynikZdjecieUrl;
                             }
-                            @if (wynikZdjecieUrl != "" || wynikZdjecieUrl != null)
+                            @if (wynikZdjecieUrl != null && wynikZdjecieUrl != "")
                             {
                                 <img src="@url" alt="Zdjęcie produktu" width="200" height="200">                      
                             }
@@ -68,19 +68,36 @@
                         </td>
                         @if (item.CzyDobre == true)
                         {
-                            <td>Tak ✔️</td>
+                            <td>Tak ✔️ </td>
+                        }
+                        else if(item.Objections != null && item.CzyDobre == false)
+                        {
+                            <td>Nie ❌<br />Zastrzeżenie: @item.Objections</td>
+                        }
+                        else 
+                        {
+                            <td>Nie ❌</td>                        
+                        }
+                    <td>
+                        @if (item.CzyDobre == false && item.Objections == null)
+                        {
+                            @Html.ActionLink("Zatwierdź produkt", "ConfirmProdukt", "Produkt", new { idProduct = item.Id_Product, idCategory = item.Id_Category, idPlace = item.Id_Place, productDescription = item.ProductDescription, productName = item.ProductName, opinionCounter = item.Opinion_Counter, avarageTaste = item.AvarageTaste, avarageService = item.AvarageService, avarageIngredients = item.AvarageIngredients, who = item.Who, uniqName = item.UniqName, czyDobre = item.CzyDobre, objections = item.Objections }, new { @class = "btn btn-primary", onclick = "return confirm('Czy na pewno chcesz ZATWIERDŹIĆ produkt?');" })
+                            <hr />
+                            @Html.ActionLink("Dodaj zastrzeżenie", "Objections", "Produkt", new { item.Id_Product, item.Id_Category, item.Id_Place, item.ProductDescription, item.ProductName, item.Opinion_Counter, item.AvarageTaste, item.AvarageService, item.AvarageIngredients, item.Who, item.UniqName, item.CzyDobre, item.Objections }, new { @class = "btn btn-warning" })
+                        }
+                        else if (item.CzyDobre == false && item.Objections != null)
+                        {
+                            @Html.ActionLink("Zatwierdź produkt", "ConfirmProdukt", "Produkt", new { idProduct = item.Id_Product, idCategory = item.Id_Category, idPlace = item.Id_Place, productDescription = item.ProductDescription, productName = item.ProductName, opinionCounter = item.Opinion_Counter, avarageTaste = item.AvarageTaste, avarageService = item.AvarageService, avarageIngredients = item.AvarageIngredients, who = item.Who, uniqName = item.UniqName, czyDobre = item.CzyDobre, objections = item.Objections }, new { @class = "btn btn-primary", onclick = "return confirm('Czy na pewno chcesz ZATWIERDŹIĆ produkt?');" })
+                            <hr />
+                            @Html.ActionLink("Edytuj zastrzeżenie", "Objections", "Produkt", new { item.Id_Product, item.Id_Category, item.Id_Place, item.ProductDescription, item.ProductName, item.Opinion_Counter, item.AvarageTaste, item.AvarageService, item.AvarageIngredients, item.Who, item.UniqName, item.CzyDobre, item.Objections }, new { @class = "btn btn-warning" })
                         }
                         else
                         {
-                            <td>Nie ❌</td>
+                            @Html.ActionLink("Cofnij zatwierdzenie", "BackConfirmProdukt", "Produkt", new { idProduct = item.Id_Product, idCategory = item.Id_Category, idPlace = item.Id_Place, productDescription = item.ProductDescription, productName = item.ProductName, opinionCounter = item.Opinion_Counter, avarageTaste = item.AvarageTaste, avarageService = item.AvarageService, avarageIngredients = item.AvarageIngredients, who = item.Who, uniqName = item.UniqName, czyDobre = item.CzyDobre, objections = item.Objections }, new { @class = "btn btn-primary", onclick = "return confirm('Czy na pewno chcesz COFNĄĆ ZATWIERDZENIE produktu?');" })
                         }
-                        <td>
-                            @Html.ActionLink("Zatwierdz", "Edit", "Produkt", new { item.Id_Product, item.Id_Category, item.Id_Place, item.ProductDescription, item.ProductName, item.Opinion_Counter, item.AvarageTaste, item.AvarageService, item.AvarageIngredients, item.Who, item.UniqName, item.CzyDobre }, new { @class = "btn btn-primary" })
-                            <hr />
-                            @Html.ActionLink("Anuluj", "Edit", "Produkt", new { item.Id_Product, item.Id_Category, item.Id_Place, item.ProductDescription, item.ProductName, item.Opinion_Counter, item.AvarageTaste, item.AvarageService, item.AvarageIngredients, item.Who, item.UniqName, item.CzyDobre }, new { @class = "btn btn-warning" })
-                            <hr />
-                            @Html.ActionLink("Usuń", "Delete", "Produkt", new { idProdukt = item.Id_Product, nazwaProduktu = item.ProductName, imageUrl = wynikZdjecieUrl}, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ produkt?');" })
-                        </td>
+                        <hr />
+                        @Html.ActionLink("Usuń produkt", "Delete", "Produkt", new { idProdukt = item.Id_Product, nazwaProduktu = item.ProductName, imageUrl = wynikZdjecieUrl }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ produkt oraz związane z nim opinie?');" })
+                    </td>
                     </tr>
                 }
             </tbody>
