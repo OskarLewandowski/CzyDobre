@@ -1071,7 +1071,7 @@ namespace CzyDobre.Controllers
         [HttpPost]
         public ActionResult GetDish(OpinionViewModels mod)
         {
-
+            List<OpinionViewModels> opinionViewModels = new List<OpinionViewModels>();
             if (ModelState.IsValid)
             {
                 try
@@ -1103,21 +1103,38 @@ namespace CzyDobre.Controllers
 
                         this.AddNotification(result.ToString(), NotificationType.INFO);
 
-                        List<OpinionViewModels> opinionViewModels = new List<OpinionViewModels>();
-
                     
+
+                    IQueryable<AspNetRating> SQLresult = db.AspNetRatings;
+                    SQLresult.Join(db.AspNetProducts,
+                        a => a.Id_Product,
+                        b => b.Id_Product,
+                        (a, b) => a.Id_Product);
+                 
+                    SQLresult.Select(a => new {
+                        a.AspNetProduct.ProductName,
+                        a.Id_Rating,
+                        a.RateService,
+                        a.RateTaste,
+                        a.RateIngredients
+                    });
+                    SQLresult.ToList();
+
+                    foreach (var row in SQLresult)
+                    {
                         opinionViewModels.Add(new OpinionViewModels()
                         {
-                            ProductName = product,
-           
-                            RateService = rateS.ToString(),
-                            RateTaste = rateT.ToString(),
-                            RateIngredients = rateP.ToString(),
+                            ProductName = row.AspNetProduct.ProductName,
+                            RatingId = row.Id_Rating,
+                            RateService = row.RateService.ToString(),
+                            RateTaste = row.RateTaste.ToString(),
+                            RateIngredients = row.RateIngredients.ToString(),
                             ImageUrls = (from AspNetRatingPicture in db.AspNetRatingPictures
-                                         where AspNetRatingPicture.Id_Rating == n
+                                         where AspNetRatingPicture.Id_Rating == row.Id_Rating
                                          select AspNetRatingPicture.Url).ToList()
                         });
-                    
+                    }
+
 
 
                 }
@@ -1128,7 +1145,7 @@ namespace CzyDobre.Controllers
                 }
             }
 
-            return View("Dish");
+            return View("Dish", opinionViewModels);
         }
     }
     
