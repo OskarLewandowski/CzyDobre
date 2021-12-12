@@ -728,8 +728,8 @@
     <Content Include="image\Add.png" />
     <Content Include="image\Foto.png" />
     <Content Include="image\kontakt.png" />
-    <Content Include="image\logo_czydobre.png" />
     <Content Include="image\frontpage-image.jpg" />
+    <Content Include="image\logo_czydobre.png" />
     <Content Include="image\trojkat_login_register.png" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
