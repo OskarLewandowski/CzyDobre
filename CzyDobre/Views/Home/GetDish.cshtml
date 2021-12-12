@@ -1,6 +1,6 @@
 ﻿@using CzyDobre.Models
 @using reCAPTCHA.MVC
-@model GetDishViewModels
+@model OpinionViewModels
 @{
     ViewBag.Title = "Losuj danie";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,7 +15,7 @@
             {
                 @Html.AntiForgeryToken()
 
-               
+
                 <div class="form-group" align="center">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Losuj" class="btn btn-success" style="font-size: 20px" />
@@ -24,8 +24,9 @@
 
             }
         }
-
+        
     </div>
 </div>
+
 
 @Html.Partial("_Loading")
