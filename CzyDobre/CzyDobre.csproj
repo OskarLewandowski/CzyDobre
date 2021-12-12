@@ -750,6 +750,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
+    <Content Include="Scripts\AutoCompleteCatSE.js" />
     <Content Include="Scripts\AutoCompleteCatPE.js" />
     <Content Include="Scripts\AutoCompleteCat.js" />
     <Content Include="Scripts\DragAndDrop.js" />

@@ -786,6 +786,7 @@ namespace CzyDobre.Controllers
             
             return Json(Products);
         }
+        [AllowAnonymous]
         public JsonResult AutoCompleteCategory(string prefix)
         {
             DBEntities db = new DBEntities();

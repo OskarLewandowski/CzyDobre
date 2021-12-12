@@ -1,5 +1,5 @@
 ﻿$(function () {
-    $("#CatSE").autocomplete({
+    $("#CtSE").autocomplete({
         source: function (request, response) {
             $.ajax({
                 url: '/Home/AutoCompleteCategory/',
@@ -12,9 +12,8 @@
                         return item;
                     }))
                 },
-                error: function (xhr, status, error) {
-                    var err = eval("(" + xhr.responseText + ")");
-                    alert(err.Message);
+                error: function (response) {
+                    alert(response.responseText);
                 },
                 failure: function (response) {
                     alert(response.responseText);
