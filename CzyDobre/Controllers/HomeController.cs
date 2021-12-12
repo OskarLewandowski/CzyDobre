@@ -766,6 +766,7 @@ namespace CzyDobre.Controllers
 
             return View();
         }
+        [AllowAnonymous]
         public JsonResult AutoComplete(string prefix)
         {
             DBEntities db = new DBEntities();
