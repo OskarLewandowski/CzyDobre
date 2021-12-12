@@ -96,7 +96,7 @@
                             @Html.ActionLink("Cofnij zatwierdzenie", "BackConfirmProdukt", "Produkt", new { idProduct = item.Id_Product, idCategory = item.Id_Category, idPlace = item.Id_Place, productDescription = item.ProductDescription, productName = item.ProductName, opinionCounter = item.Opinion_Counter, avarageTaste = item.AvarageTaste, avarageService = item.AvarageService, avarageIngredients = item.AvarageIngredients, who = item.Who, uniqName = item.UniqName, czyDobre = item.CzyDobre, objections = item.Objections }, new { @class = "btn btn-primary", onclick = "return confirm('Czy na pewno chcesz COFNĄĆ ZATWIERDZENIE produktu?');" })
                         }
                         <hr />
-                        @Html.ActionLink("Usuń produkt", "Delete", "Produkt", new { idProdukt = item.Id_Product, nazwaProduktu = item.ProductName, imageUrl = wynikZdjecieUrl }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ produkt?');" })
+                        @Html.ActionLink("Usuń produkt", "Delete", "Produkt", new { idProdukt = item.Id_Product, nazwaProduktu = item.ProductName, imageUrl = wynikZdjecieUrl }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ produkt oraz związane z nim opinie?');" })
                     </td>
                     </tr>
                 }
