@@ -1,0 +1,39 @@
+﻿@model CzyDobre.Models.AspNetProduct
+@{
+    ViewBag.Title = "Objections";
+    Layout = "~/Views/Shared/_LayoutWide.cshtml";
+}
+<div>
+    <h2 style="text-align: center;">Dodaj zastrzeżenie do produktu</h2>
+    <hr />
+    @using (Html.BeginForm("AddObjections", "Produkt", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
+    {
+<div class="container">
+    @Html.HiddenFor(m => m.Id_Product)
+    @Html.HiddenFor(m => m.Opinion_Counter)
+    @Html.HiddenFor(m => m.AvarageIngredients)
+    @Html.HiddenFor(m => m.AvarageService)
+    @Html.HiddenFor(m => m.AvarageTaste)
+    @Html.HiddenFor(m => m.Who)
+    @Html.HiddenFor(m => m.UniqName)
+    @Html.HiddenFor(m => m.Id_Category)
+    @Html.HiddenFor(m => m.Id_Place)
+    @Html.HiddenFor(m => m.ProductName)
+    @Html.HiddenFor(m => m.ProductDescription)
+    @Html.HiddenFor(m => m.CzyDobre)
+    <div class="form-group">
+        @Html.Label("Tresć zastrzeżenia", new { @class = "col-md-2 control-label" })
+        @Html.TextAreaFor(m => m.Objections, new { placeholder = "Należy napisać co wymaga poprawy w produkcie, aby został zatwierdzony pomyślnie", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Objections, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group" align="center">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zapisz zmiany" class="btn btn-success" onclick="return confirm('Czy na pewno chcesz ZAPISAĆ ZMIANY?');" style="font-size: 20px" />
+            @Html.ActionLink("Wróć do listy", "ProduktList", "Produkt", null, new { @class = "btn btn-info" })
+        </div>
+    </div>
+    <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+</div>
+    }
+</div>
+@Html.Partial("_Loading")

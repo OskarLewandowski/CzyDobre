@@ -1051,7 +1051,7 @@
     <Content Include="Views\Manage\DeleteAccount.cshtml" />
     <Content Include="Views\Home\OpinionDescription.cshtml" />
     <Content Include="Views\Produkt\ProduktList.cshtml" />
-    <Content Include="Views\Produkt\Edit.cshtml" />
+    <Content Include="Views\Produkt\Objections.cshtml" />
     <Content Include="Views\Home\Dish.cshtml" />
   </ItemGroup>
   <ItemGroup>
