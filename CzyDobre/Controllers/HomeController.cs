@@ -1069,7 +1069,7 @@ namespace CzyDobre.Controllers
         [Route("losuj-danie")]
         [Route("Home/GetDish")]
         [HttpPost]
-        public ActionResult GetDish(GetDishViewModels mod)
+        public ActionResult GetDish(OpinionViewModels mod)
         {
 
             if (ModelState.IsValid)
@@ -1102,9 +1102,24 @@ namespace CzyDobre.Controllers
                         string result = product.ToString() + " Smak: " + rateT.ToString() + " Cena: " + rateP.ToString() + " Obsługa: " + rateS.ToString();
 
                         this.AddNotification(result.ToString(), NotificationType.INFO);
-                    
+
+                        List<OpinionViewModels> opinionViewModels = new List<OpinionViewModels>();
 
                     
+                        opinionViewModels.Add(new OpinionViewModels()
+                        {
+                            ProductName = product,
+           
+                            RateService = rateS.ToString(),
+                            RateTaste = rateT.ToString(),
+                            RateIngredients = rateP.ToString(),
+                            ImageUrls = (from AspNetRatingPicture in db.AspNetRatingPictures
+                                         where AspNetRatingPicture.Id_Rating == n
+                                         select AspNetRatingPicture.Url).ToList()
+                        });
+                    
+
+
                 }
                 catch (Exception ex)
                 {
@@ -1113,7 +1128,7 @@ namespace CzyDobre.Controllers
                 }
             }
 
-            return View();
+            return View("Dish");
         }
     }
     

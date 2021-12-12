@@ -1052,6 +1052,7 @@
     <Content Include="Views\Home\OpinionDescription.cshtml" />
     <Content Include="Views\Produkt\ProduktList.cshtml" />
     <Content Include="Views\Produkt\Edit.cshtml" />
+    <Content Include="Views\Home\Dish.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
