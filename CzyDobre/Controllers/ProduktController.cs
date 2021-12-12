@@ -25,10 +25,10 @@ namespace CzyDobre.Controllers
             return View(produktList);
         }
 
-        [Route("edytowanie-produktu")]
-        [Route("Produkt/Edit")]
+        [Route("dodawanie-zastrzezenia")]
+        [Route("Produkt/Objections")]
         [Authorize(Roles = "Admin, Moderator")]
-        public ActionResult Edit(AspNetProduct obj)
+        public ActionResult Objections(AspNetProduct obj)
         {
             if (obj != null)
             {
@@ -53,15 +53,84 @@ namespace CzyDobre.Controllers
 
             return Json(Products);
         }
-        
 
-        [Route("edytuj-produkt")]
-        [Route("Produkt/EditProdukt")]
+        [Route("zatwierdz-produkt")]
+        [Route("Produkt/ConfirmProdukt")]
         [Authorize(Roles = "Admin, Moderator")]
-        public ActionResult EditProdukt(AspNetProduct model)
+        public ActionResult ConfirmProdukt(int idProduct, int idCategory, int? idPlace, string productDescription, string productName, int opinionCounter, int? avarageTaste, int? avarageService, int? avarageIngredients, string who, string uniqName, bool czyDobre, string objections)
+        {
+            if (idProduct != 0)
+            {
+                AspNetProduct aspNetProduct = new AspNetProduct();
+
+                aspNetProduct.Id_Product = idProduct;
+                aspNetProduct.Id_Category = idCategory;
+                aspNetProduct.ProductDescription = productDescription;
+                aspNetProduct.ProductName = productName;
+                aspNetProduct.Opinion_Counter = opinionCounter;
+                aspNetProduct.AvarageTaste = avarageTaste;
+                aspNetProduct.AvarageService = avarageService;
+                aspNetProduct.AvarageIngredients = avarageIngredients;
+                aspNetProduct.Who = who;
+                aspNetProduct.UniqName = uniqName;
+                aspNetProduct.Id_Place = idPlace;
+                aspNetProduct.CzyDobre = true;
+                aspNetProduct.Objections = null;
+
+                db.Entry(aspNetProduct).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                this.AddNotification($"Produkt, zatwierdzony pomyślnie", NotificationType.SUCCESS);
+            }
+
+            var produktList = db.AspNetProducts.ToList();
+            return View("ProduktList", produktList);
+        }
+
+        [Route("cofnij-zatwierdzenie-produktu")]
+        [Route("Produkt/BackConfirmProdukt")]
+        [Authorize(Roles = "Admin, Moderator")]
+        public ActionResult BackConfirmProdukt(int idProduct, int idCategory, int? idPlace, string productDescription, string productName, int opinionCounter, int? avarageTaste, int? avarageService, int? avarageIngredients, string who, string uniqName, bool czyDobre, string objections)
+        {
+            if (idProduct != 0)
+            {
+                AspNetProduct aspNetProduct = new AspNetProduct();
+
+                aspNetProduct.Id_Product = idProduct;
+                aspNetProduct.Id_Category = idCategory;
+                aspNetProduct.ProductDescription = productDescription;
+                aspNetProduct.ProductName = productName;
+                aspNetProduct.Opinion_Counter = opinionCounter;
+                aspNetProduct.AvarageTaste = avarageTaste;
+                aspNetProduct.AvarageService = avarageService;
+                aspNetProduct.AvarageIngredients = avarageIngredients;
+                aspNetProduct.Who = who;
+                aspNetProduct.UniqName = uniqName;
+                aspNetProduct.Id_Place = idPlace;
+                aspNetProduct.CzyDobre = false;
+                aspNetProduct.Objections = objections;
+
+                db.Entry(aspNetProduct).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                this.AddNotification($"Zatwierdzenie produktu, cofnięte pomyślnie", NotificationType.SUCCESS);
+            }
+
+            var produktList = db.AspNetProducts.ToList();
+            return View("ProduktList", produktList);
+        }
+
+        [Route("dodaj-zastrzezenie")]
+        [Route("Produkt/AddObjections")]
+        [Authorize(Roles = "Admin, Moderator")]
+        public ActionResult AddObjections(AspNetProduct model)
         {
             try
             {
+                if(model.Objections == null)
+                {
+                    this.AddNotification($"Należy wprowadżić treść zastrzeżenia", NotificationType.ERROR);
+                    return View("Objections");
+                }
+
                 if (ModelState.IsValid)
                 {
                     AspNetProduct aspNetProduct = new AspNetProduct();
@@ -78,11 +147,12 @@ namespace CzyDobre.Controllers
                     aspNetProduct.UniqName = model.UniqName;
                     aspNetProduct.Id_Place = model.Id_Place;
                     aspNetProduct.CzyDobre = model.CzyDobre;
+                    aspNetProduct.Objections = model.Objections;
 
                     db.Entry(aspNetProduct).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
-                    this.AddNotification($"Produkt, edytowany pomyślnie", NotificationType.SUCCESS);
-                    return View("Edit");
+                    this.AddNotification($"Zastrzeżenie, dodane pomyślnie", NotificationType.SUCCESS);
+                    return View("Objections");
                 }
                 this.AddNotification($"Błąd!, Błędne dane", NotificationType.ERROR);
             }
