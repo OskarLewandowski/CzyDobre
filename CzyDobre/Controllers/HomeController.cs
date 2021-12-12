@@ -1099,7 +1099,7 @@ namespace CzyDobre.Controllers
                     var rateP = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateIngredients).FirstOrDefault();
                     var rateT = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateTaste).FirstOrDefault();
                     
-                        string result = product.ToString() + " Smak: " + rateT.ToString() + " Cena: " + rateP.ToString() + " Obsługa: " + rateS.ToString();
+                        string result = product.ToString() + " Smak: " + rateT.ToString() + " Cena: " + rateP.ToString() + " Obsługa: " + rateS.ToString()+ " " + n.ToString();
 
                         this.AddNotification(result.ToString(), NotificationType.INFO);
 
@@ -1120,20 +1120,21 @@ namespace CzyDobre.Controllers
                     });
                     SQLresult.ToList();
 
-                    foreach (var row in SQLresult)
-                    {
-                        opinionViewModels.Add(new OpinionViewModels()
+                    var qur=db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.Id_Rating).FirstOrDefault();
+
+
+                    opinionViewModels.Add(new OpinionViewModels()
                         {
-                            ProductName = row.AspNetProduct.ProductName,
-                            RatingId = row.Id_Rating,
-                            RateService = row.RateService.ToString(),
-                            RateTaste = row.RateTaste.ToString(),
-                            RateIngredients = row.RateIngredients.ToString(),
+                            ProductName = product.ToString(),
+                            RatingId = qur,
+                            RateService = rateS.ToString(),
+                            RateTaste = rateT.ToString(),
+                            RateIngredients = rateP.ToString(),
                             ImageUrls = (from AspNetRatingPicture in db.AspNetRatingPictures
-                                         where AspNetRatingPicture.Id_Rating == row.Id_Rating
+                                         where AspNetRatingPicture.Id_Rating == qur
                                          select AspNetRatingPicture.Url).ToList()
                         });
-                    }
+                    
 
 
 
