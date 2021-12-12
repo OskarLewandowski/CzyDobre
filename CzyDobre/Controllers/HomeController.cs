@@ -440,6 +440,7 @@ namespace CzyDobre.Controllers
                             product.UniqName = uniq;
                             product.ProductDescription = prd.ProductDescription;
                             product.Id_Category = query;
+
                             var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
                             product.Who = queru;
                             
