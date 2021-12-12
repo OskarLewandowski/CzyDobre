@@ -70,7 +70,8 @@
           <Property Name="Who" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="UniqName" Type="nchar" MaxLength="250" />
           <Property Name="Id_Place" Type="int" />
-          <Property Name="CzyDobre" Type="bit" />
+          <Property Name="CzyDobre" Type="bit" Nullable="false" />
+          <Property Name="Objections" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="AspNetRating">
           <Key>
@@ -82,10 +83,11 @@
           <Property Name="RateIngredients" Type="smallint" Nullable="false" />
           <Property Name="RateComposition" Type="smallint" Nullable="false" />
           <Property Name="Comment" Type="nvarchar" MaxLength="250" />
-          <Property Name="RateAdcompliance" Type="bit" Nullable="false" />
+          <Property Name="CzyDobre" Type="bit" Nullable="false" />
           <Property Name="RateTotal" Type="float" />
           <Property Name="Id_Product" Type="int" Nullable="false" />
           <Property Name="Who" Type="nvarchar" MaxLength="128" />
+          <Property Name="Objections" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="AspNetRatingPictures">
           <Key>
@@ -571,7 +573,8 @@
           <NavigationProperty Name="AspNetPlace" Relationship="Self.FK_AspNetProducts_AspNetPlaces" FromRole="AspNetProducts" ToRole="AspNetPlaces" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetProducts_AspNetUsers" FromRole="AspNetProducts" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetRatings" Relationship="Self.FK_AspNetRating_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetRating" />
-          <Property Name="CzyDobre" Type="Boolean" />
+          <Property Name="CzyDobre" Type="Boolean" Nullable="false" />
+          <Property Name="Objections" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AspNetRating">
           <Key>
@@ -583,13 +586,14 @@
           <Property Name="RateIngredients" Type="Int16" Nullable="false" />
           <Property Name="RateComposition" Type="Int16" Nullable="false" />
           <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="RateAdcompliance" Type="Boolean" Nullable="false" />
           <Property Name="RateTotal" Type="Double" />
           <Property Name="Id_Product" Type="Int32" Nullable="false" />
           <Property Name="Who" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetProduct" Relationship="Self.FK_AspNetRating_AspNetProducts" FromRole="AspNetRating" ToRole="AspNetProducts" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetRating_AspNetUsers" FromRole="AspNetRating" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetRatingPictures" Relationship="Self.FK_AspNetRatingPictures_AspNetRating" FromRole="AspNetRating" ToRole="AspNetRatingPictures" />
+          <Property Name="CzyDobre" Type="Boolean" Nullable="false" />
+          <Property Name="Objections" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AspNetRatingPicture">
           <Key>
@@ -1040,6 +1044,7 @@
           <EntitySetMapping Name="AspNetProducts">
             <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetProduct">
               <MappingFragment StoreEntitySet="AspNetProducts">
+                <ScalarProperty Name="Objections" ColumnName="Objections" />
                 <ScalarProperty Name="CzyDobre" ColumnName="CzyDobre" />
                 <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
                 <ScalarProperty Name="Id_Category" ColumnName="Id_Category" />
@@ -1058,13 +1063,14 @@
           <EntitySetMapping Name="AspNetRatings">
             <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRating">
               <MappingFragment StoreEntitySet="AspNetRating">
+                <ScalarProperty Name="Objections" ColumnName="Objections" />
+                <ScalarProperty Name="CzyDobre" ColumnName="CzyDobre" />
                 <ScalarProperty Name="Id_Rating" ColumnName="Id_Rating" />
                 <ScalarProperty Name="RateService" ColumnName="RateService" />
                 <ScalarProperty Name="RateTaste" ColumnName="RateTaste" />
                 <ScalarProperty Name="RateIngredients" ColumnName="RateIngredients" />
                 <ScalarProperty Name="RateComposition" ColumnName="RateComposition" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="RateAdcompliance" ColumnName="RateAdcompliance" />
                 <ScalarProperty Name="RateTotal" ColumnName="RateTotal" />
                 <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
                 <ScalarProperty Name="Who" ColumnName="Who" />
