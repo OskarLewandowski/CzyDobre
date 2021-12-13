@@ -180,61 +180,67 @@ namespace CzyDobre.Controllers
 
                 var Produkt = db.AspNetProducts.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
                 var ZdjecieProduktu = db.AspNetImages.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
-                var Opinia = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
+                var Opinia = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).ToList();
                 var idOpini = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).Select(m => m.Id_Rating).FirstOrDefault();
-                var idZdjecie = db.AspNetRatingPictures.Where(m => m.Id_Rating == idOpini).FirstOrDefault();
+                var idZdjecie = db.AspNetRatingPictures.Where(m => m.Id_Rating == idOpini).ToList();
 
 
-                if (Produkt != null && ZdjecieProduktu != null)
+                if (Produkt != null )
                 {
-                    db.AspNetProducts.Remove(Produkt);
-                    db.AspNetImages.Remove(ZdjecieProduktu);
+
+
+
+                    if(idZdjecie != null)
+                    {
+                        db.AspNetRatingPictures.RemoveRange(idZdjecie);
+                    }
+                    
                     if(Opinia != null)
                     {
-                        db.AspNetRatings.Remove(Opinia);
-
-                        while (Opinia == null)
-                        {
-                            Opinia = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).FirstOrDefault();
-                            db.AspNetRatings.Remove(Opinia);
-                        }
+                        db.AspNetRatings.RemoveRange(Opinia);
                     }
 
-                    if (idZdjecie != null)
+                    if (ZdjecieProduktu != null)
                     {
-                        db.AspNetRatingPictures.Remove(idZdjecie);
-
-                        while (idZdjecie == null)
-                        {
-                            idZdjecie = db.AspNetRatingPictures.Where(m => m.Id_Rating == idOpini).FirstOrDefault();
-                            db.AspNetRatingPictures.Remove(idZdjecie);
-                        }
+                        db.AspNetImages.Remove(ZdjecieProduktu);
                     }
-
+                        
+                    
+                    db.AspNetProducts.Remove(Produkt);
                     db.SaveChanges();
-                    //usuwan rozszezenia .jpg 4 i .jpng 5
-                    var ID4 = imageUrl.Remove(imageUrl.Length - 4);
-                    var ID5 = imageUrl.Remove(imageUrl.Length - 5);
-                    var nameId4 = "CzyDobre-images/" + ID4;
-                    var nameId5 = "CzyDobre-images/" + ID5;
 
-                    var deletionParams4 = new DeletionParams(ID4)
+
+                    //this.AddNotification(" "+Produkt.ToString()+"  "+ZdjecieProduktu.ToString() + " "+ Opinia.ToString() + " "+idZdjecie.ToString() + " "+idOpini.ToString(), NotificationType.INFO);
+
+
+
+                    if(idZdjecie != null)
                     {
-                        PublicId = nameId4
-                    };
-                    var deletionResult = cloudinary.Destroy(deletionParams4);
+                        //usuwan rozszezenia .jpg 4 i .jpng 5
+                        var ID4 = imageUrl.Remove(imageUrl.Length - 4);
+                        var ID5 = imageUrl.Remove(imageUrl.Length - 5);
+                        var nameId4 = "CzyDobre-images/" + ID4;
+                        var nameId5 = "CzyDobre-images/" + ID5;
 
-                    var deletionParams5 = new DeletionParams(ID5)
-                    {
-                        PublicId = nameId5
-                    };
-                    var deletionResult4 = cloudinary.Destroy(deletionParams5);
+                        var deletionParams4 = new DeletionParams(ID4)
+                        {
+                            PublicId = nameId4
+                        };
+                        var deletionResult = cloudinary.Destroy(deletionParams4);
 
-                    this.AddNotification("Produkt \"" + nazwaProduktu + "\" został pomyślnie usunięty! " + ID4 + ID5, NotificationType.SUCCESS);
+                        var deletionParams5 = new DeletionParams(ID5)
+                        {
+                            PublicId = nameId5
+                        };
+                        var deletionResult4 = cloudinary.Destroy(deletionParams5);
+                    }
+                   
+
+                    this.AddNotification("Produkt \"" + nazwaProduktu + "\" został pomyślnie usunięty! " , NotificationType.SUCCESS);
                 }
                 else
                 {
-                    this.AddNotification("Produkt nie został usunięty!", NotificationType.INFO);
+                    this.AddNotification("Produkt nie został usunięty!", NotificationType.ERROR);
                 }
                 var produktList = db.AspNetProducts.ToList();
                 return View("ProduktList", produktList);

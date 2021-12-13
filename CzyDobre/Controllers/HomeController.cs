@@ -479,7 +479,6 @@ namespace CzyDobre.Controllers
                             
                             foreach (var item in zapisz)
                             {
-
                                 image.Url = item;
                                 image.Id_Product = queryp;
                                 db.AspNetImages.Add(image);

@@ -539,6 +539,7 @@ namespace CzyDobre.Controllers
                 return RedirectToAction("Index", "Manage");
             }
 
+
             if (ModelState.IsValid)
             {
                 // Uzyskaj informacje o użytkowniku od dostawcy logowania zewnętrznego
@@ -563,6 +564,7 @@ namespace CzyDobre.Controllers
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }
+                    
                 }
                 AddErrors(result);
             }
