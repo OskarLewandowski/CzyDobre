@@ -127,7 +127,7 @@ namespace CzyDobre.Controllers
             {
                 if(model.Objections == null)
                 {
-                    this.AddNotification($"Należy wprowadżić treść zastrzeżenia", NotificationType.ERROR);
+                    this.AddNotification($"Należy wprowadzić treść zastrzeżenia", NotificationType.ERROR);
                     return View("Objections");
                 }
 
@@ -172,7 +172,6 @@ namespace CzyDobre.Controllers
         {
             try
             {
-
                 List<AspNetRatingPicture> lista = new List <AspNetRatingPicture>();
 
                 Account account = new Account(
@@ -186,18 +185,14 @@ namespace CzyDobre.Controllers
                 var Opinia = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).ToList();
                 var idOpini = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).Select(m => m.Id_Rating).FirstOrDefault();
                 var idZdjecie = db.AspNetRatingPictures.Where(m => m.Id_Rating == idOpini).ToList();
+
                 foreach (AspNetRating r in Opinia)
                 {
                     lista.AddRange(db.AspNetRatingPictures.Where(m => m.Id_Rating == r.Id_Rating).ToList());
                 }
                 
-
-
                 if (Produkt != null )
                 {
-
-
-
                     if(lista != null)
                     {
                         db.AspNetRatingPictures.RemoveRange(lista);
@@ -212,15 +207,10 @@ namespace CzyDobre.Controllers
                     {
                         db.AspNetImages.Remove(ZdjecieProduktu);
                     }
-                        
-                    
+                                       
                     db.AspNetProducts.Remove(Produkt);
                     db.SaveChanges();
-
-
                     //this.AddNotification(" "+Produkt.ToString()+"  "+ZdjecieProduktu.ToString() + " "+ Opinia.ToString() + " "+idZdjecie.ToString() + " "+idOpini.ToString(), NotificationType.INFO);
-
-
 
                     if(idZdjecie != null)
                     {
@@ -243,7 +233,6 @@ namespace CzyDobre.Controllers
                         var deletionResult4 = cloudinary.Destroy(deletionParams5);
                     }
                    
-
                     this.AddNotification("Produkt \"" + nazwaProduktu + "\" został pomyślnie usunięty! " , NotificationType.SUCCESS);
                 }
                 else
