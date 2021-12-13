@@ -172,6 +172,9 @@ namespace CzyDobre.Controllers
         {
             try
             {
+
+                List<AspNetRatingPicture> lista = new List <AspNetRatingPicture>();
+
                 Account account = new Account(
                 ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
                 ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
@@ -183,6 +186,11 @@ namespace CzyDobre.Controllers
                 var Opinia = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).ToList();
                 var idOpini = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).Select(m => m.Id_Rating).FirstOrDefault();
                 var idZdjecie = db.AspNetRatingPictures.Where(m => m.Id_Rating == idOpini).ToList();
+                foreach (AspNetRating r in Opinia)
+                {
+                    lista.AddRange(db.AspNetRatingPictures.Where(m => m.Id_Rating == r.Id_Rating).ToList());
+                }
+                
 
 
                 if (Produkt != null )
@@ -190,9 +198,9 @@ namespace CzyDobre.Controllers
 
 
 
-                    if(idZdjecie != null)
+                    if(lista != null)
                     {
-                        db.AspNetRatingPictures.RemoveRange(idZdjecie);
+                        db.AspNetRatingPictures.RemoveRange(lista);
                     }
                     
                     if(Opinia != null)
