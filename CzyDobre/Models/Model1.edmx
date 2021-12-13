@@ -59,7 +59,7 @@
           <Key>
             <PropertyRef Name="Id_Product" />
           </Key>
-          <Property Name="Id_Product" Type="int" Nullable="false" />
+          <Property Name="Id_Product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Id_Category" Type="int" Nullable="false" />
           <Property Name="ProductDescription" Type="nvarchar" MaxLength="250" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -68,7 +68,7 @@
           <Property Name="AvarageService" Type="int" />
           <Property Name="AvarageIngredients" Type="int" />
           <Property Name="Who" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UniqName" Type="nchar" MaxLength="250" />
+          <Property Name="UniqName" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="Id_Place" Type="int" />
           <Property Name="CzyDobre" Type="bit" Nullable="false" />
           <Property Name="Objections" Type="nvarchar" MaxLength="300" />
@@ -567,7 +567,7 @@
           <Property Name="AvarageService" Type="Int32" />
           <Property Name="AvarageIngredients" Type="Int32" />
           <Property Name="Who" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UniqName" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+          <Property Name="UniqName" Type="String" Nullable="false" MaxLength="300" Unicode="true" FixedLength="false" />
           <Property Name="Id_Place" Type="Int32" />
           <NavigationProperty Name="AspNetCategory" Relationship="Self.FK_AspNetProducts_AspNetCategories" FromRole="AspNetProducts" ToRole="AspNetCategories" />
           <NavigationProperty Name="AspNetImages" Relationship="Self.FK_AspNetImages_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetImages" />
