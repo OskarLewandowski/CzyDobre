@@ -88,6 +88,7 @@
           <Property Name="Id_Product" Type="int" Nullable="false" />
           <Property Name="Who" Type="nvarchar" MaxLength="128" />
           <Property Name="Objections" Type="nvarchar" MaxLength="300" />
+          <Property Name="Date" Type="date" />
         </EntityType>
         <EntityType Name="AspNetRatingPictures">
           <Key>
@@ -594,6 +595,7 @@
           <NavigationProperty Name="AspNetRatingPictures" Relationship="Self.FK_AspNetRatingPictures_AspNetRating" FromRole="AspNetRating" ToRole="AspNetRatingPictures" />
           <Property Name="CzyDobre" Type="Boolean" Nullable="false" />
           <Property Name="Objections" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="AspNetRatingPicture">
           <Key>
@@ -1063,6 +1065,7 @@
           <EntitySetMapping Name="AspNetRatings">
             <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRating">
               <MappingFragment StoreEntitySet="AspNetRating">
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Objections" ColumnName="Objections" />
                 <ScalarProperty Name="CzyDobre" ColumnName="CzyDobre" />
                 <ScalarProperty Name="Id_Rating" ColumnName="Id_Rating" />
