@@ -554,7 +554,7 @@ namespace CzyDobre.Controllers
                     NickName = model.NickName
                 };
                 var result = await UserManager.CreateAsync(user);
-                await this.UserManager.AddToRolesAsync(user.Id, "User");
+                //await this.UserManager.AddToRolesAsync(user.Id, "User");
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
