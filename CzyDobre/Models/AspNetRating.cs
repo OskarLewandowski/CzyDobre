@@ -31,6 +31,7 @@ namespace CzyDobre.Models
         public string Who { get; set; }
         public bool CzyDobre { get; set; }
         public string Objections { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
     
         public virtual AspNetProduct AspNetProduct { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
