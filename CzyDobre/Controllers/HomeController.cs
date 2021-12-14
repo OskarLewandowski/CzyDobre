@@ -315,6 +315,7 @@ namespace CzyDobre.Controllers
                                    RateIngredients = AspNetRating.RateIngredients,
                                    Comment = AspNetRating.Comment,
                                    AddedBy = AspNetUser.NickName,
+                                   AddedDate = AspNetRating.Date,
                                    ProductName = AspNetProduct.ProductName
                                }
                                    ).FirstOrDefault();
@@ -326,6 +327,7 @@ namespace CzyDobre.Controllers
                 opinionViewModel.RateTaste = opinion.RateTaste.ToString();
                 opinionViewModel.RateIngredients = opinion.RateIngredients.ToString();
                 opinionViewModel.AddedBy = opinion.AddedBy.ToString();
+                opinionViewModel.AddedDate = opinion.AddedDate;
                 if (!String.IsNullOrEmpty(opinion.Comment))
                 {
                     opinionViewModel.Comment = opinion.Comment.ToString();
@@ -908,6 +910,7 @@ namespace CzyDobre.Controllers
                                 rate.Comment = opn.Review;
 
                                 rate.Who = queru;
+                                rate.Date = DateTime.Now;
                                 rate.RateTotal = (rate.RateIngredients + rate.RateService + rate.RateTaste) / 3;
                                 db.AspNetRatings.Add(rate);
                                 db.SaveChanges();

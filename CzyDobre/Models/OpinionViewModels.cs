@@ -10,6 +10,7 @@ namespace CzyDobre.Models
         public string ProductName { get; set; }
         public int RatingId { get; set; }
         public string AddedBy { get; set; }
+        public DateTime? AddedDate { get; set; }
         public string RateService { get; set; }
         public string RateTaste { get; set; }
         public string RateComposition { get; set; }
