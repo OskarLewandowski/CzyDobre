@@ -9,13 +9,18 @@
 
 body > .container {
     flex: 1 auto;
+    padding-top:52px;
 }
 
 .navbar {
     padding: 0px;
     font-size: 16px;
 }
-
+#navbar-logo {
+    top:4px;
+    left:-4px;
+    z-index:100;
+}
 
 .col-sm-12 {
     padding: 0px;
@@ -200,14 +205,6 @@ input:focus {
     height: 510px;
     max-height: 50%;
     background-image: url("/image/frontpage-image.jpg");
-}
-
-.frontpage-image-gradient {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: none;
-    background: linear-gradient(rgba(52,58,64,1), rgba(52,58,64,0) 50%);
 }
 
 .frontpage-welcome-text {
@@ -668,6 +665,16 @@ ul#navigation li a.last {
     background-repeat: no-repeat;
     background-position: center center;
 }
+.drag-and-drop-remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    color: white;
+    background-color: black;
+    padding: 2px;
+    border-bottom-left-radius: 4px;
+}
 .drag-and-drop-preview-image, .drag-and-drop-preview-main {
     width: 100%;
     height: 100%;
@@ -756,6 +763,7 @@ input:checked + .radio-button-mark {
 .container-wide {
     width: 100%;
     max-width: 1440px;
+    padding-top: 52px;
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;

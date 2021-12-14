@@ -9,7 +9,7 @@
             <div class="btn-group">
                 @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "btn text-light" })
                 <div class="btn dropdown-toggle dropdown-toggle-split text-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
-                <div class="dropdown-menu">
+                <div class="dropdown-menu position-absolute">
                     @Html.ActionLink("Ustawienia", "Index", "Manage", null, new { @class = "dropdown-item" })
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
