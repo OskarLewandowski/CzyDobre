@@ -88,7 +88,7 @@
           <Property Name="Id_Product" Type="int" Nullable="false" />
           <Property Name="Who" Type="nvarchar" MaxLength="128" />
           <Property Name="Objections" Type="nvarchar" MaxLength="300" />
-          <Property Name="Date" Type="date" />
+          <Property Name="Date" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="AspNetRatingPictures">
           <Key>
