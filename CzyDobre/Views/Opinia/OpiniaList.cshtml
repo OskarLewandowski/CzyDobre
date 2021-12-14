@@ -93,7 +93,7 @@
                                 @Html.ActionLink("Cofnij zatwierdzenie", "BackConfirmOpinie", "Opinia", new { idRating = item.Id_Rating, rateService = item.RateService, rateTaste = item.RateTaste, rateIngriedients = item.RateIngredients, rateComposition = item.RateComposition, comment = item.Comment, czyDobre = item.CzyDobre, rateTotal = item.RateTotal, idProduct = item.Id_Product, who = item.Who, objections = item.Objections, date = item.Date }, new { @class = "btn btn-primary", onclick = "return confirm('Czy na pewno chcesz COFNĄĆ ZATWIERDZENIE opinii?');" })
                             }
                             <hr />
-                            @Html.ActionLink("Usuń opinię", "Delete", "Opinia", new { }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ opinię?');" })
+                            @Html.ActionLink("Usuń opinię", "Delete", "Opinia", new { idRating = item.Id_Rating, idProduct = item.Id_Product, nazwaProduktu = wynikProduktNazwa }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ opinię?');" })
                         </td>
                     </tr>
                 }
