@@ -615,11 +615,11 @@ ul#navigation li a.last {
         transition: 0.3s ease;
     }
 
-.browse-card {
+.browse-card-anchor {
     cursor: pointer;
 }
 
-    .browse-card:hover img {
+    .browse-card-anchor:hover img {
         transform: scale(1.2);
         transform-origin: 50% 50%;
     }

@@ -20,12 +20,6 @@ namespace CzyDobre.Controllers
 {
     public class HomeController : Controller
     {
-        private void DisplayDataOpinion(int id, int filtr1, int filtr2, int filtr3)
-        {
-
-        }
-
-
         //CzyDobre.pl/
         [AllowAnonymous]
         public ActionResult Index()
@@ -213,7 +207,7 @@ namespace CzyDobre.Controllers
                 // Ustawienia zmiennych ViewBag dla stronicowania.
                 // Ilość Stron (Liczone od 0).
                 ViewBag.NumberOfPages = 0;
-                ViewBag.NumberOfPages = SQLresult.Count() / pageSize;
+                ViewBag.NumberOfPages = (SQLresult.Count() - 1) / pageSize + 1;
                 // Aktualna strona.
                 ViewBag.ActivePage = page;
                 // Aktualne filtry.

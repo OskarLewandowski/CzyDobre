@@ -22,7 +22,7 @@
     <div class="col-md-6"></div>
     <div class="col-md-4">
         <div class="sortowanie">
-            <span class="d-block mb-3 average">Filtorwanie:</span>
+            <span class="d-block mb-3 average">Filtrowanie:</span>
             <div class="d-inline mr-5">
                 <select name="filtr1" id="filtr1">
                     <option value="0" disabled selected hidden>Smak</option>
@@ -62,78 +62,80 @@
             foreach (var Data in Model)
             {
                 string link = "opinia/" + Data.RatingId.ToString();
-                <div class="browse-card position-relative col-12 col-md-6 col-lg-4 p-2">
-                    <h6 class="card-title text-center my-0 py-1">@Data.ProductName</h6>
-                    <div class="card flex-column flex-sm-row flex-md-column flex-lg-row p-0 rounded-0">
-                        <div class="browse-image-wrapper col-sm-9 col-md-12 col-lg-8 p-0">
-                            @{
-                                if (Data.ImageUrls.Count > 0 && !String.IsNullOrEmpty(Data.ImageUrls[0]))
-                                {
-                                    string temp = Data.ImageUrls[0];
-                                    Data.ImageUrls[0] = "https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/";
-                                    Data.ImageUrls[0] += temp;
+                <div class="browse-card col-12 col-md-6 col-lg-4 p-2">
+                    <div class="h-100 w-100 position-relative browse-card-anchor">
+                        <h6 class="card-title text-center my-0 py-1">@Data.ProductName</h6>
+                        <div class="card flex-column flex-sm-row flex-md-column flex-lg-row p-0 rounded-0">
+                            <div class="browse-image-wrapper col-sm-9 col-md-12 col-lg-8 p-0">
+                                @{
+                                    if (Data.ImageUrls.Count > 0 && !String.IsNullOrEmpty(Data.ImageUrls[0]))
+                                    {
+                                        string temp = Data.ImageUrls[0];
+                                        Data.ImageUrls[0] = "https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/";
+                                        Data.ImageUrls[0] += temp;
+                                    }
+                                    else
+                                    {
+                                        Data.ImageUrls.Add("https://via.placeholder.com/1080");
+                                    }
                                 }
-                                else
-                                {
-                                    Data.ImageUrls.Add("https://via.placeholder.com/1080");
-                                }
-                            }
-                            <img src="@Url.Content(Data.ImageUrls[0])" />
-                        </div>
-                        <div class="p-2 col-sm-3 col-md-12 col-lg-4">
-                            <div class="card-text row flex-row flex-sm-column flex-md-row flex-lg-column">
-                                <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
-                                    @{
-                                        <label class="my-1 col-12">Obsługa</label>
-                                        for (int i = 0; i < 5; i++)
-                                        {
-                                            if (i < Convert.ToInt32(Data.RateService))
+                                <img src="@Url.Content(Data.ImageUrls[0])" />
+                            </div>
+                            <div class="p-2 col-sm-3 col-md-12 col-lg-4">
+                                <div class="card-text row flex-row flex-sm-column flex-md-row flex-lg-column">
+                                    <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
+                                        @{
+                                            <label class="my-1 col-12">Obsługa</label>
+                                            for (int i = 0; i < 5; i++)
                                             {
-                                                <span class="fa fa-star"></span>
-                                            }
-                                            else
-                                            {
-                                                <span class="fa fa-star-o"></span>
+                                                if (i < Convert.ToInt32(Data.RateService))
+                                                {
+                                                    <span class="fa fa-star"></span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="fa fa-star-o"></span>
+                                                }
                                             }
                                         }
-                                    }
-                                </div>
-                                <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
-                                    @{
-                                        <label class="my-1 col-12">Smak</label>
-                                        for (int i = 0; i < 5; i++)
-                                        {
-                                            if (i < Convert.ToInt32(Data.RateTaste))
+                                    </div>
+                                    <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
+                                        @{
+                                            <label class="my-1 col-12">Smak</label>
+                                            for (int i = 0; i < 5; i++)
                                             {
-                                                <span class="fa fa-star"></span>
-                                            }
-                                            else
-                                            {
-                                                <span class="fa fa-star-o"></span>
-                                            }
-                                        }
-                                    }
-                                </div>
-                                <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
-                                    @{
-                                        <label class="my-1 col-12">Cena</label>
-                                        for (int i = 0; i < 5; i++)
-                                        {
-                                            if (i < Convert.ToInt32(Data.RateIngredients))
-                                            {
-                                                <span class="fa fa-star"></span>
-                                            }
-                                            else
-                                            {
-                                                <span class="fa fa-star-o"></span>
+                                                if (i < Convert.ToInt32(Data.RateTaste))
+                                                {
+                                                    <span class="fa fa-star"></span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="fa fa-star-o"></span>
+                                                }
                                             }
                                         }
-                                    }
+                                    </div>
+                                    <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
+                                        @{
+                                            <label class="my-1 col-12">Cena</label>
+                                            for (int i = 0; i < 5; i++)
+                                            {
+                                                if (i < Convert.ToInt32(Data.RateIngredients))
+                                                {
+                                                    <span class="fa fa-star"></span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="fa fa-star-o"></span>
+                                                }
+                                            }
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <a href="@Url.Action(link)" class="stretched-link"></a>
                     </div>
-                    <a href="@Url.Action(link)" class="stretched-link"></a>
                 </div>
             }
         }
@@ -157,15 +159,19 @@
             </li>
             @{
                 int startPage = Math.Max(ViewBag.ActivePage - 2, 0);
-                int endPage = Math.Min(ViewBag.ActivePage + 2, ViewBag.NumberOfPages-1);
-                
+                int endPage = Math.Min(startPage + 4, ViewBag.NumberOfPages - 1);
+                if(endPage - startPage < 4)
+                {
+                    startPage = Math.Max(ViewBag.ActivePage + (-6 + (endPage - startPage)), 0);
+                }
+
                 for (int i = startPage; i <= endPage; i++)
                 {
                     string label = (i+1).ToString();
                     routeValues["page"] = i;
                     if (ViewBag.ActivePage == i)
                     {
-                        <li class="page-item">@Html.ActionLink(label, "Opinion", "Home", routeValues, new Dictionary<string, object> { { "class", "page-link active bg-dark" } })</li>
+                        <li class="page-item">@Html.ActionLink(label, "Opinion", "Home", routeValues, new Dictionary<string, object> { { "class", "page-link active btn-success" } })</li>
                     }
                     else
                     {
