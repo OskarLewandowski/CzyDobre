@@ -596,7 +596,12 @@ ul#navigation li a.last {
 /* Przeglądaj START */
 
 .sortowanie{
-    height: 100%;
+    background-color: #a5ffa7;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 0px solid black;
+    border-radius: 25px;
+    padding-left: 22px;
 }
 
 .browse-image-wrapper {
@@ -637,11 +642,14 @@ ul#navigation li a.last {
     background-color: cornflowerblue;
     border: none;
     color: white;
-    margin-top: 10%;
     width: 30%;
-    margin-top: 3em;
-    margin-left: 30%;
+    margin-top: 15px;
+    margin-left: 35%;
     margin-right: 40%;
+}
+.average{
+    color: black;
+    font-size: 20px;
 }
 .drag-and-drop-file {
     width: 0.1px;
