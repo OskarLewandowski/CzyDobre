@@ -112,8 +112,10 @@ namespace CzyDobre.Controllers
                     return View("Objections");
                 }
 
-                if (ModelState.IsValid)
+                if (model.Id_Product != 0)
                 {
+                    var nowaData = db.AspNetRatings.Where(u => u.Id_Rating == model.Id_Rating).Select(u => u.Date).FirstOrDefault();
+
                     AspNetRating aspNetRating = new AspNetRating();
 
                     aspNetRating.Id_Rating = model.Id_Rating;
@@ -127,7 +129,7 @@ namespace CzyDobre.Controllers
                     aspNetRating.Id_Product = model.Id_Product;
                     aspNetRating.Who = model.Who;
                     aspNetRating.Objections = model.Objections;
-                    aspNetRating.Date = model.Date;
+                    aspNetRating.Date = nowaData;
 
                     db.Entry(aspNetRating).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();

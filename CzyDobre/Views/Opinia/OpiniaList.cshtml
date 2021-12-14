@@ -33,8 +33,7 @@
                             }
                             @wynikProduktNazwa
                         </td>
-                        <td>@item.Comment
-                        @item.Date</td>
+                        <td>@item.Comment</td>
                         <td>
                             @{
                                 var wynikKto = db.AspNetUsers.Where(u => u.Id == item.Who).Select(u => u.NickName).FirstOrDefault();
