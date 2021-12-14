@@ -57,7 +57,7 @@
                                 var wynikZdjecieUrl = db.AspNetImages.Where(u => u.Id_Product == item.Id_Product).Select(u => u.Url).FirstOrDefault();
                                 var url = urlCzydobre + wynikZdjecieUrl;
                             }
-                            @if (wynikZdjecieUrl != null && wynikZdjecieUrl != "")
+                            @if (wynikZdjecieUrl != null)
                             {
                                 <img src="@url" alt="Zdjęcie produktu" width="200" height="200">                      
                             }
