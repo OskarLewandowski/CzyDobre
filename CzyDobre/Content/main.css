@@ -592,13 +592,13 @@ ul#navigation li a.last {
 
 /* Przeglądaj START */
 
-.sortowanie{
-    background-color: #a5ffa7;
-    padding-top: 10px;
+.sortowanie {
+    background-color: #a5ffa782;
+    /*padding-top: 10px; */
     padding-bottom: 10px;
     border: 0px solid black;
     border-radius: 25px;
-    padding-left: 22px;
+    /* padding-left: 22px; */
 }
 
 .browse-image-wrapper {
@@ -644,9 +644,12 @@ ul#navigation li a.last {
     margin-left: 35%;
     margin-right: 40%;
 }
-.average{
-    color: black;
+.average {
+    text-align:center;
+    color: #f31721;
+    font-weight: 600;
     font-size: 20px;
+    padding-bottom:5px;
 }
 .drag-and-drop-file {
     width: 0.1px;

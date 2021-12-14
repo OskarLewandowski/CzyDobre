@@ -160,9 +160,9 @@ namespace CzyDobre.Controllers
             {
                 ModelState.Clear();
                 this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
-                return View("Edit");
+                return View("Objections");
             }
-            return View("Edit");
+            return View("Objections");
         }
 
         [Route("usuwanie-produktu")]

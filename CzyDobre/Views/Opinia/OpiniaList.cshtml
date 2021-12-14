@@ -1,0 +1,116 @@
+﻿@model List<CzyDobre.Models.AspNetRating>
+@using CzyDobre.Models
+@{
+    ViewBag.Title = "OpiniaList";
+    Layout = "~/Views/Shared/_LayoutWide.cshtml";
+    DBEntities db = new DBEntities();
+}
+<div class="role-div">
+    <h2 style="text-align: center;">Lista opinii</h2>
+    <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+    <hr />
+    <div class="table">
+        <table id="produkty" class="table table-bordered table-hover display">
+            <thead>
+                <tr class="table-role">
+                    <th>ID opini</th>
+                    <th>Nazwa produktu</th>
+                    <th>Treść opinii</th>
+                    <th>Dodał</th>
+                    <th>Zdjęcia</th>
+                    <th>Weryfikacja</th>
+                    <th>Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id_Rating</td>
+                        <td>
+                            @{
+                                var wynikProduktNazwa = db.AspNetProducts.Where(u => u.Id_Product == item.Id_Product).Select(u => u.ProductName).FirstOrDefault();
+                            }
+                            @wynikProduktNazwa
+                        </td>
+                        <td>@item.Comment</td>
+                        <td>
+                            @{
+                                var wynikKto = db.AspNetUsers.Where(u => u.Id == item.Who).Select(u => u.NickName).FirstOrDefault();
+                            }
+                            @wynikKto<br />
+                            @item.Who
+                        </td>
+                        <td>
+                            @{
+                                string brakZdjecia = "https://res.cloudinary.com/czydobre-pl/image/upload/v1639157376/CzyDobre-www/Brak-zdjecia_fnfpal.png";
+                                string urlCzydobre = "https://res.cloudinary.com/czydobre-pl/image/upload/v1639154117/CzyDobre-images/";
+                                var listaZdjecUrl = db.AspNetRatingPictures.Where(u => u.Id_Rating == item.Id_Rating).Select(u => u.Url).ToList();
+
+                                for (int i = 0; i < listaZdjecUrl.Count; i++)
+                                {
+                                    var url = urlCzydobre + listaZdjecUrl[i];
+                                    if (listaZdjecUrl[i] != null)
+                                    {
+                                        <img src="@url" alt="Zdjęcie produktu" width="200" height="200">
+                                    }
+                                    else
+                                    {
+                                        <img src="@brakZdjecia" alt="Brak zdjęcia produktu" width="200" height="200">
+                                    }
+                                }
+                            }
+                        </td>
+
+                        @if (item.CzyDobre == true)
+                        {
+                            <td>Tak ✔️ </td>
+                        }
+                        else if (item.Objections != null && item.CzyDobre == false)
+                        {
+                            <td>Nie ❌<br />Zastrzeżenie: @item.Objections</td>
+                        }
+                        else
+                        {
+                            <td>Nie ❌</td>
+
+                        }
+                        <td>
+                            @if (item.CzyDobre == false && item.Objections == null)
+                            {
+                                @Html.ActionLink("Zatwierdź opinię", "ConfirmOpinie", "Opinia", new { idRating = item.Id_Rating, rateService = item.RateService, rateTaste = item.RateTaste, rateIngriedients = item.RateIngredients, rateComposition = item.RateComposition, comment = item.Comment, czyDobre = item.CzyDobre, rateTotal = item.RateTotal, idProduct = item.Id_Product, who = item.Who, objections = item.Objections, date = item.Date}, new { @class = "btn btn-primary", onclick = "return confirm('Czy na pewno chcesz ZATWIERDŹIĆ opinię?');" })
+                                <hr />
+                                @Html.ActionLink("Dodaj zastrzeżenie", "Objections", "Opinia", new { item.Id_Rating, item.RateService, item.RateTaste, item.RateIngredients, item.RateComposition, item.Comment, item.CzyDobre, item.RateTotal, item.Id_Product, item.Who, item.Objections, item.Date }, new { @class = "btn btn-warning" })
+                            }
+                            else if (item.CzyDobre == false && item.Objections != null)
+                            {
+                                @Html.ActionLink("Zatwierdź opinię", "ConfirmOpinie", "Opinia", new { idRating = item.Id_Rating, rateService = item.RateService, rateTaste = item.RateTaste, rateIngriedients = item.RateIngredients, rateComposition = item.RateComposition, comment = item.Comment, czyDobre = item.CzyDobre, rateTotal = item.RateTotal, idProduct = item.Id_Product, who = item.Who, objections = item.Objections, date = item.Date}, new { @class = "btn btn-primary", onclick = "return confirm('Czy na pewno chcesz ZATWIERDŹIĆ opinię?');" })
+                                <hr />
+                                @Html.ActionLink("Edytuj zastrzeżenie", "Objections", "Opinia", new { item.Id_Rating, item.RateService, item.RateTaste, item.RateIngredients, item.RateComposition, item.Comment, item.CzyDobre, item.RateTotal, item.Id_Product, item.Who, item.Objections, item.Date }, new { @class = "btn btn-warning" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Cofnij zatwierdzenie", "BackConfirmOpinie", "Opinia", new { idRating = item.Id_Rating, rateService = item.RateService, rateTaste = item.RateTaste, rateIngriedients = item.RateIngredients, rateComposition = item.RateComposition, comment = item.Comment, czyDobre = item.CzyDobre, rateTotal = item.RateTotal, idProduct = item.Id_Product, who = item.Who, objections = item.Objections, date = item.Date }, new { @class = "btn btn-primary", onclick = "return confirm('Czy na pewno chcesz COFNĄĆ ZATWIERDZENIE opinii?');" })
+                            }
+                            <hr />
+                            @Html.ActionLink("Usuń opinię", "Delete", "Opinia", new { }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ opinię?');" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#produkty').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pl.json"
+                }
+            });
+        });
+    </script>
+}

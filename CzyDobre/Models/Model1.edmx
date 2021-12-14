@@ -59,7 +59,7 @@
           <Key>
             <PropertyRef Name="Id_Product" />
           </Key>
-          <Property Name="Id_Product" Type="int" Nullable="false" />
+          <Property Name="Id_Product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Id_Category" Type="int" Nullable="false" />
           <Property Name="ProductDescription" Type="nvarchar" MaxLength="250" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -77,7 +77,7 @@
           <Key>
             <PropertyRef Name="Id_Rating" />
           </Key>
-          <Property Name="Id_Rating" Type="int" Nullable="false" />
+          <Property Name="Id_Rating" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RateService" Type="smallint" Nullable="false" />
           <Property Name="RateTaste" Type="smallint" Nullable="false" />
           <Property Name="RateIngredients" Type="smallint" Nullable="false" />
@@ -88,7 +88,7 @@
           <Property Name="Id_Product" Type="int" Nullable="false" />
           <Property Name="Who" Type="nvarchar" MaxLength="128" />
           <Property Name="Objections" Type="nvarchar" MaxLength="300" />
-          <Property Name="Date" Type="date" />
+          <Property Name="Date" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="AspNetRatingPictures">
           <Key>
@@ -559,7 +559,7 @@
           <Key>
             <PropertyRef Name="Id_Product" />
           </Key>
-          <Property Name="Id_Product" Type="Int32" Nullable="false" />
+          <Property Name="Id_Product" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Id_Category" Type="Int32" Nullable="false" />
           <Property Name="ProductDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
@@ -582,7 +582,7 @@
           <Key>
             <PropertyRef Name="Id_Rating" />
           </Key>
-          <Property Name="Id_Rating" Type="Int32" Nullable="false" />
+          <Property Name="Id_Rating" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RateService" Type="Int16" Nullable="false" />
           <Property Name="RateTaste" Type="Int16" Nullable="false" />
           <Property Name="RateIngredients" Type="Int16" Nullable="false" />
