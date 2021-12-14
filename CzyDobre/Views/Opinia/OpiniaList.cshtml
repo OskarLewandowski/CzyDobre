@@ -33,7 +33,8 @@
                             }
                             @wynikProduktNazwa
                         </td>
-                        <td>@item.Comment</td>
+                        <td>@item.Comment
+                        @item.Date</td>
                         <td>
                             @{
                                 var wynikKto = db.AspNetUsers.Where(u => u.Id == item.Who).Select(u => u.NickName).FirstOrDefault();
@@ -80,13 +81,13 @@
                             {
                                 @Html.ActionLink("Zatwierdź opinię", "ConfirmOpinie", "Opinia", new { idRating = item.Id_Rating, rateService = item.RateService, rateTaste = item.RateTaste, rateIngriedients = item.RateIngredients, rateComposition = item.RateComposition, comment = item.Comment, czyDobre = item.CzyDobre, rateTotal = item.RateTotal, idProduct = item.Id_Product, who = item.Who, objections = item.Objections, date = item.Date}, new { @class = "btn btn-primary", onclick = "return confirm('Czy na pewno chcesz ZATWIERDŹIĆ opinię?');" })
                                 <hr />
-                                @Html.ActionLink("Dodaj zastrzeżenie", "Objections", "Opinia", new { }, new { @class = "btn btn-warning" })
+                                @Html.ActionLink("Dodaj zastrzeżenie", "Objections", "Opinia", new { item.Id_Rating, item.RateService, item.RateTaste, item.RateIngredients, item.RateComposition, item.Comment, item.CzyDobre, item.RateTotal, item.Id_Product, item.Who, item.Objections, item.Date }, new { @class = "btn btn-warning" })
                             }
                             else if (item.CzyDobre == false && item.Objections != null)
                             {
                                 @Html.ActionLink("Zatwierdź opinię", "ConfirmOpinie", "Opinia", new { idRating = item.Id_Rating, rateService = item.RateService, rateTaste = item.RateTaste, rateIngriedients = item.RateIngredients, rateComposition = item.RateComposition, comment = item.Comment, czyDobre = item.CzyDobre, rateTotal = item.RateTotal, idProduct = item.Id_Product, who = item.Who, objections = item.Objections, date = item.Date}, new { @class = "btn btn-primary", onclick = "return confirm('Czy na pewno chcesz ZATWIERDŹIĆ opinię?');" })
                                 <hr />
-                                @Html.ActionLink("Edytuj zastrzeżenie", "Objections", "Opinia", new { }, new { @class = "btn btn-warning" })
+                                @Html.ActionLink("Edytuj zastrzeżenie", "Objections", "Opinia", new { item.Id_Rating, item.RateService, item.RateTaste, item.RateIngredients, item.RateComposition, item.Comment, item.CzyDobre, item.RateTotal, item.Id_Product, item.Who, item.Objections, item.Date }, new { @class = "btn btn-warning" })
                             }
                             else
                             {

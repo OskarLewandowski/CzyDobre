@@ -99,11 +99,10 @@ namespace CzyDobre.Controllers
             return View("OpiniaList", opiniaList);
         }
 
-
         [Route("dodaj-zastrzezenie-opinii")]
-        [Route("Opinia/AddObjectionsOpinia")]
+        [Route("Opinia/AddObjections")]
         [Authorize(Roles = "Admin, Moderator")]
-        public ActionResult AddObjectionsOpinia(AspNetRating model)
+        public ActionResult AddObjections(AspNetRating model)
         {
             try
             {
@@ -145,6 +144,5 @@ namespace CzyDobre.Controllers
             }
             return View("Objections");
         }
-
     }
 }
