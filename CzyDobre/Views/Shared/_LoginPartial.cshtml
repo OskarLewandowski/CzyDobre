@@ -19,6 +19,13 @@
                         @Html.ActionLink("Zarządzaj produktami", "ProduktList", "Produkt", null, new { @class = "dropdown-item" })
                         @Html.ActionLink("Zarządzaj opiniami", "OpiniaList", "Opinia", null, new { @class = "dropdown-item" })
                     }
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Moderator"))
+                    {
+                        <div class="dropdown-divider"></div>
+                        @Html.ActionLink("Zarządzaj produktami", "ProduktList", "Produkt", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Zarządzaj opiniami", "OpiniaList", "Opinia", null, new { @class = "dropdown-item" })
+                    }
+
                     <div class="dropdown-divider"></div>
                     <a href="javascript:document.getElementById('logoutForm').submit()" class="dropdown-item">Wyloguj</a>
                 </div>
