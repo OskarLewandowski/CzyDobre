@@ -112,7 +112,7 @@ namespace CzyDobre.Controllers
                     return View("Objections");
                 }
 
-                if (model.Id_Product != 0)
+                if (model.Id_Rating != 0)
                 {
                     var nowaData = db.AspNetRatings.Where(u => u.Id_Rating == model.Id_Rating).Select(u => u.Date).FirstOrDefault();
 
