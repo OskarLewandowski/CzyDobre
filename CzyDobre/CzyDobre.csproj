@@ -727,6 +727,7 @@
     <Content Include="Global.asax" />
     <Content Include="googleb759cfb5ebebcab7.html" />
     <Content Include="image\Add.png" />
+    <Content Include="image\AddFoto.png" />
     <Content Include="image\Foto.png" />
     <Content Include="image\kontakt.png" />
     <Content Include="image\frontpage-image.jpg" />
