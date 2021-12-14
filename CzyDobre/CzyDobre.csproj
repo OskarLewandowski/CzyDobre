@@ -1055,6 +1055,7 @@
     <Content Include="Views\Produkt\Objections.cshtml" />
     <Content Include="Views\Home\Dish.cshtml" />
     <Content Include="Views\Opinia\OpiniaList.cshtml" />
+    <Content Include="Views\Opinia\Objections.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
