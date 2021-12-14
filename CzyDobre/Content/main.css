@@ -593,7 +593,12 @@ ul#navigation li a.last {
 /* Przeglądaj START */
 
 .sortowanie{
-    height: 100%;
+    background-color: #a5ffa7;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 0px solid black;
+    border-radius: 25px;
+    padding-left: 22px;
 }
 
 .browse-image-wrapper {
@@ -634,11 +639,14 @@ ul#navigation li a.last {
     background-color: cornflowerblue;
     border: none;
     color: white;
-    margin-top: 10%;
     width: 30%;
-    margin-top: 3em;
-    margin-left: 30%;
+    margin-top: 15px;
+    margin-left: 35%;
     margin-right: 40%;
+}
+.average{
+    color: black;
+    font-size: 20px;
 }
 .drag-and-drop-file {
     width: 0.1px;
@@ -653,9 +661,10 @@ ul#navigation li a.last {
     height: 300px;
     box-sizing: border-box;
     border: 1px solid black;
-    background: url(/image/Foto.png), rgb(43 48 53);
+    background: url(/image/AddFoto.png), rgb(43 48 53);
     background-repeat: no-repeat;
     background-position: center center;
+    cursor:pointer;
 }
 .drag-and-drop-remove {
     position: absolute;
@@ -672,6 +681,7 @@ ul#navigation li a.last {
     height: 100%;
     object-fit: cover;
     border-radius: 4px;
+    user-select: none;
 }
 .drag-and-drop-preview-main {
     border-radius: 0 !important;
@@ -726,6 +736,7 @@ ul#navigation li a.last {
     width: 100%;
     height: 100%;
     display: block;
+    cursor: pointer;
 }
 input:checked + .radio-button-mark {
     background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');

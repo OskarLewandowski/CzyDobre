@@ -36,6 +36,15 @@ $(document).on("click", ".drag-and-drop-preview-image", function (e) {
 
 // Akceptuje plik lub ciąg plików. Dodaje plik do ciągu plików w cache'u oraz tworzy ich miniaturki.
 function AddFiles(files) {
+    // Sprawdź typ plików
+    const validImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+    for (let i = 0; i < files.length; i++) {
+        var file = files[i];
+        var fileType = file["type"];
+        if ($.inArray(fileType, validImageTypes) < 0) {
+            return;
+        }
+    }
     // Obecne zasobniki
     var zasobniki = $(".drag-and-drop-preview-image").length;
     // Dodaj pliki do cache'a
@@ -53,9 +62,7 @@ function AddFiles(files) {
             }
         })(file);
     }
-    if (!activePreviewImage) {
-        PreviewImage(0);
-    }
+    PreviewImage(cachedFiles.length-1);
 }
 
 // Akceptuje int. Usuwa plik wraz z miniaturką na danej pozycji.
