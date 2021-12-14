@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -22,7 +22,7 @@ namespace CzyDobre.Controllers
     {
         private void DisplayDataOpinion(int id, int filtr1, int filtr2, int filtr3)
         {
-            
+
         }
 
 
@@ -31,44 +31,55 @@ namespace CzyDobre.Controllers
         public ActionResult Index()
         {
             DBEntities db = new DBEntities();
+            RattingViewModel rateImage = new RattingViewModel();
+            string link = "https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/";
 
             var top1 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").FirstOrDefault();
             var top2 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(1).FirstOrDefault();
             var top3 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(2).FirstOrDefault();
             var top4 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(3).FirstOrDefault();
-        
-            var top1image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top1.Id_Product + "')").FirstOrDefault();
-            var top2image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top2.Id_Product + "')").FirstOrDefault();
-            var top3image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top3.Id_Product + "')").FirstOrDefault();
-            var top4image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top4.Id_Product + "')").FirstOrDefault();
 
-            RattingViewModel rateImage = new RattingViewModel();
 
-            string link = "https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/";
-            if (top1image != null)
+            if (top1 != null && top1.CzyDobre ==true)
             {
-                string fullLink1 = link + top1image.Url;
-                rateImage.Image1 = fullLink1;
+                var top1image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top1.Id_Product + "')").FirstOrDefault();
+                if (top1image != null)
+                {
+                    string fullLink1 = link + top1image.Url;
+                    rateImage.Image1 = fullLink1;
+                }
             }
-            if (top2image != null)
+            if (top2 != null && top2.CzyDobre == true)
             {
-                string fulLink2 = link + top2image.Url;
-                rateImage.Image2 = fulLink2;
+                var top2image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top2.Id_Product + "')").FirstOrDefault();
+                if (top2image != null)
+                {
+                    string fulLink2 = link + top2image.Url;
+                    rateImage.Image2 = fulLink2;
+                }
             }
-            if (top3image != null)
+            if (top3 != null && top3.CzyDobre == true)
             {
-                string fulLink3 = link + top3image.Url;
-                rateImage.Image3 = fulLink3;
+                var top3image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top3.Id_Product + "')").FirstOrDefault();
+                if (top3image != null)
+                {
+                    string fulLink3 = link + top3image.Url;
+                    rateImage.Image3 = fulLink3;
+                }
             }
-            if (top4image != null)
+            if (top4 != null && top4.CzyDobre == true)
             {
-                string fulLink4 = link + top4image.Url;
-                rateImage.Image4 = fulLink4;
+                var top4image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top4.Id_Product + "')").FirstOrDefault();
+                if (top4image != null)
+                {
+                    string fulLink4 = link + top4image.Url;
+                    rateImage.Image4 = fulLink4;
+                }
             }
-                
+
             return View(rateImage);
-            }
-       
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public JsonResult GetRate()
@@ -81,7 +92,7 @@ namespace CzyDobre.Controllers
             var top3 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(2).FirstOrDefault();
             var top4 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(3).FirstOrDefault();
 
-            if (top1.Opinion_Counter > 0)
+            if (top1.Opinion_Counter >= 0 && top1.CzyDobre == true)
             {
                 rate.ProductNameTop1 = top1.ProductName;
                 rate.OpinionCounterTop1 = top1.Opinion_Counter;
@@ -89,7 +100,7 @@ namespace CzyDobre.Controllers
                 rate.ServiceRateTop1 = top1.AvarageService / top1.Opinion_Counter;
                 rate.IngredientsRateTop1 = top1.AvarageIngredients / top1.Opinion_Counter;
             }
-            if (top2.Opinion_Counter > 0)
+            if (top2.Opinion_Counter >= 0 && top2.CzyDobre == true)
             {
                 rate.ProductNameTop2 = top2.ProductName;
                 rate.OpinionCounterTop2 = top2.Opinion_Counter;
@@ -97,7 +108,7 @@ namespace CzyDobre.Controllers
                 rate.ServiceRateTop2 = top2.AvarageService / top2.Opinion_Counter;
                 rate.IngredientsRateTop2 = top2.AvarageIngredients / top2.Opinion_Counter;
             }
-            if (top3.Opinion_Counter > 0)
+            if (top3.Opinion_Counter >= 0 && top3.CzyDobre == true)
             {
                 rate.ProductNameTop3 = top3.ProductName;
                 rate.OpinionCounterTop3 = top3.Opinion_Counter;
@@ -105,7 +116,7 @@ namespace CzyDobre.Controllers
                 rate.ServiceRateTop3 = top3.AvarageService / top3.Opinion_Counter;
                 rate.IngredientsRateTop3 = top3.AvarageIngredients / top3.Opinion_Counter;
             }
-            if (top4.Opinion_Counter > 0)
+            if (top4.Opinion_Counter >= 0 && top4.CzyDobre == true)
             {
                 rate.ProductNameTop4 = top4.ProductName;
                 rate.OpinionCounterTop4 = top4.Opinion_Counter;
@@ -132,9 +143,9 @@ namespace CzyDobre.Controllers
         [Route("opinie")]
         [Route("Home/Opinion")]
         [AllowAnonymous]
-        public ActionResult Opinion(int id = 0, int filtr1 = 0, int filtr2 = 0, int filtr3 =0, string query = "", int page = 0, int pageSize = 18)
+        public ActionResult Opinion(int id = 0, int filtr1 = 0, int filtr2 = 0, int filtr3 = 0, string query = "", int page = 0, int pageSize = 18)
         {
-            if(page < 0)
+            if (page < 0)
             {
                 page = 0;
             }
@@ -202,7 +213,7 @@ namespace CzyDobre.Controllers
                 // Ustawienia zmiennych ViewBag dla stronicowania.
                 // Ilość Stron (Liczone od 0).
                 ViewBag.NumberOfPages = 0;
-                ViewBag.NumberOfPages = SQLresult.Count()/pageSize;
+                ViewBag.NumberOfPages = SQLresult.Count() / pageSize;
                 // Aktualna strona.
                 ViewBag.ActivePage = page;
                 // Aktualne filtry.
@@ -213,7 +224,7 @@ namespace CzyDobre.Controllers
                 ViewBag.SortBy = id;
 
                 // Wybieranie pageSize rekordów, omijając rekordy poprzednich stron.
-                SQLresult = SQLresult.Skip(page*pageSize).Take(pageSize);
+                SQLresult = SQLresult.Skip(page * pageSize).Take(pageSize);
 
                 //Uzupełnianie listy modeli danymi z zapytania.
                 foreach (var row in SQLresult)
@@ -309,7 +320,8 @@ namespace CzyDobre.Controllers
                                join AspNetProduct in db.AspNetProducts on AspNetRating.Id_Product equals AspNetProduct.Id_Product
                                join AspNetUser in db.AspNetUsers on AspNetRating.Who equals AspNetUser.Id
                                where AspNetRating.Id_Rating == opinionId
-                               select new{
+                               select new
+                               {
                                    RateService = AspNetRating.RateService,
                                    RateTaste = AspNetRating.RateTaste,
                                    RateIngredients = AspNetRating.RateIngredients,
@@ -395,7 +407,7 @@ namespace CzyDobre.Controllers
                             }
                         }
                     }
-                
+
                     SmtpClient smtpClient = new SmtpClient("smtp.webio.pl", Convert.ToInt32(587));
                     System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
                         ConfigurationManager.AppSettings["EmailContactUs"].ToString(),
@@ -435,7 +447,7 @@ namespace CzyDobre.Controllers
         [Authorize]
         public ActionResult AddProducts(ProductFormModels prd)
         {
-            if (ModelState.IsValid )
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -448,20 +460,20 @@ namespace CzyDobre.Controllers
 
 
                     var query = db.AspNetCategories.Where(s => s.CategoryName == prd.CategoryName).Select(s => s.Id_Category).FirstOrDefault();
-                    
+
                     if (query != 0)
                     {
                         var queryl = db.AspNetPlaces.Where(s => s.PlaceName == prd.LocName.ToString()).Select(s => s.Id_Place).FirstOrDefault();
 
-                        int querynp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName ).Count();
+                        int querynp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName).Count();
 
-                        
-                        prd.n = db.AspNetProducts.Count()+1;
+
+                        prd.n = db.AspNetProducts.Count() + 1;
 
                         //this.AddNotification(n.ToString(), NotificationType.ERROR);
 
 
-                        if (queryl!= 0)
+                        if (queryl != 0)
                         {
                             db.AspNetProducts.Add(product);
                             string uniq = prd.ProductName + querynp.ToString();
@@ -474,11 +486,11 @@ namespace CzyDobre.Controllers
 
                             var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
                             product.Who = queru;
-                            
+
                             db.SaveChanges();
 
                             var queryp = db.AspNetProducts.Where(s => s.UniqName == uniq).Select(s => s.Id_Product).FirstOrDefault();
-                            
+
                             foreach (var item in zapisz)
                             {
                                 image.Url = item;
@@ -507,7 +519,7 @@ namespace CzyDobre.Controllers
                             smtpClient.EnableSsl = true;
                             smtpClient.Send(msg);
 
-                            
+
                             this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
 
                             ModelState.Clear();
@@ -516,7 +528,7 @@ namespace CzyDobre.Controllers
                         }
                         else
                         {
-                            var ql = db.AspNetPlaces.Count()+1;
+                            var ql = db.AspNetPlaces.Count() + 1;
 
                             //this.AddNotification(queryl.ToString(), NotificationType.INFO);
                             loc.Id_Place = ql;
@@ -543,7 +555,7 @@ namespace CzyDobre.Controllers
 
                                 image.Url = item;
                                 image.Id_Product = queryp;
-                                
+
                                 db.AspNetImages.Add(image);
                                 db.SaveChanges();
                             }
@@ -577,15 +589,15 @@ namespace CzyDobre.Controllers
 
 
                         }
-                        
-                    }
-             
-                    else
-                    {
-                        this.AddNotification("Przepraszamy ,nie ma takiej kategorii w naszej bazie !",NotificationType.ERROR);
 
                     }
-                    
+
+                    else
+                    {
+                        this.AddNotification("Przepraszamy ,nie ma takiej kategorii w naszej bazie !", NotificationType.ERROR);
+
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -593,7 +605,7 @@ namespace CzyDobre.Controllers
                     throw ex;
                 }
             }
-            
+
             /*else
             {
                 this.AddNotification("Brak danych!", NotificationType.ERROR);
@@ -771,7 +783,7 @@ namespace CzyDobre.Controllers
                     //this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
                 }
             }
-           
+
             return imagesData;
         }
         /*
@@ -783,7 +795,7 @@ namespace CzyDobre.Controllers
             return Json(ListOfAddress, JsonRequestBehavior.AllowGet);
         }
         */
-       
+
         //CzyDobre.pl/dodaj-opinie
         [Route("dodaj-opinie")]
         [Route("Home/AddOpinion")]
@@ -791,9 +803,9 @@ namespace CzyDobre.Controllers
         public ActionResult AddOpinion()
         {
             DBEntities db = new DBEntities();
-            
 
-           
+
+
 
             return View();
         }
@@ -801,21 +813,21 @@ namespace CzyDobre.Controllers
         public JsonResult AutoComplete(string prefix)
         {
             DBEntities db = new DBEntities();
-            var  Products = (from AspNetProduct  in db.AspNetProducts 
-                             join AspNetImage in db.AspNetImages on AspNetProduct.Id_Product equals AspNetImage.Id_Product
-                             join AspNetPlaces in db.AspNetPlaces on AspNetProduct.Id_Place equals AspNetPlaces.Id_Place
-                             where AspNetProduct.ProductName.Contains(prefix)
-                             
-                             select new
-                             {
-                                 label = AspNetProduct.ProductName,
-                                 img = AspNetImage.Url,
-                                 city = AspNetPlaces.PlaceName,
-                                 val = AspNetProduct.Id_Product
+            var Products = (from AspNetProduct in db.AspNetProducts
+                            join AspNetImage in db.AspNetImages on AspNetProduct.Id_Product equals AspNetImage.Id_Product
+                            join AspNetPlaces in db.AspNetPlaces on AspNetProduct.Id_Place equals AspNetPlaces.Id_Place
+                            where AspNetProduct.ProductName.Contains(prefix)
+
+                            select new
+                            {
+                                label = AspNetProduct.ProductName,
+                                img = AspNetImage.Url,
+                                city = AspNetPlaces.PlaceName,
+                                val = AspNetProduct.Id_Product
 
 
-                             }).ToList();
-            
+                            }).ToList();
+
             return Json(Products);
         }
         [AllowAnonymous]
@@ -854,27 +866,27 @@ namespace CzyDobre.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddOpinion(AddOpinionViewModels opn)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
                     DBEntities db = new DBEntities();
 
-                    
 
-                   
+
+
 
                     //Console.WriteLine(zapisz);
                     int querynp = db.AspNetProducts.Where(s => s.ProductName == opn.PName).Count();
-
+                    var verify = db.AspNetProducts.Where(s => s.ProductName == opn.PName).FirstOrDefault();
                     AspNetRating rate = new AspNetRating();
 
-                    
-                    var query = db.AspNetProducts.Where(s => s.UniqName == opn.PName+(querynp-1).ToString()).Select(s => s.Id_Product).FirstOrDefault();
-                    //this.AddNotification(opn.PName + querynp.ToString(), NotificationType.INFO);
-                    
 
-                    if (query!=0)
+                    var query = db.AspNetProducts.Where(s => s.UniqName == opn.PName + (querynp - 1).ToString()).Select(s => s.Id_Product).FirstOrDefault();
+                    //this.AddNotification(opn.PName + querynp.ToString(), NotificationType.INFO);
+
+
+                    if (query != 0 && verify.CzyDobre == true)
                     {
                         List<string> zapisz = new List<string>();
                         var user = db.AspNetProducts.Where(u => u.UniqName == opn.PName + (querynp - 1).ToString()).FirstOrDefault();
@@ -882,10 +894,10 @@ namespace CzyDobre.Controllers
                         var uni = db.AspNetRatings.Where(u => u.Id_Product == query && u.Who == queru).Count();
                         //this.AddNotification(uni.ToString(), NotificationType.ERROR);
 
-                      if(uni==0)
-                      {
-                         if(opn.RateIngredients!=0 && opn.RateService!=0 && opn.RateTaste!=0 )
-                         {
+                        if (uni == 0)
+                        {
+                            if (opn.RateIngredients != 0 && opn.RateService != 0 && opn.RateTaste != 0)
+                            {
                                 if (user.Opinion_Counter == 0)
                                 {
                                     user.AvarageService = 0;
@@ -898,7 +910,7 @@ namespace CzyDobre.Controllers
                                 user.AvarageService += opn.RateService;
                                 user.AvarageIngredients += opn.RateIngredients;
 
-                                var qr = db.AspNetRatings.Count()+1;
+                                var qr = db.AspNetRatings.Count() + 1;
 
                                 zapisz = SaveImagesToOpinion(opn);
                                 rate.Id_Rating = qr;
@@ -914,8 +926,8 @@ namespace CzyDobre.Controllers
                                 rate.RateTotal = (rate.RateIngredients + rate.RateService + rate.RateTaste) / 3;
                                 db.AspNetRatings.Add(rate);
                                 db.SaveChanges();
-                                
-                                
+
+
                                 AspNetRatingPicture image = new AspNetRatingPicture();
                                 foreach (var item in zapisz)
                                 {
@@ -927,33 +939,38 @@ namespace CzyDobre.Controllers
                                 }
                                 ModelState.Clear();
                                 this.AddNotification("Opinia została wysłana, dziękujemy za opinię.", NotificationType.SUCCESS);
-                         }
-                         else
+                            }
+                            else
                             {
                                 this.AddNotification("Jedna z ocen pozostała pusta ,uzupełnij ją!", NotificationType.ERROR);
                             }
-                         
-                                
 
-                      }
-                      else
-                      {
+
+
+                        }
+
+                        else
+                        {
                             this.AddNotification("Opinia została już wystawiona! Każdy użytkownik może ocenić dany produkt tylko raz", NotificationType.WARNING);
-                      }
+                        }
 
 
+                    }
+                    else if (verify.CzyDobre == false)
+                    {
+                        this.AddNotification("Produkt nie został jeszcze zweryfikowany!", NotificationType.ERROR);
                     }
                     else
                     {
                         this.AddNotification("Nie ma takiego produktu w naszej bazie ! Wprowadź ponownie nazwę produktu lub dodaj nowy!", NotificationType.ERROR);
-                       
+
                     }
-                    
 
-                  
 
-                   
-                    
+
+
+
+
                 }
                 catch (Exception ex)
                 {
@@ -983,7 +1000,7 @@ namespace CzyDobre.Controllers
             List<HttpPostedFileBase> checkedFiles = new List<HttpPostedFileBase>();
 
             if (ModelState.IsValid)
-            {              
+            {
                 try
                 {
                     Account account = new Account(
@@ -991,11 +1008,11 @@ namespace CzyDobre.Controllers
                         ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
                         ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
                     Cloudinary cloudinary = new Cloudinary(account);
-                    
+
                     //Weryfikacja plików
                     foreach (HttpPostedFileBase item in model.Photo)
                     {
-                        if(item != null && item.ContentLength > 0)
+                        if (item != null && item.ContentLength > 0)
                         {
                             ext = Path.GetExtension(item.FileName.ToLower());
 
@@ -1028,7 +1045,7 @@ namespace CzyDobre.Controllers
                     }
 
                     //Po weryfikacji
-                    if(OK == true)
+                    if (OK == true)
                     {
                         foreach (HttpPostedFileBase item in checkedFiles)
                         {
@@ -1047,13 +1064,13 @@ namespace CzyDobre.Controllers
                         }
                         //ModelState.Clear();
                         //this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
-                    }                
+                    }
                 }
                 catch (Exception ex)
                 {
-                   // ModelState.Clear();
+                    // ModelState.Clear();
                     this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
-                }        
+                }
             }
             return imagesData;
         }
@@ -1089,7 +1106,7 @@ namespace CzyDobre.Controllers
         [HttpGet]
         public ActionResult GetDish()
         {
-            
+
 
 
 
@@ -1122,26 +1139,26 @@ namespace CzyDobre.Controllers
                     int m = r.Next(numbers.Count());
                     int n = numbers[m];
 
-                   
 
 
-                    var product = db.AspNetProducts.Where(u => u.Id_Product == n).Select(u=>u.ProductName).FirstOrDefault();
+
+                    var product = db.AspNetProducts.Where(u => u.Id_Product == n).Select(u => u.ProductName).FirstOrDefault();
                     var rateS = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateService).FirstOrDefault();
                     var rateP = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateIngredients).FirstOrDefault();
                     var rateT = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateTaste).FirstOrDefault();
-                    
-                        string result = product.ToString() + " Smak: " + rateT.ToString() + " Cena: " + rateP.ToString() + " Obsługa: " + rateS.ToString()+ " " + n.ToString();
 
-                        this.AddNotification(result.ToString(), NotificationType.INFO);
+                    string result = product.ToString() + " Smak: " + rateT.ToString() + " Cena: " + rateP.ToString() + " Obsługa: " + rateS.ToString() + " " + n.ToString();
 
-                    
+                    this.AddNotification(result.ToString(), NotificationType.INFO);
+
+
 
                     IQueryable<AspNetRating> SQLresult = db.AspNetRatings;
                     SQLresult.Join(db.AspNetProducts,
                         a => a.Id_Product,
                         b => b.Id_Product,
                         (a, b) => a.Id_Product);
-                 
+
                     SQLresult.Select(a => new {
                         a.AspNetProduct.ProductName,
                         a.Id_Rating,
@@ -1151,21 +1168,21 @@ namespace CzyDobre.Controllers
                     });
                     SQLresult.ToList();
 
-                    var qur=db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.Id_Rating).FirstOrDefault();
+                    var qur = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.Id_Rating).FirstOrDefault();
 
 
                     opinionViewModels.Add(new OpinionViewModels()
-                        {
-                            ProductName = product.ToString(),
-                            RatingId = qur,
-                            RateService = rateS.ToString(),
-                            RateTaste = rateT.ToString(),
-                            RateIngredients = rateP.ToString(),
-                            ImageUrls = (from AspNetRatingPicture in db.AspNetRatingPictures
-                                         where AspNetRatingPicture.Id_Rating == qur
-                                         select AspNetRatingPicture.Url).ToList()
-                        });
-                    
+                    {
+                        ProductName = product.ToString(),
+                        RatingId = qur,
+                        RateService = rateS.ToString(),
+                        RateTaste = rateT.ToString(),
+                        RateIngredients = rateP.ToString(),
+                        ImageUrls = (from AspNetRatingPicture in db.AspNetRatingPictures
+                                     where AspNetRatingPicture.Id_Rating == qur
+                                     select AspNetRatingPicture.Url).ToList()
+                    });
+
 
 
 
@@ -1180,5 +1197,5 @@ namespace CzyDobre.Controllers
             return View("Dish", opinionViewModels);
         }
     }
-    
+
 }

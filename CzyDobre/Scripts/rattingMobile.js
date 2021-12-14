@@ -106,7 +106,6 @@
 
         },
         error: function (err) {
-            alert(err);
         }
     });
     })
