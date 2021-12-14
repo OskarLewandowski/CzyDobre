@@ -25,11 +25,14 @@
                 .append('<a>' + item.label + ', ' + item.city+ '</a>')
                 .appendTo(ul);
         };
-    
+          
+
     function updateTextBox(event, ui) {
         $(this).val(ui.item.label);
         return false;
     }
+
+
 });
 
 /*

@@ -477,7 +477,7 @@ namespace CzyDobre.Controllers
                         {
                             db.AspNetProducts.Add(product);
                             string uniq = prd.ProductName + querynp.ToString();
-                            product.Id_Product = prd.n;
+                            
                             product.Id_Place = queryl;
                             product.ProductName = prd.ProductName;
                             product.UniqName = uniq;
@@ -537,7 +537,7 @@ namespace CzyDobre.Controllers
                             db.SaveChanges();
 
                             string uniq = prd.ProductName + querynp.ToString();
-                            product.Id_Product = prd.n;
+                            
                             product.Id_Place = ql;
                             product.ProductName = prd.ProductName;
                             product.UniqName = uniq;
@@ -872,10 +872,6 @@ namespace CzyDobre.Controllers
                 {
                     DBEntities db = new DBEntities();
 
-
-
-
-
                     //Console.WriteLine(zapisz);
                     int querynp = db.AspNetProducts.Where(s => s.ProductName == opn.PName).Count();
                     var verify = db.AspNetProducts.Where(s => s.ProductName == opn.PName).FirstOrDefault();
@@ -910,10 +906,10 @@ namespace CzyDobre.Controllers
                                 user.AvarageService += opn.RateService;
                                 user.AvarageIngredients += opn.RateIngredients;
 
-                                var qr = db.AspNetRatings.Count() + 1;
+                                
 
                                 zapisz = SaveImagesToOpinion(opn);
-                                rate.Id_Rating = qr;
+                                
                                 rate.Id_Product = query;
 
                                 rate.RateIngredients = opn.RateIngredients;
@@ -933,7 +929,7 @@ namespace CzyDobre.Controllers
                                 {
 
                                     image.Url = item;
-                                    image.Id_Rating = qr;
+                                    image.Id_Rating = rate.Id_Rating;
                                     db.AspNetRatingPictures.Add(image);
                                     db.SaveChanges();
                                 }
