@@ -1123,55 +1123,63 @@ namespace CzyDobre.Controllers
 
                     List<int> numbers = new List<int>();
 
+                   
 
-                    numbers = db.AspNetRatings.Select(u => u.Id_Product).Distinct().ToList();
-                    Random r = new Random();
-                    int m = r.Next(numbers.Count());
-                    int n = numbers[m];
-
-
-
-
-                    var product = db.AspNetProducts.Where(u => u.Id_Product == n).Select(u => u.ProductName).FirstOrDefault();
-                    var rateS = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateService).FirstOrDefault();
-                    var rateP = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateIngredients).FirstOrDefault();
-                    var rateT = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateTaste).FirstOrDefault();
-
-                    string result = product.ToString() + " Smak: " + rateT.ToString() + " Cena: " + rateP.ToString() + " Obsługa: " + rateS.ToString() + " " + n.ToString();
-
-                    this.AddNotification(result.ToString(), NotificationType.INFO);
-
-
-
-                    IQueryable<AspNetRating> SQLresult = db.AspNetRatings;
-                    SQLresult.Join(db.AspNetProducts,
-                        a => a.Id_Product,
-                        b => b.Id_Product,
-                        (a, b) => a.Id_Product);
-
-                    SQLresult.Select(a => new {
-                        a.AspNetProduct.ProductName,
-                        a.Id_Rating,
-                        a.RateService,
-                        a.RateTaste,
-                        a.RateIngredients
-                    });
-                    SQLresult.ToList();
-
-                    var qur = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.Id_Rating).FirstOrDefault();
-
-
-                    opinionViewModels.Add(new OpinionViewModels()
+                   
+                    for (int i=0;i<=2;i++)
                     {
-                        ProductName = product.ToString(),
-                        RatingId = qur,
-                        RateService = rateS.ToString(),
-                        RateTaste = rateT.ToString(),
-                        RateIngredients = rateP.ToString(),
-                        ImageUrls = (from AspNetRatingPicture in db.AspNetRatingPictures
-                                     where AspNetRatingPicture.Id_Rating == qur
-                                     select AspNetRatingPicture.Url).ToList()
-                    });
+                        numbers = db.AspNetRatings.Select(u => u.Id_Product).Distinct().ToList();
+                        Random r = new Random();
+                        int m = r.Next(numbers.Count());
+                        int n = numbers[m];
+
+                        var product = db.AspNetProducts.Where(u => u.Id_Product == n).Select(u => u.ProductName).FirstOrDefault();
+                        var rateS = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateService).FirstOrDefault();
+                        var rateP = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateIngredients).FirstOrDefault();
+                        var rateT = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateTaste).FirstOrDefault();
+
+                        string result = product.ToString() + " Smak: " + rateT.ToString() + " Cena: " + rateP.ToString() + " Obsługa: " + rateS.ToString() + " " + n.ToString();
+
+                        this.AddNotification(result.ToString(), NotificationType.INFO);
+
+
+
+                        IQueryable<AspNetRating> SQLresult = db.AspNetRatings;
+                        SQLresult.Join(db.AspNetProducts,
+                            a => a.Id_Product,
+                            b => b.Id_Product,
+                            (a, b) => a.Id_Product);
+
+                        SQLresult.Select(a => new {
+                            a.AspNetProduct.ProductName,
+                            a.Id_Rating,
+                            a.RateService,
+                            a.RateTaste,
+                            a.RateIngredients
+                        });
+                        SQLresult.ToList();
+
+                        var qur = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.Id_Rating).FirstOrDefault();
+
+
+                        opinionViewModels.Add(new OpinionViewModels()
+                        {
+                            ProductName = product.ToString(),
+                            RatingId = qur,
+                            RateService = rateS.ToString(),
+                            RateTaste = rateT.ToString(),
+                            RateIngredients = rateP.ToString(),
+                            ImageUrls = (from AspNetRatingPicture in db.AspNetRatingPictures
+                                         where AspNetRatingPicture.Id_Rating == qur
+                                         select AspNetRatingPicture.Url).ToList()
+                        });
+                    }
+                    
+
+
+
+
+                    
 
 
 
