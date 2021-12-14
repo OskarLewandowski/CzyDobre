@@ -9,8 +9,8 @@
     <script src="@Url.Content("~/Scripts/filtr.js")"></script>
 }
 
-<div class="row mb-5 mt-3">
-    <div class="col-2 mt-0">
+<div class="row mb-5 mt-4">
+    <div class=" col-12 col-md-2 mt-0 mb-3">
         <select name="sort" id="sort">
             <option value="0" id="tekst" disabled selected hidden>Sortowanie</option>
             <option value="1">A-Z </option>
@@ -19,36 +19,39 @@
             <option value="4">Ostatnio dodane</option>
         </select>
     </div>
-    <div class="col-6"></div>
-        <div class="col-4 sortowanie">
-        <div class="d-inline mr-5">
-        <select name="filtr1" id="filtr1">
-            <option value="0" disabled selected hidden>Smak</option>
-            <option value="1">2-5 </option>
-            <option value="2">3-5</option>
-            <option value="3">4-5</option>
-            <option value="4">5</option>
-        </select>
+    <div class="col-md-6"></div>
+    <div class="col-md-4">
+        <div class="sortowanie">
+            <span class="d-block mb-3 average">Filtorwanie:</span>
+            <div class="d-inline mr-5">
+                <select name="filtr1" id="filtr1">
+                    <option value="0" disabled selected hidden>Smak</option>
+                    <option value="1">2-5 </option>
+                    <option value="2">3-5</option>
+                    <option value="3">4-5</option>
+                    <option value="4">5</option>
+                </select>
+            </div>
+            <div class="d-inline mr-5">
+                <select name="filtr2" id="filtr2">
+                    <option value="0" disabled selected hidden>Obsługa</option>
+                    <option value="1">2-5 </option>
+                    <option value="2">3-5</option>
+                    <option value="3">4-5</option>
+                    <option value="4">5</option>
+                </select>
+            </div>
+            <div class="d-inline">
+                <select name="filtr3" id="filtr3">
+                    <option value="0" disabled selected hidden>Cena</option>
+                    <option value="1">2-5 </option>
+                    <option value="2">3-5</option>
+                    <option value="3">4-5</option>
+                    <option value="4">5</option>
+                </select>
+            </div>
         </div>
-        <div class="d-inline mr-5">
-        <select name="filtr2" id="filtr2">
-            <option value="0" disabled selected hidden>Obsługa</option>
-            <option value="1">2-5 </option>
-            <option value="2">3-5</option>
-            <option value="3">4-5</option>
-            <option value="4">5</option>
-        </select>
-        </div>
-        <div class="d-inline">
-        <select name="filtr2" id="filtr3">
-            <option value="0" disabled selected hidden>Cena</option>
-            <option value="1">2-5 </option>
-            <option value="2">3-5</option>
-            <option value="3">4-5</option>
-            <option value="4">5</option>
-        </select>
-        </div>
-            <button id="reset" class="reset">RESET</button>
+        <button id="reset" class="reset">RESET</button>
     </div>
 </div>
 
