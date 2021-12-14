@@ -22,7 +22,7 @@
             @Html.HiddenFor(m => m.ProductDescription)
             @Html.HiddenFor(m => m.CzyDobre)
             <div class="form-group">
-                @Html.Label("Tresć zastrzeżenia", new { @class = "col-md-2 control-label" })
+                @Html.Label("Treść zastrzeżenia", new { @class = "col-md-2 control-label" })
                 @Html.TextAreaFor(m => m.Objections, new { placeholder = "Należy napisać co wymaga poprawy w produkcie, aby został zatwierdzony pomyślnie", @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Objections, "", new { @class = "text-danger" })
             </div>
