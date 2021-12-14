@@ -26,10 +26,10 @@ namespace CzyDobre.Models
         public short RateIngredients { get; set; }
         public short RateComposition { get; set; }
         public string Comment { get; set; }
+        public bool CzyDobre { get; set; }
         public Nullable<double> RateTotal { get; set; }
         public int Id_Product { get; set; }
         public string Who { get; set; }
-        public bool CzyDobre { get; set; }
         public string Objections { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
     

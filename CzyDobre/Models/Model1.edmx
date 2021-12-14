@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="novum_czydobre.plModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="novum_czydobre.plModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -59,7 +59,7 @@
           <Key>
             <PropertyRef Name="Id_Product" />
           </Key>
-          <Property Name="Id_Product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Product" Type="int" Nullable="false" />
           <Property Name="Id_Category" Type="int" Nullable="false" />
           <Property Name="ProductDescription" Type="nvarchar" MaxLength="250" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -68,7 +68,7 @@
           <Property Name="AvarageService" Type="int" />
           <Property Name="AvarageIngredients" Type="int" />
           <Property Name="Who" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UniqName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="UniqName" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Id_Place" Type="int" />
           <Property Name="CzyDobre" Type="bit" Nullable="false" />
           <Property Name="Objections" Type="nvarchar" MaxLength="300" />
@@ -496,7 +496,8 @@
             <End Role="AspNetRestaurants" EntitySet="AspNetRestaurants" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="novum_czydobre.plModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -567,15 +568,15 @@
           <Property Name="AvarageService" Type="Int32" />
           <Property Name="AvarageIngredients" Type="Int32" />
           <Property Name="Who" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UniqName" Type="String" Nullable="false" MaxLength="300" Unicode="true" FixedLength="false" />
+          <Property Name="UniqName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Id_Place" Type="Int32" />
+          <Property Name="CzyDobre" Type="Boolean" Nullable="false" />
+          <Property Name="Objections" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetCategory" Relationship="Self.FK_AspNetProducts_AspNetCategories" FromRole="AspNetProducts" ToRole="AspNetCategories" />
           <NavigationProperty Name="AspNetImages" Relationship="Self.FK_AspNetImages_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetImages" />
           <NavigationProperty Name="AspNetPlace" Relationship="Self.FK_AspNetProducts_AspNetPlaces" FromRole="AspNetProducts" ToRole="AspNetPlaces" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetProducts_AspNetUsers" FromRole="AspNetProducts" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetRatings" Relationship="Self.FK_AspNetRating_AspNetProducts" FromRole="AspNetProducts" ToRole="AspNetRating" />
-          <Property Name="CzyDobre" Type="Boolean" Nullable="false" />
-          <Property Name="Objections" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AspNetRating">
           <Key>
@@ -587,15 +588,15 @@
           <Property Name="RateIngredients" Type="Int16" Nullable="false" />
           <Property Name="RateComposition" Type="Int16" Nullable="false" />
           <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CzyDobre" Type="Boolean" Nullable="false" />
           <Property Name="RateTotal" Type="Double" />
           <Property Name="Id_Product" Type="Int32" Nullable="false" />
           <Property Name="Who" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Objections" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
           <NavigationProperty Name="AspNetProduct" Relationship="Self.FK_AspNetRating_AspNetProducts" FromRole="AspNetRating" ToRole="AspNetProducts" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetRating_AspNetUsers" FromRole="AspNetRating" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetRatingPictures" Relationship="Self.FK_AspNetRatingPictures_AspNetRating" FromRole="AspNetRating" ToRole="AspNetRatingPictures" />
-          <Property Name="CzyDobre" Type="Boolean" Nullable="false" />
-          <Property Name="Objections" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="AspNetRatingPicture">
           <Key>
@@ -1046,8 +1047,6 @@
           <EntitySetMapping Name="AspNetProducts">
             <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetProduct">
               <MappingFragment StoreEntitySet="AspNetProducts">
-                <ScalarProperty Name="Objections" ColumnName="Objections" />
-                <ScalarProperty Name="CzyDobre" ColumnName="CzyDobre" />
                 <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
                 <ScalarProperty Name="Id_Category" ColumnName="Id_Category" />
                 <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
@@ -1059,24 +1058,26 @@
                 <ScalarProperty Name="Who" ColumnName="Who" />
                 <ScalarProperty Name="UniqName" ColumnName="UniqName" />
                 <ScalarProperty Name="Id_Place" ColumnName="Id_Place" />
+                <ScalarProperty Name="CzyDobre" ColumnName="CzyDobre" />
+                <ScalarProperty Name="Objections" ColumnName="Objections" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRatings">
             <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetRating">
               <MappingFragment StoreEntitySet="AspNetRating">
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Objections" ColumnName="Objections" />
-                <ScalarProperty Name="CzyDobre" ColumnName="CzyDobre" />
                 <ScalarProperty Name="Id_Rating" ColumnName="Id_Rating" />
                 <ScalarProperty Name="RateService" ColumnName="RateService" />
                 <ScalarProperty Name="RateTaste" ColumnName="RateTaste" />
                 <ScalarProperty Name="RateIngredients" ColumnName="RateIngredients" />
                 <ScalarProperty Name="RateComposition" ColumnName="RateComposition" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="CzyDobre" ColumnName="CzyDobre" />
                 <ScalarProperty Name="RateTotal" ColumnName="RateTotal" />
                 <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
                 <ScalarProperty Name="Who" ColumnName="Who" />
+                <ScalarProperty Name="Objections" ColumnName="Objections" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
