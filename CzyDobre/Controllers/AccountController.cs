@@ -538,6 +538,7 @@ namespace CzyDobre.Controllers
             {
                 return RedirectToAction("Index", "Manage");
             }
+            DBEntities db = new DBEntities(); 
 
 
             if (ModelState.IsValid)
@@ -554,15 +555,23 @@ namespace CzyDobre.Controllers
                     Email = model.Email,
                     NickName = model.NickName
                 };
+                var role = db.AspNetRoles.Where(r => r.Name == "User").Select(r=>r.Id).ToString();
                 var result = await UserManager.CreateAsync(user);
-                //await this.UserManager.AddToRolesAsync(user.Id, "User");
+                //await this.UserManager.AddToRole(user.Id,role );
+                
+
+
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
+                        result = await UserManager.AddToRoleAsync(user.Id, "User");
+                        if (result.Succeeded)
+                        {
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                            return RedirectToLocal(returnUrl);
+                        }
                     }
                     
                 }
