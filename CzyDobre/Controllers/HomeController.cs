@@ -1140,7 +1140,7 @@ namespace CzyDobre.Controllers
 
                         string result = product.ToString() + " Smak: " + rateT.ToString() + " Cena: " + rateP.ToString() + " Obsługa: " + rateS.ToString() + " " + n.ToString();
 
-                        this.AddNotification(result.ToString(), NotificationType.INFO);
+                        //this.AddNotification(result.ToString(), NotificationType.INFO);
 
 
 
