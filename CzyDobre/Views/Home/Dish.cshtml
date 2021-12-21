@@ -2,7 +2,21 @@
     ViewBag.Title = "Opinie";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (User.Identity.IsAuthenticated /* && User.IsInRole("Admin")*/)
+{
+    using (Html.BeginForm("GetDish", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
+    {
+        @Html.AntiForgeryToken()
 
+
+        <div class="form-group" align="center">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Losuj ponownie" class="btn btn-success" style="font-size: 20px" />
+            </div>
+        </div>
+
+    }
+}
 
 <div class="row">
     @{
@@ -90,6 +104,8 @@
         {
             <p>Wystąpił błąd.</p>
         }
+
     }
+
 </div>
 

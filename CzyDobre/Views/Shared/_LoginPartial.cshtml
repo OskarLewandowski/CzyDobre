@@ -18,6 +18,8 @@
                         @Html.ActionLink("Zarządzaj użytkownikami", "UserList", "User", null, new { @class = "dropdown-item" })
                         @Html.ActionLink("Zarządzaj produktami", "ProduktList", "Produkt", null, new { @class = "dropdown-item" })
                         @Html.ActionLink("Zarządzaj opiniami", "OpiniaList", "Opinia", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Moje Opinie", "MojaOpinia", "MyOpinion", null, new { @class = "dropdown-item" })
+
                     }
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Moderator"))
                     {

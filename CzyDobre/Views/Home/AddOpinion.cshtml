@@ -29,7 +29,7 @@
                             <label for="Photo"></label>
                         </div>
                     </div>
-                    @Html.TextBoxFor(m => m.Photo, new { type = "file", multiple = "multiple", @class = "drag-and-drop-file", accept= "image/png, image/jpeg, image/jpg" })
+                    @Html.TextBoxFor(m => m.Photo, new { type = "file", multiple = "multiple", @class = "drag-and-drop-file", accept = "image/png, image/jpeg, image/jpg" })
                     @Html.ValidationMessageFor(m => m.Photo, "", new { @class = "text-danger" })
                 </div>
                 <script defer src="\Scripts\DragAndDrop.js"></script>
@@ -51,20 +51,36 @@
                         @{
                             <div class="col px-1">
                                 <span class="d-block mb-1">Obsługa</span>
-                                @for (int i = 1; i < 6; i++)
-                                {<label class="radio-button">@Html.RadioButton("RateService", i, new { @class = " control-label" })<span class="radio-button-mark"></span></label>}
+                                <div class="d-flex flex-row-reverse justify-content-center">
+                                    @{string temp = "";}
+                                    @for (int i = 5; i > 0; i--)
+                                    {
+                                        temp = "RateService" + i.ToString();
+                                        @Html.RadioButton("RateService", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
+                                    }
+                                </div>
                                 @Html.ValidationMessageFor(m => m.RateService, "", new { @class = "text-danger" })
                             </div>
                             <div class="col px-1">
                                 <span class="d-block mb-1">Cena</span>
-                                @for (int i = 1; i < 6; i++)
-                                {<label class="radio-button">@Html.RadioButton("RateIngredients", i, new { @class = " control-label" })<span class="radio-button-mark"></span></label>}
+                                <div class="d-flex flex-row-reverse justify-content-center">
+                                    @for (int i = 5; i > 0; i--)
+                                    {
+                                        temp = "RateIngredients" + i.ToString();
+                                        @Html.RadioButton("RateIngredients", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
+                                    }
+                                </div>
                                 @Html.ValidationMessageFor(m => m.RateIngredients, "", new { @class = "text-danger" })
                             </div>
                             <div class="col px-1">
                                 <span class="d-block mb-1">Smak</span>
-                                @for (int i = 1; i < 6; i++)
-                                {<label class="radio-button">@Html.RadioButton("RateTaste", i, new { @class = " control-label" })<span class="radio-button-mark"></span></label>}
+                                <div class="d-flex flex-row-reverse justify-content-center">
+                                    @for (int i = 5; i > 0; i--)
+                                    {
+                                        temp = "RateTaste" + i.ToString();
+                                        @Html.RadioButton("RateTaste", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
+                                    }
+                                </div>
                                 @Html.ValidationMessageFor(m => m.RateTaste, "", new { @class = "text-danger" })
                             </div>
                         }
