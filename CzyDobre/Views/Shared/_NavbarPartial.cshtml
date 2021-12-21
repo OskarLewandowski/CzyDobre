@@ -15,9 +15,6 @@
                     if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item pr-5 active">
-                            @Html.ActionLink("Dodaj opinie", "AddOpinion", "Home", null, new { style = "color:white" })
-                        </li>
-                        <li class="nav-item pr-5 active">
                             @Html.ActionLink("Losuj", "GetDish", "Home", null, new { style = "color:white" })
                         </li>
                     }
