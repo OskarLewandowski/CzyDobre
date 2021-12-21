@@ -182,20 +182,58 @@ input:focus {
 }
 /* FRONTPAGE */
 .frontpage-searchbox-container {
-    height: 128px;
+    height: 100%;
     background-color: white;
     background-color: rgba(255,255,255,75%);
     border-radius: 64px;
     margin: 0 auto;
+    width: 50%;
 }
 
+.addopinion {
+    text-align: center;
+    font-size: 20px;
+    border: 0px solid #086b2b;
+    border-radius: 10px;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    color: black;
+    background-color: #76f19a;
+}
+.addopinionlink {
+    color: #086b2b;
+    text-decoration: none;
+}
+    .addopinionlink:hover {
+        color: #086b2b;
+        text-decoration: none;
+    }
+.addproductlink{
+    color: #ca4a00;
+    text-decoration: none;
+}
+    .addproductlink:hover {
+        color: #ca4a00;
+        text-decoration: none;
+    }
+.addproduct {
+    text-align: center;
+    font-size: 20px;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    border: 0px solid #aa6715;
+    border-radius: 10px;
+    background-color: #e89667;
+}
 
     .frontpage-container {
         position: absolute;
         display: flex;
         align-items: center;
         width: 100%;
-        height: 128px;
+        min-width: 128px;
         top: 50%;
         margin-top: -64px;
     }
@@ -211,14 +249,19 @@ input:focus {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
+    margin-left: 10%;
     color: #343a40;
     padding: 0;
-    margin: 0;
+    margin-top: 15px;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 990px) {
     .frontpage-searchbox-container {
         border-radius: 70px;
+        width: 100%;
+    }
+    .frontpage-welcome-text {
+        margin-left: 0;
     }
 }
 

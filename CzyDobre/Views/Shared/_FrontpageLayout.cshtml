@@ -20,22 +20,32 @@
     <div class="frontpage-image-container background-image-preserve-ratio align-items-center">
         <div class="position-relative h-100 w-100">
             <div class="frontpage-container">
-                <div class="frontpage-searchbox-container col-12 col-lg-8 col-xl-6  row align-items-center">
-                    <p class="frontpage-welcome-text col-12 col-md-4 col-md">Czego szukasz?</p>
-                    <div class="col-md">
-                        <form id="search-form" method="get" action="opinie" class="input-group-lg input-group mx-auto col">
-                            <input id="CatSE" name="query" type="search" class="form-control left-bullet-radius" placeholder="Wyszukaj..." aria-label="Search"
-                                   aria-describedby="search-addon" />
-                            <button type="submit" class="btn btn-lg fa fa-search text-white right-bullet-radius"></button>
-                        </form>
-                        <script defer src="~/Scripts/AutoCompleteCat.js"></script>
+                <div  class="frontpage-searchbox-container">
+                <div class="row">
+                        <p class="frontpage-welcome-text col-12 col-md-4">Czego szukasz?</p>
+                        <div class="col-md-6">
+                            <form id="search-form" method="get" action="opinie" class="input-group-lg input-group mx-auto mt-2">
+                                <input id="CatSE" name="query" type="search" class="form-control left-bullet-radius" placeholder="Wyszukaj..." aria-label="Search"
+                                       aria-describedby="search-addon" />
+                                <button type="submit" class="btn btn-lg fa fa-search text-white right-bullet-radius"></button>
+                            </form>
+                            <script defer src="~/Scripts/AutoCompleteCat.js"></script>
+                        </div>
+                        <style>
+                            .imageClass {
+                                width: 100px;
+                                height: 100px;
+                            }
+                        </style>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <p class="addopinion"> @Html.ActionLink("+ Dodaj opinię", "AddOpinion", "Home", null, new { @class = "addopinionlink" })</p>
                     </div>
-                    <style>
-                        .imageClass {
-                            width: 100px;
-                            height: 100px;
-                        }
-                    </style>
+                    <div class="col-6 ">
+                        <p class="addproduct"> @Html.ActionLink("+ Dodaj produkt", "AddProducts", "Home", null, new { @class = "addproductlink" })</p>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
