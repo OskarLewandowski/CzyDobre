@@ -50,7 +50,8 @@
                     <div class="form-group row" align="center">
                         @{
                             <div class="col px-1">
-                                <span class="d-block mb-1">Obsługa</span>
+                                <div class="d-inline" title="Oceń obsługę, czas oczewkiwania, proces składania i odbioru zamówienia">&#9432</div>
+                                <span class="d-inline mb-1">Obsługa</span>
                                 <div class="d-flex flex-row-reverse justify-content-center">
                                     @{string temp = "";}
                                     @for (int i = 5; i > 0; i--)
@@ -62,7 +63,8 @@
                                 @Html.ValidationMessageFor(m => m.RateService, "", new { @class = "text-danger" })
                             </div>
                             <div class="col px-1">
-                                <span class="d-block mb-1">Cena</span>
+                                <div class="d-inline" title="Oceń cenę danego dania w stosunku do jego jakości oraz wielkości">&#9432</div>
+                                <span class="d-inline mb-1">Cena</span>
                                 <div class="d-flex flex-row-reverse justify-content-center">
                                     @for (int i = 5; i > 0; i--)
                                     {
@@ -73,7 +75,8 @@
                                 @Html.ValidationMessageFor(m => m.RateIngredients, "", new { @class = "text-danger" })
                             </div>
                             <div class="col px-1">
-                                <span class="d-block mb-1">Smak</span>
+                                <div class="d-inline" title="Oceń jakość składników oraz kompozycję smakową danego dania">&#9432</div>
+                                <span class="d-inline mb-1">Smak</span>
                                 <div class="d-flex flex-row-reverse justify-content-center">
                                     @for (int i = 5; i > 0; i--)
                                     {
