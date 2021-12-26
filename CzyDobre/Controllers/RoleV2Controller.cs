@@ -56,7 +56,7 @@ namespace CzyDobre.Controllers
             else
             {
                 uniq = false;
-                this.AddNotification("Rola już istnieje!", NotificationType.ERROR);
+                this.AddNotification("Taka nazwa roli już istnieje!", NotificationType.ERROR);
                 return RedirectToAction("Create", "RoleV2");
             }
 
@@ -64,7 +64,7 @@ namespace CzyDobre.Controllers
             {
                 _context.Roles.Add(Role);
                 _context.SaveChanges();
-                this.AddNotification("Rola \"" + nameRole + "\" została pomyślnie dodana!", NotificationType.SUCCESS);
+                this.AddNotification("Rola \"" + nameRole + "\" dodana!", NotificationType.SUCCESS);
                 return RedirectToAction("Create", "RoleV2");
             }
             else if(nameRole == null)
@@ -108,7 +108,7 @@ namespace CzyDobre.Controllers
                 if (wynik == "" || wynik == null)
                 {
                     uniq = false;
-                    this.AddNotification("Rola nie istnieje!", NotificationType.ERROR);
+                    this.AddNotification("Wprowadzona nazwa roli nie istnieje!", NotificationType.ERROR);
                     return RedirectToAction("Delete", "RoleV2");            
                 }
                 else
@@ -121,7 +121,7 @@ namespace CzyDobre.Controllers
                     var role = _context.Roles.Where(d => d.Name == model.RoleName).FirstOrDefault();
                     _context.Roles.Remove(role);
                     _context.SaveChanges();
-                    this.AddNotification("Rola \"" + nameRole + "\" została pomyślnie usunięta!", NotificationType.SUCCESS);
+                    this.AddNotification("Operacja wykonana pomyślnie!", NotificationType.SUCCESS);
                     return RedirectToAction("Delete", "RoleV2");
                 }
             }
