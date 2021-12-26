@@ -4,6 +4,8 @@
     ViewBag.Title = "RoleList";
     Layout = "~/Views/Shared/_LayoutWide.cshtml";
     DBEntities db = new DBEntities();
+    ApplicationDbContext context;
+    context = new ApplicationDbContext();
 }
 <div class="role-div">
     <h2 style="text-align: center;">Panel roli 2.0</h2>
@@ -35,9 +37,6 @@
                         <td>@item.NickName</td>
                         <td>
                             @{
-                                ApplicationDbContext context;
-                                context = new ApplicationDbContext();
-
                                 var userRoles = (from user in context.Users
                                                       select new
                                                       {
