@@ -1,12 +1,12 @@
-﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
-@using CzyDobre.Models
+﻿@using CzyDobre.Models
+@model RoleViewModels
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_LayoutWide.cshtml";
-
 }
+
 <div class="role-div">
-    <h2>Tworzenie nowej roli</h2>
+    <h2>Usuwanie stworzonej roli</h2>
     @{
         DBEntities db = new DBEntities();
         var roleList = db.AspNetRoles.ToList();
@@ -23,13 +23,16 @@
             }
         </table>
     }
+
     <hr />
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Delete", "RoleV2", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <table class="table table-bordered table-hover">
             <tr>
-                <td><b>Wprowadz nazwę nowej roli:</b></td>
-                <td>@Html.EditorFor(m => m.Name)</td>
+                <td><b>Wprowadź nazwę roli do usunięcia</b></td>
+                <td>@Html.EditorFor(m => m.RoleName)</td>
+                @Html.ValidationMessageFor(m => m.RoleName, "", new { @class = "text-danger" })
+
             </tr>
         </table>
         <input type="submit" value="Zatwierdź" class="btn btn-success" />
