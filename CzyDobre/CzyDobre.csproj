@@ -476,6 +476,7 @@
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EditOpinionViewModels.cs" />
     <Compile Include="Models\GetDishViewModels.cs" />
     <Compile Include="Models\AddOpinionViewModels.cs" />
     <Compile Include="Models\Locations.cs" />
