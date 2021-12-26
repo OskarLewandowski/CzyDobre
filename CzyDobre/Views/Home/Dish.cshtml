@@ -4,6 +4,7 @@
 }
 @if (User.Identity.IsAuthenticated /* && User.IsInRole("Admin")*/)
 {
+    <div style="text-align: center;">@Html.Partial("_Notifications")</div>
     using (Html.BeginForm("GetDish", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
     {
         @Html.AntiForgeryToken()
