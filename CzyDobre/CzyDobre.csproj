@@ -395,6 +395,7 @@
     <Compile Include="Controllers\OpiniaController.cs" />
     <Compile Include="Controllers\ProduktController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\RoleV2Controller.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\NotificationExtensions.cs" />
@@ -415,7 +416,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\EditOpinionViewModels.cs" />
     <Compile Include="Models\AspNetCategory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1060,8 +1060,9 @@
     <Content Include="Views\Opinia\OpiniaList.cshtml" />
     <Content Include="Views\Opinia\Objections.cshtml" />
     <Content Include="Views\MyOpinion\MojaOpinia.cshtml" />
-    <Content Include="Views\MyOpinion\Editor.cshtml" />
-    <None Include="Views\MyOpinion\Editor2.cshtml" />
+    <Content Include="Views\RoleV2\RoleList.cshtml" />
+    <Content Include="Views\RoleV2\Create.cshtml" />
+    <Content Include="Views\RoleV2\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,39 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+@using CzyDobre.Models
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutWide.cshtml";
+
+}
+<div class="role-div">
+    <h2>Tworzenie nowej roli</h2>
+    @{
+        DBEntities db = new DBEntities();
+        var roleList = db.AspNetRoles.ToList();
+
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th class="table-role">Stworzone role</th>
+            </tr>
+            @foreach (var item in roleList)
+            {
+                <tr>
+                    <th>ID: @item.Id<br>Nazwa: @item.Name</th>
+                </tr>
+            }
+        </table>
+    }
+    <hr />
+    @using (Html.BeginForm())
+    {
+        <table class="table table-bordered table-hover">
+            <tr>
+                <td><b>Wprowadz nazwę nowej roli:</b></td>
+                <td>@Html.EditorFor(m => m.Name)</td>
+            </tr>
+        </table>
+        <input type="submit" value="Zatwierdź" class="btn btn-success" />
+        @Html.ActionLink("Wróć do listy", "RoleList", "RoleV2", null, new { @class = "btn btn-info" })
+        <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+    }
+</div>

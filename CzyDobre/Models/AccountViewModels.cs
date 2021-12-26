@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace CzyDobre.Models
 {
@@ -11,6 +12,7 @@ namespace CzyDobre.Models
 
         [Required(ErrorMessage = "Pole Nazwa użytkownika jest wymagane")]
         [Display(Name = "Nazwa użytkownika")]
+        [ExternalRegisterNickNameCheck]
         public string NickName { get; set; }
     }
 
@@ -72,6 +74,7 @@ namespace CzyDobre.Models
 
         [Required (ErrorMessage = "Pole Nazwa użytkownika jest wymagane")]
         [Display(Name = "Nazwa użytkownika")]
+        [RegisterNickNameCheck]
         public string NickName { get; set; }
 
         [Required(ErrorMessage = "Pole E-mail jest wymagane")]
@@ -120,5 +123,53 @@ namespace CzyDobre.Models
         [EmailAddress(ErrorMessage ="Wymagany jest poprawny adres Email")]
         [Display(Name = "Adres e-mail")]
         public string Email { get; set; }
+    }
+
+    public class RegisterNickNameCheck : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            DBEntities db = new DBEntities();
+
+            var userRegister = (RegisterViewModel)validationContext.ObjectInstance;
+            string nickName = userRegister.NickName;
+            string checkUser = db.AspNetUsers.Where(u => u.NickName == nickName).Select(u => u.Id).FirstOrDefault();
+
+            if (checkUser == "" || checkUser == null)
+            {
+                return ValidationResult.Success;
+            }
+
+            if (checkUser != "" || checkUser != null)
+            {
+                return new ValidationResult("Nazwa użytkownika jest już zajęta");
+            }
+
+            return ValidationResult.Success;
+        }
+    }
+
+    public class ExternalRegisterNickNameCheck : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            DBEntities db = new DBEntities();
+
+            var userRegister = (ExternalLoginConfirmationViewModel)validationContext.ObjectInstance;
+            string nickName = userRegister.NickName;
+            string checkUser = db.AspNetUsers.Where(u => u.NickName == nickName).Select(u => u.Id).FirstOrDefault();
+
+            if (checkUser == "" || checkUser == null)
+            {
+                return ValidationResult.Success;
+            }
+
+            if (checkUser != "" || checkUser != null)
+            {
+                return new ValidationResult("Nazwa użytkownika jest już zajęta");
+            }
+
+            return ValidationResult.Success;
+        }
     }
 }
