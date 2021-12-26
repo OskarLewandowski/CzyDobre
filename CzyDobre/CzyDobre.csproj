@@ -395,6 +395,7 @@
     <Compile Include="Controllers\OpiniaController.cs" />
     <Compile Include="Controllers\ProduktController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\RoleV2Controller.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\NotificationExtensions.cs" />
@@ -1059,6 +1060,7 @@
     <Content Include="Views\Opinia\OpiniaList.cshtml" />
     <Content Include="Views\Opinia\Objections.cshtml" />
     <Content Include="Views\MyOpinion\MojaOpinia.cshtml" />
+    <Content Include="Views\RoleV2\RoleList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

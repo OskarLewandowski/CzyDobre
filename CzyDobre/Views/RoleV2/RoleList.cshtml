@@ -1,0 +1,60 @@
+﻿@model List<CzyDobre.Models.AspNetUser>
+@using CzyDobre.Models
+@{
+    ViewBag.Title = "RoleList";
+    Layout = "~/Views/Shared/_LayoutWide.cshtml";
+    DBEntities db = new DBEntities();
+}
+<div class="role-div">
+    <h2 style="text-align: center;">Panel roli 2.0</h2>
+    <div class="buttonRole">
+        <hr />
+        @Html.ActionLink("Stwórz nową rolę", "Create", "Role", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Usuń stworzoną rolę", "Delete", "Role", null, new { @class = "btn btn-primary" })
+        <hr />
+    </div>
+    <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+    <hr />
+    <div class="table">
+        <table id="role" class="table table-bordered table-hover display">
+            <thead>
+                <tr class="table-role">
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Nick</th>
+                    <th>Role</th>
+                    <th>Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Email</td>
+                        <td>@item.NickName</td>
+                        <td>Role</td>
+                        <td>
+                            @Html.ActionLink("Przypisz rolę", "#", "#", new { }, new { @class = "btn btn-success" })
+                            <hr />
+                            @Html.ActionLink("Usuń przypisaną rolę", "#", "#", new { }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#role').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pl.json"
+                }
+            });
+        });
+    </script>
+}
