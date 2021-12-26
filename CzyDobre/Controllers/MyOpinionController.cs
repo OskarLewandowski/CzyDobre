@@ -5,6 +5,7 @@ using CzyDobre.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -102,6 +103,120 @@ namespace CzyDobre.Controllers
                 return RedirectToAction("MojaOpinia");
             }
         }
+
+
+        [Route("edytor-opinii")]
+        [Route("MyOpinion/Editor")]
+        [HttpGet]
+        [Authorize]
+        public ActionResult Editor(EditOpinionViewModels edit, int idRating)
+        {
+            try
+            {
+                DBEntities db = new DBEntities();
+
+
+                int idProduktu = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.Id_Product).FirstOrDefault();
+                string nazwaProduktu = db.AspNetProducts.Where(m => m.Id_Product == idProduktu).Select(m => m.ProductName).FirstOrDefault().ToString();
+                short rateT = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.RateTaste).FirstOrDefault();
+                short rateS = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.RateService).FirstOrDefault();
+                short rateP = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.RateIngredients).FirstOrDefault();
+                string comm = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.Comment).FirstOrDefault().ToString();
+
+                List<string> photos = new List<string>();
+
+                photos = db.AspNetRatingPictures.Where(m => m.Id_Rating == idRating).Select(m => m.Url).ToList();
+
+
+
+                edit.PName = nazwaProduktu;
+                edit.RateTaste = rateT;
+                edit.RateService = rateS;
+                edit.RateIngredients = rateP;
+                edit.Review = comm;
+                // edit.Photo = photos;
+                // ViewData["PN"] = nazwaProduktu;
+                // ViewData["RT"] = rateT;
+                // ViewData["RS"] = rateS;
+                // ViewData["RP"] = rateP;
+
+                Session["idRating"] = idRating;
+                Session["Photos"] = photos;
+
+                // this.AddNotification(" "+idRating+" "+ idProduktu + " " + nazwaProduktu + " " + rateT + " " + rateP + " " + rateS + " " + comm,NotificationType.INFO);
+                //this.AddNotification(TempData["idRating"].ToString(), NotificationType.INFO);
+
+
+               
+
+
+
+
+                return View(edit);
+            }
+            catch (Exception ex)
+            {
+                this.AddNotification($"Bład: " + ex, NotificationType.ERROR);
+                return RedirectToAction("MojaOpinia");
+            }
+
+
+           
+        }
+
+
+        [HttpPost]
+        [Route("edytor-opinii")]
+        [Route("MyOpinion/Editor")]
+        [Authorize]
+        public ActionResult Editor(EditOpinionViewModels edit)
+        {
+            DBEntities db = new DBEntities();
+
+            var id = Session["idRating"];
+
+           
+                var entity = db.AspNetRatings.FirstOrDefault(item => item.Id_Rating == (int)id);
+
+                // Validate entity is not null
+                if (entity != null)
+                {
+                    // Answer for question #2
+
+                    // Make changes on entity
+                    entity.RateIngredients = edit.RateIngredients;
+                    entity.RateService = edit.RateService;
+                    entity.RateTaste = edit.RateTaste;
+                    entity.Comment = edit.Review;
+                    // Update entity in DbSet
+                    db.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+
+                    // Save changes in database
+                    db.SaveChanges();
+                    
+                }
+            
+            
+
+
+
+
+
+            this.AddNotification(id.ToString(), NotificationType.INFO);
+
+
+
+
+
+            return View(edit);
+        }
+
+
+
+
+
+
+
     }
 
 
