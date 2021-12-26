@@ -33,7 +33,29 @@
                         <td>@item.Id</td>
                         <td>@item.Email</td>
                         <td>@item.NickName</td>
-                        <td>Role</td>
+                        <td>
+                            @{
+                                ApplicationDbContext context;
+                                context = new ApplicationDbContext();
+
+                                var userRoles = (from user in context.Users
+                                                      select new
+                                                      {
+                                                          RoleNames = (from userRole in user.Roles
+                                                          join role in context.Roles on userRole.RoleId 
+                                                          equals role.Id where user.Id == item.Id
+                                                          select role.Name).ToList()
+                                                      }).ToList().Select(p => new RoleViewModels()
+                                                      {
+                                                          Role = string.Join(", ", p.RoleNames)
+                                                      });
+
+                                foreach (var item2 in userRoles)
+                                {
+                                    @item2.Role;
+                                }
+                            }
+                        </td>
                         <td>
                             @Html.ActionLink("Przypisz rolę", "#", "#", new { }, new { @class = "btn btn-success" })
                             <hr />
