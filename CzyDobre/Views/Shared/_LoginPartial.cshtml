@@ -14,8 +14,7 @@
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <div class="dropdown-divider"></div>
-                        @Html.ActionLink("Zarządzaj rolami 2.0", "RoleList", "RoleV2", null, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Zarządzaj rolami OLD", "Index", "Role", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Zarządzaj rolami", "RoleList", "RoleV2", null, new { @class = "dropdown-item" })
                         @Html.ActionLink("Zarządzaj użytkownikami", "UserList", "User", null, new { @class = "dropdown-item" })
                         @Html.ActionLink("Zarządzaj produktami", "ProduktList", "Produkt", null, new { @class = "dropdown-item" })
                         @Html.ActionLink("Zarządzaj opiniami", "OpiniaList", "Opinia", null, new { @class = "dropdown-item" })
