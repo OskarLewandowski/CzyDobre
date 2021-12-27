@@ -178,13 +178,13 @@ namespace CzyDobre.Controllers
                 }
 
                 await this.UserManager.AddToRolesAsync(updateId, model.Name);
-                this.AddNotification("Rola \"" + model.Name + "\" została pomyślnie przypisana!", NotificationType.SUCCESS);
-                return RedirectToAction("AssignRole", "RoleV2");
+                this.AddNotification("Rola \"" + model.Name + "\" została pomyślnie przypisana użytkownikowi \"" + user.UserName + "\"", NotificationType.SUCCESS);
+                return RedirectToAction("RoleList", "RoleV2");
             }
             catch (Exception ex)
             {
                 this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
-                return RedirectToAction("AssignRole", "RoleV2");
+                return RedirectToAction("RoleList", "RoleV2");
             }
         }
 
