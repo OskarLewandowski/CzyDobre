@@ -494,8 +494,8 @@ namespace CzyDobre.Controllers
                             }
 
                             var wiadomosc = ConfigurationManager.AppSettings["EmailContactUs"].ToString();
-                            bool OK = false;
-                            int allSize = 0;
+                            //bool OK = false;
+                            //int allSize = 0;
 
                             MailMessage msg = new MailMessage();
                             msg.From = new MailAddress(wiadomosc);
@@ -561,8 +561,8 @@ namespace CzyDobre.Controllers
                             }
 
                             var wiadomosc = ConfigurationManager.AppSettings["EmailContactUs"].ToString();
-                            bool OK = false;
-                            int allSize = 0;
+                            //bool OK = false;
+                            //int allSize = 0;
 
                             MailMessage msg = new MailMessage();
                             msg.From = new MailAddress(wiadomosc);
