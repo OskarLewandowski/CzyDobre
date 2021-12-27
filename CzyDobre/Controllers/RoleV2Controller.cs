@@ -188,5 +188,43 @@ namespace CzyDobre.Controllers
             }
         }
 
+        [Route("usuwanie-przypisanej-roli-uzytkownikowi")]
+        [Route("RoleV2/DeleteUserRole")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult DeleteUserRole(string idUser, string emailUser)
+        {
+            ViewBag.Name = new SelectList(_context.Roles.ToList(), "Name", "Name");
+            ViewBag.UserName = emailUser;
+            return View();
+        }
+
+        [Route("usuwanie-przypisanej-roli-uzytkownikowi")]
+        [Route("RoleV2/DeleteUserRole")]
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteUserRole(RegisterViewModel model, ApplicationUser user)
+        {
+            try
+            {
+                var userId = _context.Users.Where(i => i.UserName == user.UserName).Select(s => s.Id);
+                string updateId = "";
+
+                foreach (var item in userId)
+                {
+                    updateId = item.ToString();
+                }
+
+                await this.UserManager.RemoveFromRoleAsync(updateId, model.Name);
+                this.AddNotification("Rola \"" + model.Name + "\" została pomyślnie usunięta użytkownikowi \"" + user.UserName + "\"", NotificationType.SUCCESS);
+                return RedirectToAction("RoleList", "RoleV2");
+            }
+            catch (Exception ex)
+            {
+                this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                return RedirectToAction("RoleList", "RoleV2");
+            }
+        }
     }
 }
