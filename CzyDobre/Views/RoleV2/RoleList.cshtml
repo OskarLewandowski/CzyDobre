@@ -56,7 +56,7 @@
                             }
                         </td>
                         <td>
-                            @Html.ActionLink("Przypisz rolę", "#", "#", new { }, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Przypisz rolę", "AssignRole", "RoleV2", new { idUser = item.Id, emailUser = item.Email }, new { @class = "btn btn-success" })
                             <hr />
                             @Html.ActionLink("Usuń przypisaną rolę", "#", "#", new { }, new { @class = "btn btn-danger" })
                         </td>

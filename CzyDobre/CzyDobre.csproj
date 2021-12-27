@@ -1064,6 +1064,7 @@
     <Content Include="Views\RoleV2\RoleList.cshtml" />
     <Content Include="Views\RoleV2\Create.cshtml" />
     <Content Include="Views\RoleV2\Delete.cshtml" />
+    <Content Include="Views\RoleV2\AssignRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,9 +1,11 @@
 ﻿using CzyDobre.Extensions;
 using CzyDobre.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -131,6 +133,59 @@ namespace CzyDobre.Controllers
                 return RedirectToAction("Delete", "RoleV2");
             }
             return View();
+        }
+
+        private ApplicationUserManager _userManager;
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        [Route("przypisanie-roli-uzytkownikowi")]
+        [Route("RoleV2/AssignRole")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult AssignRole(string idUser, string emailUser)
+        {
+            ViewBag.Name = new SelectList(_context.Roles.ToList(), "Name", "Name");
+            ViewBag.UserName = emailUser;
+ 
+            return View();
+        }
+
+        [Route("przypisanie-roli-uzytkownikowi")]
+        [Route("RoleV2/AssignRole")]
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AssignRole(RegisterViewModel model, ApplicationUser user)
+        {
+            try
+            {
+                var userId = _context.Users.Where(i => i.UserName == user.UserName).Select(s => s.Id);
+                string updateId = "";
+                foreach (var item in userId)
+                {
+                    updateId = item.ToString();
+                }
+
+                await this.UserManager.AddToRolesAsync(updateId, model.Name);
+                this.AddNotification("Rola \"" + model.Name + "\" została pomyślnie przypisana!", NotificationType.SUCCESS);
+                return RedirectToAction("AssignRole", "RoleV2");
+            }
+            catch (Exception ex)
+            {
+                this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                return RedirectToAction("AssignRole", "RoleV2");
+            }
         }
 
     }
