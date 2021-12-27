@@ -8,11 +8,13 @@
     context = new ApplicationDbContext();
 }
 <div class="role-div">
-    <h2 style="text-align: center;">Panel roli 2.0</h2>
+    <h2 style="text-align: center;">Lista roli</h2>
     <div class="buttonRole">
         <hr />
         @Html.ActionLink("Stwórz nową rolę", "Create", "RoleV2", null, new { @class = "btn btn-primary" })
         @Html.ActionLink("Usuń stworzoną rolę", "Delete", "RoleV2", null, new { @class = "btn btn-primary" })
+        <span style="font-size: 32px;">|</span>
+        @Html.ActionLink("Stara wersja panelu", "Index", "Role", null, new { @class = "btn btn-secondary" })
         <hr />
     </div>
     <div style="text-align: center;">@Html.Partial("_Notifications")</div>
@@ -35,7 +37,7 @@
                         <td>@item.Id</td>
                         <td>@item.Email</td>
                         <td>@item.NickName</td>
-                        <td>
+                        <td style="color: blue; font-weight: bold">
                             @{
                                 var userRoles = (from user in context.Users
                                                       select new
