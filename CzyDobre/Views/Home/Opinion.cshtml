@@ -1,60 +1,124 @@
 ﻿@{
     ViewBag.Title = "Opinie";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    RouteValueDictionary routeValues = new RouteValueDictionary(ViewContext.RouteData.Values);
+    foreach (string key in Request.QueryString.Keys)
+    {
+        routeValues[key] = Request.QueryString[key].ToString();
+    }
+    RouteValueDictionary filterValues = new RouteValueDictionary(ViewContext.RouteData.Values);
+    foreach (string key in Request.QueryString.Keys)
+    {
+        filterValues[key] = Request.QueryString[key].ToString();
+    }
+
+    bool areFiltersApplied = false;
+    if (routeValues["filtr1"] != null || routeValues["filtr2"] != null || routeValues["filtr3"] != null)
+    {
+        areFiltersApplied = true;
+    }
 }
 
-@section scripts {
-
-    <script src="@Url.Content("~/Scripts/sort.js")"></script>
-    <script src="@Url.Content("~/Scripts/filtr.js")"></script>
-}
-
-<div class="row mb-5 mt-4">
-    <div class=" col-12 col-md-2 mt-0 mb-3">
-        <select name="sort" id="sort">
-            <option value="0" id="tekst" disabled selected hidden>Sortowanie</option>
-            <option value="1">A-Z </option>
-            <option value="2">Z-A</option>
-            <option value="3">Najpopularniejsze</option>
-            <option value="4">Ostatnio dodane</option>
-        </select>
-    </div>
-    <div class="col-md-6"></div>
-    <div class="col-md-4">
-        <div class="sortowanie">
-            <span class="d-block average">Filtrowanie:</span>
-            <div class="d-inline mr-1 ml-5 ">
-                <select name="filtr1" id="filtr1">
-                    <option value="0" disabled selected hidden>Smak</option>
-                    <option value="1">2-5 </option>
-                    <option value="2">3-5</option>
-                    <option value="3">4-5</option>
-                    <option value="4">5</option>
-                </select>
+<div class="row border-bottom justify-content-between" style="margin-top:60px;">
+    <div class="col-12 col-sm-6 col-lg-4 border border-top-0">
+        <div class="mb-2" data-toggle="collapse" href="#filters" role="button" aria-expanded="@(areFiltersApplied ? "true" : "false")" aria-controls="filters">
+            <span class="font-weight-bold">Filtrowanie</span>
+            <span class="fa fa-angle-down"></span>
+        </div>
+        <div class="collapse row @(areFiltersApplied ? "show" : "")" id="filters">
+            <div class="col-12 col-lg-8">
+                <div class="col px-1 mb-1 d-flex justify-content-between">
+                    <span class="d-inline text-right">Smak:</span>
+                    <div class="d-flex flex-row-reverse align-items-center">
+                        @for (int i = 4; i >= 0; i--)
+                        {
+                            filterValues["filtr1"] = i;
+                            filterValues["page"] = 0;
+                            if (routeValues["filtr1"] != null && routeValues["filtr1"].ToString() == i.ToString())
+                            {
+                                @Html.ActionLink(" ", "Opinion", "Home", filterValues, new Dictionary<string, object> { { "class", "radio-button active" } })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(" ", "Opinion", "Home", filterValues, new Dictionary<string, object> { { "class", "radio-button" } })
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col px-1 mb-1 d-flex justify-content-between">
+                    <span class="d-inline text-right">Obsługa:</span>
+                    <div class="d-flex flex-row-reverse align-items-center">
+                        @{
+                            filterValues = new RouteValueDictionary(ViewContext.RouteData.Values);
+                            foreach (string key in Request.QueryString.Keys)
+                            {
+                                filterValues[key] = Request.QueryString[key].ToString();
+                            }}
+                        @for (int i = 4; i >= 0; i--)
+                        {
+                            filterValues["filtr2"] = i;
+                            filterValues["page"] = 0;
+                            if (routeValues["filtr2"] != null && routeValues["filtr2"].ToString() == i.ToString())
+                            {
+                                @Html.ActionLink(" ", "Opinion", "Home", filterValues, new Dictionary<string, object> { { "class", "radio-button active" } })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(" ", "Opinion", "Home", filterValues, new Dictionary<string, object> { { "class", "radio-button" } })
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col px-1 mb-1 d-flex justify-content-between">
+                    <span class="d-inline text-right">Cena:</span>
+                    <div class="d-flex flex-row-reverse align-items-center">
+                        @{
+                            filterValues = new RouteValueDictionary(ViewContext.RouteData.Values);
+                            foreach (string key in Request.QueryString.Keys)
+                            {
+                                filterValues[key] = Request.QueryString[key].ToString();
+                            }}
+                        @for (int i = 4; i >= 0; i--)
+                        {
+                            filterValues["filtr3"] = i;
+                            filterValues["page"] = 0;
+                            if (routeValues["filtr3"] != null && routeValues["filtr3"].ToString() == i.ToString())
+                            {
+                                @Html.ActionLink(" ", "Opinion", "Home", filterValues, new Dictionary<string, object> { { "class", "radio-button active" } })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(" ", "Opinion", "Home", filterValues, new Dictionary<string, object> { { "class", "radio-button" } })
+                            }
+                        }
+                    </div>
+                </div>
             </div>
-            <div class="d-inline mr-2 ml-3">
-                <select name="filtr2" id="filtr2">
-                    <option value="0" disabled selected hidden>Obsługa</option>
-                    <option value="1">2-5 </option>
-                    <option value="2">3-5</option>
-                    <option value="3">4-5</option>
-                    <option value="4">5</option>
-                </select>
-            </div>
-            <div class="d-inline ml-2">
-                <select name="filtr3" id="filtr3">
-                    <option value="0" disabled selected hidden>Cena</option>
-                    <option value="1">2-5 </option>
-                    <option value="2">3-5</option>
-                    <option value="3">4-5</option>
-                    <option value="4">5</option>
-                </select>
+            <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+                @Html.ActionLink("RESET", "Opinion", "Home", null, new { @class = "btn btn-info my-2" })
             </div>
         </div>
-        <button id="reset" class="reset">RESET</button>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4 border border-top-0">
+        <div class="mb-2" data-toggle="collapse" href="#sorting" role="button" aria-expanded="false" aria-controls="sorting">
+            <span class="font-weight-bold">Sortowanie</span>
+            <span class="fa fa-angle-down"></span>
+        </div>
+        <div class="collapse" id="sorting">
+            <div class="">
+                @{routeValues["id"] = 1;}
+                @Html.ActionLink("A-Z", "Opinion", "Home", routeValues, new Dictionary<string, object> { { "class", "d-block col mb-1 text-reset" } })
+                @{routeValues["id"] = 2;}
+                @Html.ActionLink("Z-A", "Opinion", "Home", routeValues, new Dictionary<string, object> { { "class", "d-block col mb-1 text-reset" } })
+                @{routeValues["id"] = 3;}
+                @Html.ActionLink("Najpopularniejsze", "Opinion", "Home", routeValues, new Dictionary<string, object> { { "class", "d-block col mb-1 text-reset" } })
+                @{routeValues["id"] = 4;}
+                @Html.ActionLink("Ostatnio dodane", "Opinion", "Home", routeValues, new Dictionary<string, object> { { "class", "d-block col mb-1 text-reset" } })
+            </div>
+        </div>
     </div>
 </div>
-
 <div class="row">
     @{
         if (Model.Count > 0)
@@ -64,7 +128,7 @@
                 string link = "opinia/" + Data.RatingId.ToString();
                 <div class="browse-card col-12 col-md-6 col-lg-4 p-2">
                     <div class="h-100 w-100 position-relative browse-card-anchor">
-                        <h6 class="card-title text-center my-0 py-1">@Data.ProductName</h6>
+                        <h6 class="card-title text-center text-capitalize my-0 py-1">@Data.ProductName</h6>
                         <div class="card flex-column flex-sm-row flex-md-column flex-lg-row p-0 rounded-0">
                             <div class="browse-image-wrapper col-sm-9 col-md-12 col-lg-8 p-0">
                                 @{
@@ -85,10 +149,10 @@
                                 <div class="card-text row flex-row flex-sm-column flex-md-row flex-lg-column">
                                     <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
                                         @{
-                                            <label class="my-1 col-12">Obsługa</label>
+                                            <label class="my-1 col-12">Smak</label>
                                             for (int i = 0; i < 5; i++)
                                             {
-                                                if (i < Convert.ToInt32(Data.RateService))
+                                                if (i < Convert.ToInt32(Data.RateTaste))
                                                 {
                                                     <span class="fa fa-star"></span>
                                                 }
@@ -101,10 +165,10 @@
                                     </div>
                                     <div class="text-center col-4 col-sm-12 col-md-4 col-lg-12 p-0">
                                         @{
-                                            <label class="my-1 col-12">Smak</label>
+                                            <label class="my-1 col-12">Obsługa</label>
                                             for (int i = 0; i < 5; i++)
                                             {
-                                                if (i < Convert.ToInt32(Data.RateTaste))
+                                                if (i < Convert.ToInt32(Data.RateService))
                                                 {
                                                     <span class="fa fa-star"></span>
                                                 }
@@ -141,14 +205,15 @@
         }
         else
         {
-        <div class="col p-3 border-top">
-            <p class="lead text-center">Nie znaleziono wyników wyszukiwania o podanych kryteriach.</p>
-        </div>
+            <div class="col p-3 border-top">
+                <p class="lead text-center" style="margin-top:52px;">Nie znaleziono wyników wyszukiwania o podanych kryteriach.</p>
+                @Html.ActionLink("Wróć", "Opinion", "Home", null, new { @class = "btn btn-info d-block m-auto mt-2" })
+            </div>
         }
     }
 </div>
-@if (ViewBag.NumberOfPages>1) {
-    RouteValueDictionary routeValues = new RouteValueDictionary(ViewContext.RouteData.Values);
+@if (ViewBag.NumberOfPages > 1)
+{
     foreach (string key in Request.QueryString.Keys)
     {
         routeValues[key] = Request.QueryString[key].ToString();
@@ -162,14 +227,14 @@
             @{
                 int startPage = Math.Max(ViewBag.ActivePage - 2, 0);
                 int endPage = Math.Min(startPage + 4, ViewBag.NumberOfPages - 1);
-                if(endPage - startPage < 4)
+                if (endPage - startPage < 4)
                 {
                     startPage = Math.Max(ViewBag.ActivePage + (-6 + (endPage - startPage)), 0);
                 }
 
                 for (int i = startPage; i <= endPage; i++)
                 {
-                    string label = (i+1).ToString();
+                    string label = (i + 1).ToString();
                     routeValues["page"] = i;
                     if (ViewBag.ActivePage == i)
                     {
@@ -181,10 +246,10 @@
                     }
                 }
             }
-        <li class="page-item">
-            @{routeValues["page"] = ViewBag.NumberOfPages - 1;}
-            @Html.ActionLink("Ostatnia", "Opinion", "Home", routeValues, new Dictionary<string, object> { { "class", "page-link" } })
-        </li>
+            <li class="page-item">
+                @{routeValues["page"] = ViewBag.NumberOfPages - 1;}
+                @Html.ActionLink("Ostatnia", "Opinion", "Home", routeValues, new Dictionary<string, object> { { "class", "page-link" } })
+            </li>
         </ul>
     </nav>
 }

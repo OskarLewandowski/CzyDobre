@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="novum_czydobre.plModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="novum_czydobre.plModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -54,6 +54,10 @@
           </Key>
           <Property Name="Id_Place" Type="int" Nullable="false" />
           <Property Name="PlaceName" Type="nvarchar" MaxLength="250" />
+          <Property Name="City" Type="nchar" MaxLength="150" />
+          <Property Name="ZipCode" Type="nchar" MaxLength="100" />
+          <Property Name="State" Type="nchar" MaxLength="200" />
+          <Property Name="Country" Type="nchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="AspNetProducts">
           <Key>
@@ -199,6 +203,7 @@
           <Property Name="LastBanDays" Type="int" />
           <Property Name="BanComment" Type="text" />
           <Property Name="WhoGaveBan" Type="nvarchar" MaxLength="50" />
+          <Property Name="AvatarUrl" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="AspNetVoivodes">
           <Key>
@@ -496,8 +501,7 @@
             <End Role="AspNetRestaurants" EntitySet="AspNetRestaurants" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="novum_czydobre.plModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -554,6 +558,10 @@
           <Property Name="Id_Place" Type="Int32" Nullable="false" />
           <Property Name="PlaceName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetProducts" Relationship="Self.FK_AspNetProducts_AspNetPlaces" FromRole="AspNetPlaces" ToRole="AspNetProducts" />
+          <Property Name="City" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="AspNetProduct">
           <Key>
@@ -714,6 +722,7 @@
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <Property Name="AvatarUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AspNetVoivode">
           <Key>
@@ -1039,6 +1048,10 @@
           <EntitySetMapping Name="AspNetPlaces">
             <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetPlace">
               <MappingFragment StoreEntitySet="AspNetPlaces">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="Id_Place" ColumnName="Id_Place" />
                 <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
               </MappingFragment>
@@ -1170,6 +1183,7 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="novum_czydobre.plModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="AvatarUrl" ColumnName="AvatarUrl" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />

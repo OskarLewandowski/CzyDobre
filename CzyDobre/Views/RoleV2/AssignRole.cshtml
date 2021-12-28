@@ -1,0 +1,34 @@
+﻿@model CzyDobre.Models.RegisterViewModel
+@{
+    ViewBag.Title = "AssignRole";
+    Layout = "~/Views/Shared/_LayoutWide.cshtml";
+}
+
+<div>
+    <h2 style="text-align: center;">Przypisz rolę użytkownikowi</h2>
+    <hr />
+    @using (Html.BeginForm("AssignRole", "RoleV2", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container" style="text-align: center; font-size: 24px;">
+            <div class="form-group">
+                @Html.Label("Nazwa użytkownika", new { @class = "col-md-4 control-label" })
+                @Html.TextBox("UserName", null, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Wybierz rolę do przypisania", new { @class = "col-md-4 control-label" })
+                <div class="select-list-role">
+                    @Html.DropDownList("Name", "---Wybierz rolę---")
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <br /> <br /> <br /> <br /> <br /> <br />
+                    <input type="submit" class="btn btn-success" value="Zatwierdź" />
+                    @Html.ActionLink("Wróć do listy", "RoleList", "RoleV2", null, new { @class = "btn btn-info" })
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+    }
+</div>

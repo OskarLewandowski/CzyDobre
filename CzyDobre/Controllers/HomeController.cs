@@ -494,8 +494,8 @@ namespace CzyDobre.Controllers
                             }
 
                             var wiadomosc = ConfigurationManager.AppSettings["EmailContactUs"].ToString();
-                            bool OK = false;
-                            int allSize = 0;
+                            //bool OK = false;
+                            //int allSize = 0;
 
                             MailMessage msg = new MailMessage();
                             msg.From = new MailAddress(wiadomosc);
@@ -527,6 +527,12 @@ namespace CzyDobre.Controllers
                             //this.AddNotification(queryl.ToString(), NotificationType.INFO);
                             loc.Id_Place = ql;
                             loc.PlaceName = prd.LocName;
+                            loc.City = prd.City;
+                            loc.Country = prd.Country;
+                            loc.State = prd.State;
+                            loc.ZipCode = prd.ZipCode;
+
+
                             db.AspNetPlaces.Add(loc);
                             db.SaveChanges();
 
@@ -555,8 +561,8 @@ namespace CzyDobre.Controllers
                             }
 
                             var wiadomosc = ConfigurationManager.AppSettings["EmailContactUs"].ToString();
-                            bool OK = false;
-                            int allSize = 0;
+                            //bool OK = false;
+                            //int allSize = 0;
 
                             MailMessage msg = new MailMessage();
                             msg.From = new MailAddress(wiadomosc);
@@ -1114,6 +1120,8 @@ namespace CzyDobre.Controllers
             {
                 try
                 {
+
+                    int randN;
                     DBEntities db = new DBEntities();
 
                     AspNetProduct prod = new AspNetProduct();
@@ -1122,27 +1130,38 @@ namespace CzyDobre.Controllers
 
 
                     List<int> numbers = new List<int>();
+                    numbers = db.AspNetRatings.Select(u => u.Id_Product).Distinct().ToList();
 
-                   
+                    Random r = new Random();
+                    List<int> listNumbers = new List<int>();
+                    int number;
+                    for (int i = 0; i < 6; i++)
+                    {
+                        do
+                        {
+                            number = r.Next( numbers.Count());
+                        } while (listNumbers.Contains(number));
+                        listNumbers.Add(number);
+                    }
+                    
 
-                   
                     for (int i=0;i<=2;i++)
                     {
-                        numbers = db.AspNetRatings.Select(u => u.Id_Product).Distinct().ToList();
-                        Random r = new Random();
-                        int m = r.Next(numbers.Count());
-                        int n = numbers[m];
 
-                        var product = db.AspNetProducts.Where(u => u.Id_Product == n).Select(u => u.ProductName).FirstOrDefault();
-                        var rateS = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateService).FirstOrDefault();
-                        var rateP = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateIngredients).FirstOrDefault();
-                        var rateT = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.RateTaste).FirstOrDefault();
-
-                        string result = product.ToString() + " Smak: " + rateT.ToString() + " Cena: " + rateP.ToString() + " Obsługa: " + rateS.ToString() + " " + n.ToString();
-
-                        //this.AddNotification(result.ToString(), NotificationType.INFO);
+                        randN = numbers[listNumbers[i]];
 
 
+
+                        var product = db.AspNetProducts.Where(u => u.Id_Product == randN).Select(u => u.ProductName).FirstOrDefault();
+                        var rateS = db.AspNetRatings.Where(u => u.Id_Product == randN).Select(u => u.RateService).FirstOrDefault();
+                        var rateP = db.AspNetRatings.Where(u => u.Id_Product == randN).Select(u => u.RateIngredients).FirstOrDefault();
+                        var rateT = db.AspNetRatings.Where(u => u.Id_Product == randN).Select(u => u.RateTaste).FirstOrDefault();
+
+                        //string result = product.ToString() + " Smak: " + rateT.ToString() + " Cena: " + rateP.ToString() + " Obsługa: " + rateS.ToString() + " " + n.ToString();
+
+                        this.AddNotification(randN.ToString(), NotificationType.INFO);
+
+                        
 
                         IQueryable<AspNetRating> SQLresult = db.AspNetRatings;
                         SQLresult.Join(db.AspNetProducts,
@@ -1159,7 +1178,7 @@ namespace CzyDobre.Controllers
                         });
                         SQLresult.ToList();
 
-                        var qur = db.AspNetRatings.Where(u => u.Id_Product == n).Select(u => u.Id_Rating).FirstOrDefault();
+                        var qur = db.AspNetRatings.Where(u => u.Id_Product == randN).Select(u => u.Id_Rating).FirstOrDefault();
 
 
                         opinionViewModels.Add(new OpinionViewModels()

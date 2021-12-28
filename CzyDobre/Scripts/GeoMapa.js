@@ -72,4 +72,34 @@ function initAutocomplete() {
         });
         map.fitBounds(bounds);
     });
+
+    google.maps.event.addDomListener(window, 'load', function () {
+        var places = new google.maps.places.Autocomplete(document.getElementById('pac-input'));
+        google.maps.event.addListener(places, 'place_changed', function () {
+            var place = places.getPlace();
+            var address = place.formatted_address;
+            var latitude = place.geometry.location.lat();
+            var longitude = place.geometry.location.lng();
+            var latlng = new google.maps.LatLng(latitude, longitude);
+            var geocoder = geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        var address = results[0].formatted_address;
+                        var pin = results[0].address_components[results[0].address_components.length - 1].long_name;
+                        var country = results[0].address_components[results[0].address_components.length - 2].long_name;
+                        var state = results[0].address_components[results[0].address_components.length - 3].long_name;
+                        var city = results[0].address_components[results[0].address_components.length - 5].long_name;
+                        document.getElementById('txtCountry').value = country;
+                        document.getElementById('txtState').value = state;
+                        document.getElementById('txtCity').value = city;
+                        document.getElementById('txtZip').value = pin;
+                    }
+                }
+            });
+        });
+    });
+
+
+
 }

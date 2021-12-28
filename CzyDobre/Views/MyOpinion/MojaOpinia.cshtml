@@ -22,7 +22,7 @@
             </thead>
             <tbody>
                 @{ var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
-                    var listaop = queru.ToList();
+                    
 
                 }
                 @foreach (var item in Model.Where(s => s.AspNetUser.UserName == User.Identity.Name))
@@ -61,6 +61,7 @@
                                 }
                             }
                         }
+                        
                     </td>
 
 
@@ -77,10 +78,16 @@
                         <td>Nie ❌</td>
 
                     }
-                    <td>
-                        <hr />
-                        @Html.ActionLink("Usuń opinię", "DeleteO", "MyOpinion", new { idRating = item.Id_Rating, idProduct = item.Id_Product, nazwaProduktu = wynikProduktNazwa }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ opinię?');" })
-                    </td>
+                <td>
+                    @Html.ActionLink("Edytuj opinię", "Editor", "MyOpinion", new { idRating = item.Id_Rating }, new { @class = "btn btn-primary" })
+                    <hr />
+                    @Html.ActionLink("Usuń opinię", "DeleteO", "MyOpinion", new { idRating = item.Id_Rating, idProduct = item.Id_Product, nazwaProduktu = wynikProduktNazwa }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ opinię?');" })
+                </td>
+                    
+                     
+                        
+                    
+
                 </tr>
                 }
             </tbody>

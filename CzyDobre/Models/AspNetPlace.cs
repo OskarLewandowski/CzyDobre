@@ -22,6 +22,10 @@ namespace CzyDobre.Models
     
         public int Id_Place { get; set; }
         public string PlaceName { get; set; }
+        public string City { get; set; }
+        public string ZipCode { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetProduct> AspNetProducts { get; set; }
