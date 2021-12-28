@@ -193,28 +193,28 @@ input:focus {
 .addopinion {
     text-align: center;
     font-size: 20px;
-    border: 0px solid #086b2b;
+    border: 0px solid white;
     border-radius: 10px;
     width: 50%;
     margin-left: 25%;
     margin-right: 25%;
     color: black;
-    background-color: #76f19a;
+    background-color: #1dc31c;
 }
 .addopinionlink {
-    color: #086b2b;
+    color: black;
     text-decoration: none;
 }
     .addopinionlink:hover {
-        color: #086b2b;
+        color: black;
         text-decoration: none;
     }
-.addproductlink{
-    color: #ca4a00;
+.addproductlink {
+    color: black;
     text-decoration: none;
 }
     .addproductlink:hover {
-        color: #ca4a00;
+        color: black;
         text-decoration: none;
     }
 .addproduct {
@@ -223,9 +223,9 @@ input:focus {
     width: 60%;
     margin-left: 20%;
     margin-right: 20%;
-    border: 0px solid #aa6715;
+    border: 0px solid white;
     border-radius: 10px;
-    background-color: #e89667;
+    background-color: #ee950a;
 }
 
     .frontpage-container {
