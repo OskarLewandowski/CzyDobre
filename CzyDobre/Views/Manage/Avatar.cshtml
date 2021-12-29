@@ -8,16 +8,17 @@
         <h5>Aktualny awatar</h5>
         <img src="@Html.DisplayFor(m => m.AvatarUrl)" alt="Awatar użytkownika" class="awatar-image">
     </div>
+    <hr />
     @using (Html.BeginForm("ChangeAvatar", "Manage", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
     {
         @Html.AntiForgeryToken()
         <div class="container">
             @Html.HiddenFor(m => m.AvatarUrl)
             <div class="form-group">
-                @Html.Label("Zmień awatar", new { @class = "col-md-4 control-label" })
+                @Html.Label("Aby zmienić awatar, należy kliknąć przycisk \"Wybierz plik\"", new { @class = "col-md-20 control-label" })
                 @Html.TextBoxFor(m => m.avatarAttachment, new { type = "file", @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.avatarAttachment, "", new { @class = "text-danger" })
-                <p style="text-align: left; padding: 3px;">Maksymalna wielkość pliku wynosi 5MB</p>
+                <p style="text-align: left; padding: 3px;">Maksymalna wielkość pliku wynosi 5MB, dozwolony format to: png, jpg.</p>
             </div>
             <div class="form-group" align="center">
                 <div class="col-md-offset-2 col-md-10">
