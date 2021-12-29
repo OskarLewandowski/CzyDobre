@@ -134,15 +134,20 @@ namespace CzyDobre.Controllers
             {
                 if (userId != null)
                 {
-                    //var nickName = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.NickName).FirstOrDefault();
-                    //var firstName = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.FirstName).FirstOrDefault();
-                    //var lastName = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.LastName).FirstOrDefault();
+                    var avatarUrl = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.AvatarUrl).FirstOrDefault();
+                    var avatarDefault = "https://res.cloudinary.com/czydobre-pl/image/upload/v1640786753/CzyDobre-www/awatar-domyslny-ramka_u9xv4t.png";
 
-                    //dane.Id = userId;
-                    //dane.FirstName = firstName;
-                    //dane.LastName = lastName;
-                    //dane.NickName = nickName;
-
+                    if(avatarUrl == null || avatarUrl == "")
+                    {
+                        dane.Id = userId;
+                        dane.AvatarUrl = avatarDefault;
+                    }
+                    else
+                    {
+                        dane.Id = userId;
+                        dane.AvatarUrl = avatarUrl;
+                    }
+          
                     if (dane != null)
                     {
                         return View(dane);
@@ -161,6 +166,41 @@ namespace CzyDobre.Controllers
             this.AddNotification($"Ups!, napotkaliśmy pewien problem. Proszę spróbować za kilka minut.", NotificationType.ERROR);
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeAvatar(AvatarViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    //DBEntities db = new DBEntities();
+                    //var userId = User.Identity.GetUserId();
+                    //var aspNetUser = db.AspNetUsers.FirstOrDefault(m => m.Id == userId);
+
+                    //aspNetUser.FirstName = model.FirstName;
+                    //aspNetUser.LastName = model.LastName;
+                    //aspNetUser.NickName = model.NickName;
+
+                    //db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
+                    //db.SaveChanges();
+                    this.AddNotification($"Test) "+ model.Id + model.AvatarUrl, NotificationType.SUCCESS);
+
+                    this.AddNotification($"Dane, zostały zapisane pomyślnie", NotificationType.SUCCESS);
+                    return View("Avatar");
+                }
+                this.AddNotification($"Błędne dane", NotificationType.ERROR);
+            }
+            catch (Exception ex)
+            {
+                ModelState.Clear();
+                this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                return View("Avatar");
+            }
+            return View("Avatar");
+        }
+
 
         //
         // GET: /Manage/Index

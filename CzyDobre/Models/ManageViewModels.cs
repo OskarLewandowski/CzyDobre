@@ -83,6 +83,7 @@ namespace CzyDobre.Models
 
     public class AvatarViewModel
     {
+        public string Id { get; set; }
         public string AvatarUrl { get; set; }
         public List<HttpPostedFileBase> avatarAttachment { get; set; }
     }

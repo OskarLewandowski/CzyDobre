@@ -847,3 +847,16 @@ body > .container-wide {
     }
 }
 /* LayoutWide END */
+
+/* avatar stlizacja podgladu START */
+.awatar-div {
+    text-align: center;
+    pointer-events: none;
+    user-select: none;
+}
+
+.awatar-image {
+    width: 250px;
+    height: 250px;
+}
+/* avatar stlizacja podgladu END */
