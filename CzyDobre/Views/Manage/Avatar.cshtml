@@ -5,7 +5,7 @@
 }
 <div>
     <div class="awatar-div">
-        <img src="@Html.DisplayFor(m => m.AvatarUrl)" alt="Zdjęcie produktu" class="awatar-image">
+        <img src="@Html.DisplayFor(m => m.AvatarUrl)" alt="Awatar użytkownika" class="awatar-image">
     </div>
     @using (Html.BeginForm("ChangeAvatar", "Manage", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
     {

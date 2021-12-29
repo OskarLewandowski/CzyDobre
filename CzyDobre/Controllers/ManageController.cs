@@ -188,7 +188,7 @@ namespace CzyDobre.Controllers
                     this.AddNotification($"Test) "+ model.Id + model.AvatarUrl, NotificationType.SUCCESS);
 
                     this.AddNotification($"Dane, zostały zapisane pomyślnie", NotificationType.SUCCESS);
-                    return View("Avatar");
+                    return RedirectToAction("Avatar");
                 }
                 this.AddNotification($"Błędne dane", NotificationType.ERROR);
             }
@@ -196,9 +196,9 @@ namespace CzyDobre.Controllers
             {
                 ModelState.Clear();
                 this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
-                return View("Avatar");
+                return RedirectToAction("Avatar");
             }
-            return View("Avatar");
+            return RedirectToAction("Avatar");
         }
 
 
