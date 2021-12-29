@@ -19,5 +19,6 @@ namespace CzyDobre.Models
         public string RateAdcompliance { get; set; }
         public string Comment { get; set; }
         public List<string> ImageUrls { get; set; }
+        public string Place { get; set; }
     }
 }

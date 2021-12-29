@@ -36,6 +36,7 @@ namespace CzyDobre.Controllers
 
             if (top1 != null && top1.CzyDobre ==true)
             {
+                rateImage.Top1Id = top1.Id_Product.ToString();
                 var top1image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top1.Id_Product + "')").FirstOrDefault();
                 if (top1image != null)
                 {
@@ -45,6 +46,7 @@ namespace CzyDobre.Controllers
             }
             if (top2 != null && top2.CzyDobre == true)
             {
+                rateImage.Top2Id = top2.Id_Product.ToString();
                 var top2image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top2.Id_Product + "')").FirstOrDefault();
                 if (top2image != null)
                 {
@@ -54,6 +56,7 @@ namespace CzyDobre.Controllers
             }
             if (top3 != null && top3.CzyDobre == true)
             {
+                rateImage.Top3Id = top3.Id_Product.ToString();
                 var top3image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top3.Id_Product + "')").FirstOrDefault();
                 if (top3image != null)
                 {
@@ -63,6 +66,7 @@ namespace CzyDobre.Controllers
             }
             if (top4 != null && top4.CzyDobre == true)
             {
+                rateImage.Top4Id = top4.Id_Product.ToString();
                 var top4image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top4.Id_Product + "')").FirstOrDefault();
                 if (top4image != null)
                 {
@@ -312,10 +316,12 @@ namespace CzyDobre.Controllers
                 opinionViewModel.RatingId = opinionId;
                 var opinion = (from AspNetRating in db.AspNetRatings
                                join AspNetProduct in db.AspNetProducts on AspNetRating.Id_Product equals AspNetProduct.Id_Product
+                               join AspNetPlace in db.AspNetPlaces on AspNetProduct.Id_Place equals AspNetPlace.Id_Place
                                join AspNetUser in db.AspNetUsers on AspNetRating.Who equals AspNetUser.Id
                                where AspNetRating.Id_Rating == opinionId
                                select new
                                {
+                                   Place = AspNetPlace.PlaceName,
                                    RateService = AspNetRating.RateService,
                                    RateTaste = AspNetRating.RateTaste,
                                    RateIngredients = AspNetRating.RateIngredients,
@@ -328,6 +334,7 @@ namespace CzyDobre.Controllers
                 opinionViewModel.ImageUrls = (from AspNetRatingPicture in db.AspNetRatingPictures
                                               where AspNetRatingPicture.Id_Rating == opinionId
                                               select AspNetRatingPicture.Url).ToList();
+                opinionViewModel.Place = opinion.Place.ToString();
                 opinionViewModel.ProductName = opinion.ProductName.ToString();
                 opinionViewModel.RateService = opinion.RateService.ToString();
                 opinionViewModel.RateTaste = opinion.RateTaste.ToString();
@@ -343,6 +350,58 @@ namespace CzyDobre.Controllers
             else
             {
                 return RedirectToAction("Opinion", "Home");
+            }
+        }
+
+        [Route("index")]
+        [Route("Home/opiniapop/{id?}")]
+        [AllowAnonymous]
+        public ActionResult OpinionDescriptionPop(string id)
+        {
+            if (!String.IsNullOrEmpty(id))
+            {
+                int opinionId = Convert.ToInt32(id);
+                ViewBag.id = opinionId;
+                DBEntities db = new DBEntities();
+                OpinionViewModels opinionViewModel = new OpinionViewModels();
+                opinionViewModel.RatingId = opinionId;
+                var opinion = (from AspNetRating in db.AspNetRatings
+                               join AspNetProduct in db.AspNetProducts on AspNetRating.Id_Product equals AspNetProduct.Id_Product
+                               join AspNetPlace in db.AspNetPlaces on AspNetProduct.Id_Place equals AspNetPlace.Id_Place
+                               join AspNetUser in db.AspNetUsers on AspNetRating.Who equals AspNetUser.Id
+                               where AspNetProduct.Id_Product == opinionId
+                               select new
+                               {
+                                   Place = AspNetPlace.PlaceName,
+                                   RateId = AspNetRating.Id_Rating,
+                                   RateService = AspNetRating.RateService,
+                                   RateTaste = AspNetRating.RateTaste,
+                                   RateIngredients = AspNetRating.RateIngredients,
+                                   Comment = AspNetRating.Comment,
+                                   AddedBy = AspNetUser.NickName,
+                                   AddedDate = AspNetRating.Date,
+                                   ProductName = AspNetProduct.ProductName
+                               }
+                                   ).FirstOrDefault();
+                opinionViewModel.ImageUrls = (from AspNetRatingPicture in db.AspNetRatingPictures
+                                              where AspNetRatingPicture.Id_Rating == opinion.RateId
+                                              select AspNetRatingPicture.Url).ToList();
+                opinionViewModel.Place = opinion.Place.ToString();
+                opinionViewModel.ProductName = opinion.ProductName.ToString();
+                opinionViewModel.RateService = opinion.RateService.ToString();
+                opinionViewModel.RateTaste = opinion.RateTaste.ToString();
+                opinionViewModel.RateIngredients = opinion.RateIngredients.ToString();
+                opinionViewModel.AddedBy = opinion.AddedBy.ToString();
+                opinionViewModel.AddedDate = Convert.ToDateTime(opinion.AddedDate);
+                if (!String.IsNullOrEmpty(opinion.Comment))
+                {
+                    opinionViewModel.Comment = opinion.Comment.ToString();
+                }
+                return View(opinionViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
             }
         }
 
