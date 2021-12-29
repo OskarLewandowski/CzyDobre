@@ -1,4 +1,4 @@
-﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+﻿<nav class="navbar navbar-expand navbar-dark bg-dark">
     <div style="padding:0 6px 0 120px; min-height:54px;" class="container position-relative">
         <a id="navbar-logo" class="navbar-brand pt-0 pb-0 position-absolute rounded-circle bg-dark" href="@Url.Action("Index", "Home")">
             <img src="~/image/logo_czydobre.png" width="100" height="100">
@@ -7,7 +7,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto mb-1">
+            <ul class="navbar-nav mr-auto" style="margin-block-start: 0;">
                 <li class="nav-item pr-5 active">
                     @Html.ActionLink("Przeglądaj", "Opinion", "Home", null, new { style = "color:white" })
                 </li>
@@ -20,7 +20,7 @@
                     }
                 }
             </ul>
-            <ul class="navbar-nav mr-right">
+            <ul class="navbar-nav mr-right" style="margin-block-start: 0;">
                 <li class="nav-item">
                     @Html.Partial("_LoginPartial")
                 </li>
