@@ -4,6 +4,7 @@
 
 <div class="row p-3 px-lg-4 px-xl-5">
     <div class="col-md-3 pl-0 mb-4 mb-md-0">
+        @Html.ActionLink("Moje dane", "MyData", "Manage", null, new { @class = "btn text-body w-100 border" })
         @Html.ActionLink("Zmień hasło", "ChangePassword", "Manage", null, new { @class = "btn text-body w-100 border" })
         @Html.ActionLink("Logowanie zewnętrzne", "ManageLogins", "Manage", null, new { @class = "btn text-body w-100 border" })
         @Html.ActionLink("Usuń konto", "DeleteAccount", "Manage", null, new { @class = "btn text-body w-100 border" })

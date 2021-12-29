@@ -53,6 +53,76 @@ namespace CzyDobre.Controllers
             }
         }
 
+        public ActionResult MyData()
+        {
+            DBEntities db = new DBEntities();
+            MyDataViewModel dane = new MyDataViewModel();
+            var userId = User.Identity.GetUserId();
+
+            try
+            {
+                if(userId != null)
+                {
+                    var nickName = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.NickName).FirstOrDefault();
+                    var firstName = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.FirstName).FirstOrDefault();
+                    var lastName = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.LastName).FirstOrDefault();
+
+                    dane.Id = userId;
+                    dane.FirstName = firstName;
+                    dane.LastName = lastName;
+                    dane.NickName = nickName;
+
+                    if (dane != null)
+                    {
+                        return View(dane);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.Clear();
+                this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+            }
+            this.AddNotification($"Ups!, napotkaliśmy pewien problem. Proszę spróbować za kilka minut.", NotificationType.ERROR);
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveMyData(MyDataViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    DBEntities db = new DBEntities();
+                    var userId = User.Identity.GetUserId();
+                    var aspNetUser = db.AspNetUsers.FirstOrDefault(m => m.Id == userId);
+
+                    aspNetUser.FirstName = model.FirstName;
+                    aspNetUser.LastName = model.LastName;
+                    aspNetUser.NickName = model.NickName;
+
+                    db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    this.AddNotification($"Dane, zostały zapisane pomyślnie", NotificationType.SUCCESS);
+                    return View("MyData");
+                }
+                this.AddNotification($"Uzupełnij wymagane dane", NotificationType.ERROR);
+            }
+            catch (Exception ex)
+            {
+                ModelState.Clear();
+                this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                return View("MyData");
+            }
+            return View("MyData");
+        }
+
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)

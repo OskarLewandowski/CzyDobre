@@ -1,0 +1,36 @@
+﻿@model CzyDobre.Models.MyDataViewModel
+@{
+    ViewBag.Title = "Moje dane";
+    Layout = "~/Views/Shared/_UserSettingsLayout.cshtml";
+}
+<div>
+    @using (Html.BeginForm("SaveMyData", "Manage", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container">
+            @Html.HiddenFor(m => m.Id)
+            <div class="form-group">
+                @Html.Label("Imię", new { @class = "col-md-2 control-label" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Nazwisko", new { @class = "col-md-2 control-label" })
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Nick", new { @class = "col-md-2 control-label" })
+                @Html.TextBoxFor(m => m.NickName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.NickName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group" align="center">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Zapisz zmiany" class="btn btn-success" onclick="return confirm('Czy na pewno chcesz ZAPISAĆ ZMIANY?');" />
+                </div>
+            </div>
+            <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+        </div>
+    }
+</div>
+@Html.Partial("_Loading")

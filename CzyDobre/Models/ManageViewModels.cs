@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -66,6 +67,19 @@ namespace CzyDobre.Models
         public string Password { get; set; }
     }
 
+    public class MyDataViewModel
+    {
+        public string Id { get; set; }
+        [Display(Name = "Imię")]
+        public string FirstName { get; set; }
+        [Display(Name = "Nazwisko")]
+        public string LastName { get; set; }
+        [Required(ErrorMessage = "Pole Nick jest wymagane, nie może być puste")]
+        [MyDataNickNameCheck]
+        [Display(Name = "Nick")]
+        public string NickName { get; set; }
+    }
+
     public class AddPhoneNumberViewModel
     {
         [Required]
@@ -90,5 +104,36 @@ namespace CzyDobre.Models
     {
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
+    }
+
+    public class MyDataNickNameCheck : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            DBEntities db = new DBEntities();
+
+            var userMyData = (MyDataViewModel)validationContext.ObjectInstance;
+            string nickName = userMyData.NickName;
+            string userId = userMyData.Id;
+            string checkUser = db.AspNetUsers.Where(u => u.NickName == nickName).Select(u => u.Id).FirstOrDefault();
+            string checkCurrentNick = db.AspNetUsers.Where(u => u.Id == userId).Select(u => u.NickName).FirstOrDefault();
+
+            if(nickName == checkCurrentNick)
+            {
+                return ValidationResult.Success;
+            }
+
+            if (checkUser == "" || checkUser == null)
+            {
+                return ValidationResult.Success;
+            }
+
+            if (checkUser != "" || checkUser != null)
+            {
+                return new ValidationResult("Ten Nick jest już zajęty");
+            }
+
+            return ValidationResult.Success;
+        }
     }
 }
