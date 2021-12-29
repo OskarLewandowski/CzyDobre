@@ -5,6 +5,7 @@
 }
 <div>
     <div class="awatar-div">
+        <h5>Aktualny awatar</h5>
         <img src="@Html.DisplayFor(m => m.AvatarUrl)" alt="Awatar użytkownika" class="awatar-image">
     </div>
     @using (Html.BeginForm("ChangeAvatar", "Manage", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
@@ -13,17 +14,17 @@
         <div class="container">
             @*@Html.HiddenFor(m => m.Id)*@
             <div class="form-group">
-                @Html.Label("ID", new { @class = "col-md-2 control-label" })
+                @Html.Label("ID", new { @class = "col-md-4 control-label" })
                 @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Id, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.Label("AwatarUrl", new { @class = "col-md-2 control-label" })
+                @Html.Label("AwatarUrlObecny", new { @class = "col-md-4 control-label" })
                 @Html.TextBoxFor(m => m.AvatarUrl, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.AvatarUrl, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.Label("AwatarUrl", new { @class = "col-md-2 control-label" })
+                @Html.Label("Zmień awatar", new { @class = "col-md-4 control-label" })
                 @Html.TextBoxFor(m => m.avatarAttachment, new { type = "file", @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.avatarAttachment, "", new { @class = "text-danger" })
                 <p style="text-align: left; padding: 3px;">Maksymalna wielkość pliku wynosi 5MB</p>

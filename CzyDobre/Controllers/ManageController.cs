@@ -10,6 +10,10 @@ using CzyDobre.Models;
 using CzyDobre.Extensions;
 using System.Configuration;
 using System.Net.Mail;
+using CloudinaryDotNet;
+using System.Collections.Generic;
+using System.IO;
+using CloudinaryDotNet.Actions;
 
 namespace CzyDobre.Controllers
 {
@@ -35,9 +39,9 @@ namespace CzyDobre.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -61,7 +65,7 @@ namespace CzyDobre.Controllers
 
             try
             {
-                if(userId != null)
+                if (userId != null)
                 {
                     var nickName = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.NickName).FirstOrDefault();
                     var firstName = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.FirstName).FirstOrDefault();
@@ -136,8 +140,9 @@ namespace CzyDobre.Controllers
                 {
                     var avatarUrl = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.AvatarUrl).FirstOrDefault();
                     var avatarDefault = "https://res.cloudinary.com/czydobre-pl/image/upload/v1640786753/CzyDobre-www/awatar-domyslny-ramka_u9xv4t.png";
+                    var linkCzydobre = "https://res.cloudinary.com/czydobre-pl/image/upload/v1640790462/CzyDobre-awatary/";
 
-                    if(avatarUrl == null || avatarUrl == "")
+                    if (avatarUrl == null || avatarUrl == "")
                     {
                         dane.Id = userId;
                         dane.AvatarUrl = avatarDefault;
@@ -145,9 +150,9 @@ namespace CzyDobre.Controllers
                     else
                     {
                         dane.Id = userId;
-                        dane.AvatarUrl = avatarUrl;
+                        dane.AvatarUrl = linkCzydobre + avatarUrl;
                     }
-          
+
                     if (dane != null)
                     {
                         return View(dane);
@@ -175,19 +180,16 @@ namespace CzyDobre.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    //DBEntities db = new DBEntities();
-                    //var userId = User.Identity.GetUserId();
-                    //var aspNetUser = db.AspNetUsers.FirstOrDefault(m => m.Id == userId);
+                    DBEntities db = new DBEntities();
+                    var userId = User.Identity.GetUserId();
+                    var aspNetUser = db.AspNetUsers.FirstOrDefault(m => m.Id == userId);
+                    var awatarNewUrl = SaveAvatar(model);
 
-                    //aspNetUser.FirstName = model.FirstName;
-                    //aspNetUser.LastName = model.LastName;
-                    //aspNetUser.NickName = model.NickName;
+                    aspNetUser.AvatarUrl = awatarNewUrl[0];
 
-                    //db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
-                    //db.SaveChanges();
-                    this.AddNotification($"Test) "+ model.Id + model.AvatarUrl, NotificationType.SUCCESS);
-
-                    this.AddNotification($"Dane, zostały zapisane pomyślnie", NotificationType.SUCCESS);
+                    db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    this.AddNotification($"Awatar, został zapisany pomyślnie", NotificationType.SUCCESS);
                     return RedirectToAction("Avatar");
                 }
                 this.AddNotification($"Błędne dane", NotificationType.ERROR);
@@ -201,6 +203,119 @@ namespace CzyDobre.Controllers
             return RedirectToAction("Avatar");
         }
 
+        private List<string> SaveAvatar(AvatarViewModel model)
+        {
+            bool OK = false;
+            int allSize = 0;
+            string ext = null;
+            //nazwy plikow do zapisania do bazy
+            List<string> imagesData = new List<string>();
+            //zewryfikowane zdjecia do wyslania 
+            List<HttpPostedFileBase> checkedFiles = new List<HttpPostedFileBase>();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Account account = new Account(
+                    ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
+                    ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
+                    ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
+                    Cloudinary cloudinary = new Cloudinary(account);
+
+                    //Weryfikacja plików
+                    foreach (HttpPostedFileBase item in model.avatarAttachment)
+                    {
+                        if (item != null && item.ContentLength > 0)
+                        {
+                            ext = Path.GetExtension(item.FileName.ToLower());
+
+                            if (ext == ".png" || ext == ".jpeg" || ext == ".jpg")
+                            {
+                                checkedFiles.Add(item);
+                                var byteCount = item.ContentLength;
+
+                                allSize = allSize + byteCount;
+                                if (allSize < 5242880)
+                                {
+                                    OK = true;
+                                }
+                                else
+                                {
+                                    OK = false;
+                                    this.AddNotification("Zdjęcie waży za dużo! Maksymalna wartość zdjęć wynosi 5MB", NotificationType.WARNING);
+                                    return null;
+                                }
+                            }
+                            else
+                            {
+                                this.AddNotification("Plik nieprawidłowy: " + item.FileName, NotificationType.INFO);
+                            }
+                        }
+                        else
+                        {
+                            this.AddNotification("Nie wybrano pliku", NotificationType.INFO);
+                        }
+                    }
+
+                    //Po weryfikacji
+                    if (OK == true)
+                    {
+                        foreach (HttpPostedFileBase item in checkedFiles)
+                        {
+                            var filename = UniqueNumber() + item.FileName;
+                            imagesData.Add(filename);
+
+                            var uploadParams = new ImageUploadParams()
+                            {
+                                UseFilename = true,
+                                UniqueFilename = false,
+                                File = new FileDescription(filename, item.InputStream),
+                                Folder = "CzyDobre-awatary"
+                            };
+                            var uploadResult = cloudinary.Upload(uploadParams);
+                            //this.AddNotification(filename, NotificationType.SUCCESS);
+                        }
+                        //ModelState.Clear();
+                        //this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
+                    }
+                }
+                catch (Exception)
+                {
+                    //ModelState.Clear();
+                    //this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                }
+            }
+
+            return imagesData;
+        }
+
+        private String characters = "abcdeCDEfghijkzMABFHIJKLNOlmnopqrPQRSTstuvwxyUVWXYZ";
+
+        private string UniqueNumber()
+        {
+            Random rnd = new Random();
+            string s = "CzyDobre_";
+            int unique;
+            int n = 0;
+            while (n < 10)
+            {
+                if (n % 2 == 0)
+                {
+                    s += rnd.Next(10).ToString();
+
+                }
+                else
+                {
+                    unique = rnd.Next(52);
+                    if (unique < this.characters.Length)
+                        s = String.Concat(s, this.characters[unique]);
+                }
+                n++;
+            }
+            var timeNuber = DateTimeOffset.Now.ToUnixTimeSeconds();
+            return s + timeNuber.ToString() + "_";
+        }
 
         //
         // GET: /Manage/Index
@@ -411,18 +526,18 @@ namespace CzyDobre.Controllers
         {
             try
             {
-                if(ModelState.IsValid && model.Password != null)
+                if (ModelState.IsValid && model.Password != null)
                 {
                     var userId = User.Identity.GetUserId();
                     var userEmail = User.Identity.GetUserName();
                     var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                     var checkPass = await UserManager.CheckPasswordAsync(user, model.Password);
 
-                    if(checkPass == true)
+                    if (checkPass == true)
                     {
                         DBEntities db = new DBEntities();
                         var id = db.AspNetUsers.Where(m => m.Id == userId).FirstOrDefault();
-                        if(id != null)
+                        if (id != null)
                         {
                             db.AspNetUsers.Remove(id);
                             db.SaveChanges();
@@ -565,7 +680,7 @@ namespace CzyDobre.Controllers
             base.Dispose(disposing);
         }
 
-#region Pomocnicy
+        #region Pomocnicy
         // Służy do ochrony XSRF podczas dodawania logowań zewnętrznych
         private const string XsrfKey = "XsrfId";
 
@@ -616,6 +731,6 @@ namespace CzyDobre.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }
