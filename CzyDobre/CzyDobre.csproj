@@ -731,11 +731,27 @@
     <Content Include="googleb759cfb5ebebcab7.html" />
     <Content Include="image\Add.png" />
     <Content Include="image\AddFoto.png" />
+    <Content Include="image\czydobre.png" />
+    <Content Include="image\foodbar.jpg" />
     <Content Include="image\Foto.png" />
+    <Content Include="image\hamburger.jpeg" />
+    <Content Include="image\icon.jpg" />
+    <Content Include="image\icon.png" />
+    <Content Include="image\kebab.jpg" />
     <Content Include="image\kontakt.png" />
     <Content Include="image\frontpage-image.jpg" />
+    <Content Include="image\lody.jpeg" />
+    <Content Include="image\login.png" />
     <Content Include="image\logo_czydobre.png" />
+    <Content Include="image\pasek.png" />
+    <Content Include="image\peppers.png" />
+    <Content Include="image\placeholderimg.png" />
+    <Content Include="image\popular-stars.jpg" />
+    <Content Include="image\popular-stars.png" />
+    <Content Include="image\popular.png" />
+    <Content Include="image\register.png" />
     <Content Include="image\trojkat_login_register.png" />
+    <Content Include="image\zapiekanka.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
