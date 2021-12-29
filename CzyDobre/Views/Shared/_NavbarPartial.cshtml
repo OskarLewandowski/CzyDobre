@@ -7,14 +7,14 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto" style="margin-block-start: 0;">
-                <li class="nav-item pr-5 active">
+            <ul class="navbar-nav mr-auto custom-navbar-links" style="margin-block-start: 0;">
+                <li class="nav-item pr-2 mr-2 active">
                     @Html.ActionLink("Przeglądaj", "Opinion", "Home", null, new { style = "color:white" })
                 </li>
                 @{
                     if (User.Identity.IsAuthenticated)
                     {
-                        <li class="nav-item pr-5 active">
+                        <li class="nav-item pr-2 mr-2 active">
                             @Html.ActionLink("Losuj", "GetDish", "Home", null, new { style = "color:white" })
                         </li>
                     }

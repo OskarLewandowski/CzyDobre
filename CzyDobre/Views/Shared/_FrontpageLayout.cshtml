@@ -17,41 +17,39 @@
 </head>
 <body>
     @Html.Partial("_NavbarPartial")
-    <div class="frontpage-image-container background-image-preserve-ratio align-items-center">
-        <div class="position-relative h-100 w-100">
-            <div class="frontpage-container">
-                <div class="frontpage-searchbox-container">
-                    <div class="row pt-3 pb-3">
-                        <p class="frontpage-welcome-text col-12 col-md-4">Czego szukasz?</p>
-                        <div class="col-md-6">
-                            <form id="search-form" method="get" action="opinie" class="input-group-lg input-group mx-auto mt-2">
-                                <input id="CatSE" name="query" type="search" class="form-control left-bullet-radius ml-5" placeholder="Wyszukaj..." aria-label="Search"
-                                       aria-describedby="search-addon" />
-                                <button type="submit" class="btn btn-lg fa fa-search text-white right-bullet-radius mr-5"></button>
-                            </form>
-                            <script defer src="~/Scripts/AutoCompleteCat.js"></script>
-                        </div>
-                        <style>
-                            .imageClass {
-                                width: 100px;
-                                height: 100px;
-                            }
-                        </style>
+    <div class="frontpage-image-container position-relative background-image-preserve-ratio align-items-center">
+        <div class="frontpage-container">
+            <div class="frontpage-searchbox-container container row align-items-center">
+                <div class="row mx-1 py-3 w-100">
+                    <p class="frontpage-welcome-text pl-3 col-12 col-md-4">Czego szukasz?</p>
+                    <div class="col-md-8">
+                        <form id="search-form" method="get" action="opinie" class="input-group-lg input-group mx-auto mt-2">
+                            <input id="CatSE" name="query" type="search" class="form-control left-bullet-radius" placeholder="Wyszukaj..." aria-label="Search"
+                                    aria-describedby="search-addon" />
+                            <button type="submit" class="btn btn-lg fa fa-search text-white right-bullet-radius mr-2"></button>
+                        </form>
+                        <script defer src="~/Scripts/AutoCompleteCat.js"></script>
                     </div>
-                    @{
-                        if (User.Identity.IsAuthenticated)
-                        {
-                    <div class="row mt-2">
-                        <div class="col-6">
-                            <p class="addopinion btn"> @Html.ActionLink("+ Dodaj opinię", "AddOpinion", "Home", null, new { @class = "addopinionlink" })</p>
-                        </div>
-                        <div class="col-6 ">
-                            <p class="addproduct btn "> @Html.ActionLink("+ Dodaj produkt", "AddProducts", "Home", null, new { @class = "addproductlink" })</p>
-                        </div>
-                    </div>
-                            }
+                    <style>
+                        .imageClass {
+                            width: 100px;
+                            height: 100px;
                         }
+                    </style>
                 </div>
+                @{
+                    if (User.Identity.IsAuthenticated)
+                    {
+                <div class="row mx-1 mt-2 w-100">
+                    <div class="col-6">
+                        <p class="addopinion btn"> @Html.ActionLink("+ Dodaj opinię", "AddOpinion", "Home", null, new { @class = "addopinionlink" })</p>
+                    </div>
+                    <div class="col-6 ">
+                        <p class="addproduct btn "> @Html.ActionLink("+ Dodaj produkt", "AddProducts", "Home", null, new { @class = "addproductlink" })</p>
+                    </div>
+                </div>
+                        }
+                    }
             </div>
         </div>
     </div>
