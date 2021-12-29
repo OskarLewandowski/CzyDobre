@@ -112,7 +112,7 @@ namespace CzyDobre.Controllers
                     this.AddNotification($"Dane, zostały zapisane pomyślnie", NotificationType.SUCCESS);
                     return View("MyData");
                 }
-                this.AddNotification($"Uzupełnij wymagane dane", NotificationType.ERROR);
+                this.AddNotification($"Błędne dane", NotificationType.ERROR);
             }
             catch (Exception ex)
             {
