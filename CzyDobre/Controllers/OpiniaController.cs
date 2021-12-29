@@ -170,6 +170,8 @@ namespace CzyDobre.Controllers
           
                 foreach (AspNetRating r in Opinia)
                 {
+                    var opiniaDecres = db.AspNetProducts.Where(m => m.Id_Product == r.Id_Product).FirstOrDefault();
+                    opiniaDecres.Opinion_Counter -= 1;
                     lista.AddRange(db.AspNetRatingPictures.Where(m => m.Id_Rating == r.Id_Rating).ToList());
                 }
 

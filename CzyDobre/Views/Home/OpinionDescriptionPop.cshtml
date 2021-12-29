@@ -1,0 +1,142 @@
+﻿@using CzyDobre.Models
+@using System.Linq;
+@model OpinionViewModels
+@{
+    ViewBag.Title = "Opinia";
+    Layout = "~/Views/Shared/_LayoutWide.cshtml";
+}
+
+
+
+<div class="row flex-column flex-lg-row flex-grow-1">
+    <div class="col col-xl-7 p-0">
+        <div id="opinionImages" class="opinion-details-image-container carousel slide" data-interval="false" data-ride="carousel">
+            @{
+                if (Model.ImageUrls != null && Model.ImageUrls.Any())
+                {
+                    if (Model.ImageUrls.Count > 1)
+                    {
+                        <ol class="carousel-indicators">
+                            <li data-target="#opinionImages" data-slide-to="0" class="active"></li>
+                            @for (int i = 1; i < Model.ImageUrls.Count; i++)
+                            {
+                                <li data-target="#opinionImages" data-slide-to="@i"></li>
+                            }
+                        </ol>
+                        <div class="carousel-inner h-100 w-100">
+                            <div class="h-100 w-100 active carousel-item">
+                                <div class="h-100 w-100 d-flex justify-content-center align-items-center">
+                                    <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@Model.ImageUrls[0]" class="d-block mw-100 mh-100" />
+                                </div>
+                            </div>
+                            @for (int i = 1; i < Model.ImageUrls.Count; i++)
+                            {
+                                <div class="h-100 w-100 carousel-item">
+                                    <div class="h-100 w-100 d-flex justify-content-center align-items-center">
+                                        <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@Model.ImageUrls[i]" class="d-block mw-100 mh-100" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="h-100 w-100 d-flex justify-content-center align-items-center">
+                            <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@Model.ImageUrls[0]" class="d-block mw-100 mh-100" />
+                        </div>
+                    }
+                }
+            }
+            @if (Model.ImageUrls != null && Model.ImageUrls.Count > 1)
+            {
+                <a class="carousel-control-prev" href="#opinionImages" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#opinionImages" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            }
+
+        </div>
+    </div>
+    <div class="col col-xl-5 p-0">
+        <div class="w-100 p-4 border-bottom">
+            <h1 class="opinion-details-header text-center text-capitalize">@Model.ProductName</h1>
+            <div class="d-flex justify-content-between">
+                <span>Dodane przez: @Model.AddedBy</span>
+                <span class="ml-5 float-right">@Model.AddedDate.ToString("g")</span>
+            </div>
+        </div>
+        <div class="w-100 py-4 px-2 border-bottom d-flex justify-content-around">
+            <div class="text-center">
+                <span>Obsługa</span><br />
+                <div class="text-warning">
+                    @{
+                        int serviceCounter = Convert.ToInt32(Model.RateService);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (i < serviceCounter)
+                            {
+                                <span class="fa fa-star"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-star-o"></span>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+            <div class="text-center">
+                <span>Smak</span><br />
+                <div class="text-warning">
+                    @{
+                        int tasteCounter = Convert.ToInt32(Model.RateTaste);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (i < tasteCounter)
+                            {
+                                <span class="fa fa-star"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-star-o"></span>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+            <div class="text-center">
+                <span>Cena</span><br />
+                <div class="text-warning">
+                    @{
+                        int ingredientsCounter = Convert.ToInt32(Model.RateIngredients);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (i < ingredientsCounter)
+                            {
+                                <span class="fa fa-star"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-star-o"></span>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        @{
+            if (!String.IsNullOrEmpty(Model.Comment))
+            {
+                <div class="w-100 py-4 px-2 border-bottom">
+                    <p class="w-100 rounded bg-lightpaleblue p-3" style="text-indent:2em;">
+                        @Model.Comment
+                    </p>
+                </div>
+            }
+        }
+    </div>
+</div>
