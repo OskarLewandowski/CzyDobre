@@ -316,10 +316,12 @@ namespace CzyDobre.Controllers
                 opinionViewModel.RatingId = opinionId;
                 var opinion = (from AspNetRating in db.AspNetRatings
                                join AspNetProduct in db.AspNetProducts on AspNetRating.Id_Product equals AspNetProduct.Id_Product
+                               join AspNetPlace in db.AspNetPlaces on AspNetProduct.Id_Place equals AspNetPlace.Id_Place
                                join AspNetUser in db.AspNetUsers on AspNetRating.Who equals AspNetUser.Id
                                where AspNetRating.Id_Rating == opinionId
                                select new
                                {
+                                   Place = AspNetPlace.PlaceName,
                                    RateService = AspNetRating.RateService,
                                    RateTaste = AspNetRating.RateTaste,
                                    RateIngredients = AspNetRating.RateIngredients,
@@ -332,6 +334,7 @@ namespace CzyDobre.Controllers
                 opinionViewModel.ImageUrls = (from AspNetRatingPicture in db.AspNetRatingPictures
                                               where AspNetRatingPicture.Id_Rating == opinionId
                                               select AspNetRatingPicture.Url).ToList();
+                opinionViewModel.Place = opinion.Place.ToString();
                 opinionViewModel.ProductName = opinion.ProductName.ToString();
                 opinionViewModel.RateService = opinion.RateService.ToString();
                 opinionViewModel.RateTaste = opinion.RateTaste.ToString();
@@ -364,10 +367,12 @@ namespace CzyDobre.Controllers
                 opinionViewModel.RatingId = opinionId;
                 var opinion = (from AspNetRating in db.AspNetRatings
                                join AspNetProduct in db.AspNetProducts on AspNetRating.Id_Product equals AspNetProduct.Id_Product
+                               join AspNetPlace in db.AspNetPlaces on AspNetProduct.Id_Place equals AspNetPlace.Id_Place
                                join AspNetUser in db.AspNetUsers on AspNetRating.Who equals AspNetUser.Id
                                where AspNetProduct.Id_Product == opinionId
                                select new
                                {
+                                   Place = AspNetPlace.PlaceName,
                                    RateId = AspNetRating.Id_Rating,
                                    RateService = AspNetRating.RateService,
                                    RateTaste = AspNetRating.RateTaste,
@@ -381,6 +386,7 @@ namespace CzyDobre.Controllers
                 opinionViewModel.ImageUrls = (from AspNetRatingPicture in db.AspNetRatingPictures
                                               where AspNetRatingPicture.Id_Rating == opinion.RateId
                                               select AspNetRatingPicture.Url).ToList();
+                opinionViewModel.Place = opinion.Place.ToString();
                 opinionViewModel.ProductName = opinion.ProductName.ToString();
                 opinionViewModel.RateService = opinion.RateService.ToString();
                 opinionViewModel.RateTaste = opinion.RateTaste.ToString();
