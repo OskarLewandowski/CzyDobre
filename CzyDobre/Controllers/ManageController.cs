@@ -136,7 +136,7 @@ namespace CzyDobre.Controllers
 
             try
             {
-                if (userId != null)
+                if (ModelState.IsValid && userId != null)
                 {
                     var avatarUrl = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.AvatarUrl).FirstOrDefault();
                     var avatarDefault = "https://res.cloudinary.com/czydobre-pl/image/upload/v1640786753/CzyDobre-www/awatar-domyslny-ramka_u9xv4t.png";
@@ -144,12 +144,10 @@ namespace CzyDobre.Controllers
 
                     if (avatarUrl == null || avatarUrl == "")
                     {
-                        dane.Id = userId;
                         dane.AvatarUrl = avatarDefault;
                     }
                     else
                     {
-                        dane.Id = userId;
                         dane.AvatarUrl = linkCzydobre + avatarUrl;
                     }
 
@@ -180,19 +178,48 @@ namespace CzyDobre.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    Account account = new Account(
+                        ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
+                        ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
+                        ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
+                    Cloudinary cloudinary = new Cloudinary(account);
+
                     DBEntities db = new DBEntities();
+
                     var userId = User.Identity.GetUserId();
+                    var awatarOldUrl = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.AvatarUrl).FirstOrDefault();
                     var aspNetUser = db.AspNetUsers.FirstOrDefault(m => m.Id == userId);
                     var awatarNewUrl = SaveAvatar(model);
-
                     aspNetUser.AvatarUrl = awatarNewUrl[0];
 
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
+
+                    if (awatarOldUrl != null)
+                    {
+                        //usuwan rozszezenia .jpg 4 i .jpng 5
+                        var ID4 = awatarOldUrl.Remove(awatarOldUrl.Length - 4);
+                        var ID5 = awatarOldUrl.Remove(awatarOldUrl.Length - 5);
+                        var nameId4 = "CzyDobre-awatary/" + ID4;
+                        var nameId5 = "CzyDobre-awatary/" + ID5;
+
+                        var deletionParams4 = new DeletionParams(ID4)
+                        {
+                            PublicId = nameId4
+                        };
+                        var deletionResult = cloudinary.Destroy(deletionParams4);
+
+                        var deletionParams5 = new DeletionParams(ID5)
+                        {
+                            PublicId = nameId5
+                        };
+                        var deletionResult4 = cloudinary.Destroy(deletionParams5);
+                    }
+
                     this.AddNotification($"Awatar, został zapisany pomyślnie", NotificationType.SUCCESS);
                     return RedirectToAction("Avatar");
                 }
-                this.AddNotification($"Błędne dane", NotificationType.ERROR);
+                this.AddNotification($"Plik nie spełnia wymagań", NotificationType.ERROR);
             }
             catch (Exception ex)
             {
