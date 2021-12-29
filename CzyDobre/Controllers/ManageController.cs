@@ -123,6 +123,45 @@ namespace CzyDobre.Controllers
             return View("MyData");
         }
 
+
+        public ActionResult Avatar()
+        {
+            DBEntities db = new DBEntities();
+            AvatarViewModel dane = new AvatarViewModel();
+            var userId = User.Identity.GetUserId();
+
+            try
+            {
+                if (userId != null)
+                {
+                    //var nickName = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.NickName).FirstOrDefault();
+                    //var firstName = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.FirstName).FirstOrDefault();
+                    //var lastName = db.AspNetUsers.Where(m => m.Id == userId).Select(m => m.LastName).FirstOrDefault();
+
+                    //dane.Id = userId;
+                    //dane.FirstName = firstName;
+                    //dane.LastName = lastName;
+                    //dane.NickName = nickName;
+
+                    if (dane != null)
+                    {
+                        return View(dane);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.Clear();
+                this.AddNotification($"Ups!, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+            }
+            this.AddNotification($"Ups!, napotkaliśmy pewien problem. Proszę spróbować za kilka minut.", NotificationType.ERROR);
+            return View();
+        }
+
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)

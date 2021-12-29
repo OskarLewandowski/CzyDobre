@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -78,6 +79,12 @@ namespace CzyDobre.Models
         [MyDataNickNameCheck]
         [Display(Name = "Nick")]
         public string NickName { get; set; }
+    }
+
+    public class AvatarViewModel
+    {
+        public string AvatarUrl { get; set; }
+        public List<HttpPostedFileBase> avatarAttachment { get; set; }
     }
 
     public class AddPhoneNumberViewModel
