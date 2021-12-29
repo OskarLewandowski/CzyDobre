@@ -1082,7 +1082,6 @@
     <Content Include="Views\RoleV2\Delete.cshtml" />
     <Content Include="Views\RoleV2\AssignRole.cshtml" />
     <Content Include="Views\RoleV2\DeleteUserRole.cshtml" />
-    <Content Include="Views\Manage\MyData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
