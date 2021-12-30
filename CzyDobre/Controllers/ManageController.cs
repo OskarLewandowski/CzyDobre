@@ -251,7 +251,7 @@ namespace CzyDobre.Controllers
                     Cloudinary cloudinary = new Cloudinary(account);
 
                     //Weryfikacja plików
-                    foreach (HttpPostedFileBase item in model.avatarAttachment)
+                    foreach (HttpPostedFileBase item in model.Icon)
                     {
                         if (item != null && item.ContentLength > 0)
                         {

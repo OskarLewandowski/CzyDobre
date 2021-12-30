@@ -86,7 +86,7 @@ namespace CzyDobre.Models
     {
         public string AvatarUrl { get; set; }
         [AvatarCheckFile]
-        public List<HttpPostedFileBase> avatarAttachment { get; set; }
+        public List<HttpPostedFileBase> Icon { get; set; }
     }
 
     public class AddPhoneNumberViewModel
@@ -155,7 +155,7 @@ namespace CzyDobre.Models
             var file = (AvatarViewModel)validationContext.ObjectInstance;
             string ext = null;
 
-            foreach (HttpPostedFileBase item in file.avatarAttachment)
+            foreach (HttpPostedFileBase item in file.Icon)
             {
                 if (item != null && item.ContentLength > 0)
                 {

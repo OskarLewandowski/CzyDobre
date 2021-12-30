@@ -14,12 +14,17 @@
         @Html.AntiForgeryToken()
         <div class="container">
             @Html.HiddenFor(m => m.AvatarUrl)
-            <div class="form-group">
-                @Html.Label("Aby zmienić awatar, należy kliknąć przycisk \"Wybierz plik\"", new { @class = "col-md-20 control-label" })
-                @Html.TextBoxFor(m => m.avatarAttachment, new { type = "file", @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.avatarAttachment, "", new { @class = "text-danger" })
-                <p style="text-align: left; padding: 3px;">Maksymalna wielkość pliku wynosi 5MB, dozwolony format to: png, jpg.</p>
+            <h5 style="text-align:center">Nowy awatar</h5>
+            <div id="dropSpot" class="position-relative d-flex flex-column col-12 col-lg-6 p-0">
+                <label for="Icon" class="drag-and-drop-preview m-0">
+                    <img src="" id="previewMain" class="drag-and-drop-preview-main d-none" />
+                </label>
+                @Html.TextBoxFor(m => m.Icon, new { type = "file", @class = "drag-and-drop-file", accept = "image/png, image/jpeg, image/jpg" })
+                @Html.ValidationMessageFor(m => m.Icon, "", new { @class = "text-danger" })
+                <i class='fa fa-times drag-and-drop-remove'></i>
             </div>
+            <p style="text-align: center; padding: 3px;">Aby zmienić awatar należy kliknąć obrazek Dodaj zdjęcia</p>
+            <script defer src="~/Scripts/DragAndDropSingle.js"></script>
             <div class="form-group" align="center">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Zapisz zmiany" class="btn btn-success" onclick="return confirm('Czy na pewno chcesz ZAPISAĆ ZMIANY?');" />
