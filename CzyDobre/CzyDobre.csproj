@@ -776,6 +776,7 @@
     <Content Include="Scripts\AutoCompleteCatPE.js" />
     <Content Include="Scripts\AutoCompleteCat.js" />
     <Content Include="Scripts\DragAndDrop.js" />
+    <Content Include="Scripts\DragAndDropSingle.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.js" />

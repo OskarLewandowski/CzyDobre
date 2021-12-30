@@ -61,9 +61,15 @@
             <div class="form-group" align="center">
                 <div class="col-md-10">
                     @Html.Label("Wstaw Zdjęcie Katalogowe:", new { @class = "col-md-4 control-label" })
-                    @Html.TextBoxFor(m => m.Icon, new { @type = "file", @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Icon, "", new { @class = "text-danger" })
-
+                    <div id="dropSpot" class="position-relative d-flex flex-column col-12 col-lg-6 p-0">
+                        <label for="Icon" class="drag-and-drop-preview m-0">
+                            <img src="" id="previewMain" class="drag-and-drop-preview-main d-none" />
+                        </label>
+                        @Html.TextBoxFor(m => m.Icon, new { type = "file", @class = "drag-and-drop-file", accept = "image/png, image/jpeg, image/jpg" })
+                        @Html.ValidationMessageFor(m => m.Icon, "", new { @class = "text-danger" })
+                        <i class='fa fa-times drag-and-drop-remove'></i>
+                    </div>
+                    <script defer src="~/Scripts/DragAndDropSingle.js"></script>
 
 
                     <p style="text-align: left; padding: 3px;">Maksymalna wielkość załącznika wynosi 5MB</p>
