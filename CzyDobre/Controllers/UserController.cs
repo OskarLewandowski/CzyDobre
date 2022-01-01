@@ -34,33 +34,35 @@ namespace CzyDobre.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    AspNetUser aspNetUser = new AspNetUser();
-                    DateTime? date = null;
-                    if (model.LockoutEndDateUtc != null)
-                    {
-                        DateTime boxDate = (DateTime)model.LockoutEndDateUtc;
-                        string porawnaData = boxDate.ToString("MM.dd.yyyy HH:mm:ss");
-                        date = Convert.ToDateTime(porawnaData);
-                    }
+                    //AspNetUser aspNetUser = new AspNetUser();
+                    var aspNetUser = db.AspNetUsers.FirstOrDefault(m => m.Id == model.Id);
 
-                    aspNetUser.Id = model.Id;
+                    //DateTime? date = null;
+                    //if (model.LockoutEndDateUtc != null)
+                    //{
+                    //    DateTime boxDate = (DateTime)model.LockoutEndDateUtc;
+                    //    string porawnaData = boxDate.ToString("MM.dd.yyyy HH:mm:ss");
+                    //    date = Convert.ToDateTime(porawnaData);
+                    //}
+
+                    //aspNetUser.Id = model.Id;
                     aspNetUser.Email = model.Email;
                     aspNetUser.EmailConfirmed = model.EmailConfirmed;
-                    aspNetUser.PasswordHash = model.PasswordHash;
-                    aspNetUser.SecurityStamp = model.SecurityStamp;
-                    aspNetUser.PhoneNumber = model.PhoneNumber;
-                    aspNetUser.PhoneNumberConfirmed = model.PhoneNumberConfirmed;
-                    aspNetUser.TwoFactorEnabled = model.TwoFactorEnabled;
-                    aspNetUser.LockoutEnabled = model.LockoutEnabled;
-                    aspNetUser.AccessFailedCount = model.AccessFailedCount;
+                    //aspNetUser.PasswordHash = model.PasswordHash;
+                    //aspNetUser.SecurityStamp = model.SecurityStamp;
+                    //aspNetUser.PhoneNumber = model.PhoneNumber;
+                    //aspNetUser.PhoneNumberConfirmed = model.PhoneNumberConfirmed;
+                    //aspNetUser.TwoFactorEnabled = model.TwoFactorEnabled;
+                    //aspNetUser.LockoutEnabled = model.LockoutEnabled;
+                    //aspNetUser.AccessFailedCount = model.AccessFailedCount;
                     aspNetUser.UserName = model.Email;
                     aspNetUser.FirstName = model.FirstName;
                     aspNetUser.LastName = model.LastName;
                     aspNetUser.NickName = model.NickName;
-                    aspNetUser.LockoutEndDateUtc = date;
-                    aspNetUser.LastBanDays = model.LastBanDays;
-                    aspNetUser.BanComment = model.BanComment;
-                    aspNetUser.WhoGaveBan = model.WhoGaveBan;
+                    //aspNetUser.LockoutEndDateUtc = date;
+                    //aspNetUser.LastBanDays = model.LastBanDays;
+                    //aspNetUser.BanComment = model.BanComment;
+                    //aspNetUser.WhoGaveBan = model.WhoGaveBan;
 
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
@@ -129,25 +131,27 @@ namespace CzyDobre.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    AspNetUser aspNetUser = new AspNetUser();
+                    //AspNetUser aspNetUser = new AspNetUser();
+                    var aspNetUser = db.AspNetUsers.FirstOrDefault(m => m.Id == model.Id);
+
 
                     var adminName = User.Identity.Name;
                     double addDays = (double)model.LastBanDays;                
 
-                    aspNetUser.Id = model.Id;
-                    aspNetUser.Email = model.Email;
-                    aspNetUser.EmailConfirmed = model.EmailConfirmed;
-                    aspNetUser.PasswordHash = model.PasswordHash;
-                    aspNetUser.SecurityStamp = model.SecurityStamp;
-                    aspNetUser.PhoneNumber = model.PhoneNumber;
-                    aspNetUser.PhoneNumberConfirmed = model.PhoneNumberConfirmed;
-                    aspNetUser.TwoFactorEnabled = model.TwoFactorEnabled;
-                    aspNetUser.LockoutEnabled = model.LockoutEnabled;
-                    aspNetUser.AccessFailedCount = model.AccessFailedCount;
-                    aspNetUser.UserName = model.Email;
-                    aspNetUser.FirstName = model.FirstName;
-                    aspNetUser.LastName = model.LastName;
-                    aspNetUser.NickName = model.NickName;
+                    //aspNetUser.Id = model.Id;
+                    //aspNetUser.Email = model.Email;
+                    //aspNetUser.EmailConfirmed = model.EmailConfirmed;
+                    //aspNetUser.PasswordHash = model.PasswordHash;
+                    //aspNetUser.SecurityStamp = model.SecurityStamp;
+                    //aspNetUser.PhoneNumber = model.PhoneNumber;
+                    //aspNetUser.PhoneNumberConfirmed = model.PhoneNumberConfirmed;
+                    //aspNetUser.TwoFactorEnabled = model.TwoFactorEnabled;
+                    //aspNetUser.LockoutEnabled = model.LockoutEnabled;
+                    //aspNetUser.AccessFailedCount = model.AccessFailedCount;
+                    //aspNetUser.UserName = model.Email;
+                    //aspNetUser.FirstName = model.FirstName;
+                    //aspNetUser.LastName = model.LastName;
+                    //aspNetUser.NickName = model.NickName;
                     aspNetUser.LockoutEndDateUtc = DateTime.Now.AddDays(addDays);
                     aspNetUser.LastBanDays = model.LastBanDays;
                     aspNetUser.BanComment = model.BanComment;
@@ -196,26 +200,27 @@ namespace CzyDobre.Controllers
         {
             if (itemId != null)
             {
-                AspNetUser aspNetUser = new AspNetUser();
+                //AspNetUser aspNetUser = new AspNetUser();
+                var aspNetUser = db.AspNetUsers.FirstOrDefault(m => m.Id == itemId);
 
-                aspNetUser.Id = itemId;
-                aspNetUser.Email = itemEmail;
-                aspNetUser.EmailConfirmed = itemEmailConfirmed;
-                aspNetUser.PasswordHash = itemPasswordHash;
-                aspNetUser.SecurityStamp = itemSecurityStamp;
-                aspNetUser.PhoneNumber = itemPhoneNumber;
-                aspNetUser.PhoneNumberConfirmed = itemPhoneNumberConfirmed;
-                aspNetUser.TwoFactorEnabled = itemTwoFactorEnabled;
-                aspNetUser.LockoutEnabled = itemLockoutEnabled;
-                aspNetUser.AccessFailedCount = itemAccessFailedCount;
-                aspNetUser.UserName = itemUserName;
-                aspNetUser.FirstName = itemFirstName;
-                aspNetUser.LastName = itemLastName;
-                aspNetUser.NickName = itemNickName;
-                aspNetUser.LockoutEndDateUtc = aspNetUser.LockoutEndDateUtc;
-                aspNetUser.LastBanDays = aspNetUser.LastBanDays;
-                aspNetUser.BanComment = aspNetUser.BanComment;
-                aspNetUser.WhoGaveBan = aspNetUser.WhoGaveBan;
+                //aspNetUser.Id = itemId;
+                //aspNetUser.Email = itemEmail;
+                //aspNetUser.EmailConfirmed = itemEmailConfirmed;
+                //aspNetUser.PasswordHash = itemPasswordHash;
+                //aspNetUser.SecurityStamp = itemSecurityStamp;
+                //aspNetUser.PhoneNumber = itemPhoneNumber;
+                //aspNetUser.PhoneNumberConfirmed = itemPhoneNumberConfirmed;
+                //aspNetUser.TwoFactorEnabled = itemTwoFactorEnabled;
+                //aspNetUser.LockoutEnabled = itemLockoutEnabled;
+                //aspNetUser.AccessFailedCount = itemAccessFailedCount;
+                //aspNetUser.UserName = itemUserName;
+                //aspNetUser.FirstName = itemFirstName;
+                //aspNetUser.LastName = itemLastName;
+                //aspNetUser.NickName = itemNickName;
+                aspNetUser.LockoutEndDateUtc = null;
+                aspNetUser.LastBanDays = null;
+                aspNetUser.BanComment = null;
+                aspNetUser.WhoGaveBan = null;
 
                 db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
@@ -265,26 +270,28 @@ namespace CzyDobre.Controllers
                         }
                     }
 
-                    AspNetUser aspNetUser = new AspNetUser();
+                    //AspNetUser aspNetUser = new AspNetUser();
+                    var aspNetUser = db.AspNetUsers.FirstOrDefault(m => m.Id == model.Id);
+
                     var adminName = User.Identity.Name;
                     DateTime? nowaData = null;
 
-                    aspNetUser.Id = model.Id;
-                    aspNetUser.Email = model.Email;
-                    aspNetUser.EmailConfirmed = model.EmailConfirmed;
-                    aspNetUser.PasswordHash = model.PasswordHash;
-                    aspNetUser.SecurityStamp = model.SecurityStamp;
-                    aspNetUser.PhoneNumber = model.PhoneNumber;
-                    aspNetUser.PhoneNumberConfirmed = model.PhoneNumberConfirmed;
-                    aspNetUser.TwoFactorEnabled = model.TwoFactorEnabled;
-                    aspNetUser.LockoutEnabled = model.LockoutEnabled;
-                    aspNetUser.AccessFailedCount = model.AccessFailedCount;
-                    aspNetUser.UserName = model.Email;
-                    aspNetUser.FirstName = model.FirstName;
-                    aspNetUser.LastName = model.LastName;
-                    aspNetUser.NickName = model.NickName;
+                    //aspNetUser.Id = model.Id;
+                    //aspNetUser.Email = model.Email;
+                    //aspNetUser.EmailConfirmed = model.EmailConfirmed;
+                    //aspNetUser.PasswordHash = model.PasswordHash;
+                    //aspNetUser.SecurityStamp = model.SecurityStamp;
+                    //aspNetUser.PhoneNumber = model.PhoneNumber;
+                    //aspNetUser.PhoneNumberConfirmed = model.PhoneNumberConfirmed;
+                    //aspNetUser.TwoFactorEnabled = model.TwoFactorEnabled;
+                    //aspNetUser.LockoutEnabled = model.LockoutEnabled;
+                    //aspNetUser.AccessFailedCount = model.AccessFailedCount;
+                    //aspNetUser.UserName = model.Email;
+                    //aspNetUser.FirstName = model.FirstName;
+                    //aspNetUser.LastName = model.LastName;
+                    //aspNetUser.NickName = model.NickName;
                     aspNetUser.LockoutEndDateUtc = model.LockoutEndDateUtc;
-                    aspNetUser.LastBanDays = model.LastBanDays;
+                    //aspNetUser.LastBanDays = model.LastBanDays;
                     aspNetUser.BanComment = model.BanComment;
                     aspNetUser.WhoGaveBan = adminName;
 

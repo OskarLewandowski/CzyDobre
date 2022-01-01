@@ -47,20 +47,21 @@ namespace CzyDobre.Controllers
         {
             if (idRating != 0)
             {
-                AspNetRating aspNetRating = new AspNetRating();
+                //AspNetRating aspNetRating = new AspNetRating();
+                var aspNetRating = db.AspNetRatings.FirstOrDefault(m => m.Id_Rating == idRating);
 
-                aspNetRating.Id_Rating = idRating;
-                aspNetRating.RateService = rateService;
-                aspNetRating.RateTaste = rateTaste;
-                aspNetRating.RateIngredients = rateIngriedients;
-                aspNetRating.RateComposition = rateComposition;
-                aspNetRating.Comment = comment;
+                //aspNetRating.Id_Rating = idRating;
+                //aspNetRating.RateService = rateService;
+                //aspNetRating.RateTaste = rateTaste;
+                //aspNetRating.RateIngredients = rateIngriedients;
+                //aspNetRating.RateComposition = rateComposition;
+                //aspNetRating.Comment = comment;
                 aspNetRating.CzyDobre = true;
-                aspNetRating.RateTotal = rateTotal;
-                aspNetRating.Id_Product = idProduct;
-                aspNetRating.Who = who;
+                //aspNetRating.RateTotal = rateTotal;
+                //aspNetRating.Id_Product = idProduct;
+                //aspNetRating.Who = who;
                 aspNetRating.Objections = null;
-                aspNetRating.Date = date;
+                //aspNetRating.Date = date;
                 
                 db.Entry(aspNetRating).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
@@ -78,20 +79,21 @@ namespace CzyDobre.Controllers
         {
             if (idRating != 0)
             {
-                AspNetRating aspNetRating = new AspNetRating();
+                //AspNetRating aspNetRating = new AspNetRating();
+                var aspNetRating = db.AspNetRatings.FirstOrDefault(m => m.Id_Rating == idRating);
 
-                aspNetRating.Id_Rating = idRating;
-                aspNetRating.RateService = rateService;
-                aspNetRating.RateTaste = rateTaste;
-                aspNetRating.RateIngredients = rateIngriedients;
-                aspNetRating.RateComposition = rateComposition;
-                aspNetRating.Comment = comment;
+                //aspNetRating.Id_Rating = idRating;
+                //aspNetRating.RateService = rateService;
+                //aspNetRating.RateTaste = rateTaste;
+                //aspNetRating.RateIngredients = rateIngriedients;
+                //aspNetRating.RateComposition = rateComposition;
+                //aspNetRating.Comment = comment;
                 aspNetRating.CzyDobre = false;
-                aspNetRating.RateTotal = rateTotal;
-                aspNetRating.Id_Product = idProduct;
-                aspNetRating.Who = who;
-                aspNetRating.Objections = objections;
-                aspNetRating.Date = date;
+                //aspNetRating.RateTotal = rateTotal;
+                //aspNetRating.Id_Product = idProduct;
+                //aspNetRating.Who = who;
+                //aspNetRating.Objections = objections;
+                //aspNetRating.Date = date;
 
                 db.Entry(aspNetRating).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
@@ -119,18 +121,19 @@ namespace CzyDobre.Controllers
                 {
                     var nowaData = db.AspNetRatings.Where(u => u.Id_Rating == model.Id_Rating).Select(u => u.Date).FirstOrDefault();
 
-                    AspNetRating aspNetRating = new AspNetRating();
+                    //AspNetRating aspNetRating = new AspNetRating();
+                    var aspNetRating = db.AspNetRatings.FirstOrDefault(m => m.Id_Rating == model.Id_Rating);
 
-                    aspNetRating.Id_Rating = model.Id_Rating;
-                    aspNetRating.RateService = model.RateService;
-                    aspNetRating.RateTaste = model.RateTaste;
-                    aspNetRating.RateIngredients = model.RateIngredients;
-                    aspNetRating.RateComposition = model.RateComposition;
-                    aspNetRating.Comment = model.Comment;
-                    aspNetRating.CzyDobre = model.CzyDobre;
-                    aspNetRating.RateTotal = model.RateTotal;
-                    aspNetRating.Id_Product = model.Id_Product;
-                    aspNetRating.Who = model.Who;
+                    //aspNetRating.Id_Rating = model.Id_Rating;
+                    //aspNetRating.RateService = model.RateService;
+                    //aspNetRating.RateTaste = model.RateTaste;
+                    //aspNetRating.RateIngredients = model.RateIngredients;
+                    //aspNetRating.RateComposition = model.RateComposition;
+                    //aspNetRating.Comment = model.Comment;
+                    //aspNetRating.CzyDobre = model.CzyDobre;
+                    //aspNetRating.RateTotal = model.RateTotal;
+                    //aspNetRating.Id_Product = model.Id_Product;
+                    //aspNetRating.Who = model.Who;
                     aspNetRating.Objections = model.Objections;
                     aspNetRating.Date = nowaData;
 

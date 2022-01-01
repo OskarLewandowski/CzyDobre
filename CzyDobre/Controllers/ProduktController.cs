@@ -61,19 +61,20 @@ namespace CzyDobre.Controllers
         {
             if (idProduct != 0)
             {
-                AspNetProduct aspNetProduct = new AspNetProduct();
+                //AspNetProduct aspNetProduct = new AspNetProduct();
+                var aspNetProduct = db.AspNetProducts.FirstOrDefault(m => m.Id_Product == idProduct);
 
-                aspNetProduct.Id_Product = idProduct;
-                aspNetProduct.Id_Category = idCategory;
-                aspNetProduct.ProductDescription = productDescription;
-                aspNetProduct.ProductName = productName;
-                aspNetProduct.Opinion_Counter = opinionCounter;
-                aspNetProduct.AvarageTaste = avarageTaste;
-                aspNetProduct.AvarageService = avarageService;
-                aspNetProduct.AvarageIngredients = avarageIngredients;
-                aspNetProduct.Who = who;
-                aspNetProduct.UniqName = uniqName;
-                aspNetProduct.Id_Place = idPlace;
+                //aspNetProduct.Id_Product = idProduct;
+                //aspNetProduct.Id_Category = idCategory;
+                //aspNetProduct.ProductDescription = productDescription;
+                //aspNetProduct.ProductName = productName;
+                //aspNetProduct.Opinion_Counter = opinionCounter;
+                //aspNetProduct.AvarageTaste = avarageTaste;
+                //aspNetProduct.AvarageService = avarageService;
+                //aspNetProduct.AvarageIngredients = avarageIngredients;
+                //aspNetProduct.Who = who;
+                //aspNetProduct.UniqName = uniqName;
+                //aspNetProduct.Id_Place = idPlace;
                 aspNetProduct.CzyDobre = true;
                 aspNetProduct.Objections = null;
 
@@ -93,21 +94,22 @@ namespace CzyDobre.Controllers
         {
             if (idProduct != 0)
             {
-                AspNetProduct aspNetProduct = new AspNetProduct();
+                //AspNetProduct aspNetProduct = new AspNetProduct();
+                var aspNetProduct = db.AspNetProducts.FirstOrDefault(m => m.Id_Product == idProduct);
 
-                aspNetProduct.Id_Product = idProduct;
-                aspNetProduct.Id_Category = idCategory;
-                aspNetProduct.ProductDescription = productDescription;
-                aspNetProduct.ProductName = productName;
-                aspNetProduct.Opinion_Counter = opinionCounter;
-                aspNetProduct.AvarageTaste = avarageTaste;
-                aspNetProduct.AvarageService = avarageService;
-                aspNetProduct.AvarageIngredients = avarageIngredients;
-                aspNetProduct.Who = who;
-                aspNetProduct.UniqName = uniqName;
-                aspNetProduct.Id_Place = idPlace;
+                //aspNetProduct.Id_Product = idProduct;
+                //aspNetProduct.Id_Category = idCategory;
+                //aspNetProduct.ProductDescription = productDescription;
+                //aspNetProduct.ProductName = productName;
+                //aspNetProduct.Opinion_Counter = opinionCounter;
+                //aspNetProduct.AvarageTaste = avarageTaste;
+                //aspNetProduct.AvarageService = avarageService;
+                //aspNetProduct.AvarageIngredients = avarageIngredients;
+                //aspNetProduct.Who = who;
+                //aspNetProduct.UniqName = uniqName;
+                //aspNetProduct.Id_Place = idPlace;
                 aspNetProduct.CzyDobre = false;
-                aspNetProduct.Objections = objections;
+                //aspNetProduct.Objections = objections;
 
                 db.Entry(aspNetProduct).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
@@ -133,20 +135,21 @@ namespace CzyDobre.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    AspNetProduct aspNetProduct = new AspNetProduct();
+                    //AspNetProduct aspNetProduct = new AspNetProduct();
+                    var aspNetProduct = db.AspNetProducts.FirstOrDefault(m => m.Id_Product == model.Id_Product);
 
-                    aspNetProduct.Id_Product = model.Id_Product;
-                    aspNetProduct.Id_Category = model.Id_Category;
-                    aspNetProduct.ProductDescription = model.ProductDescription;
-                    aspNetProduct.ProductName = model.ProductName;
-                    aspNetProduct.Opinion_Counter = model.Opinion_Counter;
-                    aspNetProduct.AvarageTaste = model.AvarageTaste;
-                    aspNetProduct.AvarageService = model.AvarageService;
-                    aspNetProduct.AvarageIngredients = model.AvarageIngredients;
-                    aspNetProduct.Who = model.Who;
-                    aspNetProduct.UniqName = model.UniqName;
-                    aspNetProduct.Id_Place = model.Id_Place;
-                    aspNetProduct.CzyDobre = model.CzyDobre;
+                    //aspNetProduct.Id_Product = model.Id_Product;
+                    //aspNetProduct.Id_Category = model.Id_Category;
+                    //aspNetProduct.ProductDescription = model.ProductDescription;
+                    //aspNetProduct.ProductName = model.ProductName;
+                    //aspNetProduct.Opinion_Counter = model.Opinion_Counter;
+                    //aspNetProduct.AvarageTaste = model.AvarageTaste;
+                    //aspNetProduct.AvarageService = model.AvarageService;
+                    //aspNetProduct.AvarageIngredients = model.AvarageIngredients;
+                    //aspNetProduct.Who = model.Who;
+                    //aspNetProduct.UniqName = model.UniqName;
+                    //aspNetProduct.Id_Place = model.Id_Place;
+                    //aspNetProduct.CzyDobre = model.CzyDobre;
                     aspNetProduct.Objections = model.Objections;
 
                     db.Entry(aspNetProduct).State = System.Data.Entity.EntityState.Modified;
