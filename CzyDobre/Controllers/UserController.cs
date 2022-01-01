@@ -1,4 +1,6 @@
-﻿using CzyDobre.Extensions;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using CzyDobre.Extensions;
 using CzyDobre.Models;
 using System;
 using System.Collections.Generic;
@@ -34,9 +36,14 @@ namespace CzyDobre.Controllers
             {
                 if(ModelState.IsValid)
                 {
+                    Account account = new Account(
+                        ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
+                        ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
+                        ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
+                    Cloudinary cloudinary = new Cloudinary(account);
                     //AspNetUser aspNetUser = new AspNetUser();
                     var aspNetUser = db.AspNetUsers.FirstOrDefault(m => m.Id == model.Id);
-
+                    var avatarUrlOld = aspNetUser.AvatarUrl;
                     //DateTime? date = null;
                     //if (model.LockoutEndDateUtc != null)
                     //{
@@ -59,6 +66,7 @@ namespace CzyDobre.Controllers
                     aspNetUser.FirstName = model.FirstName;
                     aspNetUser.LastName = model.LastName;
                     aspNetUser.NickName = model.NickName;
+                    aspNetUser.AvatarUrl = model.AvatarUrl;
                     //aspNetUser.LockoutEndDateUtc = date;
                     //aspNetUser.LastBanDays = model.LastBanDays;
                     //aspNetUser.BanComment = model.BanComment;
@@ -66,6 +74,28 @@ namespace CzyDobre.Controllers
 
                     db.Entry(aspNetUser).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
+
+                    if (avatarUrlOld != null && model.AvatarUrl == null)
+                    {
+                        //usuwan rozszezenia .jpg 4 i .jpng 5
+                        var ID4 = avatarUrlOld.Remove(avatarUrlOld.Length - 4);
+                        var ID5 = avatarUrlOld.Remove(avatarUrlOld.Length - 5);
+                        var nameId4 = "CzyDobre-awatary/" + ID4;
+                        var nameId5 = "CzyDobre-awatary/" + ID5;
+
+                        var deletionParams4 = new DeletionParams(ID4)
+                        {
+                            PublicId = nameId4
+                        };
+                        var deletionResult = cloudinary.Destroy(deletionParams4);
+
+                        var deletionParams5 = new DeletionParams(ID5)
+                        {
+                            PublicId = nameId5
+                        };
+                        var deletionResult4 = cloudinary.Destroy(deletionParams5);
+                    }
+
                     this.AddNotification($"Użytkownik, edytowany pomyślnie", NotificationType.SUCCESS);
                     return View("Edit");
                 }

@@ -18,6 +18,7 @@
                     <th>Imię</th>
                     <th>Nazwisko</th>
                     <th>Nick</th>
+                    <th>Awatar</th>
                     <th>Akcja</th>
                 </tr>
             </thead>
@@ -57,20 +58,39 @@
                         <td>@item.FirstName</td>
                         <td>@item.LastName</td>
                         <td>@item.NickName</td>
+
+                            @{ 
+                                var avatarDefault = "https://res.cloudinary.com/czydobre-pl/image/upload/v1640786753/CzyDobre-www/awatar-domyslny-ramka_u9xv4t.png";
+                                var linkCzydobre = "https://res.cloudinary.com/czydobre-pl/image/upload/v1640790462/CzyDobre-awatary/";
+                                string awatarNowy;
+
+                                if (item.AvatarUrl == null || item.AvatarUrl == "")
+                                {
+                                    awatarNowy = avatarDefault;
+                                    <td><img src="@awatarNowy" alt="Awatar użytkownika" width="150" height="150"></td>
+
+                                }
+                                else
+                                {
+                                    awatarNowy = linkCzydobre + item.AvatarUrl;
+                                    <td><img src="@awatarNowy" alt="Awatar użytkownika" width="150" height="150"></td>
+                                }
+                            }
+
                         <td>
-                            @Html.ActionLink("Edytuj", "Edit", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Edytuj", "Edit", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan, item.AvatarUrl }, new { @class = "btn btn-primary" })
                             <hr />
                             @Html.ActionLink("Usuń", "Delete", "User", new { idUser = item.Id, nick = item.NickName, email = item.Email}, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ użytkownika?');" })
                             <hr />
                             @if (item.LockoutEndDateUtc == null)
                             {
-                                @Html.ActionLink("Blokuj", "Ban", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-warning" })
+                                @Html.ActionLink("Blokuj", "Ban", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan, item.AvatarUrl }, new { @class = "btn btn-warning" })
                             }
                             else
                             {
                                 @Html.ActionLink("Odblokuj", "UnBanUser", "User", new { itemId = item.Id, itemEmail = item.Email, itemEmailConfirmed = item.EmailConfirmed, itemPasswordHash = item.PasswordHash, itemSecurityStamp = item.SecurityStamp, itemPhoneNumber = item.PhoneNumber, itemPhoneNumberConfirmed = item.PhoneNumberConfirmed, itemTwoFactorEnabled = item.TwoFactorEnabled, itemLockoutEndDateUtc = item.LockoutEndDateUtc, itemLockoutEnabled = item.LockoutEnabled, itemAccessFailedCount = item.AccessFailedCount, itemUserName = item.UserName, itemFirstName = item.FirstName, itemLastName = item.LastName, itemNickName = item.NickName, itemLastBanDays = item.LastBanDays, itemBanComment = item.BanComment, itemWhoGaveBan = item.WhoGaveBan }, new { @class = "btn btn-secondary", onclick = "return confirm('Czy na pewno chcesz ODBLOKOWAĆ użytkownika?');" })
                                 <hr />
-                                @Html.ActionLink("Edytuj Blokadę", "UnBanEdit", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan }, new { @class = "btn btn-dark" })
+                                @Html.ActionLink("Edytuj Blokadę", "UnBanEdit", "User", new { item.Id, item.Email, item.EmailConfirmed, item.PasswordHash, item.SecurityStamp, item.PhoneNumber, item.PhoneNumberConfirmed, item.TwoFactorEnabled, item.LockoutEndDateUtc, item.LockoutEnabled, item.AccessFailedCount, item.UserName, item.FirstName, item.LastName, item.NickName, item.LastBanDays, item.BanComment, item.WhoGaveBan, item.AvatarUrl }, new { @class = "btn btn-dark" })
                             }
                         </td>
                     </tr>
