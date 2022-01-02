@@ -119,44 +119,58 @@ namespace CzyDobre.Controllers
             {
                 DBEntities db = new DBEntities();
 
+                var queru= db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.Who).FirstOrDefault();
+                var quern = db.AspNetUsers.Where(m => m.Id == queru).Select(m=>m.UserName).FirstOrDefault();
 
-                int idProduktu = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.Id_Product).FirstOrDefault();
-                string nazwaProduktu = db.AspNetProducts.Where(m => m.Id_Product == idProduktu).Select(m => m.ProductName).FirstOrDefault().ToString();
-                short rateT = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.RateTaste).FirstOrDefault();
-                short rateS = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.RateService).FirstOrDefault();
-                short rateP = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.RateIngredients).FirstOrDefault();
-                string comm = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.Comment).FirstOrDefault().ToString();
+                
 
-                List<string> photos = new List<string>();
+                if(User.Identity.Name == quern)
+                {
 
-                photos = db.AspNetRatingPictures.Where(m => m.Id_Rating == idRating).Select(m => m.Url).ToList();
+                    int idProduktu = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.Id_Product).FirstOrDefault();
+                    string nazwaProduktu = db.AspNetProducts.Where(m => m.Id_Product == idProduktu).Select(m => m.ProductName).FirstOrDefault().ToString();
+                    short rateT = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.RateTaste).FirstOrDefault();
+                    short rateS = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.RateService).FirstOrDefault();
+                    short rateP = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.RateIngredients).FirstOrDefault();
+                    string comm = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.Comment).FirstOrDefault().ToString();
 
+                    List<string> photos = new List<string>();
 
-
-                edit.PName = nazwaProduktu;
-                edit.RateTaste = rateT;
-                edit.RateService = rateS;
-                edit.RateIngredients = rateP;
-                edit.Review = comm;
-                // edit.Photo = photos;
-                // ViewData["PN"] = nazwaProduktu;
-                // ViewData["RT"] = rateT;
-                // ViewData["RS"] = rateS;
-                // ViewData["RP"] = rateP;
-
-                Session["idRating"] = idRating;
-                Session["Photos"] = photos;
-
-                // this.AddNotification(" "+idRating+" "+ idProduktu + " " + nazwaProduktu + " " + rateT + " " + rateP + " " + rateS + " " + comm,NotificationType.INFO);
-                //this.AddNotification(TempData["idRating"].ToString(), NotificationType.INFO);
-
-
-               
+                    photos = db.AspNetRatingPictures.Where(m => m.Id_Rating == idRating).Select(m => m.Url).ToList();
 
 
 
+                    edit.PName = nazwaProduktu;
+                    edit.RateTaste = rateT;
+                    edit.RateService = rateS;
+                    edit.RateIngredients = rateP;
+                    edit.Review = comm;
+                    // edit.Photo = photos;
+                    // ViewData["PN"] = nazwaProduktu;
+                    // ViewData["RT"] = rateT;
+                    // ViewData["RS"] = rateS;
+                    // ViewData["RP"] = rateP;
 
-                return View(edit);
+                    Session["idRating"] = idRating;
+                    Session["Photos"] = photos;
+
+                    // this.AddNotification(" "+idRating+" "+ idProduktu + " " + nazwaProduktu + " " + rateT + " " + rateP + " " + rateS + " " + comm,NotificationType.INFO);
+                    //this.AddNotification(TempData["idRating"].ToString(), NotificationType.INFO);
+
+
+
+
+
+
+
+                    return View(edit);
+                }
+                else
+                {
+                    this.AddNotification($"Brak dostępu! ", NotificationType.ERROR);
+                    return RedirectToAction("MojaOpinia");
+                }
+                
             }
             catch (Exception ex)
             {
@@ -206,7 +220,7 @@ namespace CzyDobre.Controllers
 
 
 
-            this.AddNotification(id.ToString(), NotificationType.INFO);
+            //this.AddNotification(id.ToString(), NotificationType.INFO);
 
 
 
@@ -216,7 +230,62 @@ namespace CzyDobre.Controllers
         }
 
 
+        [Route("zarzadzaj-zdjeciami")]
+        [Route("MyOpinion/ManageIMG")]
+        [Authorize]
+        public ActionResult ManageIMG()
+        {
+           
+                DBEntities db = new DBEntities();
 
+            return View();
+
+
+        }
+
+
+        [HttpPost]
+        [Route("zarzadzaj-zdjeciami")]
+        [Route("MyOpinion/ManageIMG")]
+        [Authorize]
+        public ActionResult ManageIMG(AddOpinionViewModels edit)
+        {
+            DBEntities db = new DBEntities();
+
+            var id = Session["idRating"];
+
+
+            var entity = db.AspNetRatings.FirstOrDefault(item => item.Id_Rating == (int)id);
+
+            // Validate entity is not null
+            if (entity != null)
+            {
+                // Answer for question #2
+
+                // Make changes on entity
+
+                // Update entity in DbSet
+                db.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+
+                // Save changes in database
+                db.SaveChanges();
+
+            }
+
+
+
+
+
+
+
+            this.AddNotification(id.ToString(), NotificationType.INFO);
+
+
+
+
+
+            return View(edit);
+        }
 
 
 
