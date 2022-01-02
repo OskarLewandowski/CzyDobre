@@ -5,6 +5,7 @@ using CzyDobre.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -235,57 +236,55 @@ namespace CzyDobre.Controllers
         [Authorize]
         public ActionResult ManageIMG()
         {
-           
-                DBEntities db = new DBEntities();
 
-            return View();
+            var produktList = db.AspNetRatings.ToList();
+            return View(produktList);
+
+            
 
 
         }
 
 
-        [HttpPost]
-        [Route("zarzadzaj-zdjeciami")]
+        [Route("usuwanie-zdjecia")]
         [Route("MyOpinion/ManageIMG")]
-        [Authorize]
-        public ActionResult ManageIMG(AddOpinionViewModels edit)
+        public ActionResult DeleteIMG(int id)
         {
-            DBEntities db = new DBEntities();
-
-            var id = Session["idRating"];
-
-
-            var entity = db.AspNetRatings.FirstOrDefault(item => item.Id_Rating == (int)id);
-
-            // Validate entity is not null
-            if (entity != null)
+            try
             {
-                // Answer for question #2
+                List<AspNetRatingPicture> lista = new List<AspNetRatingPicture>();
 
-                // Make changes on entity
+                Account account = new Account(
+                ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
+                ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
+                ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
+                Cloudinary cloudinary = new Cloudinary(account);
 
-                // Update entity in DbSet
-                db.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+                AspNetRatingPicture pic;
 
-                // Save changes in database
-                db.SaveChanges();
+                
+                 using (DBEntities db = new DBEntities())
+                 {
+                     db.Database.Log = Console.WriteLine;
+                     pic = db.AspNetRatingPictures.Where(d => d.Id_Picture == id).FirstOrDefault();
+                     db.AspNetRatingPictures.Remove(pic);
+                     db.SaveChanges();
 
+                 }
+                
+
+                this.AddNotification(pic.ToString(), NotificationType.INFO);
+                var opiniaList = db.AspNetRatings.ToList();
+                return View("MojaOpinia", opiniaList);
+            }
+            catch (Exception ex)
+            {
+                this.AddNotification($"Bład: " + ex, NotificationType.ERROR);
+                return RedirectToAction("MojaOpinia");
             }
 
-
-
-
-
-
-
-            this.AddNotification(id.ToString(), NotificationType.INFO);
-
-
-
-
-
-            return View(edit);
         }
+
 
 
 

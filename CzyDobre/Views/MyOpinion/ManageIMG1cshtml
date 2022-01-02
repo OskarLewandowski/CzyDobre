@@ -1,0 +1,60 @@
+﻿@using CzyDobre.Models
+@model AddOpinionViewModels
+@{
+    ViewBag.Title = "Dodaj opinie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-12 h-max">
+        <h1 class="titleH1">@ViewBag.Title</h1>
+        @if (User.Identity.IsAuthenticated /* && User.IsInRole("Admin")*/)
+        {
+            using (Html.BeginForm("AddOpinion", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
+            {
+                @Html.AntiForgeryToken()
+                <style>
+                    .imageClass {
+                        width: 150px;
+                        height: 250px;
+                    }
+                </style>
+               
+
+
+                <div class="row flex-column flex-lg-row">
+                   
+                    <div>
+                        @{
+                            var myList = (List<string>)Session["Photos"];
+
+                            foreach (object s in myList)
+                            {
+                                <img class="position-relative d-flex flex-column col-12 col-lg-6 p-0" src=https://res.cloudinary.com/czydobre-pl/image/upload/v1640815252/CzyDobre-images/@s />
+                            }
+                        }
+                        <br />
+                    </div>
+                    <div id="dropSpot" class="position-relative d-flex flex-column col-12 col-lg-6 p-0">
+                        <label for="Photo" class="drag-and-drop-preview m-0">
+                            <img src="" id="previewMain" class="drag-and-drop-preview-main d-none" />
+                        </label>
+                        <div id="dropContainer" class="w-100 p-2 alert-dark">
+                            <div class="drag-and-drop-preview-miniature-add">
+                                <label for="Photo"></label>
+                            </div>
+                        </div>
+                        @Html.TextBoxFor(m => m.Photo, new { type = "file", multiple = "multiple", @class = "drag-and-drop-file", accept = "image/png, image/jpeg, image/jpg" })
+                        @Html.ValidationMessageFor(m => m.Photo, "", new { @class = "text-danger" })
+                    </div>
+                    <script defer src="\Scripts\DragAndDrop.js"></script>
+
+                </div>
+            }
+        }
+        else
+        {
+            <h2 style="text-align: center">Już wkrótce dostępne!</h2>
+        }
+    </div>
+</div>
+@Html.Partial("_Loading")

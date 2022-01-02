@@ -1087,6 +1087,9 @@
     <Content Include="Views\Manage\Avatar.cshtml" />
     <Content Include="Views\Manage\MyData.cshtml" />
     <Content Include="Views\Home\OpinionDescriptionPop.cshtml" />
+    <Content Include="Views\MyOpinion\Editor.cshtml" />
+    <Content Include="Views\MyOpinion\ManageIMG.cshtml" />
+    <None Include="Views\MyOpinion\ManageIMG1cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,60 +1,107 @@
-﻿@using CzyDobre.Models
-@model AddOpinionViewModels
+﻿@model List<CzyDobre.Models.AspNetRating>
+@using CzyDobre.Models
 @{
-    ViewBag.Title = "Dodaj opinie";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Moje Opinie";
+    Layout = "~/Views/Shared/_LayoutWide.cshtml";
+    DBEntities db = new DBEntities();
 }
-<div class="row">
-    <div class="col-12 h-max">
-        <h1 class="titleH1">@ViewBag.Title</h1>
-        @if (User.Identity.IsAuthenticated /* && User.IsInRole("Admin")*/)
-        {
-            using (Html.BeginForm("AddOpinion", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
-            {
-                @Html.AntiForgeryToken()
-                <style>
-                    .imageClass {
-                        width: 150px;
-                        height: 250px;
-                    }
-                </style>
-               
+<div class="role-div">
+    <h2 style="text-align: center;">Lista opinii</h2>
+    <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+    <hr />
+    <div class="table">
+        <table id="produkty" class="table table-bordered table-hover display">
+            <thead>
+                <tr class="table-role">
+                    <th>Zdjęcia</th>
+                    <th>Weryfikacja</th>
+                    <th>Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{
+                    string brakZdjecia = "https://res.cloudinary.com/czydobre-pl/image/upload/v1639157376/CzyDobre-www/Brak-zdjecia_fnfpal.png";
+                    string urlCzydobre = "https://res.cloudinary.com/czydobre-pl/image/upload/v1639154117/CzyDobre-images/";
+
+                }
+
+                @foreach (var item in Model.Where(s => s.Id_Rating == (int)Session["idRating"]))
+                {
+                    var listaZdjecUrl = db.AspNetRatingPictures.Where(u => u.Id_Rating == item.Id_Rating).Select(u => u.Url).ToList();
+                    foreach (var img in listaZdjecUrl)
+                    {
+                        <tr>
+
+                            <td>
+                                @{
+                                    
 
 
-                <div class="row flex-column flex-lg-row">
-                   
-                    <div>
-                        @{
-                            var myList = (List<string>)Session["Photos"];
+                                    {
+                                        var url = urlCzydobre + img;
+                                        if (img != null)
+                                        {
+                                            <img src="@url" alt="Zdjęcie produktu" width="200" height="200">
+                                        }
+                                        else
+                                        {
+                                            <img src="@brakZdjecia" alt="Brak zdjęcia produktu" width="200" height="200">
+                                        }
+                                    }
+                                }
 
-                            foreach (object s in myList)
+                            </td>
+
+
+                            @if (item.CzyDobre == true)
                             {
-                                <img class="position-relative d-flex flex-column col-12 col-lg-6 p-0" src=https://res.cloudinary.com/czydobre-pl/image/upload/v1640815252/CzyDobre-images/@s />
+                                <td>Tak ✔️ </td>
                             }
-                        }
-                        <br />
-                    </div>
-                    <div id="dropSpot" class="position-relative d-flex flex-column col-12 col-lg-6 p-0">
-                        <label for="Photo" class="drag-and-drop-preview m-0">
-                            <img src="" id="previewMain" class="drag-and-drop-preview-main d-none" />
-                        </label>
-                        <div id="dropContainer" class="w-100 p-2 alert-dark">
-                            <div class="drag-and-drop-preview-miniature-add">
-                                <label for="Photo"></label>
-                            </div>
-                        </div>
-                        @Html.TextBoxFor(m => m.Photo, new { type = "file", multiple = "multiple", @class = "drag-and-drop-file", accept = "image/png, image/jpeg, image/jpg" })
-                        @Html.ValidationMessageFor(m => m.Photo, "", new { @class = "text-danger" })
-                    </div>
-                    <script defer src="\Scripts\DragAndDrop.js"></script>
+                            else if (item.Objections != null && item.CzyDobre == false)
+                            {
+                                <td>Nie ❌<br />Zastrzeżenie: @item.Objections</td>
+                            }
+                            else
+                            {
+                                <td>Nie ❌</td>
 
-                </div>
-            }
-        }
-        else
-        {
-            <h2 style="text-align: center">Już wkrótce dostępne!</h2>
-        }
+                            }
+                        <td>
+                            @Html.ActionLink("Zmień zdjęcie", "ChangeIMG", "MyOpinion", new { idRating = item.Id_Rating }, new { @class = "btn btn-primary" })
+                            <hr />
+                            @if(listaZdjecUrl.Count > 1)
+                            {
+
+                                
+                                var id = db.AspNetRatingPictures.Where(u => u.Url == img).Select(m=>m.Id_Picture).FirstOrDefault();
+                                @Html.ActionLink("Usuń zdjęcie", "DeleteIMG", "MyOpinion", new { id }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ to zdjęcie?');" })
+                            }
+
+                        </td>
+
+
+
+
+
+                        </tr>
+                    }
+
+                }
+            </tbody>
+        </table>
     </div>
 </div>
-@Html.Partial("_Loading")
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#produkty').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pl.json"
+                }
+            });
+        });
+    </script>
+}
