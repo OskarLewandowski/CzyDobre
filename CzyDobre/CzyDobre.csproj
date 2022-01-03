@@ -474,6 +474,7 @@
     <Compile Include="Models\AspNetVoivode.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangeIMGViewModels.cs" />
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1089,6 +1090,7 @@
     <Content Include="Views\Home\OpinionDescriptionPop.cshtml" />
     <Content Include="Views\MyOpinion\Editor.cshtml" />
     <Content Include="Views\MyOpinion\ManageIMG.cshtml" />
+    <Content Include="Views\MyOpinion\ChangeIMG.cshtml" />
     <None Include="Views\MyOpinion\ManageIMG1cshtml" />
   </ItemGroup>
   <ItemGroup>

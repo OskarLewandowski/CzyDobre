@@ -154,6 +154,7 @@ namespace CzyDobre.Controllers
 
                     Session["idRating"] = idRating;
                     Session["Photos"] = photos;
+                    
 
                     // this.AddNotification(" "+idRating+" "+ idProduktu + " " + nazwaProduktu + " " + rateT + " " + rateP + " " + rateS + " " + comm,NotificationType.INFO);
                     //this.AddNotification(TempData["idRating"].ToString(), NotificationType.INFO);
@@ -265,27 +266,220 @@ namespace CzyDobre.Controllers
                 
                  using (DBEntities db = new DBEntities())
                  {
-                     db.Database.Log = Console.WriteLine;
+                     
                      pic = db.AspNetRatingPictures.Where(d => d.Id_Picture == id).FirstOrDefault();
-                     db.AspNetRatingPictures.Remove(pic);
+                     //db.AspNetRatingPictures.Remove(pic);
                      db.SaveChanges();
 
                  }
                 
 
-                this.AddNotification(pic.ToString(), NotificationType.INFO);
+                this.AddNotification("Zdjęcie usunięto pomyślnie", NotificationType.INFO);
                 var opiniaList = db.AspNetRatings.ToList();
-                return View("MojaOpinia", opiniaList);
+                return View("ManageIMG", opiniaList);
             }
             catch (Exception ex)
             {
                 this.AddNotification($"Bład: " + ex, NotificationType.ERROR);
-                return RedirectToAction("MojaOpinia");
+                return RedirectToAction("ManageIMG");
             }
 
         }
 
 
+
+        [Route("zmiana-zdjecia")]
+        [Route("MyOpinion/ChangeIMG")]
+        [Authorize]
+        public ActionResult ChangeIMG(int id, int idRating)
+        {
+            Session["idPicture"] = id;
+            Session["idRat"] = id;
+
+            return View();
+
+
+
+        }
+
+
+
+        [HttpPost]
+        [Route("zmiana-zdjecia")]
+        [Route("MyOpinion/ChangeIMG")]
+        public ActionResult ChangeIMG(ChangeIMGViewModels img)
+        {
+            try
+            {
+                int id = (int)Session["idPicture"];
+                int idRating = (int)Session["idRat"];
+
+                var rate = db.AspNetRatingPictures.Where(d => d.Id_Picture == id).Select(d => d.Id_Rating).FirstOrDefault();
+
+                List<string> zapisz = new List<string>();
+
+                
+
+
+                zapisz = SaveIconToProduct(img);
+
+                AspNetRatingPicture image = new AspNetRatingPicture();
+                
+                foreach (var item in zapisz)
+                {
+
+                    image.Url = item;
+                    image.Id_Rating = rate;
+                    db.AspNetRatingPictures.Add(image);
+                    db.SaveChanges();
+                }
+                
+
+                
+                Account account = new Account(
+                ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
+                ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
+                ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
+                Cloudinary cloudinary = new Cloudinary(account);
+
+                AspNetRatingPicture pic;
+
+                
+                using (DBEntities db = new DBEntities())
+                {
+                   
+                    pic = db.AspNetRatingPictures.Where(d => d.Id_Picture == id).FirstOrDefault();
+                    db.AspNetRatingPictures.Remove(pic);
+                    db.SaveChanges();
+
+                }
+
+
+                this.AddNotification("Zdjęcie zostało zamienione !" , NotificationType.SUCCESS);
+                var opiniaList = db.AspNetRatings.ToList();
+                return View("ManageIMG", opiniaList);
+            }
+            catch (Exception ex)
+            {
+                this.AddNotification($"Bład: " + ex, NotificationType.ERROR);
+                return RedirectToAction("ManageIMG");
+            }
+
+        }
+        private List<string> SaveIconToProduct(ChangeIMGViewModels model)
+        {
+            
+            bool OK = false;
+            int allSize = 0;
+            string ext = null;
+            //nazwy plikow do zapisania do bazy
+            List<string> imagesData = new List<string>();
+            //zewryfikowane zdjecia do wyslania 
+            List<HttpPostedFileBase> checkedFiles = new List<HttpPostedFileBase>();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Account account = new Account(
+                        ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
+                        ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
+                        ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
+                    Cloudinary cloudinary = new Cloudinary(account);
+
+                    //Weryfikacja plików
+                    foreach (HttpPostedFileBase item in model.Icon)
+                    {
+                        if (item != null && item.ContentLength > 0)
+                        {
+                            ext = Path.GetExtension(item.FileName.ToLower());
+
+                            if (ext == ".png" || ext == ".jpeg" || ext == ".jpg")
+                            {
+                                checkedFiles.Add(item);
+                                var byteCount = item.ContentLength;
+
+                                allSize = allSize + byteCount;
+                                if (allSize < 5242880)
+                                {
+                                    OK = true;
+                                }
+                                else
+                                {
+                                    OK = false;
+                                    this.AddNotification("Zdjęcia ważą za dużo! Maksymalna wartość zdjęć wynosi 5MB", NotificationType.WARNING);
+                                    return null;
+                                }
+                            }
+                            else
+                            {
+                                this.AddNotification("Plik nieprawidłowy: " + item.FileName, NotificationType.INFO);
+                            }
+                        }
+                        else
+                        {
+                            this.AddNotification("Nie wybrano pliku", NotificationType.INFO);
+                        }
+                    }
+
+                    //Po weryfikacji
+                    if (OK == true)
+                    {
+                        foreach (HttpPostedFileBase item in checkedFiles)
+                        {
+                            var filename = UniqueNumber() + item.FileName;
+                            imagesData.Add(filename);
+
+                            var uploadParams = new ImageUploadParams()
+                            {
+                                UseFilename = true,
+                                UniqueFilename = false,
+                                File = new FileDescription(filename, item.InputStream),
+                                Folder = "CzyDobre-images"
+                            };
+                            var uploadResult = cloudinary.Upload(uploadParams);
+                            this.AddNotification(filename, NotificationType.SUCCESS);
+                        }
+                        //ModelState.Clear();
+                        //this.AddNotification("Pliki zostały pomyślnie przesłane", NotificationType.SUCCESS);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //ModelState.Clear();
+                    this.AddNotification($"Przepraszamy, napotkaliśmy pewien problem. {ex.Message}", NotificationType.ERROR);
+                }
+            }
+
+            return imagesData;
+        }
+
+        private String characters = "abcdeCDEfghijkzMABFHIJKLNOlmnopqrPQRSTstuvwxyUVWXYZ";
+
+        private string UniqueNumber()
+        {
+            Random rnd = new Random();
+            string s = "CzyDobre_";
+            int unique;
+            int n = 0;
+            while (n < 10)
+            {
+                if (n % 2 == 0)
+                {
+                    s += rnd.Next(10).ToString();
+
+                }
+                else
+                {
+                    unique = rnd.Next(52);
+                    if (unique < this.characters.Length)
+                        s = String.Concat(s, this.characters[unique]);
+                }
+                n++;
+            }
+            var timeNuber = DateTimeOffset.Now.ToUnixTimeSeconds();
+            return s + timeNuber.ToString() + "_";
+        }
 
 
 

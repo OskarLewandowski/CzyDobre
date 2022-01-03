@@ -35,7 +35,7 @@
 
                             <td>
                                 @{
-                                    
+
 
 
                                     {
@@ -68,14 +68,20 @@
 
                             }
                         <td>
-                            @Html.ActionLink("Zmień zdjęcie", "ChangeIMG", "MyOpinion", new { idRating = item.Id_Rating }, new { @class = "btn btn-primary" })
+                            @{
+                                var id = db.AspNetRatingPictures.Where(u => u.Url == img).Select(m => m.Id_Picture).FirstOrDefault();
+
+
+
+                            }
+                            @Html.ActionLink("Zmień zdjęcie", "ChangeIMG", "MyOpinion", new { id, idRating = item.Id_Rating }, new { @class = "btn btn-primary" })
                             <hr />
-                            @if(listaZdjecUrl.Count > 1)
+                            @if (listaZdjecUrl.Count > 1)
                             {
 
-                                
-                                var id = db.AspNetRatingPictures.Where(u => u.Url == img).Select(m=>m.Id_Picture).FirstOrDefault();
-                                @Html.ActionLink("Usuń zdjęcie", "DeleteIMG", "MyOpinion", new { id }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ to zdjęcie?');" })
+
+
+                                @Html.ActionLink("Usuń zdjęcie", "DeleteIMG", "MyOpinion", new { id  }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ to zdjęcie?');" })
                             }
 
                         </td>
