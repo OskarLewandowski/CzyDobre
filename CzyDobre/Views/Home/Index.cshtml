@@ -52,9 +52,12 @@
                                 </div>
                             </figure>
                             @{
-                                string linkm1 = "opiniapop/" + Model.Top1Id.ToString();
+                                if (Model.Top1Id != null)
+                                {
+                                    string linkm1 = "opiniapop/" + Model.Top1Id.ToString();
                                 <a href="@Url.Action(linkm1)" class="stretched-link"></a>
-                            }
+                                }
+                                }
                         </div>
                         <div class="carousel-item">
                             <figure class="figure">
@@ -89,9 +92,12 @@
                                 </div>
                             </figure>
                             @{
-                                string linkm2 = "opiniapop/" + Model.Top2Id.ToString();
+                                if (Model.Top2Id != null)
+                                {
+                                    string linkm2 = "opiniapop/" + Model.Top2Id.ToString();
                                 <a href="@Url.Action(linkm2)" class="stretched-link"></a>
-                            }
+                                }
+                                }
                         </div>
                         <div class="carousel-item">
                             <figure class="figure">
@@ -126,9 +132,11 @@
                                 </div>
                             </figure>
                             @{
-                                string linkm3 = "opiniapop/" + Model.Top3Id.ToString();
+                                if (Model.Top3Id != null)
+                                {
+                                    string linkm3 = "opiniapop/" + Model.Top3Id.ToString();
                                 <a href="@Url.Action(linkm3)" class="stretched-link"></a>
-                            }
+                                } }
                         </div>
                         <div class="carousel-item">
                             <figure class="figure">
@@ -163,9 +171,11 @@
                                 </div>
                             </figure>
                             @{
-                                string linkm4 = "opiniapop/" + Model.Top4Id.ToString();
+                                if (Model.Top4Id != null)
+                                {
+                                    string linkm4 = "opiniapop/" + Model.Top4Id.ToString();
                                 <a href="@Url.Action(linkm4)" class="stretched-link"></a>
-                            }
+                                } }
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -216,9 +226,12 @@
                     </div>
                 </figure>
                 @{
-                    string link1 = "opiniapop/" + Model.Top1Id.ToString();
+                    if (Model.Top1Id != null)
+                    {
+                        string link1 = "opiniapop/" + Model.Top1Id.ToString();
                     <a href="@Url.Action(link1)" class="stretched-link"></a>
-                }
+                    }
+                    }
             </div>
             <div class="col-6 col-lg-3 mt-5 popular">
                 <figure class="figure">
@@ -254,9 +267,11 @@
                     </div>
                 </figure>
                 @{
-                    string link2 = "opiniapop/" + Model.Top2Id.ToString();
+                    if (Model.Top2Id != null)
+                    {
+                        string link2 = "opiniapop/" + Model.Top2Id.ToString();
                     <a href="@Url.Action(link2)" class="stretched-link"></a>
-                }
+                    } }
             </div>
             <div class="col-6 col-lg-3 mt-5 popular">
                 <figure class="figure">
@@ -292,9 +307,11 @@
                     </div>
                 </figure>
                 @{
-                    string link3 = "opiniapop/" + Model.Top3Id.ToString();
+                    if (Model.Top3Id != null)
+                    {
+                        string link3 = "opiniapop/" + Model.Top3Id.ToString();
                     <a href="@Url.Action(link3)" class="stretched-link"></a>
-                }
+                    } }
             </div>
             <div class="col-6 col-lg-3 mt-5 popular">
                 <figure class="figure">
@@ -329,9 +346,12 @@
                     </div>
                 </figure>
                 @{
-                    string link4 = "opiniapop/" + Model.Top4Id.ToString();
+                    if (Model.Top4Id != null)
+                    {
+                        string link4 = "opiniapop/" + Model.Top4Id.ToString();
                     <a href="@Url.Action(link4)" class="stretched-link"></a>
-                }
+                        }
+                    }
             </div>
         </div>
     </div>

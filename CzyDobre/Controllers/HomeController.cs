@@ -36,7 +36,7 @@ namespace CzyDobre.Controllers
 
             if (top1 != null && top1.CzyDobre ==true)
             {
-                rateImage.Top1Id = top1.Id_Product.ToString();
+                    rateImage.Top1Id = top1.Id_Product.ToString();
                 var top1image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top1.Id_Product + "')").FirstOrDefault();
                 if (top1image != null)
                 {
