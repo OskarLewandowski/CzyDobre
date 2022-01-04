@@ -597,7 +597,7 @@ namespace CzyDobre.Controllers
 
                             string uniq = prd.ProductName + querynp.ToString();
                             
-                            product.Id_Place = ql;
+                            
                             product.ProductName = prd.ProductName;
                             product.UniqName = uniq;
                             product.ProductDescription = prd.ProductDescription;
