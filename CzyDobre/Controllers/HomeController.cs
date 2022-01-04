@@ -581,10 +581,10 @@ namespace CzyDobre.Controllers
                         }
                         else
                         {
-                            var ql = db.AspNetPlaces.Count() + 1;
+                            
 
                             //this.AddNotification(queryl.ToString(), NotificationType.INFO);
-                            loc.Id_Place = ql;
+                            
                             loc.PlaceName = prd.LocName;
                             loc.City = prd.City;
                             loc.Country = prd.Country;
