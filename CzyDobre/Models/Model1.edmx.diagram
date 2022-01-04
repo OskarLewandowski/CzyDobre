@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="44562b1ffcbb49f88ee4abdc5a597834" Name="Diagram1">
+      <Diagram DiagramId="a29849a5755440509fdd09667a6c153c" Name="Diagram1">
         <EntityTypeShape EntityType="novum_czydobre.plModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetCategory" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="novum_czydobre.plModel.AspNetCity" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
