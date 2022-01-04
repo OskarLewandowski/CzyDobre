@@ -516,8 +516,11 @@ namespace CzyDobre.Controllers
 
                     if (query != 0)
                     {
-                        var queryl = db.AspNetPlaces.Where(s => s.PlaceName == prd.LocName.ToString()).Select(s => s.Id_Place).FirstOrDefault();
+                        var queryl = db.AspNetPlaces.Where(s => s.PlaceName == prd.LocName).Select(s => s.Id_Place).FirstOrDefault();
 
+                        
+                        //this.AddNotification(prd.LocName.ToString(),NotificationType.INFO);
+                        
                         int querynp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName).Count();
 
 
@@ -528,7 +531,7 @@ namespace CzyDobre.Controllers
 
                         if (queryl != 0)
                         {
-                            db.AspNetProducts.Add(product);
+                            
                             string uniq = prd.ProductName + querynp.ToString();
                             
                             product.Id_Place = queryl;
@@ -539,7 +542,7 @@ namespace CzyDobre.Controllers
 
                             var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
                             product.Who = queru;
-
+                            db.AspNetProducts.Add(product);
                             db.SaveChanges();
 
                             var queryp = db.AspNetProducts.Where(s => s.UniqName == uniq).Select(s => s.Id_Product).FirstOrDefault();
@@ -581,10 +584,10 @@ namespace CzyDobre.Controllers
                         }
                         else
                         {
-                            
 
-                            //this.AddNotification(queryl.ToString(), NotificationType.INFO);
                             
+                            //this.AddNotification(queryl.ToString(), NotificationType.INFO);
+
                             loc.PlaceName = prd.LocName;
                             loc.City = prd.City;
                             loc.Country = prd.Country;
@@ -595,6 +598,9 @@ namespace CzyDobre.Controllers
                             db.AspNetPlaces.Add(loc);
                             db.SaveChanges();
 
+                            queryl = db.AspNetPlaces.Where(s => s.PlaceName == prd.LocName).Select(s => s.Id_Place).FirstOrDefault();
+
+
                             string uniq = prd.ProductName + querynp.ToString();
                             
                             
@@ -602,6 +608,7 @@ namespace CzyDobre.Controllers
                             product.UniqName = uniq;
                             product.ProductDescription = prd.ProductDescription;
                             product.Id_Category = query;
+                            product.Id_Place = queryl;
                             var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
                             product.Who = queru;
                             db.AspNetProducts.Add(product);
@@ -881,7 +888,7 @@ namespace CzyDobre.Controllers
                             {
                                 label = AspNetProduct.ProductName,
                                 img = AspNetImage.Url,
-                                city = AspNetPlaces.PlaceName,
+                                city = AspNetPlaces.City,
                                 val = AspNetProduct.Id_Product
 
 
