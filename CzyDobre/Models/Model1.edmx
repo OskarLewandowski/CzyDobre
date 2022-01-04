@@ -53,7 +53,7 @@
             <PropertyRef Name="Id_Place" />
           </Key>
           <Property Name="Id_Place" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PlaceName" Type="nvarchar" MaxLength="250" />
+          <Property Name="PlaceName" Type="nvarchar" MaxLength="300" />
           <Property Name="City" Type="nchar" MaxLength="150" />
           <Property Name="ZipCode" Type="nchar" MaxLength="100" />
           <Property Name="State" Type="nchar" MaxLength="200" />
@@ -556,7 +556,7 @@
             <PropertyRef Name="Id_Place" />
           </Key>
           <Property Name="Id_Place" Type="Int32" Nullable="false" />
-          <Property Name="PlaceName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
           <Property Name="ZipCode" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="State" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
