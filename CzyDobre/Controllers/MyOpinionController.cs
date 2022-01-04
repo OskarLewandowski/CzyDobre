@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace CzyDobre.Controllers
 {
-    [Authorize(Roles = "Admin, Moderator")]
+    [Authorize(Roles = "Admin, Moderator,User")]
     public class MyOpinionController : Controller
     {
         DBEntities db = new DBEntities();
@@ -29,7 +29,7 @@ namespace CzyDobre.Controllers
 
         [Route("usuwanie-mopjej-opinii")]
         [Route("MyOpinion/DeleteO")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Moderator,User")]
         public ActionResult DeleteO(int idRating, int idProduct, string nazwaProduktu)
         {
             try
@@ -113,7 +113,7 @@ namespace CzyDobre.Controllers
         [Route("edytor-opinii")]
         [Route("MyOpinion/Editor")]
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin, Moderator,User")]
         public ActionResult Editor(EditOpinionViewModels edit, int idRating)
         {
             try
@@ -188,7 +188,7 @@ namespace CzyDobre.Controllers
         [HttpPost]
         [Route("edytor-opinii")]
         [Route("MyOpinion/Editor")]
-        [Authorize]
+        [Authorize(Roles = "Admin, Moderator,User")]
         public ActionResult Editor(EditOpinionViewModels edit)
         {
             DBEntities db = new DBEntities();
@@ -235,7 +235,7 @@ namespace CzyDobre.Controllers
 
         [Route("zarzadzaj-zdjeciami")]
         [Route("MyOpinion/ManageIMG")]
-        [Authorize]
+        [Authorize(Roles = "Admin, Moderator,User")]
         public ActionResult ManageIMG()
         {
 
@@ -250,6 +250,8 @@ namespace CzyDobre.Controllers
 
         [Route("usuwanie-zdjecia")]
         [Route("MyOpinion/ManageIMG")]
+        [Authorize(Roles = "Admin, Moderator,User")]
+
         public ActionResult DeleteIMG(int id)
         {
             try
