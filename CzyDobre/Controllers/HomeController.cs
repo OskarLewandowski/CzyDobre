@@ -647,7 +647,7 @@ namespace CzyDobre.Controllers
                             smtpClient.Send(msg);
 
                             ModelState.Clear();
-                            this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
+                            //this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
 
 
                             ModelState.Clear();
