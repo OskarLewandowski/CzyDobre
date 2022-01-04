@@ -90,7 +90,7 @@ namespace CzyDobre.Controllers
             var top3 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(2).FirstOrDefault();
             var top4 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(3).FirstOrDefault();
 
-            if (top1.Opinion_Counter >= 0 && top1.CzyDobre == true)
+            if (top1 != null && top1.Opinion_Counter >= 0 && top1.CzyDobre == true)
             {
                 rate.ProductNameTop1 = top1.ProductName;
                 rate.OpinionCounterTop1 = top1.Opinion_Counter;
@@ -98,7 +98,7 @@ namespace CzyDobre.Controllers
                 rate.ServiceRateTop1 = top1.AvarageService / top1.Opinion_Counter;
                 rate.IngredientsRateTop1 = top1.AvarageIngredients / top1.Opinion_Counter;
             }
-            if (top2.Opinion_Counter >= 0 && top2.CzyDobre == true)
+            if (top2 != null && top2.Opinion_Counter >= 0 && top2.CzyDobre == true)
             {
                 rate.ProductNameTop2 = top2.ProductName;
                 rate.OpinionCounterTop2 = top2.Opinion_Counter;
@@ -106,7 +106,7 @@ namespace CzyDobre.Controllers
                 rate.ServiceRateTop2 = top2.AvarageService / top2.Opinion_Counter;
                 rate.IngredientsRateTop2 = top2.AvarageIngredients / top2.Opinion_Counter;
             }
-            if (top3.Opinion_Counter >= 0 && top3.CzyDobre == true)
+            if (top3 != null && top3.Opinion_Counter >= 0 && top3.CzyDobre == true)
             {
                 rate.ProductNameTop3 = top3.ProductName;
                 rate.OpinionCounterTop3 = top3.Opinion_Counter;
@@ -114,7 +114,7 @@ namespace CzyDobre.Controllers
                 rate.ServiceRateTop3 = top3.AvarageService / top3.Opinion_Counter;
                 rate.IngredientsRateTop3 = top3.AvarageIngredients / top3.Opinion_Counter;
             }
-            if (top4.Opinion_Counter >= 0 && top4.CzyDobre == true)
+            if (top4 != null && top4.Opinion_Counter >= 0 && top4.CzyDobre == true)
             {
                 rate.ProductNameTop4 = top4.ProductName;
                 rate.OpinionCounterTop4 = top4.Opinion_Counter;
