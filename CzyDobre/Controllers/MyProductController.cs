@@ -14,27 +14,27 @@ using System.Web.Mvc;
 namespace CzyDobre.Controllers
 {
     [Authorize(Roles = "Admin, Moderator")]
-    public class MyOpinionController : Controller
+    public class MyProductController : Controller
     {
         DBEntities db = new DBEntities();
 
-        [Route("moje-opinie")]
-        [Route("MyOpinion/MojaOpinia")]
+        [Route("moje-produkty")]
+        [Route("MyProduct/MojProdukt")]
         [Authorize(Roles = "Admin, Moderator")]
-        public ActionResult MojaOpinia()
+        public ActionResult MojProdukt()
         {
-            var produktList = db.AspNetRatings.ToList();
+            var produktList = db.AspNetProducts.ToList();
             return View(produktList);
         }
 
-        [Route("usuwanie-mopjej-opinii")]
-        [Route("MyOpinion/DeleteO")]
+        [Route("usuwanie-mojego-produktu")]
+        [Route("MyProduct/DeleteP")]
         [Authorize(Roles = "Admin")]
-        public ActionResult DeleteO(int idRating, int idProduct, string nazwaProduktu)
+        public ActionResult DeleteP(int idProduct, string nazwaProduktu)
         {
             try
             {
-                List<AspNetRatingPicture> lista = new List<AspNetRatingPicture>();
+                List<AspNetImage> lista = new List<AspNetImage>();
 
                 Account account = new Account(
                 ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
@@ -42,32 +42,32 @@ namespace CzyDobre.Controllers
                 ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
                 Cloudinary cloudinary = new Cloudinary(account);
 
-                var Opinia = db.AspNetRatings.Where(m => m.Id_Rating == idRating).ToList();
+                var Produkt = db.AspNetProducts.Where(m => m.Id_Product == idProduct).ToList();
 
 
-                foreach (AspNetRating r in Opinia)
+                foreach (AspNetProduct r in Produkt)
                 {
                     var opiniaDecres = db.AspNetProducts.Where(m => m.Id_Product == r.Id_Product).FirstOrDefault();
                     opiniaDecres.Opinion_Counter -=1;
-                    lista.AddRange(db.AspNetRatingPictures.Where(m => m.Id_Rating == r.Id_Rating).ToList());
+                    lista.AddRange(db.AspNetImages.Where(m => m.Id_Product == r.Id_Product).ToList());
                 }
 
-                if (Opinia != null)
+                if (Produkt != null)
                 {
                     if (lista != null)
                     {
-                        db.AspNetRatingPictures.RemoveRange(lista);
+                        db.AspNetImages.RemoveRange(lista);
                     }
 
-                    if (Opinia != null)
+                    if (Produkt != null)
                     {
-                        db.AspNetRatings.RemoveRange(Opinia);
+                        db.AspNetProducts.RemoveRange(Produkt);
                     }
 
 
                     db.SaveChanges();
 
-                    var listaZdjecUrl = db.AspNetRatingPictures.Where(u => u.Id_Rating == idRating).Select(u => u.Url).ToList();
+                    var listaZdjecUrl = db.AspNetImages.Where(u => u.Id_Product == idProduct).Select(u => u.Url).ToList();
 
                     if (listaZdjecUrl != null)
                     {
@@ -93,34 +93,34 @@ namespace CzyDobre.Controllers
                         }
                     }
 
-                    this.AddNotification("Opinia \"" + nazwaProduktu + "\" została pomyślnie usunięta! ", NotificationType.SUCCESS);
+                    this.AddNotification("Produkt \"" + nazwaProduktu + "\" została pomyślnie usunięta! ", NotificationType.SUCCESS);
                 }
                 else
                 {
                     this.AddNotification("Produkt nie został usunięty!", NotificationType.ERROR);
                 }
-                var opiniaList = db.AspNetRatings.ToList();
-                return View("MojaOpinia", opiniaList);
+                var produktList = db.AspNetProducts.ToList();
+                return View("MojProdukt", produktList);
             }
             catch (Exception ex)
             {
                 this.AddNotification($"Bład: " + ex, NotificationType.ERROR);
-                return RedirectToAction("MojaOpinia");
+                return RedirectToAction("MojProdukt");
             }
         }
 
 
-        [Route("edytor-opinii")]
-        [Route("MyOpinion/Editor")]
+        [Route("edytor-produktu")]
+        [Route("MyProduct/EditorP")]
         [HttpGet]
         [Authorize]
-        public ActionResult Editor(EditOpinionViewModels edit, int idRating)
+        public ActionResult EditorP(EditProductViewModels prd, int idProduct)
         {
             try
             {
                 DBEntities db = new DBEntities();
 
-                var queru= db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.Who).FirstOrDefault();
+                var queru= db.AspNetProducts.Where(m => m.Id_Product == idProduct).Select(m => m.Who).FirstOrDefault();
                 var quern = db.AspNetUsers.Where(m => m.Id == queru).Select(m=>m.UserName).FirstOrDefault();
 
                 
@@ -128,33 +128,35 @@ namespace CzyDobre.Controllers
                 if(User.Identity.Name == quern)
                 {
 
-                    int idProduktu = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.Id_Product).FirstOrDefault();
-                    string nazwaProduktu = db.AspNetProducts.Where(m => m.Id_Product == idProduktu).Select(m => m.ProductName).FirstOrDefault().ToString();
-                    short rateT = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.RateTaste).FirstOrDefault();
-                    short rateS = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.RateService).FirstOrDefault();
-                    short rateP = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.RateIngredients).FirstOrDefault();
-                    string comm = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.Comment).FirstOrDefault();
+                    int idProduktu = db.AspNetProducts.Where(m => m.Id_Product == idProduct).Select(m => m.Id_Product).FirstOrDefault();
+                    string nazwaProduktu = db.AspNetProducts.Where(m => m.Id_Product == idProduct).Select(m => m.ProductName).FirstOrDefault().ToString();
+                    int idCat = db.AspNetProducts.Where(m => m.Id_Product == idProduct).Select(m => m.Id_Category).FirstOrDefault();
+                    string Cat = db.AspNetCategories.Where(m => m.Id_Category == idCat).Select(m => m.CategoryName).FirstOrDefault();
+                    int? idPlace = db.AspNetProducts.Where(m => m.Id_Product == idProduct).Select(m => m.Id_Place).FirstOrDefault();
+                    string Place = db.AspNetPlaces.Where(m => m.Id_Place == idPlace).Select(m => m.PlaceName).FirstOrDefault();
+                    string Desc = db.AspNetProducts.Where(m => m.Id_Product == idProduct).Select(m => m.ProductDescription).FirstOrDefault();
+                    
 
                     List<string> photos = new List<string>();
 
-                    photos = db.AspNetRatingPictures.Where(m => m.Id_Rating == idRating).Select(m => m.Url).ToList();
+                    photos = db.AspNetImages.Where(m => m.Id_Product == idProduct).Select(m => m.Url).ToList();
+                    int img = db.AspNetImages.Where(m => m.Id_Product == idProduct).Select(m => m.Id_Image).FirstOrDefault();
 
 
-
-                    edit.PName = nazwaProduktu;
-                    edit.RateTaste = rateT;
-                    edit.RateService = rateS;
-                    edit.RateIngredients = rateP;
-                    edit.Review = comm;
+                    prd.ProductName = nazwaProduktu;
+                    prd.CategoryName = Cat;
+                    prd.LocName = Place;
+                    prd.ProductDescription = Desc;
+                    
                     // edit.Photo = photos;
                     // ViewData["PN"] = nazwaProduktu;
                     // ViewData["RT"] = rateT;
                     // ViewData["RS"] = rateS;
                     // ViewData["RP"] = rateP;
 
-                    Session["idRating"] = idRating;
-                    Session["Photos"] = photos;
-                    
+                    Session["idProduct"] = idProduct;
+                    Session["Icons"] = photos;
+                    Session["Img"] = img;
 
                     // this.AddNotification(" "+idRating+" "+ idProduktu + " " + nazwaProduktu + " " + rateT + " " + rateP + " " + rateS + " " + comm,NotificationType.INFO);
                     //this.AddNotification(TempData["idRating"].ToString(), NotificationType.INFO);
@@ -165,19 +167,19 @@ namespace CzyDobre.Controllers
 
 
 
-                    return View(edit);
+                    return View(prd);
                 }
                 else
                 {
                     this.AddNotification($"Brak dostępu! ", NotificationType.ERROR);
-                    return RedirectToAction("MojaOpinia");
+                    return RedirectToAction("MojProdukt");
                 }
                 
             }
             catch (Exception ex)
             {
                 this.AddNotification($"Bład: " + ex, NotificationType.ERROR);
-                return RedirectToAction("MojaOpinia");
+                return RedirectToAction("MojProdukt");
             }
 
 
@@ -186,28 +188,29 @@ namespace CzyDobre.Controllers
 
 
         [HttpPost]
-        [Route("edytor-opinii")]
-        [Route("MyOpinion/Editor")]
+        [Route("edytor-produktu")]
+        [Route("MyProduct/EditorP")]
         [Authorize]
-        public ActionResult Editor(EditOpinionViewModels edit)
+        public ActionResult EditorP(EditProductViewModels prd)
         {
             DBEntities db = new DBEntities();
 
-            var id = Session["idRating"];
+            var id = Session["idProduct"];
 
            
-                var entity = db.AspNetRatings.FirstOrDefault(item => item.Id_Rating == (int)id);
-
-                // Validate entity is not null
-                if (entity != null)
+                var entity = db.AspNetProducts.FirstOrDefault(item => item.Id_Product == (int)id);
+                int qcat = db.AspNetCategories.Where(m => m.CategoryName == prd.CategoryName).Select(m => m.Id_Category).FirstOrDefault();
+                int qpla = db.AspNetPlaces.Where(m => m.PlaceName == prd.LocName).Select(m => m.Id_Place).FirstOrDefault();
+            // Validate entity is not null
+            if (entity != null)
                 {
                     // Answer for question #2
 
                     // Make changes on entity
-                    entity.RateIngredients = edit.RateIngredients;
-                    entity.RateService = edit.RateService;
-                    entity.RateTaste = edit.RateTaste;
-                    entity.Comment = edit.Review;
+                    entity.ProductName = prd.ProductName;
+                    entity.Id_Category = qcat;
+                    entity.Id_Place= qpla;
+                    entity.ProductDescription = prd.ProductDescription;
                     entity.CzyDobre = false;
                     // Update entity in DbSet
                     db.Entry(entity).State = System.Data.Entity.EntityState.Modified;
@@ -229,108 +232,23 @@ namespace CzyDobre.Controllers
 
 
 
-            return View(edit);
+            return View(prd);
         }
 
 
-        [Route("zarzadzaj-zdjeciami")]
-        [Route("MyOpinion/ManageIMG")]
+        [Route("zmiana-zdjeciapr")]
+        [Route("MyProduct/ChangeIMGpr")]
         [Authorize]
-        public ActionResult ManageIMG()
+        public ActionResult ChangeIMGpr(int id ,int idProduct)
         {
-
-            var produktList = db.AspNetRatings.ToList();
-            return View(produktList);
-
-            
-
-
-        }
-
-
-        [Route("usuwanie-zdjecia")]
-        [Route("MyOpinion/ManageIMG")]
-        public ActionResult DeleteIMG(int id)
-        {
-            try
-            {
-                
-
-                Account account = new Account(
-                ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
-                ConfigurationManager.AppSettings["CloudinaryApiKey"].ToString(),
-                ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
-                Cloudinary cloudinary = new Cloudinary(account);
-
-                AspNetRatingPicture pic;
-
-                
-                 using (DBEntities db = new DBEntities())
-                 {
-                     
-                     pic = db.AspNetRatingPictures.Where(d => d.Id_Picture == id).FirstOrDefault();
-                     db.AspNetRatingPictures.Remove(pic);
-                     db.SaveChanges();
-
-                 }
-
-                var listaZdjecUrl = db.AspNetRatingPictures.Where(u => u.Id_Picture == id).Select(u => u.Url).ToList();
-
-                this.AddNotification(listaZdjecUrl.Count.ToString(), NotificationType.INFO);
-
-                if (listaZdjecUrl != null)
-                {
-                    for (int i = 0; i < listaZdjecUrl.Count; i++)
-                    {
-                        //usuwan rozszezenia .jpg 4 i .jpng 5
-                        var ID4 = listaZdjecUrl[i].Remove(listaZdjecUrl[i].Length - 4);
-                        var ID5 = listaZdjecUrl[i].Remove(listaZdjecUrl[i].Length - 5);
-                        var nameId4 = "CzyDobre-images/" + ID4;
-                        var nameId5 = "CzyDobre-images/" + ID5;
-
-                        var deletionParams4 = new DeletionParams(ID4)
-                        {
-                            PublicId = nameId4
-                        };
-                        var deletionResult = cloudinary.Destroy(deletionParams4);
-
-                        var deletionParams5 = new DeletionParams(ID5)
-                        {
-                            PublicId = nameId5
-                        };
-                        var deletionResult4 = cloudinary.Destroy(deletionParams5);
-                    }
-                }
-
-
-
-                this.AddNotification("Zdjęcie usunięto pomyślnie", NotificationType.INFO);
-                var opiniaList = db.AspNetRatings.ToList();
-                return View("ManageIMG", opiniaList);
-            }
-            catch (Exception ex)
-            {
-                this.AddNotification($"Bład: " + ex, NotificationType.ERROR);
-                return RedirectToAction("ManageIMG");
-            }
-
-        }
-
-
-
-        [Route("zmiana-zdjecia")]
-        [Route("MyOpinion/ChangeIMG")]
-        [Authorize]
-        public ActionResult ChangeIMG(int id, int idRating)
-        {
-            var queru = db.AspNetRatings.Where(m => m.Id_Rating == idRating).Select(m => m.Who).FirstOrDefault();
+            var queru = db.AspNetProducts.Where(m => m.Id_Product == idProduct).Select(m => m.Who).FirstOrDefault();
             var quern = db.AspNetUsers.Where(m => m.Id == queru).Select(m => m.UserName).FirstOrDefault();
 
             if (User.Identity.Name == quern)
             {
 
-                Session["idPicture"] = id;
-                Session["idRat"] = idRating;
+                Session["idImgage"] = id;
+                Session["idPro"] = idProduct;
             }                 
             return View();
 
@@ -341,33 +259,36 @@ namespace CzyDobre.Controllers
 
 
         [HttpPost]
-        [Route("zmiana-zdjecia")]
-        [Route("MyOpinion/ChangeIMG")]
-        public ActionResult ChangeIMG(ChangeIMGViewModels img)
+        [Route("zmiana-zdjeciapr")]
+        [Route("MyProduct/ChangeIMGpr")]
+        public ActionResult ChangeIMGpr(ChangeIMGViewModels img)
         {
             try
             {
-                int id = (int)Session["idPicture"];
-                int idRating = (int)Session["idRat"];
+                int id = (int)Session["idImgage"];
+                int idProduct= (int)Session["idPro"];
 
-                var rate = db.AspNetRatingPictures.Where(d => d.Id_Picture == id).Select(d => d.Id_Rating).FirstOrDefault();
+                var prd = db.AspNetImages.Where(d => d.Id_Image == id).Select(d => d.Id_Product).FirstOrDefault();
 
                 List<string> zapisz = new List<string>();
 
+                
+
+
                 zapisz = SaveIconToProduct(img);
 
-                AspNetRatingPicture image = new AspNetRatingPicture();
+                AspNetImage image = new AspNetImage();
                 
                 foreach (var item in zapisz)
                 {
 
                     image.Url = item;
-                    image.Id_Rating = rate;
-                    db.AspNetRatingPictures.Add(image);
+                    image.Id_Product = prd;
+                    db.AspNetImages.Add(image);
                     db.SaveChanges();
                 }
                 
-                var entity = db.AspNetRatings.FirstOrDefault(item => item.Id_Rating == (int)idRating);
+                var entity = db.AspNetProducts.FirstOrDefault(item => item.Id_Product == (int)idProduct);
 
                 // Validate entity is not null
                 if (entity != null)
@@ -391,14 +312,12 @@ namespace CzyDobre.Controllers
                 ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
                 Cloudinary cloudinary = new Cloudinary(account);
 
-                AspNetRatingPicture pic;
+                AspNetImage pic;
+
+
+                var listaZdjecUrl = db.AspNetImages.Where(u => u.Id_Image == id).Select(u => u.Url).ToList();
 
                 
-                
-
-                var listaZdjecUrl = db.AspNetRatingPictures.Where(u => u.Id_Picture == id).Select(u => u.Url).ToList();
-
-                this.AddNotification(id.ToString(), NotificationType.INFO);
 
                 if (listaZdjecUrl != null)
                 {
@@ -424,23 +343,27 @@ namespace CzyDobre.Controllers
                     }
                 }
 
+
+
+
                 using (DBEntities db = new DBEntities())
                 {
-
-                    pic = db.AspNetRatingPictures.Where(d => d.Id_Picture == id).FirstOrDefault();
-                    db.AspNetRatingPictures.Remove(pic);
+                   
+                    pic = db.AspNetImages.Where(d => d.Id_Image == id).FirstOrDefault();
+                    db.AspNetImages.Remove(pic);
                     db.SaveChanges();
 
                 }
 
+
                 this.AddNotification("Zdjęcie zostało zamienione !" , NotificationType.SUCCESS);
-                var opiniaList = db.AspNetRatings.ToList();
-                return View("ManageIMG", opiniaList);
+                var produktList = db.AspNetProducts.ToList();
+                return View("MojProdukt", produktList);
             }
             catch (Exception ex)
             {
                 this.AddNotification($"Bład: " + ex, NotificationType.ERROR);
-                return RedirectToAction("ManageIMG");
+                return RedirectToAction("MojProdukt");
             }
 
         }

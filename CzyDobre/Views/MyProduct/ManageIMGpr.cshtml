@@ -1,4 +1,4 @@
-﻿@model List<CzyDobre.Models.AspNetRating>
+﻿@model List<CzyDobre.Models.AspNetProduct>
 @using CzyDobre.Models
 @{
     ViewBag.Title = "Moje Opinie";
@@ -26,9 +26,9 @@
 
                 }
 
-                @foreach (var item in Model.Where(s => s.Id_Rating == (int)Session["idRating"]))
+                @foreach (var item in Model.Where(s => s.Id_Product == (int)Session["idProduct"]))
                 {
-                    var listaZdjecUrl = db.AspNetRatingPictures.Where(u => u.Id_Rating == item.Id_Rating).Select(u => u.Url).ToList();
+                    var listaZdjecUrl = db.AspNetImages.Where(u => u.Id_Product == item.Id_Product).Select(u => u.Url).ToList();
                     foreach (var img in listaZdjecUrl)
                     {
                         <tr>
@@ -56,20 +56,12 @@
 
                         <td>
                             @{
-                                var id = db.AspNetRatingPictures.Where(u => u.Url == img).Select(m => m.Id_Picture).FirstOrDefault();
+                                var id = db.AspNetImages.Where(u => u.Url == img).Select(m => m.Id_Image).FirstOrDefault();
 
 
 
                             }
-                            @Html.ActionLink("Zmień zdjęcie", "ChangeIMG", "MyOpinion", new { id, idRating = item.Id_Rating }, new { @class = "btn btn-primary" })
-                            <hr />
-                            @if (listaZdjecUrl.Count > 1)
-                            {
-
-
-
-                                @Html.ActionLink("Usuń zdjęcie", "DeleteIMG", "MyOpinion", new { id  }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ to zdjęcie?');" })
-                            }
+                            
 
                         </td>
 

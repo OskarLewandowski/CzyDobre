@@ -56,7 +56,7 @@
 
                             }
 
-                            <div id="opinionImages" class="opinion-details-image-container carousel slide" data-interval="false" data-ride="carousel">
+                            <div  id="opinionImages" class="opinion-details-image-container carousel slide" data-interval="false" data-ride="carousel" style=" display: block; margin-left: auto; margin-right: auto ; height: 300px; width: 350px; ">
                                 @{
                                     if (listaZdjecUrl != null && listaZdjecUrl.Any())
                                     {
@@ -127,7 +127,7 @@
 
                     }
                 <td>
-                    @Html.ActionLink("Edytuj opinię", "Editor", "MyOpinion", new { idRating = item.Id_Rating }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Edycja", "Editor", "MyOpinion", new { idRating = item.Id_Rating }, new { @class = "btn btn-primary" })
                     <hr />
                     @Html.ActionLink("Usuń opinię", "DeleteO", "MyOpinion", new { idRating = item.Id_Rating, idProduct = item.Id_Product, nazwaProduktu = wynikProduktNazwa }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ opinię?');" })
                 </td>

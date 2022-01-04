@@ -1,0 +1,159 @@
+﻿@model List<CzyDobre.Models.AspNetProduct>
+@using CzyDobre.Models
+@{
+    ViewBag.Title = "Moje Opinie";
+    Layout = "~/Views/Shared/_LayoutWide.cshtml";
+    DBEntities db = new DBEntities();
+}
+<div class="role-div">
+    <h2 style="text-align: center;">Lista opinii</h2>
+    <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+    <hr />
+    <div class="table">
+        <table id="produkty" class="table table-bordered table-hover display">
+            <thead>
+                <tr class="table-role">
+                    <th>Nazwa produktu</th>
+                    <th>Kategoria</th>
+                    <th>Zdjęcia</th>
+                    <th>Weryfikacja</th>
+                    <th>Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
+
+
+                }
+                @foreach (var item in Model.Where(s => s.AspNetUser.UserName == User.Identity.Name))
+                {
+                    <tr>
+                        <td>
+                            @{
+                                var wynikProduktNazwa = db.AspNetProducts.Where(u => u.Id_Product == item.Id_Product).Select(u => u.ProductName).FirstOrDefault();
+                            }
+                            @wynikProduktNazwa
+                        </td>
+
+                        <td>
+                            @{
+                                
+                                int idCat = db.AspNetProducts.Where(m => m.Id_Product == item.Id_Product).Select(m => m.Id_Category).FirstOrDefault();
+                                string Cat = db.AspNetCategories.Where(m => m.Id_Category == idCat).Select(m => m.CategoryName).FirstOrDefault();
+                            }
+                            @Cat
+
+                        </td>
+                        <td>
+                            @{
+                                string brakZdjecia = "https://res.cloudinary.com/czydobre-pl/image/upload/v1639157376/CzyDobre-www/Brak-zdjecia_fnfpal.png";
+                                string urlCzydobre = "https://res.cloudinary.com/czydobre-pl/image/upload/v1639154117/CzyDobre-images/";
+                                var listaZdjecUrl = db.AspNetImages.Where(u => u.Id_Product == item.Id_Product && u.AspNetProduct.Who == queru).Select(u => u.Url).ToList();
+
+                                for (int i = 0; i < listaZdjecUrl.Count; i++)
+                                {
+                                    var url = urlCzydobre + listaZdjecUrl[i];
+
+
+
+                                }
+
+                                <div id="opinionImages" class="opinion-details-image-container carousel slide" data-interval="false" data-ride="carousel" style=" display: block; margin-left: auto; margin-right: auto ; height: 300px; width: 350px; ">
+                                    @{
+                                        if (listaZdjecUrl != null && listaZdjecUrl.Any())
+                                        {
+                                            if (listaZdjecUrl.Count > 1)
+                                            {
+                                                <ol class="carousel-indicators">
+                                                    <li data-target="#opinionImages" data-slide-to="0" class="active"></li>
+                                                    @for (int i = 1; i < listaZdjecUrl.Count; i++)
+                                                    {
+                                                        <li data-target="#opinionImages" data-slide-to="@i"></li>
+                                                    }
+                                                </ol>
+                                                <div class="carousel-inner h-100 w-100">
+                                                    <div class="h-100 w-100 active carousel-item">
+                                                        <div class="h-100 w-100 d-flex justify-content-center align-items-center">
+                                                            <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@listaZdjecUrl[0]" class="d-block mw-100 mh-100" />
+                                                        </div>
+                                                    </div>
+                                                    @for (int i = 1; i < listaZdjecUrl.Count; i++)
+                                                    {
+                                                        <div class="h-100 w-100 carousel-item">
+                                                            <div class="h-100 w-100 d-flex justify-content-center align-items-center">
+                                                                <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@listaZdjecUrl[i]" class="d-block mw-100 mh-100" />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="h-100 w-100 d-flex justify-content-center align-items-center">
+                                                    <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@listaZdjecUrl[0]" class="d-block mw-100 mh-100" />
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                    @if (listaZdjecUrl != null && listaZdjecUrl.Count > 1)
+                                    {
+                                        <a class="carousel-control-prev" href="#opinionImages" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#opinionImages" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    }
+
+                                </div>
+
+
+                            }
+
+                        </td>
+
+
+                        @if (item.CzyDobre == true)
+                        {
+                            <td>Tak ✔️ </td>
+                        }
+                        else if (item.Objections != null && item.CzyDobre == false)
+                        {
+                            <td>Nie ❌<br />Zastrzeżenie: @item.Objections</td>
+                        }
+                        else
+                        {
+                            <td>Nie ❌</td>
+
+                        }
+                    <td>
+                        @Html.ActionLink("Edycja", "EditorP", "MyProduct", new { idProduct = item.Id_Product }, new { @class = "btn btn-primary" })
+                        <hr />
+                        @Html.ActionLink("Usuń produkt", "DeleteP", "MyProduct", new { idProduct = item.Id_Product, nazwaProduktu = wynikProduktNazwa }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ opinię?');" })
+                    </td>
+
+
+
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#produkty').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pl.json"
+                }
+            });
+        });
+    </script>
+}

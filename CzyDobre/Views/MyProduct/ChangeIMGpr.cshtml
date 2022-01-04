@@ -11,7 +11,7 @@
         <div style="text-align: center;">@Html.Partial("_Notifications")</div>
         @if (User.Identity.IsAuthenticated /* && User.IsInRole("Admin")*/)
         {
-            using (Html.BeginForm("ChangeIMG", "MyOpinion", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
+            using (Html.BeginForm("ChangeIMGpr", "MyProduct", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
             {
                 @Html.AntiForgeryToken()
                 <style>
@@ -35,7 +35,7 @@
                     <script defer src="~/Scripts/DragAndDropSingle.js"></script>
 
 
-                    <p style="text-align: left; padding: 3px;">Maksymalna wielkość załącznika wynosi 5MB</p>
+                    
                 </div>
 
 

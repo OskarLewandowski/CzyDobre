@@ -1,4 +1,6 @@
-﻿body {
+﻿
+
+body {
     padding: 0px;
     margin: 0px;
     display: flex;
@@ -476,6 +478,11 @@ input:focus {
 .table-role {
     background-color: #007bff;
     color: white;
+}
+
+table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td {
+    border-bottom-width: 0;
+    vertical-align: middle;
 }
 
 .select-list-role{
