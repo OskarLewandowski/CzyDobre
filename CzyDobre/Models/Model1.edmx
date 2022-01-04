@@ -52,7 +52,7 @@
           <Key>
             <PropertyRef Name="Id_Place" />
           </Key>
-          <Property Name="Id_Place" Type="int" Nullable="false" />
+          <Property Name="Id_Place" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PlaceName" Type="nvarchar" MaxLength="250" />
           <Property Name="City" Type="nchar" MaxLength="150" />
           <Property Name="ZipCode" Type="nchar" MaxLength="100" />

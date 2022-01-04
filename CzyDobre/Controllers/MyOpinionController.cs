@@ -20,7 +20,7 @@ namespace CzyDobre.Controllers
 
         [Route("moje-opinie")]
         [Route("MyOpinion/MojaOpinia")]
-        [Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "Admin, Moderator,User")]
         public ActionResult MojaOpinia()
         {
             var produktList = db.AspNetRatings.ToList();

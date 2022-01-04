@@ -33,7 +33,7 @@ namespace CzyDobre.Models
         [Display(Name = "Kategoria")]
         public string CategoryName { get; set; }
 
-        [StringLength(100)]
+        [StringLength(300)]
         [Required(ErrorMessage = "Lokalizacja jest wymagana!")]
         [Display(Name = "Lokalizacja")]
         public string LocName { get; set; }
