@@ -85,7 +85,7 @@ namespace CzyDobre.Models
     public class AvatarViewModel
     {
         public string AvatarUrl { get; set; }
-        [AvatarCheckFile]
+        [IconCheck]
         public List<HttpPostedFileBase> Icon { get; set; }
     }
 
@@ -146,7 +146,7 @@ namespace CzyDobre.Models
         }
     }
 
-    public class AvatarCheckFile : ValidationAttribute
+    public class IconCheck : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
@@ -195,5 +195,4 @@ namespace CzyDobre.Models
             return new ValidationResult("Wymagane jest zdjecie, o rozszerzeniu .png, .jpg, .jpeg");
         }
     }
-
 }

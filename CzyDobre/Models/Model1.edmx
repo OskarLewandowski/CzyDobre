@@ -52,8 +52,8 @@
           <Key>
             <PropertyRef Name="Id_Place" />
           </Key>
-          <Property Name="Id_Place" Type="int" Nullable="false" />
-          <Property Name="PlaceName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Id_Place" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlaceName" Type="nvarchar(max)" />
           <Property Name="City" Type="nchar" MaxLength="150" />
           <Property Name="ZipCode" Type="nchar" MaxLength="100" />
           <Property Name="State" Type="nchar" MaxLength="200" />
@@ -265,18 +265,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AspNetProducts_AspNetPlaces">
-          <End Role="AspNetPlaces" Type="Self.AspNetPlaces" Multiplicity="0..1" />
-          <End Role="AspNetProducts" Type="Self.AspNetProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetPlaces">
-              <PropertyRef Name="Id_Place" />
-            </Principal>
-            <Dependent Role="AspNetProducts">
-              <PropertyRef Name="Id_Place" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AspNetProducts_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="AspNetProducts" Type="Self.AspNetProducts" Multiplicity="*" />
@@ -452,10 +440,6 @@
             <End Role="AspNetCategories" EntitySet="AspNetCategories" />
             <End Role="AspNetProducts" EntitySet="AspNetProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK_AspNetProducts_AspNetPlaces" Association="Self.FK_AspNetProducts_AspNetPlaces">
-            <End Role="AspNetPlaces" EntitySet="AspNetPlaces" />
-            <End Role="AspNetProducts" EntitySet="AspNetProducts" />
-          </AssociationSet>
           <AssociationSet Name="FK_AspNetProducts_AspNetUsers" Association="Self.FK_AspNetProducts_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetProducts" EntitySet="AspNetProducts" />
@@ -556,7 +540,7 @@
             <PropertyRef Name="Id_Place" />
           </Key>
           <Property Name="Id_Place" Type="Int32" Nullable="false" />
-          <Property Name="PlaceName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
           <Property Name="ZipCode" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="State" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
