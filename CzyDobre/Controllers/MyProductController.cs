@@ -13,14 +13,14 @@ using System.Web.Mvc;
 
 namespace CzyDobre.Controllers
 {
-    [Authorize(Roles = "Admin, Moderator")]
+    [Authorize(Roles = "Admin, Moderator,User")]
     public class MyProductController : Controller
     {
         DBEntities db = new DBEntities();
 
         [Route("moje-produkty")]
         [Route("MyProduct/MojProdukt")]
-        [Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "Admin, Moderator,User")]
         public ActionResult MojProdukt()
         {
             var produktList = db.AspNetProducts.ToList();
@@ -29,7 +29,7 @@ namespace CzyDobre.Controllers
 
         [Route("usuwanie-mojego-produktu")]
         [Route("MyProduct/DeleteP")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Moderator,User")]
         public ActionResult DeleteP(int idProduct, string nazwaProduktu)
         {
             try
@@ -113,7 +113,7 @@ namespace CzyDobre.Controllers
         [Route("edytor-produktu")]
         [Route("MyProduct/EditorP")]
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin, Moderator,User")]
         public ActionResult EditorP(EditProductViewModels prd, int idProduct)
         {
             try
