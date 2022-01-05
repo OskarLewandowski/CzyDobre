@@ -865,7 +865,7 @@ namespace CzyDobre.Controllers
         //CzyDobre.pl/dodaj-opinie
         [Route("dodaj-opinie")]
         [Route("Home/AddOpinion")]
-        [Authorize]
+        [Authorize(Roles = "Admin, Moderator,User")]
         public ActionResult AddOpinion()
         {
             DBEntities db = new DBEntities();
@@ -883,7 +883,7 @@ namespace CzyDobre.Controllers
                             join AspNetImage in db.AspNetImages on AspNetProduct.Id_Product equals AspNetImage.Id_Product
                             join AspNetPlaces in db.AspNetPlaces on AspNetProduct.Id_Place equals AspNetPlaces.Id_Place
                             where AspNetProduct.ProductName.Contains(prefix)
-
+                            where AspNetProduct.CzyDobre.Equals(true)
                             select new
                             {
                                 label = AspNetProduct.ProductName,
@@ -928,7 +928,7 @@ namespace CzyDobre.Controllers
         [Route("dodaj-opinie")]
         [Route("Home/AddOpinion")]
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Moderator,User")]
         [ValidateAntiForgeryToken]
         public ActionResult AddOpinion(AddOpinionViewModels opn)
         {

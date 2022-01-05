@@ -219,7 +219,7 @@ namespace CzyDobre.Controllers
 
 
 
-           
+
 
 
 
@@ -229,7 +229,7 @@ namespace CzyDobre.Controllers
 
 
 
-            return View(edit);
+            return RedirectToAction("MojaOpinia"); 
         }
 
 
@@ -400,7 +400,7 @@ namespace CzyDobre.Controllers
 
                 var listaZdjecUrl = db.AspNetRatingPictures.Where(u => u.Id_Picture == id).Select(u => u.Url).ToList();
 
-                this.AddNotification(id.ToString(), NotificationType.INFO);
+                //this.AddNotification(id.ToString(), NotificationType.INFO);
 
                 if (listaZdjecUrl != null)
                 {

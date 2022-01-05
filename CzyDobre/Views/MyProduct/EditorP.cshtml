@@ -9,73 +9,79 @@
     <div class="col-12 h-max">
         <div style="text-align: center;">@Html.Partial("_Notifications")</div>
         <h1 class="titleH1">@ViewBag.Title</h1>
+
+        <div align="center">
+            <a class="btn btn-success" href="javascript:void(0);" onclick="history.go(-1);">Wróć do Moich Produktów</a>
+        </div>
+        <hr />
+
         @using (Html.BeginForm("EditorP", "MyProduct", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
         {
             @Html.AntiForgeryToken()
 
-    <div class="form-group" align="center">
+            <div class="form-group" align="center">
 
-        <div id="opinionImages" class="opinion-details-image-container carousel slide" data-interval="false" data-ride="carousel" style="height:300px; width:400px; ">
-            @{
-                var myList = (List<string>)Session["Icons"];
+                <div id="opinionImages" class="opinion-details-image-container carousel slide" data-interval="false" data-ride="carousel" style="height:300px; width:400px; ">
+                    @{
+                        var myList = (List<string>)Session["Icons"];
 
-                if (myList != null && myList.Any())
-                {
-                    if (myList.Count > 1)
-                    {
-                        <ol class="carousel-indicators">
-                            <li data-target="#opinionImages" data-slide-to="0" class="active"></li>
-                            @for (int i = 1; i < myList.Count; i++)
+                        if (myList != null && myList.Any())
+                        {
+                            if (myList.Count > 1)
                             {
-                                <li data-target="#opinionImages" data-slide-to="@i"></li>
+                                <ol class="carousel-indicators">
+                                    <li data-target="#opinionImages" data-slide-to="0" class="active"></li>
+                                    @for (int i = 1; i < myList.Count; i++)
+                                    {
+                                        <li data-target="#opinionImages" data-slide-to="@i"></li>
+                                    }
+                                </ol>
+                                <div class="carousel-inner h-100 w-100">
+                                    <div class="h-100 w-100 active carousel-item">
+                                        <div class="h-100 w-100 d-flex justify-content-center align-items-center">
+                                            <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@myList[0]" class="d-block mw-100 mh-100" />
+                                        </div>
+                                    </div>
+                                    @for (int i = 1; i < myList.Count; i++)
+                                    {
+                                        <div class="h-100 w-100 carousel-item">
+                                            <div class="h-100 w-100 d-flex justify-content-center align-items-center">
+                                                <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@myList[i]" class="d-block mw-100 mh-100" />
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
                             }
-                        </ol>
-                        <div class="carousel-inner h-100 w-100">
-                            <div class="h-100 w-100 active carousel-item">
+                            else
+                            {
                                 <div class="h-100 w-100 d-flex justify-content-center align-items-center">
                                     <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@myList[0]" class="d-block mw-100 mh-100" />
                                 </div>
-                            </div>
-                            @for (int i = 1; i < myList.Count; i++)
-                            {
-                                <div class="h-100 w-100 carousel-item">
-                                    <div class="h-100 w-100 d-flex justify-content-center align-items-center">
-                                        <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@myList[i]" class="d-block mw-100 mh-100" />
-                                    </div>
-                                </div>
                             }
-                        </div>
+                        }
                     }
-                    else
+                    @if (myList != null && myList.Count > 1)
                     {
-                        <div class="h-100 w-100 d-flex justify-content-center align-items-center">
-                            <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@myList[0]" class="d-block mw-100 mh-100" />
-                        </div>
+                        <a class="carousel-control-prev" href="#opinionImages" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#opinionImages" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     }
+
+                </div>
+                <br />
+                @{
+                    int id = (int)Session["Img"];
+                    int idProduct = (int)Session["idProduct"];
                 }
-            }
-            @if (myList != null && myList.Count > 1)
-            {
-                <a class="carousel-control-prev" href="#opinionImages" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#opinionImages" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            }
 
-        </div>
-        <br />
-        @{ 
-            int id = (int)Session["Img"];
-            int idProduct =(int)Session["idProduct"];
-        }
+                @Html.ActionLink("Zmień zdjęcie", "ChangeIMGpr", "MyProduct", new { id, idProduct }, new { @class = "btn btn-primary" })
+            </div>
 
-        @Html.ActionLink("Zmień zdjęcie", "ChangeIMGpr", "MyProduct",new { id, idProduct } ,new { @class = "btn btn-primary" })
-    </div>
-            
 
             <div class="form-group" align="center">
                 <div class="col-md-10">
