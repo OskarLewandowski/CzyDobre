@@ -1093,6 +1093,8 @@
     <Content Include="Views\MyOpinion\Editor.cshtml" />
     <Content Include="Views\MyOpinion\ManageIMG.cshtml" />
     <Content Include="Views\MyOpinion\ChangeIMG.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
+    <None Include="Views\MyOpinion\ManageIMG1cshtml" />
     <Content Include="Views\MyProduct\MojProdukt.cshtml" />
     <Content Include="Views\MyProduct\EditorP.cshtml" />
     <Content Include="Views\MyProduct\ManageIMGpr.cshtml" />
