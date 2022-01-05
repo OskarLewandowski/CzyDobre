@@ -222,17 +222,19 @@ input:focus {
 .addopinionlink {
     color: black;
     text-decoration: none;
+    font-weight:bold;
 }
     .addopinionlink:hover {
-        color: black;
+        color: white;
         text-decoration: none;
     }
 .addproductlink {
     color: black;
     text-decoration: none;
+    font-weight: bold;
 }
     .addproductlink:hover {
-        color: black;
+        color: white;
         text-decoration: none;
     }
 .addproduct {
