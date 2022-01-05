@@ -327,6 +327,7 @@ namespace CzyDobre.Controllers
                                    RateIngredients = AspNetRating.RateIngredients,
                                    Comment = AspNetRating.Comment,
                                    AddedBy = AspNetUser.NickName,
+                                   AddedById = AspNetUser.Id,
                                    AddedDate = AspNetRating.Date,
                                    ProductName = AspNetProduct.ProductName
                                }
@@ -340,6 +341,7 @@ namespace CzyDobre.Controllers
                 opinionViewModel.RateTaste = opinion.RateTaste.ToString();
                 opinionViewModel.RateIngredients = opinion.RateIngredients.ToString();
                 opinionViewModel.AddedBy = opinion.AddedBy.ToString();
+                opinionViewModel.AddedById = opinion.AddedById.ToString();
                 opinionViewModel.AddedDate = Convert.ToDateTime(opinion.AddedDate);
                 if (!String.IsNullOrEmpty(opinion.Comment))
                 {
