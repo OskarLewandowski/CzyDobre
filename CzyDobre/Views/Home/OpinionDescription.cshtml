@@ -1,5 +1,6 @@
 ﻿@using CzyDobre.Models
 @using System.Linq;
+@using Microsoft.AspNet.Identity
 @model OpinionViewModels
 @{
     ViewBag.Title = "Opinia";
@@ -82,7 +83,8 @@
                 <div class="w-100 pt-1 pb-4 px-4 border-bottom">
                     <h1 class="opinion-details-header text-center text-capitalize mb-3">@Model.ProductName</h1>
                     <div class="d-flex justify-content-between">
-                        <span>Dodane przez: 
+                        <span>
+                            Dodane przez:
                             <a class="text-decoration-none" href="/Account/ProfilUzytkownika/@Model.AddedById">@Model.AddedBy</a>.
                         </span>
                         <span class="ml-5 float-right">@Model.AddedDate.ToString("g")</span>
@@ -157,6 +159,10 @@
                             </p>
                         </div>
                     }
+                }
+                @if (Model.AddedById == User.Identity.GetUserId())
+                {
+                    <a class="btn btn-success float-right mx-4 my-2" href="/edytor-opinii?idRating=@Model.RatingId.ToString()">Edytuj</a>
                 }
             </div>
         </div>
