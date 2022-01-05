@@ -576,7 +576,7 @@ namespace CzyDobre.Controllers
                             smtpClient.Send(msg);
 
 
-                            this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
+                            //this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
 
                             ModelState.Clear();
 
@@ -1225,7 +1225,7 @@ namespace CzyDobre.Controllers
 
                         //string result = product.ToString() + " Smak: " + rateT.ToString() + " Cena: " + rateP.ToString() + " Obsługa: " + rateS.ToString() + " " + n.ToString();
 
-                        this.AddNotification(randN.ToString(), NotificationType.INFO);
+                        //this.AddNotification(randN.ToString(), NotificationType.INFO);
 
                         
 
