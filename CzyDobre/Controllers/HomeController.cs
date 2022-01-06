@@ -328,6 +328,7 @@ namespace CzyDobre.Controllers
                                    RateIngredients = AspNetRating.RateIngredients,
                                    Comment = AspNetRating.Comment,
                                    AddedBy = AspNetUser.NickName,
+                                   AddedById = AspNetUser.Id,
                                    AddedDate = AspNetRating.Date,
                                    ProductName = AspNetProduct.ProductName
                                }
@@ -341,6 +342,7 @@ namespace CzyDobre.Controllers
                 opinionViewModel.RateTaste = opinion.RateTaste.ToString();
                 opinionViewModel.RateIngredients = opinion.RateIngredients.ToString();
                 opinionViewModel.AddedBy = opinion.AddedBy.ToString();
+                opinionViewModel.AddedById = opinion.AddedById.ToString();
                 opinionViewModel.AddedDate = Convert.ToDateTime(opinion.AddedDate);
                 if (!String.IsNullOrEmpty(opinion.Comment))
                 {
@@ -517,8 +519,11 @@ namespace CzyDobre.Controllers
 
                     if (query != 0)
                     {
-                        var queryl = db.AspNetPlaces.Where(s => s.PlaceName == prd.LocName.ToString()).Select(s => s.Id_Place).FirstOrDefault();
+                        var queryl = db.AspNetPlaces.Where(s => s.PlaceName == prd.LocName).Select(s => s.Id_Place).FirstOrDefault();
 
+                        
+                        //this.AddNotification(prd.LocName.ToString(),NotificationType.INFO);
+                        
                         int querynp = db.AspNetProducts.Where(s => s.ProductName == prd.ProductName).Count();
 
 
@@ -529,7 +534,7 @@ namespace CzyDobre.Controllers
 
                         if (queryl != 0)
                         {
-                            db.AspNetProducts.Add(product);
+                            
                             string uniq = prd.ProductName + querynp.ToString();
                             
                             product.Id_Place = queryl;
@@ -540,7 +545,7 @@ namespace CzyDobre.Controllers
 
                             var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
                             product.Who = queru;
-
+                            db.AspNetProducts.Add(product);
                             db.SaveChanges();
 
                             var queryp = db.AspNetProducts.Where(s => s.UniqName == uniq).Select(s => s.Id_Product).FirstOrDefault();
@@ -574,7 +579,7 @@ namespace CzyDobre.Controllers
                             smtpClient.Send(msg);
 
 
-                            this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
+                            //this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
 
                             ModelState.Clear();
 
@@ -582,10 +587,10 @@ namespace CzyDobre.Controllers
                         }
                         else
                         {
-                            
 
-                            //this.AddNotification(queryl.ToString(), NotificationType.INFO);
                             
+                            //this.AddNotification(queryl.ToString(), NotificationType.INFO);
+
                             loc.PlaceName = prd.LocName;
                             loc.City = prd.City;
                             loc.Country = prd.Country;
@@ -596,6 +601,9 @@ namespace CzyDobre.Controllers
                             db.AspNetPlaces.Add(loc);
                             db.SaveChanges();
 
+                            queryl = db.AspNetPlaces.Where(s => s.PlaceName == prd.LocName).Select(s => s.Id_Place).FirstOrDefault();
+
+
                             string uniq = prd.ProductName + querynp.ToString();
                             
                             
@@ -603,6 +611,7 @@ namespace CzyDobre.Controllers
                             product.UniqName = uniq;
                             product.ProductDescription = prd.ProductDescription;
                             product.Id_Category = query;
+                            product.Id_Place = queryl;
                             var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
                             product.Who = queru;
                             db.AspNetProducts.Add(product);
@@ -641,7 +650,7 @@ namespace CzyDobre.Controllers
                             smtpClient.Send(msg);
 
                             ModelState.Clear();
-                            this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
+                            //this.AddNotification("Wiadomość została wysłana, dziękujemy za kontakt.", NotificationType.SUCCESS);
 
 
                             ModelState.Clear();
@@ -859,7 +868,7 @@ namespace CzyDobre.Controllers
         //CzyDobre.pl/dodaj-opinie
         [Route("dodaj-opinie")]
         [Route("Home/AddOpinion")]
-        [Authorize]
+        [Authorize(Roles = "Admin, Moderator,User")]
         public ActionResult AddOpinion()
         {
             DBEntities db = new DBEntities();
@@ -877,12 +886,12 @@ namespace CzyDobre.Controllers
                             join AspNetImage in db.AspNetImages on AspNetProduct.Id_Product equals AspNetImage.Id_Product
                             join AspNetPlaces in db.AspNetPlaces on AspNetProduct.Id_Place equals AspNetPlaces.Id_Place
                             where AspNetProduct.ProductName.Contains(prefix)
-
+                            where AspNetProduct.CzyDobre.Equals(true)
                             select new
                             {
                                 label = AspNetProduct.ProductName,
                                 img = AspNetImage.Url,
-                                city = AspNetPlaces.PlaceName,
+                                city = AspNetPlaces.City,
                                 val = AspNetProduct.Id_Product
 
 
@@ -922,7 +931,7 @@ namespace CzyDobre.Controllers
         [Route("dodaj-opinie")]
         [Route("Home/AddOpinion")]
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Moderator,User")]
         [ValidateAntiForgeryToken]
         public ActionResult AddOpinion(AddOpinionViewModels opn)
         {
@@ -1219,7 +1228,7 @@ namespace CzyDobre.Controllers
 
                         //string result = product.ToString() + " Smak: " + rateT.ToString() + " Cena: " + rateP.ToString() + " Obsługa: " + rateS.ToString() + " " + n.ToString();
 
-                        this.AddNotification(randN.ToString(), NotificationType.INFO);
+                        //this.AddNotification(randN.ToString(), NotificationType.INFO);
 
                         
 

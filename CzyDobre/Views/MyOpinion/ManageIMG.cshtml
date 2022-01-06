@@ -6,7 +6,11 @@
     DBEntities db = new DBEntities();
 }
 <div class="role-div">
-    <h2 style="text-align: center;">Lista opinii</h2>
+    <h2 style="text-align: center;">Zarządzaj zdjęciami</h2>
+    <div>
+        <a class="btn btn-success" href="javascript:void(0);" onclick="history.go(-2);">Wróć do Moich Opinii</a>
+    </div>
+    
     <div style="text-align: center;">@Html.Partial("_Notifications")</div>
     <hr />
     <div class="table">
@@ -14,7 +18,7 @@
             <thead>
                 <tr class="table-role">
                     <th>Zdjęcia</th>
-                    
+
                     <th>Akcja</th>
                 </tr>
             </thead>
@@ -54,24 +58,24 @@
                             </td>
 
 
-                        <td>
-                            @{
-                                var id = db.AspNetRatingPictures.Where(u => u.Url == img).Select(m => m.Id_Picture).FirstOrDefault();
+                            <td>
+                                @{
+                                    var id = db.AspNetRatingPictures.Where(u => u.Url == img).Select(m => m.Id_Picture).FirstOrDefault();
 
 
 
-                            }
-                            @Html.ActionLink("Zmień zdjęcie", "ChangeIMG", "MyOpinion", new { id, idRating = item.Id_Rating }, new { @class = "btn btn-primary" })
-                            <hr />
-                            @if (listaZdjecUrl.Count > 1)
-                            {
+                                }
+                                @Html.ActionLink("Zmień zdjęcie", "ChangeIMG", "MyOpinion", new { id, idRating = item.Id_Rating }, new { @class = "btn btn-primary" })
+                                <hr />
+                                @if (listaZdjecUrl.Count > 1)
+                                {
 
 
 
-                                @Html.ActionLink("Usuń zdjęcie", "DeleteIMG", "MyOpinion", new { id  }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ to zdjęcie?');" })
-                            }
+                                    @Html.ActionLink("Usuń zdjęcie", "DeleteIMG", "MyOpinion", new { id }, new { @class = "btn btn-danger", onclick = "return confirm('Czy na pewno chcesz PERMANENTNIE USUNĄĆ to zdjęcie?');" })
+                                }
 
-                        </td>
+                            </td>
 
 
 

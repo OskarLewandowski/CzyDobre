@@ -5,9 +5,17 @@
     ViewBag.Title = "Edytuj opinie";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
+<div style="text-align: center;">@Html.Partial("_Notifications")</div>
 <div class="row">
     <div class="col-12 h-max">
         <h1 class="titleH1">@ViewBag.Title</h1>
+        <div align="center">
+            <a class="btn btn-success" href="javascript:void(0);" onclick="history.go(-1);">Wróć do Moich Opinii</a>
+
+        </div>
+        <hr/>
         @if (User.Identity.IsAuthenticated /* && User.IsInRole("Admin")*/)
         {
             using (Html.BeginForm("Editor", "MyOpinion", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
@@ -35,143 +43,143 @@
             </div>
             <script defer src="\Scripts\DragAndDrop.js"></script>
             -->
-                
-                    
-                        <div class="form-group" align="center">
 
 
-                            @{
-                                var myList = (List<string>)Session["Photos"];
+                <div class="form-group" align="center">
 
-                               
-                            }
 
-                            <div id="opinionImages" class="opinion-details-image-container carousel slide" data-interval="false" data-ride="carousel" style="height:300px; width:400px; ">
-                                @{
-                                    if (myList != null && myList.Any())
-                                    {
-                                        if (myList.Count > 1)
+                    @{
+                        var myList = (List<string>)Session["Photos"];
+
+
+                    }
+
+                    <div id="opinionImages" class="opinion-details-image-container carousel slide" data-interval="false" data-ride="carousel" style="height:300px; width:400px; ">
+                        @{
+                            if (myList != null && myList.Any())
+                            {
+                                if (myList.Count > 1)
+                                {
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#opinionImages" data-slide-to="0" class="active"></li>
+                                        @for (int i = 1; i < myList.Count; i++)
                                         {
-                                            <ol class="carousel-indicators">
-                                                <li data-target="#opinionImages" data-slide-to="0" class="active"></li>
-                                                @for (int i = 1; i < myList.Count; i++)
-                                                {
-                                                    <li data-target="#opinionImages" data-slide-to="@i"></li>
-                                                }
-                                            </ol>
-                                            <div class="carousel-inner h-100 w-100">
-                                                <div class="h-100 w-100 active carousel-item">
-                                                    <div class="h-100 w-100 d-flex justify-content-center align-items-center">
-                                                        <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@myList[0]" class="d-block mw-100 mh-100" />
-                                                    </div>
-                                                </div>
-                                                @for (int i = 1; i < myList.Count; i++)
-                                                {
-                                                    <div class="h-100 w-100 carousel-item">
-                                                        <div class="h-100 w-100 d-flex justify-content-center align-items-center">
-                                                            <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@myList[i]" class="d-block mw-100 mh-100" />
-                                                        </div>
-                                                    </div>
-                                                }
-                                            </div>
+                                            <li data-target="#opinionImages" data-slide-to="@i"></li>
                                         }
-                                        else
-                                        {
+                                    </ol>
+                                    <div class="carousel-inner h-100 w-100">
+                                        <div class="h-100 w-100 active carousel-item">
                                             <div class="h-100 w-100 d-flex justify-content-center align-items-center">
                                                 <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@myList[0]" class="d-block mw-100 mh-100" />
                                             </div>
+                                        </div>
+                                        @for (int i = 1; i < myList.Count; i++)
+                                        {
+                                            <div class="h-100 w-100 carousel-item">
+                                                <div class="h-100 w-100 d-flex justify-content-center align-items-center">
+                                                    <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@myList[i]" class="d-block mw-100 mh-100" />
+                                                </div>
+                                            </div>
                                         }
-                                    }
+                                    </div>
                                 }
-                                @if (myList != null && myList.Count > 1)
+                                else
                                 {
-                                    <a class="carousel-control-prev" href="#opinionImages" role="button" data-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#opinionImages" role="button" data-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
+                                    <div class="h-100 w-100 d-flex justify-content-center align-items-center">
+                                        <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@myList[0]" class="d-block mw-100 mh-100" />
+                                    </div>
                                 }
-
-                            </div>
-
-
-
-
-
-                            <br />
-                            @Html.ActionLink("Zarządzaj Zdjeciami", "ManageIMG", "MyOpinion", new { @class = "btn btn-primary" })
-
-
-
-
-                            <div style="text-align: center;">@Html.Partial("_Notifications")</div>
-                            @Html.Label("Danie: ", new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10 ui-widget">
-                                @Html.TextBoxFor(m => m.PName, new { @class = "pl-4 form-control", @id = "ProductSE", @placeholder = "Wpisz nazwę dania, które chcesz wyszukać." })
-                                @Html.ValidationMessageFor(m => m.PName, "", new { @class = "text-danger" })
-                                <script defer src="~/Scripts/AutoComplete.js"></script>
-
-                            </div>
-                          
-                        </div>
-                        <div class="form-group row" align="center">
-                            @{
-                                <div class="col px-1">
-                                    <div class="d-inline" title="Oceń obsługę, czas oczewkiwania, proces składania i odbioru zamówienia">&#9432</div>
-                                    <span class="d-inline mb-1">Obsługa</span>
-                                    <div class="d-flex flex-row-reverse justify-content-center">
-                                        @{string temp = "";}
-                                        @for (int i = 5; i > 0; i--)
-                                        {
-                                            temp = "RateService" + i.ToString();
-                                            @Html.RadioButton("RateService", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
-                                        }
-                                    </div>
-                                    @Html.ValidationMessageFor(m => m.RateService, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="col px-1">
-                                    <div class="d-inline" title="Oceń cenę danego dania w stosunku do jego jakości oraz wielkości">&#9432</div>
-                                    <span class="d-inline mb-1">Cena</span>
-                                    <div class="d-flex flex-row-reverse justify-content-center">
-                                        @for (int i = 5; i > 0; i--)
-                                        {
-                                            temp = "RateIngredients" + i.ToString();
-                                            @Html.RadioButton("RateIngredients", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
-                                        }
-                                    </div>
-                                    @Html.ValidationMessageFor(m => m.RateIngredients, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="col px-1">
-                                    <div class="d-inline" title="Oceń jakość składników oraz kompozycję smakową danego dania">&#9432</div>
-                                    <span class="d-inline mb-1">Smak</span>
-                                    <div class="d-flex flex-row-reverse justify-content-center">
-                                        @for (int i = 5; i > 0; i--)
-                                        {
-                                            temp = "RateTaste" + i.ToString();
-                                            @Html.RadioButton("RateTaste", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
-                                        }
-                                    </div>
-                                    @Html.ValidationMessageFor(m => m.RateTaste, "", new { @class = "text-danger" })
-                                </div>
                             }
-                        </div>
-                        <div class="form-group" align="center">
-                            @Html.LabelFor(m => m.Review, new { @class = "control-label" })
-                            <div class="col-md-10">
-                                @Html.TextAreaFor(m => m.Review, new { @class = "pl-6 form-control", @rows = "10", @placeholder = "Wpisz swój komentarz (Opcjonalne)" })
-                                @Html.ValidationMessageFor(m => m.Review, "", new { @class = "text-danger" })
+                        }
+                        @if (myList != null && myList.Count > 1)
+                        {
+                            <a class="carousel-control-prev" href="#opinionImages" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#opinionImages" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        }
+
+                    </div>
+
+
+
+
+
+                    <br />
+                    @Html.ActionLink("Zarządzaj Zdjeciami", "ManageIMG", "MyOpinion", new { @class = "btn btn-primary" })
+
+
+
+
+                    <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+                    @Html.Label("Danie: ", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10 ui-widget">
+                        @Html.TextBoxFor(m => m.PName, new { @class = "pl-4 form-control", @id = "ProductSE", @placeholder = "Wpisz nazwę dania, które chcesz wyszukać." })
+                        @Html.ValidationMessageFor(m => m.PName, "", new { @class = "text-danger" })
+                        <script defer src="~/Scripts/AutoComplete.js"></script>
+
+                    </div>
+
+                </div>
+                <div class="form-group row" align="center">
+                    @{
+                        <div class="col px-1">
+                            <div class="d-inline" title="Oceń obsługę, czas oczewkiwania, proces składania i odbioru zamówienia">&#9432</div>
+                            <span class="d-inline mb-1">Obsługa</span>
+                            <div class="d-flex flex-row-reverse justify-content-center">
+                                @{string temp = "";}
+                                @for (int i = 5; i > 0; i--)
+                                {
+                                    temp = "RateService" + i.ToString();
+                                    @Html.RadioButton("RateService", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
+                                }
                             </div>
+                            @Html.ValidationMessageFor(m => m.RateService, "", new { @class = "text-danger" })
                         </div>
-                        <div class="form-group" align="center">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Wyślij" class="btn btn-success" style="font-size: 20px" />
+                        <div class="col px-1">
+                            <div class="d-inline" title="Oceń cenę danego dania w stosunku do jego jakości oraz wielkości">&#9432</div>
+                            <span class="d-inline mb-1">Cena</span>
+                            <div class="d-flex flex-row-reverse justify-content-center">
+                                @for (int i = 5; i > 0; i--)
+                                {
+                                    temp = "RateIngredients" + i.ToString();
+                                    @Html.RadioButton("RateIngredients", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
+                                }
                             </div>
+                            @Html.ValidationMessageFor(m => m.RateIngredients, "", new { @class = "text-danger" })
                         </div>
-                    
-                
+                        <div class="col px-1">
+                            <div class="d-inline" title="Oceń jakość składników oraz kompozycję smakową danego dania">&#9432</div>
+                            <span class="d-inline mb-1">Smak</span>
+                            <div class="d-flex flex-row-reverse justify-content-center">
+                                @for (int i = 5; i > 0; i--)
+                                {
+                                    temp = "RateTaste" + i.ToString();
+                                    @Html.RadioButton("RateTaste", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
+                                }
+                            </div>
+                            @Html.ValidationMessageFor(m => m.RateTaste, "", new { @class = "text-danger" })
+                        </div>
+                    }
+                </div>
+                <div class="form-group" align="center">
+                    @Html.LabelFor(m => m.Review, new { @class = "control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(m => m.Review, new { @class = "pl-6 form-control", @rows = "10", @placeholder = "Wpisz swój komentarz (Opcjonalne)" })
+                        @Html.ValidationMessageFor(m => m.Review, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" align="center">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Wyślij" class="btn btn-success" style="font-size: 20px" />
+                    </div>
+                </div>
+
+
             }
         }
         else

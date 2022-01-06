@@ -7,11 +7,11 @@
         @Html.AntiForgeryToken()
 
         <div class="nav navbar-nav navbar-right">
-            <div class="btn-group">
-                <a href="/Manage" id="navbar-avatar">
+            <div class="btn-group bg-light" style="border-radius: 20px 5px 5px 20px;">
+                <a href="/Account/ProfilUzytkownika/@User.Identity.GetUserId()" class="avatar">
                     <img src="@User.Identity.GetAvatarURL()" />
                 </a>
-                <div class="btn dropdown-toggle d-flex align-items-center text-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
+                <div class="btn dropdown-toggle d-flex align-items-center border-left" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
                 <div class="dropdown-menu position-absolute" style="left:auto; right:0;">
                     @Html.ActionLink("Ustawienia", "Index", "Manage", null, new { @class = "dropdown-item" })
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))

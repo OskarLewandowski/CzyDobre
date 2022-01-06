@@ -1,0 +1,123 @@
+﻿@using CzyDobre.Models
+@using System.Linq;
+@model BrowseUserProfile
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Profil użytkownika " + Model.NickName;
+}
+
+
+<div class="row mt-5 pt-2">
+    <div class="col-12 col-lg-4 border-right">
+        <div class="rounded-circle overflow-hidden mx-auto mb-4 d-table border">
+            @{if (Model.AvatarURL != null)
+                {
+                    <img width="250" height="250" src="https://res.cloudinary.com/czydobre-pl/image/upload/v1640790462/CzyDobre-awatary/@Model.AvatarURL" />
+                }
+                else
+                {
+                    <img width="250" height="250" src="https://res.cloudinary.com/czydobre-pl/image/upload/v1640786753/CzyDobre-www/awatar-domyslny-ramka_u9xv4t.png" />
+                }
+            }
+        </div>
+        <h6 class="text-center">Nazwa użytkownika: @Model.NickName</h6>
+    </div>
+    <div class="col-12 col-lg-8">
+        <h5>Opinie dodane przez użytkownika:</h5>
+        @{
+            if ((Model.Opinions != null) && (Model.Opinions.Any()))
+            {
+                foreach (OpinionViewModels opinion in Model.Opinions)
+                {
+                    <div class="row w-100 m-2 border rounded overflow-hidden">
+                        <div class="col-3 p-0 border-right browse-image-wrapper" style="max-height:96.96px;">
+                            <img src="https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/@opinion.ImageUrls[0]" class="" />
+                        </div>
+                        <div class="col-9 d-flex px-0 flex-column">
+                            <div class="col border-bottom py-2">
+                                <h1 class="lead">@opinion.ProductName</h1>
+                            </div>
+                            <div class="d-flex flex-row justify-content-around">
+                                <div class="text-center col border-right">
+                                    <span>Obsługa</span><br />
+                                    <div class="text-warning">
+                                        @{
+                                            int serviceCounter = Convert.ToInt32(opinion.RateService);
+                                            for (int i = 0; i < 5; i++)
+                                            {
+                                                if (i < serviceCounter)
+                                                {
+                                                    <span class="fa fa-star"></span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="fa fa-star-o"></span>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                <div class="text-center col border-right">
+                                    <span>Smak</span><br />
+                                    <div class="text-warning">
+                                        @{
+                                            int tasteCounter = Convert.ToInt32(opinion.RateTaste);
+                                            for (int i = 0; i < 5; i++)
+                                            {
+                                                if (i < tasteCounter)
+                                                {
+                                                    <span class="fa fa-star"></span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="fa fa-star-o"></span>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                <div class="text-center col">
+                                    <span>Cena</span><br />
+                                    <div class="text-warning">
+                                        @{
+                                            int ingredientsCounter = Convert.ToInt32(opinion.RateIngredients);
+                                            for (int i = 0; i < 5; i++)
+                                            {
+                                                if (i < ingredientsCounter)
+                                                {
+                                                    <span class="fa fa-star"></span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="fa fa-star-o"></span>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="~/Home/opinia/@opinion.RatingId" class="stretched-link"></a>
+                        </div>
+                    </div>
+                }
+                <h6 class="text-muted font-weight-lighter">@{ 
+                    if (Model.Opinions.Count == 1) 
+                    { 
+                         <span>Łącznie: 1 opinia.</span> 
+                    }
+                    else if (Model.Opinions.Count % 10 > 1 && Model.Opinions.Count % 10 < 5) 
+                    {
+                         <span>Łącznie: @Model.Opinions.Count opinie.</span>
+                    }
+                    else 
+                    {
+                         <span>Łącznie: @Model.Opinions.Count opinii.</span>
+                    }}</h6>
+            }
+            else
+            {
+                <h1 class="lead p-4">@Model.NickName nie dodał/a żadnych opinii.</h1>
+            }
+        }
+    </div>
+</div>

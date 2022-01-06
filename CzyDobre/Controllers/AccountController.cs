@@ -606,6 +606,74 @@ namespace CzyDobre.Controllers
             return View();
         }
 
+        // Przeglądanie profili użytkowników
+        [Route("ProfilUzytkownika")]
+        [Route("Account/ProfilUzytkownika/{id?}")]
+        [AllowAnonymous]
+        public ActionResult UserProfile(string id)
+        {
+            BrowseUserProfile userProfile = new BrowseUserProfile();
+            DBEntities db = new DBEntities();
+
+            var dataStream = (from AspNetUser in db.AspNetUsers
+                           where AspNetUser.Id == id
+                           select new
+                           {
+                               NickName = AspNetUser.NickName,
+                               avatarURL = AspNetUser.AvatarUrl
+                           }).FirstOrDefault();
+
+            if (dataStream != null)
+            {
+                userProfile.NickName = dataStream.NickName;
+                if (dataStream.avatarURL != null)
+                {
+                    userProfile.AvatarURL = dataStream.avatarURL;
+                }
+                userProfile.Opinions = new System.Collections.Generic.List<OpinionViewModels>();
+
+                var dataStreamOpinions = ((
+                               from AspNetRating in db.AspNetRatings
+                               join AspNetProduct in db.AspNetProducts on AspNetRating.Id_Product equals AspNetProduct.Id_Product
+                               join AspNetUser in db.AspNetUsers on AspNetRating.Who equals AspNetUser.Id
+                               where AspNetUser.Id == id
+                               select new
+                               {
+                                   RateService = AspNetRating.RateService,
+                                   RateTaste = AspNetRating.RateTaste,
+                                   RateIngredients = AspNetRating.RateIngredients,
+                                   OpinionId = AspNetRating.Id_Rating,
+                                   AddedDate = AspNetRating.Date,
+                                   ProductName = AspNetProduct.ProductName
+                               }));
+
+                foreach (var data in dataStreamOpinions)
+                {
+                    string ImageUrl = (from AspNetRatingPicture in db.AspNetRatingPictures
+                                       where AspNetRatingPicture.Id_Rating == data.OpinionId
+                                       select AspNetRatingPicture.Url).FirstOrDefault();
+
+                    OpinionViewModels opinion = new OpinionViewModels();
+
+                    opinion.AddedDate = (DateTime)data.AddedDate;
+                    opinion.RateService = data.RateService.ToString();
+                    opinion.RateTaste = data.RateTaste.ToString();
+                    opinion.RateIngredients  = data.RateIngredients.ToString();
+                    opinion.ProductName = data.ProductName.ToString();
+                    opinion.RatingId = data.OpinionId;
+                    opinion.ImageUrls = new System.Collections.Generic.List<string> { ImageUrl };
+
+                    userProfile.Opinions.Add(opinion);
+                }
+                
+                return View(userProfile);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

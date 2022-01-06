@@ -22,8 +22,7 @@
             </thead>
             <tbody>
                 @{ var queru = db.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(s => s.Id).FirstOrDefault();
-                    
-
+                   int current = 0;
                 }
                 @foreach (var item in Model.Where(s => s.AspNetUser.UserName == User.Identity.Name))
                 {
@@ -47,26 +46,22 @@
                             string brakZdjecia = "https://res.cloudinary.com/czydobre-pl/image/upload/v1639157376/CzyDobre-www/Brak-zdjecia_fnfpal.png";
                             string urlCzydobre = "https://res.cloudinary.com/czydobre-pl/image/upload/v1639154117/CzyDobre-images/";
                             var listaZdjecUrl = db.AspNetRatingPictures.Where(u => u.Id_Rating == item.Id_Rating && u.AspNetRating.Who == queru).Select(u => u.Url).ToList();
-
+                            string dataToggleTarget = "opinionImages" + current.ToString();
                             for (int i = 0; i < listaZdjecUrl.Count; i++)
                             {
                                 var url = urlCzydobre + listaZdjecUrl[i];
-                                
-
-
                             }
-
-                            <div  id="opinionImages" class="opinion-details-image-container carousel slide" data-interval="false" data-ride="carousel" style=" display: block; margin-left: auto; margin-right: auto ; height: 300px; width: 350px; ">
+                            <div id="@dataToggleTarget" class="opinion-details-image-container carousel slide" data-interval="false" data-ride="carousel" style="height:300px; width:400px; ">
                                 @{
                                     if (listaZdjecUrl != null && listaZdjecUrl.Any())
                                     {
                                         if (listaZdjecUrl.Count > 1)
                                         {
                                             <ol class="carousel-indicators">
-                                                <li data-target="#opinionImages" data-slide-to="0" class="active"></li>
+                                                <li data-target="#@dataToggleTarget" data-slide-to="0" class="active"></li>
                                                 @for (int i = 1; i < listaZdjecUrl.Count; i++)
                                                 {
-                                                    <li data-target="#opinionImages" data-slide-to="@i"></li>
+                                                    <li data-target="#@dataToggleTarget" data-slide-to="@i"></li>
                                                 }
                                             </ol>
                                             <div class="carousel-inner h-100 w-100">
@@ -95,21 +90,18 @@
                                 }
                                 @if (listaZdjecUrl != null && listaZdjecUrl.Count > 1)
                                 {
-                                    <a class="carousel-control-prev" href="#opinionImages" role="button" data-slide="prev">
+                                    <a class="carousel-control-prev" href="#@dataToggleTarget" role="button" data-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Previous</span>
                                     </a>
-                                    <a class="carousel-control-next" href="#opinionImages" role="button" data-slide="next">
+                                    <a class="carousel-control-next" href="#@dataToggleTarget" role="button" data-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Next</span>
                                     </a>
                                 }
-
                             </div>
-
-
+                            current++;
                         }
-
                     </td>
 
 

@@ -483,6 +483,7 @@
     <Compile Include="Models\GetDishViewModels.cs" />
     <Compile Include="Models\AddOpinionViewModels.cs" />
     <Compile Include="Models\Locations.cs" />
+    <Compile Include="Models\EditProductViewModels.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -498,7 +499,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\EditProductViewModels.cs" />
     <Compile Include="Models\ProductFormModels.cs" />
     <Compile Include="Models\ContactUsViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -1093,6 +1093,8 @@
     <Content Include="Views\MyOpinion\Editor.cshtml" />
     <Content Include="Views\MyOpinion\ManageIMG.cshtml" />
     <Content Include="Views\MyOpinion\ChangeIMG.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
+    <None Include="Views\MyOpinion\ManageIMG1cshtml" />
     <Content Include="Views\MyProduct\MojProdukt.cshtml" />
     <Content Include="Views\MyProduct\EditorP.cshtml" />
     <Content Include="Views\MyProduct\ManageIMGpr.cshtml" />

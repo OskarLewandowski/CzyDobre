@@ -172,4 +172,10 @@ namespace CzyDobre.Models
             return ValidationResult.Success;
         }
     }
+    public class BrowseUserProfile
+    {
+        public string NickName { get; set; }
+        public string AvatarURL { get; set; }
+        public List<OpinionViewModels> Opinions { get; set; }
+    }
 }

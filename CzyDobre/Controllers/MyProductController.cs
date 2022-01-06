@@ -222,7 +222,7 @@ namespace CzyDobre.Controllers
 
 
 
-           
+
 
 
 
@@ -232,7 +232,7 @@ namespace CzyDobre.Controllers
 
 
 
-            return View(prd);
+            return RedirectToAction("MojProdukt");
         }
 
 
