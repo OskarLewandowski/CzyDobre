@@ -897,13 +897,11 @@ body > .container-wide {
     font-size: 20px;
     font-weight: bold;
     color: white;
-    width: 60%;
-    margin-bottom: 3%;
+    width: 100%;
+    margin: 0;
     padding: 2%;
     border: solid #1dc31c;
-    border-radius: 25px;
-    margin-left: 20%;
-    margin-right: 20%;
+    border-radius: 0;
 }
 
     .button-add-opinion:hover {
@@ -917,13 +915,11 @@ body > .container-wide {
     font-size: 20px;
     font-weight: bold;
     color: white;
-    width: 60%;
-    margin-bottom: 3%;
+    width: 100%;
+    margin: 0;
     padding: 2%;
     border: solid #ee950a;
-    border-radius: 25px;
-    margin-left: 25%;
-    margin-right: 25%;
+    border-radius: 0;
 }
 
     .button-add-product:hover {

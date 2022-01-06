@@ -19,7 +19,7 @@
     @Html.Partial("_NavbarPartial")
     <div class="frontpage-image-container position-relative background-image-preserve-ratio align-items-center">
         <div class="frontpage-container">
-            <div class="frontpage-searchbox-container container row align-items-center">
+            <div class="frontpage-searchbox-container container overflow-auto px-0 row align-items-center">
                 <div class="row mx-1 py-3 w-100">
                     <p class="frontpage-welcome-text pl-3 col-12 col-md-4">Czego szukasz?</p>
                     <div class="col-md-8">
@@ -40,13 +40,9 @@
                 @{
                     if (User.Identity.IsAuthenticated)
                     {
-                        <div class="row mx-1 mt-2 w-100">
-                            <div class="col-6">
-                                @Html.ActionLink(" Dodaj opinię", "AddOpinion", "Home", null, new { @class = "btn icon-plus-circle button-add-opinion", @title = "Dodaj opinię" })
-                            </div>
-                            <div class="col-6">
-                                @Html.ActionLink(" Dodaj produkt", "AddProducts", "Home", null, new { @class = "btn icon-plus-circle button-add-product", @title = "Dodaj produkt" })
-                            </div>
+                        <div class="row m-0 w-100">
+                            @Html.ActionLink(" Dodaj opinię", "AddOpinion", "Home", null, new { @class = "btn icon-plus-circle button-add-opinion col-6 px-4 py-1", @title = "Dodaj opinię" })
+                            @Html.ActionLink(" Dodaj produkt", "AddProducts", "Home", null, new { @class = "btn icon-plus-circle button-add-product col-6 px-4 py-1", @title = "Dodaj produkt" })
                         </div>
                     }
                 }
