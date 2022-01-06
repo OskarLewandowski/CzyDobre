@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl" class="width-100">
 <head>
-    <script defer type="application/ld+json" src="https://json-ld.org/playground/#startTab=tab-expanded&json-ld=%7B%22%40context%22%3A%22http%3A%2F%2Fschema.org%2F%22%2C%22%40type%22%3A%22Projekt%22%2C%22name%22%3A%22Czydobre%22%2C%22url%22%3A%22http%3A%2F%2Fwww.czydobre.pl%22%7D&frame=%7B%7D&context=%7B%22%40context%22%3A%22http%3A%2F%2Fschema.org%2F%22%7D"> </script>  
+    <script defer type="application/ld+json" src="https://json-ld.org/playground/#startTab=tab-expanded&json-ld=%7B%22%40context%22%3A%22http%3A%2F%2Fschema.org%2F%22%2C%22%40type%22%3A%22Projekt%22%2C%22name%22%3A%22Czydobre%22%2C%22url%22%3A%22http%3A%2F%2Fwww.czydobre.pl%22%7D&frame=%7B%7D&context=%7B%22%40context%22%3A%22http%3A%2F%2Fschema.org%2F%22%7D"> </script>
     <meta name="robots" content="index, follow">
     <meta name="description" content="Znajdź najlepiej oceniane dania w Twojej okolicy! Z nami znajdziesz łatwo i szybko najlepszy posiłek. Sprawdź czy dobre już teraz na CzyDobre.pl!" />
     <meta name="keywords" content="znajdź, szybko, teraz, już, dobre, czy, sprawdź, posiłek, najlepszy, łatwo, czydobre, czydobrepl, top, pizza, kebab, spaghetti, zapienkanka, hamburger, jakość, najlepiej, oceniane, dania, znajdź" />
@@ -25,7 +25,7 @@
                     <div class="col-md-8">
                         <form id="search-form" method="get" action="opinie" class="input-group-lg input-group mx-auto mt-2">
                             <input id="CatSE" name="query" type="search" class="form-control left-bullet-radius" placeholder="Wyszukaj..." aria-label="Search"
-                                    aria-describedby="search-addon" />
+                                   aria-describedby="search-addon" />
                             <button type="submit" class="btn btn-lg fa fa-search text-white right-bullet-radius mr-2"></button>
                         </form>
                         <script defer src="~/Scripts/AutoCompleteCat.js"></script>
@@ -40,16 +40,16 @@
                 @{
                     if (User.Identity.IsAuthenticated)
                     {
-                <div class="row mx-1 mt-2 w-100">
-                    <div class="col-6">
-                        <p class="addopinion btn "> @Html.ActionLink("+ Dodaj opinię", "AddOpinion", "Home", null, new { @class = "addopinionlink" })</p>
-                    </div>
-                    <div class="col-6 ">
-                        <p class="addproduct btn "> @Html.ActionLink("+ Dodaj produkt", "AddProducts", "Home", null, new { @class = "addproductlink " })</p>
-                    </div>
-                </div>
-                        }
+                        <div class="row mx-1 mt-2 w-100">
+                            <div class="col-6">
+                                @Html.ActionLink(" Dodaj opinię", "AddOpinion", "Home", null, new { @class = "btn icon-plus-circle button-add-opinion", @title = "Dodaj opinię" })
+                            </div>
+                            <div class="col-6">
+                                @Html.ActionLink(" Dodaj produkt", "AddProducts", "Home", null, new { @class = "btn icon-plus-circle button-add-product", @title = "Dodaj produkt" })
+                            </div>
+                        </div>
                     }
+                }
             </div>
         </div>
     </div>

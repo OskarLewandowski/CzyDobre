@@ -1,6 +1,4 @@
-﻿
-
-body {
+﻿body {
     padding: 0px;
     margin: 0px;
     display: flex;
@@ -889,3 +887,44 @@ body > .container-wide {
     height: 250px;
 }
 /* avatar stlizacja podgladu END */
+
+
+/* Przyciski strona glowna dodaj produkt, opinia START */
+.button-add-opinion {
+    text-align: center;
+    background-color: #ee950a;
+    font-size: 20px;
+    color: white;
+    width: 60%;
+    margin-bottom: 3%;
+    padding: 2%;
+    border: solid #ee950a;
+    border-radius: 25px;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+    .button-add-opinion:hover {
+        color: #ee950a;
+        background-color: white;
+    }
+
+.button-add-product {
+    text-align: center;
+    background-color: #1dc31c;
+    font-size: 20px;
+    color: white;
+    width: 60%;
+    margin-bottom: 3%;
+    padding: 2%;
+    border: solid #1dc31c;
+    border-radius: 25px;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+    .button-add-product:hover {
+        color: #1dc31c;
+        background-color: white;
+    }
+/* Przyciski strona glowna dodaj produkt, opinia START */
