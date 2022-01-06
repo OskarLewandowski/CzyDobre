@@ -28,13 +28,13 @@ namespace CzyDobre.Controllers
             RattingViewModel rateImage = new RattingViewModel();
             string link = "https://res.cloudinary.com/czydobre-pl/image/upload/v1636896902/CzyDobre-images/";
 
-            var top1 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").FirstOrDefault();
-            var top2 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(1).FirstOrDefault();
-            var top3 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(2).FirstOrDefault();
-            var top4 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(3).FirstOrDefault();
+            var top1 = db.AspNetProducts.SqlQuery("select * from AspNetProducts where CzyDobre = 1 order by Opinion_Counter DESC").FirstOrDefault();
+            var top2 = db.AspNetProducts.SqlQuery("select * from AspNetProducts where CzyDobre = 1 order by Opinion_Counter DESC").Skip(1).FirstOrDefault();
+            var top3 = db.AspNetProducts.SqlQuery("select * from AspNetProducts where CzyDobre = 1 order by Opinion_Counter DESC").Skip(2).FirstOrDefault();
+            var top4 = db.AspNetProducts.SqlQuery("select * from AspNetProducts where CzyDobre = 1 order by Opinion_Counter DESC").Skip(3).FirstOrDefault();
 
 
-            if (top1 != null && top1.CzyDobre ==true)
+            if (top1 != null)
             {
                     rateImage.Top1Id = top1.Id_Product.ToString();
                 var top1image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top1.Id_Product + "')").FirstOrDefault();
@@ -44,7 +44,7 @@ namespace CzyDobre.Controllers
                     rateImage.Image1 = fullLink1;
                 }
             }
-            if (top2 != null && top2.CzyDobre == true)
+            if (top2 != null)
             {
                 rateImage.Top2Id = top2.Id_Product.ToString();
                 var top2image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top2.Id_Product + "')").FirstOrDefault();
@@ -54,7 +54,7 @@ namespace CzyDobre.Controllers
                     rateImage.Image2 = fulLink2;
                 }
             }
-            if (top3 != null && top3.CzyDobre == true)
+            if (top3 != null)
             {
                 rateImage.Top3Id = top3.Id_Product.ToString();
                 var top3image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top3.Id_Product + "')").FirstOrDefault();
@@ -64,7 +64,7 @@ namespace CzyDobre.Controllers
                     rateImage.Image3 = fulLink3;
                 }
             }
-            if (top4 != null && top4.CzyDobre == true)
+            if (top4 != null)
             {
                 rateImage.Top4Id = top4.Id_Product.ToString();
                 var top4image = db.AspNetImages.SqlQuery("select * from AspNetImages where Id_Product IN ('" + top4.Id_Product + "')").FirstOrDefault();
@@ -85,12 +85,12 @@ namespace CzyDobre.Controllers
             DBEntities db = new DBEntities();
             RattingViewModel rate = new RattingViewModel();
 
-            var top1 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").FirstOrDefault();
-            var top2 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(1).FirstOrDefault();
-            var top3 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(2).FirstOrDefault();
-            var top4 = db.AspNetProducts.SqlQuery("select * from AspNetProducts order by Opinion_Counter DESC").Skip(3).FirstOrDefault();
+            var top1 = db.AspNetProducts.SqlQuery("select * from AspNetProducts where CzyDobre = 1 order by Opinion_Counter DESC").FirstOrDefault();
+            var top2 = db.AspNetProducts.SqlQuery("select * from AspNetProducts where CzyDobre = 1 order by Opinion_Counter DESC").Skip(1).FirstOrDefault();
+            var top3 = db.AspNetProducts.SqlQuery("select * from AspNetProducts where CzyDobre = 1 order by Opinion_Counter DESC").Skip(2).FirstOrDefault();
+            var top4 = db.AspNetProducts.SqlQuery("select * from AspNetProducts where CzyDobre = 1 order by Opinion_Counter DESC").Skip(3).FirstOrDefault();
 
-            if (top1 != null && top1.Opinion_Counter >= 0 && top1.CzyDobre == true)
+            if (top1 != null && top1.Opinion_Counter >=0)
             {
                 rate.ProductNameTop1 = top1.ProductName;
                 rate.OpinionCounterTop1 = top1.Opinion_Counter;
@@ -98,7 +98,8 @@ namespace CzyDobre.Controllers
                 rate.ServiceRateTop1 = top1.AvarageService / top1.Opinion_Counter;
                 rate.IngredientsRateTop1 = top1.AvarageIngredients / top1.Opinion_Counter;
             }
-            if (top2 != null && top2.Opinion_Counter >= 0 && top2.CzyDobre == true)
+
+            if (top2 != null && top2.Opinion_Counter >= 0)
             {
                 rate.ProductNameTop2 = top2.ProductName;
                 rate.OpinionCounterTop2 = top2.Opinion_Counter;
@@ -106,7 +107,7 @@ namespace CzyDobre.Controllers
                 rate.ServiceRateTop2 = top2.AvarageService / top2.Opinion_Counter;
                 rate.IngredientsRateTop2 = top2.AvarageIngredients / top2.Opinion_Counter;
             }
-            if (top3 != null && top3.Opinion_Counter >= 0 && top3.CzyDobre == true)
+            if (top3 != null && top3.Opinion_Counter >= 0)
             {
                 rate.ProductNameTop3 = top3.ProductName;
                 rate.OpinionCounterTop3 = top3.Opinion_Counter;
@@ -114,7 +115,7 @@ namespace CzyDobre.Controllers
                 rate.ServiceRateTop3 = top3.AvarageService / top3.Opinion_Counter;
                 rate.IngredientsRateTop3 = top3.AvarageIngredients / top3.Opinion_Counter;
             }
-            if (top4 != null && top4.Opinion_Counter >= 0 && top4.CzyDobre == true)
+            if (top4 != null && top4.Opinion_Counter >= 0)
             {
                 rate.ProductNameTop4 = top4.ProductName;
                 rate.OpinionCounterTop4 = top4.Opinion_Counter;
