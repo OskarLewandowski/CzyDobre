@@ -744,6 +744,7 @@
     <Content Include="image\kebab.jpg" />
     <Content Include="image\kontakt.png" />
     <Content Include="image\frontpage-image.jpg" />
+    <Content Include="image\lock.png" />
     <Content Include="image\lody.jpeg" />
     <Content Include="image\login.png" />
     <Content Include="image\logo_czydobre.png" />

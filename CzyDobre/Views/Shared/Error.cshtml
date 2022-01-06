@@ -3,15 +3,17 @@
 @{
     ViewBag.Title = "Napotkaliśmy pewien problem.";
 }
+<div class="text-danger text-center mt-5">
+    <h1 class="mb-4">Wystąpił błąd.</h1>
+    @{
+        if (String.IsNullOrEmpty(ViewBag.errorMessage))
+        {
+            <p>Podczas przetwarzania żądania napotkaliśmy pewnien problem.<br />Przepraszamy za utrudnienia.</p>
+        }
+        else
+        {
+            <p>Napotkaliśmy problem podczas przetwarzania żądania.<br />@ViewBag.errorMessage.<br />Przepraszamy za utudnienia.</p>
+        }
+    }
 
-<h1 class="text-danger">Błąd.</h1>
-@{
-    if (String.IsNullOrEmpty(ViewBag.errorMessage))
-    {
-        <h2 class="text-danger">Wystąpił błąd podczas przetwarzania żądania.</h2>
-    }
-    else
-    {
-        <h2 class="text-danger">@ViewBag.errorMessage</h2>
-    }
-}
+</div>
