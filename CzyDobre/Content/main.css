@@ -826,18 +826,18 @@ input[type="radio"]:checked ~ .radio-button, input[type="radio"]:checked + .radi
     word-break: break-word;
 }
 .opinion-details-image-container {
-    width: 450px;
-    height: 550px;
+    width: 100%;
+    height: 80vh;
     box-sizing: border-box;
     border: 1px solid black;
+    border-bottom: 0;
     background: rgb(43 48 53);
     background-repeat: no-repeat;
     background-position: center center;
 }
 
-@media only screen and (max-width: 993px) {
+@media only screen and (max-width: 992px) {
     .opinion-details-image-container {
-        width: 100%;
         height: 250px;
     }
 }
