@@ -21,5 +21,7 @@ namespace CzyDobre.Models
         public string Comment { get; set; }
         public List<string> ImageUrls { get; set; }
         public string Place { get; set; }
+        public bool CzyDobre { get; set; }
+
     }
 }

@@ -232,6 +232,7 @@ namespace CzyDobre.Controllers
                     {
                         ProductName = row.AspNetProduct.ProductName,
                         RatingId = row.Id_Rating,
+                        CzyDobre = db.AspNetRatings.Where(u => u.Id_Rating == row.Id_Rating).Select(u => u.CzyDobre).FirstOrDefault(),
                         RateService = row.RateService.ToString(),
                         RateTaste = row.RateTaste.ToString(),
                         RateIngredients = row.RateIngredients.ToString(),
