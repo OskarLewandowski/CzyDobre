@@ -2,6 +2,7 @@
     ViewBag.Title = "Opinie";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+
     RouteValueDictionary routeValues = new RouteValueDictionary(ViewContext.RouteData.Values);
     foreach (string key in Request.QueryString.Keys)
     {
@@ -31,6 +32,7 @@
                 <div class="col px-1 mb-1 d-flex justify-content-between">
                     <span class="d-inline text-right">Smak:</span>
                     <div class="d-flex flex-row-reverse align-items-center">
+
                         @for (int i = 4; i >= 0; i--)
                         {
                             filterValues["filtr1"] = i;

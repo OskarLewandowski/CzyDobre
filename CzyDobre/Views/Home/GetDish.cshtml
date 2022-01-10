@@ -8,6 +8,16 @@
 <div class="row">
     <div class="col-12 h-max">
         <h1 class="titleH1">@ViewBag.Title</h1>
+        <div id="komunikaty" >
+            
+                Nie wiesz co zjeść? Nie masz pomysłu ,ani czasu na planowanie? <br />
+                Tutaj za jednym kliknięciem ,możesz wylosować danię które Ci przypadnie do gustu! <br/ />
+                Jeżeli nie trafisz za pierwsyzm razem ,nie przejmuj się i wylosuj ponownie ;). Smacznego !
+            
+        </div>
+        
+
+
         <div style="text-align: center;">@Html.Partial("_Notifications")</div>
         @if (User.Identity.IsAuthenticated /* && User.IsInRole("Admin")*/)
         {
@@ -24,7 +34,7 @@
 
             }
         }
-        
+
     </div>
 </div>
 

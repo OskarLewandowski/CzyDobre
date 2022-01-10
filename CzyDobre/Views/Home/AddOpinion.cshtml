@@ -8,100 +8,113 @@
 <div class="row">
     <div class="col-12 h-max">
         <h1 class="titleH1">@ViewBag.Title</h1>
+        <div id="komunikaty">
+
+            Tutaj możesz dodać własną opinię ,jeżeli chcesz podzielić się swoimi doznaniami z innymi.
+            Do wystawienia opinii niezbędne jest ,aby istniał taki produkt w naszej bazie .
+            W przypadku ,gdy nie istnieje taki produkt ,nie przejmuj się ! Można go dodać, przechodząc do innego formularza "Dodaj Produkt".
+            Np. klikając w ten @Html.ActionLink("Link", "AddProducts", "Home", null)
+            Zaimplementowaliśmy tutaj również funkcję autuzupełniania ,więc nie musisz wpisywać pełnej nazwy wystarczy podanie pierwszej litery np. "H" dla "Hamburger Byk"
+            Każdy użytkownik obecnie może ocenić tylko raz dany produkt. Nie zapomnij o wypełnieniu wszystkich wierszy! Po dodaniu opinii musi ona przejść naszą weryfikacje.
+            Po pomyślnym zaakcpetowaniu Twoja opinia pojawi się w zakładce @Html.ActionLink("Przeglądaj", "Opinion", "Home", null)
+
+
+        </div>
         @if (User.Identity.IsAuthenticated /* && User.IsInRole("Admin")*/)
         {
             using (Html.BeginForm("AddOpinion", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
             {
                 @Html.AntiForgeryToken()
-        <style>
-                .imageClass {
-                    width: 100px;
-                    height: 100px;
-                }
-            </style>    
-        <div class="row flex-column flex-lg-row">
-                <div id="dropSpot" class="position-relative d-flex flex-column col-12 col-lg-6 p-0">
-                    <label for="Photo" class="drag-and-drop-preview m-0">
-                        <img src="" id="previewMain" class="drag-and-drop-preview-main d-none" />
-                    </label>
-                    <div id="dropContainer" class="w-100 p-2 alert-dark">
-                        <div class="drag-and-drop-preview-miniature-add">
-                            <label for="Photo"></label>
+                <style>
+                    .imageClass {
+                        width: 100px;
+                        height: 100px;
+                    }
+                </style>
+
+                <div class="row flex-column flex-lg-row">
+                    <div id="dropSpot" class="position-relative d-flex flex-column col-12 col-lg-6 p-0">
+                        <label for="Photo" class="drag-and-drop-preview m-0">
+                            <img src="" id="previewMain" class="drag-and-drop-preview-main d-none" />
+                        </label>
+                        <div id="dropContainer" class="w-100 p-2 alert-dark">
+                            <div class="drag-and-drop-preview-miniature-add">
+                                <label for="Photo"></label>
+                            </div>
+                        </div>
+                        @Html.TextBoxFor(m => m.Photo, new { type = "file", multiple = "multiple", @class = "drag-and-drop-file", accept = "image/png, image/jpeg, image/jpg" })
+                        @Html.ValidationMessageFor(m => m.Photo, "", new { @class = "text-danger" })
+                    </div>
+                    <script defer src="\Scripts\DragAndDrop.js"></script>
+                    <div class="col-12 col-lg-6">
+                        <div class="form-group" align="center">
+                            <div style="text-align: center;">@Html.Partial("_Notifications")</div>
+                            @Html.Label("Danie: ", new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10 ui-widget">
+                                @Html.TextBoxFor(m => m.PName, new { @class = "pl-4 form-control", @id = "ProductSE", @placeholder = "Wpisz nazwę dania, które chcesz wyszukać." })
+                                @Html.ValidationMessageFor(m => m.PName, "", new { @class = "text-danger" })
+                                <script defer src="~/Scripts/AutoComplete.js"></script>
+
+                            </div>
+                            <div>
+                                @Html.ActionLink("Nie widzisz swojego dania na liście? Kliknij tutaj, aby je dodać.", "AddProducts", "Home", null, new { @class = "btn btn-link" })
+                            </div>
+                        </div>
+                        <div class="form-group row" align="center">
+                            @{
+                                <div class="col px-1">
+                                    <div class="d-inline" title="Oceń obsługę, czas oczewkiwania, proces składania i odbioru zamówienia">&#9432</div>
+                                    <span class="d-inline mb-1">Obsługa</span>
+                                    <div class="d-flex flex-row-reverse justify-content-center">
+                                        @{string temp = "";}
+                                        @for (int i = 5; i > 0; i--)
+                                        {
+                                            temp = "RateService" + i.ToString();
+                                            @Html.RadioButton("RateService", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
+                                        }
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.RateService, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col px-1">
+                                    <div class="d-inline" title="Oceń cenę danego dania w stosunku do jego jakości oraz wielkości">&#9432</div>
+                                    <span class="d-inline mb-1">Cena</span>
+                                    <div class="d-flex flex-row-reverse justify-content-center">
+                                        @for (int i = 5; i > 0; i--)
+                                        {
+                                            temp = "RateIngredients" + i.ToString();
+                                            @Html.RadioButton("RateIngredients", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
+                                        }
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.RateIngredients, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col px-1">
+                                    <div class="d-inline" title="Oceń jakość składników oraz kompozycję smakową danego dania">&#9432</div>
+                                    <span class="d-inline mb-1">Smak</span>
+                                    <div class="d-flex flex-row-reverse justify-content-center">
+                                        @for (int i = 5; i > 0; i--)
+                                        {
+                                            temp = "RateTaste" + i.ToString();
+                                            @Html.RadioButton("RateTaste", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
+                                        }
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.RateTaste, "", new { @class = "text-danger" })
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group" align="center">
+                            @Html.LabelFor(m => m.Review, new { @class = "control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(m => m.Review, new { @class = "pl-6 form-control", @rows = "10", @placeholder = "Wpisz swój komentarz (Opcjonalne)" })
+                                @Html.ValidationMessageFor(m => m.Review, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group" align="center">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Wyślij" class="btn btn-success" style="font-size: 20px" />
+                            </div>
                         </div>
                     </div>
-                    @Html.TextBoxFor(m => m.Photo, new { type = "file", multiple = "multiple", @class = "drag-and-drop-file", accept = "image/png, image/jpeg, image/jpg" })
-                    @Html.ValidationMessageFor(m => m.Photo, "", new { @class = "text-danger" })
                 </div>
-                <script defer src="\Scripts\DragAndDrop.js"></script>
-                <div class="col-12 col-lg-6">
-                    <div class="form-group" align="center">
-                        <div style="text-align: center;">@Html.Partial("_Notifications")</div>
-                        @Html.Label("Danie: ", new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10 ui-widget">
-                            @Html.TextBoxFor(m => m.PName, new { @class = "pl-4 form-control", @id = "ProductSE", @placeholder = "Wpisz nazwę dania, które chcesz wyszukać." })
-                            @Html.ValidationMessageFor(m => m.PName, "", new { @class = "text-danger" })
-                            <script defer src="~/Scripts/AutoComplete.js"></script>
-                            
-                        </div>
-                        <div>
-                            @Html.ActionLink("Nie widzisz swojego dania na liście? Kliknij tutaj, aby je dodać.", "AddProducts", "Home", null, new { @class = "btn btn-link" })
-                        </div>
-                    </div>
-                    <div class="form-group row" align="center">
-                        @{
-                            <div class="col px-1">
-                                <div class="d-inline" title="Oceń obsługę, czas oczewkiwania, proces składania i odbioru zamówienia">&#9432</div>
-                                <span class="d-inline mb-1">Obsługa</span>
-                                <div class="d-flex flex-row-reverse justify-content-center">
-                                    @{string temp = "";}
-                                    @for (int i = 5; i > 0; i--)
-                                    {
-                                        temp = "RateService" + i.ToString();
-                                        @Html.RadioButton("RateService", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
-                                    }
-                                </div>
-                                @Html.ValidationMessageFor(m => m.RateService, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col px-1">
-                                <div class="d-inline" title="Oceń cenę danego dania w stosunku do jego jakości oraz wielkości">&#9432</div>
-                                <span class="d-inline mb-1">Cena</span>
-                                <div class="d-flex flex-row-reverse justify-content-center">
-                                    @for (int i = 5; i > 0; i--)
-                                    {
-                                        temp = "RateIngredients" + i.ToString();
-                                        @Html.RadioButton("RateIngredients", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
-                                    }
-                                </div>
-                                @Html.ValidationMessageFor(m => m.RateIngredients, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col px-1">
-                                <div class="d-inline" title="Oceń jakość składników oraz kompozycję smakową danego dania">&#9432</div>
-                                <span class="d-inline mb-1">Smak</span>
-                                <div class="d-flex flex-row-reverse justify-content-center">
-                                    @for (int i = 5; i > 0; i--)
-                                    {
-                                        temp = "RateTaste" + i.ToString();
-                                        @Html.RadioButton("RateTaste", i, new { @class = "radio-hidden", id = temp })<label class="radio-button" for=@temp></label>
-                                    }
-                                </div>
-                                @Html.ValidationMessageFor(m => m.RateTaste, "", new { @class = "text-danger" })
-                            </div>
-                        }
-                    </div>
-                    <div class="form-group" align="center">
-                        @Html.LabelFor(m => m.Review, new { @class = "control-label" })
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(m => m.Review, new { @class = "pl-6 form-control", @rows = "10",@placeholder = "Wpisz swój komentarz (Opcjonalne)" })
-                            @Html.ValidationMessageFor(m => m.Review, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group" align="center">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Wyślij" class="btn btn-success" style="font-size: 20px" />
-                        </div>
-                    </div>
-                </div>
-            </div>
             }
         }
         else

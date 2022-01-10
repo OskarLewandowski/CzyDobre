@@ -5,10 +5,21 @@
     ViewBag.Title = "Dodawanie produktu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="row">
     <div class="col-12 h-max">
         <div style="text-align: center;">@Html.Partial("_Notifications")</div>
         <h1 class="titleH1">@ViewBag.Title</h1>
+        <div id="komunikaty">
+
+            Tutaj możesz dodać własny produkt tzn. danie ,które ostatnio spożyłeś.
+            Nie ważne czy był to burger ,sos ,czy jakis nietypowy napój.
+            Tutaj możesz umieścić dosłownie wszystko co Ci zasmakowało ,jeżeli masz oczywiście zdjęcie oraz znasz lokalizację.
+            Nasza bogata baza kategorii powinna ułatwić Tobie zadanie. Funkcja autouzupełniania jest tutaj niezwykle pomocna, wystarczy że podasz pierwszą literę np. "Z" w przypadku poszukiwania "zupy".
+            Dodany przez Ciebie produkt ,będzie mógł być znaleziony przez innych i oceniony @Html.ActionLink("tutaj", "AddOpinion", "Home", null).
+            Nie zapomnij o wypełnieniu wszystkich wierszy!
+
+        </div>
         @using (Html.BeginForm("AddProducts", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
         {
             @Html.AntiForgeryToken()
@@ -72,7 +83,7 @@
                     <script defer src="~/Scripts/DragAndDropSingle.js"></script>
 
 
-                    
+
                 </div>
             </div>
 
@@ -99,7 +110,7 @@
             @Html.HiddenFor(m => m.ZipCode, new { @id = "txtZip" })
             @Html.HiddenFor(m => m.City, new { @id = "txtCity" })
 
-            
+
 
 
 
