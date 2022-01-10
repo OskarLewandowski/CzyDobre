@@ -8,21 +8,28 @@
 <div class="row">
     <div class="col-12 h-max">
         <h1 class="titleH1">@ViewBag.Title</h1>
-        <div id="komunikaty">
-
-            Tutaj możesz dodać własną opinię ,jeżeli chcesz podzielić się swoimi doznaniami z innymi.
-            Do wystawienia opinii niezbędne jest ,aby istniał taki produkt w naszej bazie .
-            W przypadku ,gdy nie istnieje taki produkt ,nie przejmuj się ! Można go dodać, przechodząc do innego formularza "Dodaj Produkt".
-            Np. klikając w ten @Html.ActionLink("Link", "AddProducts", "Home", null)
-            Zaimplementowaliśmy tutaj również funkcję autuzupełniania ,więc nie musisz wpisywać pełnej nazwy wystarczy podanie pierwszej litery np. "H" dla "Hamburger Byk"
-            Każdy użytkownik obecnie może ocenić tylko raz dany produkt. Nie zapomnij o wypełnieniu wszystkich wierszy! Po dodaniu opinii musi ona przejść naszą weryfikacje.
-            Po pomyślnym zaakcpetowaniu Twoja opinia pojawi się w zakładce @Html.ActionLink("Przeglądaj", "Opinion", "Home", null)
-
-
+        <div class="mb-2" data-toggle="collapse" href="#komunikat" role="button" aria-expanded="false" aria-controls="komunikat">
+            <span class="font-weight-bold">Pomoc</span>
+            <span class="fa fa-angle-down"></span>
+        </div>
+        <div class="collapse" id="komunikat">
+            <div class="p-3">
+                <p style="text-indent:1em;">
+                    Tutaj możesz dodać własną opinię, jeżeli chcesz podzielić się swoimi doznaniami z innymi.
+                    Do wystawienia opinii niezbędne jest, aby istniał taki produkt w naszej bazie .
+                    W przypadku, gdy nie istnieje taki produkt, nie przejmuj się ! Można go dodać, przechodząc do innego formularza "Dodaj Produkt".
+                    Np. klikając w ten @Html.ActionLink("Link", "AddProducts", "Home", null).
+                </p>
+                <p style="text-indent:1em;">
+                    Zaimplementowaliśmy tutaj również funkcję autuzupełniania, więc nie musisz wpisywać pełnej nazwy wystarczy podanie pierwszej litery np. "H" dla "Hamburger Byk"
+                    Każdy użytkownik obecnie może ocenić tylko raz dany produkt. Nie zapomnij o wypełnieniu wszystkich wierszy! Po dodaniu opinii musi ona przejść naszą weryfikacje.
+                    Po pomyślnym zaakcpetowaniu Twoja opinia pojawi się w zakładce @Html.ActionLink("Przeglądaj", "Opinion", "Home", null).
+                </p>
+            </div>
         </div>
         @if (User.Identity.IsAuthenticated /* && User.IsInRole("Admin")*/)
         {
-            using (Html.BeginForm("AddOpinion", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()" }))
+            using (Html.BeginForm("AddOpinion", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "Loading()", @class="border-top" }))
             {
                 @Html.AntiForgeryToken()
                 <style>
