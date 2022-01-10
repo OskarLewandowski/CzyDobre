@@ -34,7 +34,7 @@ namespace CzyDobre.Controllers
         {
             try
             {
-                List<AspNetImage> lista = new List<AspNetImage>();
+                List<AspNetRatingPicture> lista = new List<AspNetRatingPicture>();
 
                 Account account = new Account(
                 ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
@@ -42,29 +42,37 @@ namespace CzyDobre.Controllers
                 ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
                 Cloudinary cloudinary = new Cloudinary(account);
 
-                var Produkt = db.AspNetProducts.Where(m => m.Id_Product == idProduct).ToList();
+                var Produkt = db.AspNetProducts.Where(m => m.Id_Product == idProduct).FirstOrDefault();
+                var ZdjecieProduktu = db.AspNetImages.Where(m => m.Id_Product == idProduct).FirstOrDefault();
+                var Opinia = db.AspNetRatings.Where(m => m.Id_Product == idProduct).ToList();
+                var idOpini = db.AspNetRatings.Where(m => m.Id_Product == idProduct).Select(m => m.Id_Rating).FirstOrDefault();
+                var idZdjecie = db.AspNetRatingPictures.Where(m => m.Id_Rating == idOpini).ToList();
 
 
-                foreach (AspNetProduct r in Produkt)
+
+                foreach (AspNetRating r in Opinia)
                 {
-                    var opiniaDecres = db.AspNetProducts.Where(m => m.Id_Product == r.Id_Product).FirstOrDefault();
-                    opiniaDecres.Opinion_Counter -=1;
-                    lista.AddRange(db.AspNetImages.Where(m => m.Id_Product == r.Id_Product).ToList());
+                    lista.AddRange(db.AspNetRatingPictures.Where(m => m.Id_Rating == r.Id_Rating).ToList());
                 }
 
                 if (Produkt != null)
                 {
                     if (lista != null)
                     {
-                        db.AspNetImages.RemoveRange(lista);
+                        db.AspNetRatingPictures.RemoveRange(lista);
                     }
 
-                    if (Produkt != null)
+                    if (Opinia != null)
                     {
-                        db.AspNetProducts.RemoveRange(Produkt);
+                        db.AspNetRatings.RemoveRange(Opinia);
                     }
 
+                    if (ZdjecieProduktu != null)
+                    {
+                        db.AspNetImages.Remove(ZdjecieProduktu);
+                    }
 
+                    db.AspNetProducts.Remove(Produkt);
                     db.SaveChanges();
 
                     var listaZdjecUrl = db.AspNetImages.Where(u => u.Id_Product == idProduct).Select(u => u.Url).ToList();
