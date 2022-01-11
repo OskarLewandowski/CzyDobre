@@ -655,7 +655,7 @@ namespace CzyDobre.Controllers
 
 
                             ModelState.Clear();
-                            this.AddNotification("Produkt został dodany pomyślnie.", NotificationType.SUCCESS);
+                            this.AddNotification("Produkt został dodany pomyślnie. Oczekuje na naszą weryfikacje. Po zweryfikowaniu ,będzie można go znaleźć i ocenić !", NotificationType.SUCCESS);
 
 
                         }

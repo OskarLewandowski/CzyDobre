@@ -267,18 +267,23 @@ namespace CzyDobre.Controllers
                 AspNetRatingPicture pic;
 
                 
-                 using (DBEntities db = new DBEntities())
-                 {
-                     
-                     pic = db.AspNetRatingPictures.Where(d => d.Id_Picture == id).FirstOrDefault();
-                     db.AspNetRatingPictures.Remove(pic);
-                     db.SaveChanges();
-
-                 }
-
                 var listaZdjecUrl = db.AspNetRatingPictures.Where(u => u.Id_Picture == id).Select(u => u.Url).ToList();
 
-                this.AddNotification(listaZdjecUrl.Count.ToString(), NotificationType.INFO);
+                if (listaZdjecUrl != null)
+                {
+                    using (DBEntities db = new DBEntities())
+                    {
+
+                        pic = db.AspNetRatingPictures.Where(d => d.Id_Picture == id).FirstOrDefault();
+                        db.AspNetRatingPictures.Remove(pic);
+                        db.SaveChanges();
+
+                    }
+                }
+
+
+
+                //this.AddNotification(listaZdjecUrl.Count.ToString(), NotificationType.INFO);
 
                 if (listaZdjecUrl != null)
                 {

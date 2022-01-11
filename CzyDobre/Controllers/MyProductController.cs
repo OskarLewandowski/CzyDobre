@@ -353,15 +353,18 @@ namespace CzyDobre.Controllers
 
 
 
-
-                using (DBEntities db = new DBEntities())
+                if(listaZdjecUrl != null)
                 {
-                   
-                    pic = db.AspNetImages.Where(d => d.Id_Image == id).FirstOrDefault();
-                    db.AspNetImages.Remove(pic);
-                    db.SaveChanges();
+                    using (DBEntities db = new DBEntities())
+                    {
 
+                        pic = db.AspNetImages.Where(d => d.Id_Image == id).FirstOrDefault();
+                        db.AspNetImages.Remove(pic);
+                        db.SaveChanges();
+
+                    }
                 }
+                
 
 
                 this.AddNotification("Zdjęcie zostało zamienione !" , NotificationType.SUCCESS);
