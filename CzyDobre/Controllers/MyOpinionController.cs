@@ -354,6 +354,18 @@ namespace CzyDobre.Controllers
         {
             try
             {
+                var opiniaList = db.AspNetRatings.ToList();
+                if (img.Icon[0] == null || img.Icon[0].ContentLength == 0)
+                {
+                    this.AddNotification("Zdjęcie nie może byc puste !", NotificationType.ERROR);
+                    opiniaList = db.AspNetRatings.ToList();
+
+                    return View("ManageIMG", opiniaList);
+                }
+
+
+
+
                 int id = (int)Session["idPicture"];
                 int idRating = (int)Session["idRat"];
 
@@ -369,7 +381,7 @@ namespace CzyDobre.Controllers
                 {
 
                     image.Url = item;
-                    image.Id_Rating = rate;
+                    image.Id_Rating = (int)Session["idRat"];
                     db.AspNetRatingPictures.Add(image);
                     db.SaveChanges();
                 }
@@ -441,7 +453,7 @@ namespace CzyDobre.Controllers
                 }
 
                 this.AddNotification("Zdjęcie zostało zamienione !" , NotificationType.SUCCESS);
-                var opiniaList = db.AspNetRatings.ToList();
+                opiniaList = db.AspNetRatings.ToList();
                 return View("ManageIMG", opiniaList);
             }
             catch (Exception ex)

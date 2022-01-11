@@ -10,10 +10,10 @@ namespace CzyDobre.Models
     public class ChangeIMGViewModels
     {
         
-        public string Text { get; set; }
+        
 
-   
 
+        [Required(ErrorMessage = "Zdjecie jest wymagane!")]
         [Display(Name = "Zdjęcie Produktu")]
         [ImageFilesCheck]
         public List<HttpPostedFileBase> Icon { get; set; }

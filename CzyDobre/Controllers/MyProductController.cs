@@ -273,6 +273,15 @@ namespace CzyDobre.Controllers
         {
             try
             {
+                var produktList = db.AspNetProducts.ToList();
+                if (img.Icon[0]==null || img.Icon[0].ContentLength == 0)
+                {
+                    this.AddNotification("Zdjęcie nie może byc puste !", NotificationType.ERROR);
+                    produktList = db.AspNetProducts.ToList();
+                    
+                    return View("MojProdukt", produktList);
+                }
+
                 int id = (int)Session["idImgage"];
                 int idProduct= (int)Session["idPro"];
 
@@ -291,7 +300,7 @@ namespace CzyDobre.Controllers
                 {
 
                     image.Url = item;
-                    image.Id_Product = prd;
+                    image.Id_Product = (int)Session["idPro"];
                     db.AspNetImages.Add(image);
                     db.SaveChanges();
                 }
@@ -327,7 +336,7 @@ namespace CzyDobre.Controllers
 
                 
 
-                if (listaZdjecUrl != null)
+                if (listaZdjecUrl != null && listaZdjecUrl.Count > 0 )
                 {
                     for (int i = 0; i < listaZdjecUrl.Count; i++)
                     {
@@ -350,25 +359,35 @@ namespace CzyDobre.Controllers
                         var deletionResult4 = cloudinary.Destroy(deletionParams5);
                     }
                 }
+                else
+                {
+                    this.AddNotification("Zdjęcie nie może być puste !", NotificationType.SUCCESS);
+                }
 
 
-
-                if(listaZdjecUrl != null)
+                if(listaZdjecUrl != null && listaZdjecUrl.Count > 0)
                 {
                     using (DBEntities db = new DBEntities())
                     {
 
                         pic = db.AspNetImages.Where(d => d.Id_Image == id).FirstOrDefault();
-                        db.AspNetImages.Remove(pic);
-                        db.SaveChanges();
+                        
+                       
+                            db.AspNetImages.Remove(pic);
+                            db.SaveChanges();
+                        
+                        
 
                     }
                 }
-                
+                else
+                {
+                    this.AddNotification("Zdjęcie nie może być puste !", NotificationType.SUCCESS);
+                }
 
 
                 this.AddNotification("Zdjęcie zostało zamienione !" , NotificationType.SUCCESS);
-                var produktList = db.AspNetProducts.ToList();
+                produktList = db.AspNetProducts.ToList();
                 return View("MojProdukt", produktList);
             }
             catch (Exception ex)

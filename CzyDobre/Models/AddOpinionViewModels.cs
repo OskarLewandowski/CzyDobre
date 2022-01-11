@@ -34,6 +34,7 @@ namespace CzyDobre.Models
         [Display(Name = "Recenzja")]
         public string Review { get; set; }
 
+        [Required(ErrorMessage = "Zdjecie jest wymagane!")]
         [Display(Name = "Zdjęcie Produktu")]
         [ImageFileCheck]
         public List<HttpPostedFileBase> Photo { get; set; }
