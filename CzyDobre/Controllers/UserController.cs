@@ -30,7 +30,7 @@ namespace CzyDobre.Controllers
         [Route("User/EditUser")]
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult EditUser(AspNetUser model)
+        public ActionResult EditUser(AspNetUsers model)
         {
             try
             {
@@ -139,7 +139,7 @@ namespace CzyDobre.Controllers
         [Route("edytowanie-uzytkownika")]
         [Route("User/Edit")]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(AspNetUser obj)
+        public ActionResult Edit(AspNetUsers obj)
         {
             if(obj !=null)
             {
@@ -155,7 +155,7 @@ namespace CzyDobre.Controllers
         [Route("User/BanUser")]
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult BanUser(AspNetUser model)
+        public ActionResult BanUser(AspNetUsers model)
         {
             try
             {
@@ -211,7 +211,7 @@ namespace CzyDobre.Controllers
         [Route("blokowanie-uzytkownika")]
         [Route("User/Ban")]
         [Authorize(Roles = "Admin")]
-        public ActionResult Ban(AspNetUser obj)
+        public ActionResult Ban(AspNetUsers obj)
         {
             if (obj != null)
             {
@@ -267,7 +267,7 @@ namespace CzyDobre.Controllers
         [Route("User/UnBanEditUser")]
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult UnBanEditUser(AspNetUser model)
+        public ActionResult UnBanEditUser(AspNetUsers model)
         {
             try
             {
@@ -352,7 +352,7 @@ namespace CzyDobre.Controllers
         [Route("edytowanie-blokady-uzytkownika")]
         [Route("User/UnBanEdit")]
         [Authorize(Roles = "Admin")]
-        public ActionResult UnBanEdit(AspNetUser obj)
+        public ActionResult UnBanEdit(AspNetUsers obj)
         {
             if (obj != null)
             {
@@ -367,7 +367,7 @@ namespace CzyDobre.Controllers
         [Route("odblokowanie-uzytkownika")]
         [Route("User/UnBan")]
         [Authorize(Roles = "Admin")]
-        public ActionResult UnBan(AspNetUser obj)
+        public ActionResult UnBan(AspNetUsers obj)
         {
             if (obj != null)
             {

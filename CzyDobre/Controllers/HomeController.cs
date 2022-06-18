@@ -155,7 +155,7 @@ namespace CzyDobre.Controllers
                 DBEntities db = new DBEntities();
 
                 // Deklaracja listy typu IQueryable do przechowywania rekordów; Dołączenie do niej Tabeli AspNetRatings i AspNetProducts.
-                IQueryable<AspNetRating> SQLresult = db.AspNetRatings;
+                IQueryable<AspNetRatings> SQLresult = db.AspNetRatings;
                 SQLresult.Join(db.AspNetProducts,
                     a => a.Id_Product,
                     b => b.Id_Product,
@@ -164,7 +164,7 @@ namespace CzyDobre.Controllers
                 // Wyszukiwanie.
                 if (!String.IsNullOrEmpty(query))
                 {
-                    SQLresult = SQLresult.Where(c => c.AspNetProduct.AspNetCategory.CategoryName.Contains(query));
+                    SQLresult = SQLresult.Where(c => c.AspNetProducts.AspNetCategories.CategoryName.Contains(query));
                 }
                 // Aplikowanie filtrów.
                 if (filtr1 != 0)
@@ -184,13 +184,13 @@ namespace CzyDobre.Controllers
                 switch (id)
                 {
                     case 1:
-                        SQLresult = SQLresult.OrderBy(x => x.AspNetProduct.ProductName);
+                        SQLresult = SQLresult.OrderBy(x => x.AspNetProducts.ProductName);
                         break;
                     case 2:
-                        SQLresult = SQLresult.OrderByDescending(x => x.AspNetProduct.ProductName);
+                        SQLresult = SQLresult.OrderByDescending(x => x.AspNetProducts.ProductName);
                         break;
                     case 3:
-                        SQLresult = SQLresult.OrderByDescending(x => x.AspNetProduct.Opinion_Counter);
+                        SQLresult = SQLresult.OrderByDescending(x => x.AspNetProducts.Opinion_Counter);
                         break;
                     case 4:
                         SQLresult = SQLresult.OrderByDescending(x => x.Id_Rating);
@@ -202,7 +202,7 @@ namespace CzyDobre.Controllers
 
                 // Wybieranie danych parametrów.
                 SQLresult.Select(a => new {
-                    a.AspNetProduct.ProductName,
+                    a.AspNetProducts.ProductName,
                     a.Id_Rating,
                     a.RateService,
                     a.RateTaste,
@@ -230,7 +230,7 @@ namespace CzyDobre.Controllers
                 {
                     opinionViewModels.Add(new OpinionViewModels()
                     {
-                        ProductName = row.AspNetProduct.ProductName,
+                        ProductName = row.AspNetProducts.ProductName,
                         RatingId = row.Id_Rating,
                         CzyDobre = db.AspNetRatings.Where(u => u.Id_Rating == row.Id_Rating).Select(u => u.CzyDobre).FirstOrDefault(),
                         RateService = row.RateService.ToString(),
@@ -511,9 +511,9 @@ namespace CzyDobre.Controllers
                     DBEntities db = new DBEntities();
                     List<string> zapisz = new List<string>();
                     zapisz = SaveIconToProduct(prd);
-                    AspNetProduct product = new AspNetProduct();
-                    AspNetPlace loc = new AspNetPlace();
-                    AspNetImage image = new AspNetImage();
+                    AspNetProducts product = new AspNetProducts();
+                    AspNetPlaces loc = new AspNetPlaces();
+                    AspNetImages image = new AspNetImages();
 
 
                     var query = db.AspNetCategories.Where(s => s.CategoryName == prd.CategoryName).Select(s => s.Id_Category).FirstOrDefault();
@@ -945,7 +945,7 @@ namespace CzyDobre.Controllers
                     //Console.WriteLine(zapisz);
                     int querynp = db.AspNetProducts.Where(s => s.ProductName == opn.PName).Count();
                     var verify = db.AspNetProducts.Where(s => s.ProductName == opn.PName).FirstOrDefault();
-                    AspNetRating rate = new AspNetRating();
+                    AspNetRatings rate = new AspNetRatings();
 
 
                     var query = db.AspNetProducts.Where(s => s.UniqName == opn.PName + (querynp - 1).ToString()).Select(s => s.Id_Product).FirstOrDefault();
@@ -994,7 +994,7 @@ namespace CzyDobre.Controllers
                                 db.SaveChanges();
 
 
-                                AspNetRatingPicture image = new AspNetRatingPicture();
+                                AspNetRatingPictures image = new AspNetRatingPictures();
                                 foreach (var item in zapisz)
                                 {
 
@@ -1194,8 +1194,8 @@ namespace CzyDobre.Controllers
                     int randN;
                     DBEntities db = new DBEntities();
 
-                    AspNetProduct prod = new AspNetProduct();
-                    AspNetRating rate = new AspNetRating();
+                    AspNetProducts prod = new AspNetProducts();
+                    AspNetRatings rate = new AspNetRatings();
 
 
 
@@ -1233,14 +1233,14 @@ namespace CzyDobre.Controllers
 
                         
 
-                        IQueryable<AspNetRating> SQLresult = db.AspNetRatings;
+                        IQueryable<AspNetRatings> SQLresult = db.AspNetRatings;
                         SQLresult.Join(db.AspNetProducts,
                             a => a.Id_Product,
                             b => b.Id_Product,
                             (a, b) => a.Id_Product);
 
                         SQLresult.Select(a => new {
-                            a.AspNetProduct.ProductName,
+                            a.AspNetProducts.ProductName,
                             a.Id_Rating,
                             a.RateService,
                             a.RateTaste,

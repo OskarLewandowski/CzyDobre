@@ -28,7 +28,7 @@ namespace CzyDobre.Controllers
         [Route("dodawanie-zastrzezenia-opinia")]
         [Route("Opinia/Objections")]
         [Authorize(Roles = "Admin, Moderator")]
-        public ActionResult Objections(AspNetRating obj)
+        public ActionResult Objections(AspNetRatings obj)
         {
             if (obj != null)
             {
@@ -107,7 +107,7 @@ namespace CzyDobre.Controllers
         [Route("dodaj-zastrzezenie-opinii")]
         [Route("Opinia/AddObjections")]
         [Authorize(Roles = "Admin, Moderator")]
-        public ActionResult AddObjections(AspNetRating model)
+        public ActionResult AddObjections(AspNetRatings model)
         {
             try
             {
@@ -161,7 +161,7 @@ namespace CzyDobre.Controllers
         {
             try
             {
-                List<AspNetRatingPicture> lista = new List<AspNetRatingPicture>();
+                List<AspNetRatingPictures> lista = new List<AspNetRatingPictures>();
 
                 Account account = new Account(
                 ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
@@ -171,7 +171,7 @@ namespace CzyDobre.Controllers
 
                 var Opinia = db.AspNetRatings.Where(m => m.Id_Rating == idRating).ToList();
           
-                foreach (AspNetRating r in Opinia)
+                foreach (AspNetRatings r in Opinia)
                 {
                     var opiniaDecres = db.AspNetProducts.Where(m => m.Id_Product == r.Id_Product).FirstOrDefault();
                     opiniaDecres.Opinion_Counter -= 1;

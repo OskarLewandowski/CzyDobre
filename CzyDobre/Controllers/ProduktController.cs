@@ -28,7 +28,7 @@ namespace CzyDobre.Controllers
         [Route("dodawanie-zastrzezenia")]
         [Route("Produkt/Objections")]
         [Authorize(Roles = "Admin, Moderator")]
-        public ActionResult Objections(AspNetProduct obj)
+        public ActionResult Objections(AspNetProducts obj)
         {
             if (obj != null)
             {
@@ -123,7 +123,7 @@ namespace CzyDobre.Controllers
         [Route("dodaj-zastrzezenie")]
         [Route("Produkt/AddObjections")]
         [Authorize(Roles = "Admin, Moderator")]
-        public ActionResult AddObjections(AspNetProduct model)
+        public ActionResult AddObjections(AspNetProducts model)
         {
             try
             {
@@ -175,7 +175,7 @@ namespace CzyDobre.Controllers
         {
             try
             {
-                List<AspNetRatingPicture> lista = new List <AspNetRatingPicture>();
+                List<AspNetRatingPictures> lista = new List <AspNetRatingPictures>();
 
                 Account account = new Account(
                 ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
@@ -189,7 +189,7 @@ namespace CzyDobre.Controllers
                 var idOpini = db.AspNetRatings.Where(m => m.Id_Product == idProdukt).Select(m => m.Id_Rating).FirstOrDefault();
                 var idZdjecie = db.AspNetRatingPictures.Where(m => m.Id_Rating == idOpini).ToList();
 
-                foreach (AspNetRating r in Opinia)
+                foreach (AspNetRatings r in Opinia)
                 {
                     lista.AddRange(db.AspNetRatingPictures.Where(m => m.Id_Rating == r.Id_Rating).ToList());
                 }

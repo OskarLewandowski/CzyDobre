@@ -34,7 +34,7 @@ namespace CzyDobre.Controllers
         {
             try
             {
-                List<AspNetRatingPicture> lista = new List<AspNetRatingPicture>();
+                List<AspNetRatingPictures> lista = new List<AspNetRatingPictures>();
 
                 Account account = new Account(
                 ConfigurationManager.AppSettings["CloudinaryName"].ToString(),
@@ -50,7 +50,7 @@ namespace CzyDobre.Controllers
 
 
 
-                foreach (AspNetRating r in Opinia)
+                foreach (AspNetRatings r in Opinia)
                 {
                     lista.AddRange(db.AspNetRatingPictures.Where(m => m.Id_Rating == r.Id_Rating).ToList());
                 }
@@ -294,7 +294,7 @@ namespace CzyDobre.Controllers
 
                 zapisz = SaveIconToProduct(img);
 
-                AspNetImage image = new AspNetImage();
+                AspNetImages image = new AspNetImages();
                 
                 foreach (var item in zapisz)
                 {
@@ -329,7 +329,7 @@ namespace CzyDobre.Controllers
                 ConfigurationManager.AppSettings["CloudinaryApiSecret"].ToString());
                 Cloudinary cloudinary = new Cloudinary(account);
 
-                AspNetImage pic;
+                AspNetImages pic;
 
 
                 var listaZdjecUrl = db.AspNetImages.Where(u => u.Id_Image == id).Select(u => u.Url).ToList();
