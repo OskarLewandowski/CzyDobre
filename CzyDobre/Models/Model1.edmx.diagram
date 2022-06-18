@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0fd183e497674ec6be16516b822ee3e5" Name="Diagram1">
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetCategories" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetCities" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetCoordinates" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetImages" Width="1.5" PointX="7.5" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetIngredients" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetPlaces" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetProducts" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetRatingPictures" Width="1.5" PointX="12.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetRatings" Width="1.5" PointX="10.5" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetRestaurantCalendarDays" Width="1.5" PointX="7.75" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetRestaurantCalendars" Width="1.5" PointX="10" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetRestaurantOpenings" Width="1.5" PointX="10" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetRestaurants" Width="1.5" PointX="12.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetRestaurantsTypes" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetUsers" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.AspNetVoivodes" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CzyDobreDataBaseModel.C__MigrationHistory" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="CzyDobreDataBaseModel.FK_AspNetProducts_AspNetCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="CzyDobreDataBaseModel.FK_AspNetCities_AspNetVoivodes" ManuallyRouted="false" />
+        <AssociationConnector Association="CzyDobreDataBaseModel.FK_AspNetImages_AspNetProducts" ManuallyRouted="false" />
+        <AssociationConnector Association="CzyDobreDataBaseModel.FK_AspNetProducts_AspNetPlaces" ManuallyRouted="false" />
+        <AssociationConnector Association="CzyDobreDataBaseModel.FK_AspNetProducts_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="CzyDobreDataBaseModel.FK_AspNetRating_AspNetProducts" ManuallyRouted="false" />
+        <AssociationConnector Association="CzyDobreDataBaseModel.FK_AspNetRatingPictures_AspNetRating" ManuallyRouted="false" />
+        <AssociationConnector Association="CzyDobreDataBaseModel.FK_AspNetRating_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="CzyDobreDataBaseModel.FK_RestaurantCalendar_RestaurantCalendarDay" ManuallyRouted="false" />
+        <AssociationConnector Association="CzyDobreDataBaseModel.FK_RestaurantOpening_RestaurantCalendarDay" ManuallyRouted="false" />
+        <AssociationConnector Association="CzyDobreDataBaseModel.FK_Restaurants_RestaurantOpening" ManuallyRouted="false" />
+        <AssociationConnector Association="CzyDobreDataBaseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="CzyDobreDataBaseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="CzyDobreDataBaseModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
